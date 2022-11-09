@@ -10,6 +10,7 @@ internal static class DataSource
     internal static List<Order> orders = new List<Order>();
     internal static List<OrderItem> orderItems = new List<OrderItem>();
 
+    static DataSource() => s_Initialize();
     private static void s_Initialize()
     {
         initProducts();

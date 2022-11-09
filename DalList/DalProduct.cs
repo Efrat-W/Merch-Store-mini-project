@@ -39,11 +39,10 @@ public class DalProduct
     }
 
     public void Delete(Product prod)
-    {
-        //if student exist throw exception 
+    { 
         if (!DataSource.products.Exists(i => i.ID == prod.ID))
             throw new Exception("cannot delete, product does not exists");
-        DataSource.products.Remove(prod); //or set Active..
+        DataSource.products.Remove(prod); 
     }
 
 

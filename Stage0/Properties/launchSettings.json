@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Stage0": {
+      "commandName": "Project"
+    },
+    "Profile 1": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Efrat\\source\\repos\\Efrat-W\\dotNet5783_6768_1765"
+    }
+  }
+}

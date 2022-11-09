@@ -42,15 +42,23 @@ internal static class DataSource
 
         for (int i = 0; i < 20; i++)
         {
-            DateTime randomShipDate = DateTime.MinValue + TimeSpan.FromDays((double)rand.Next(5));
+            DateTime randomShipDate = new DateTime();
+            DateTime randomDeliveryDate = new DateTime();
+            if (i < 0.8 * 20)
+            { 
+                randomShipDate = DateTime.MinValue + TimeSpan.FromDays((double)rand.Next(5));
+                if (i < 0.6 * 20)
+                    randomDeliveryDate = randomShipDate + TimeSpan.FromDays((double)rand.Next(7));
+            }
+
             Order order = new Order()
             {
-                CustomerAddress = "Rabbi Akiva " + i,
-                CustomerEmail = "user" + i + "@gmail.com",
+                CustomerAddress = $"Rabbi Akiva {i}, Bnei Brak",
+                CustomerEmail = $"user{i}@gmail.com",
                 CustomerName = "customer no. " + i,
                 OrderDate = DateTime.MinValue,
                 ShipDate = randomShipDate,
-                DeliveryDate = randomShipDate + TimeSpan.FromDays((double)rand.Next(7))
+                DeliveryDate = randomDeliveryDate
             };
             dalOrder.Create(order);
         }

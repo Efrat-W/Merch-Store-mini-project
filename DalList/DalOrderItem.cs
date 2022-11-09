@@ -5,7 +5,7 @@ using static Dal.DataSource;
 
 namespace Dal;
 
-internal class DalOrderItem
+public class DalOrderItem
 {
     /// <summary>
     /// 

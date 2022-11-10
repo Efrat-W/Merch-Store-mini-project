@@ -9,5 +9,5 @@ public enum menu
 
 public enum options
 {
-    Add, ShowById, ShowList, Update, DeleteFromList, ShowByProdAndOrder, ShowListOfProductsInOrder
+    Return, Add, ShowById, ShowList, Update, DeleteFromList, ShowByProdAndOrder, ShowListOfProductsInOrder
 }

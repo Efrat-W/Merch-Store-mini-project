@@ -21,7 +21,6 @@ internal static class DataSource
     private static void initProducts()
     {
         Array categories = Enum.GetValues(typeof(category));
-        DalProduct dalProduct = new DalProduct();
         int num = 100000;
         for (int i = 0; i < 10; i++)
         {
@@ -33,14 +32,12 @@ internal static class DataSource
                 Category = (category)categories.GetValue(rand.Next(categories.Length)),
                 InStock = rand.Next(50)
             };
-            dalProduct.Create(prod);
+            products.Add(prod);
         }
     }
 
     private static void initOrders()
     {
-        DalOrder dalOrder = new DalOrder();
-
         for (int i = 0; i < 20; i++)
         {
             DateTime randomShipDate = new DateTime();
@@ -61,21 +58,19 @@ internal static class DataSource
                 ShipDate = randomShipDate,
                 DeliveryDate = randomDeliveryDate
             };
-            dalOrder.Create(order);
+            orders.Add(order);
         }
     }
 
     private static void initOrderItems()
     {
-        DalOrderItem dalOrderItem = new DalOrderItem();
-        DalProduct dalProduct = new DalProduct();
 
         foreach (Order order in orders)
         {
             int numOfProducts = rand.Next(1, 4);
             for (int i = 0; i < numOfProducts; i++)
             {
-                Product prod = dalProduct.RequestById(rand.Next(20) + 100000);
+                Product prod = products[rand.Next(1, 20)];
 
                 OrderItem item = new OrderItem()
                 {
@@ -84,7 +79,7 @@ internal static class DataSource
                     Price = prod.Price,
                     Amount = rand.Next(1, prod.InStock)
                 };
-                dalOrderItem.Create(item);
+                orderItems.Add(item);
             }
         }
     }

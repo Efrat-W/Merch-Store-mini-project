@@ -28,8 +28,6 @@ internal class Program
 
             switch (choice)
             {
-                case menu.Exit:
-                    break;
                 case menu.Product:
                     program.ProductMenu();
                     break;
@@ -40,7 +38,6 @@ internal class Program
                     program.OrderItemMenu();
                     break;
                 default:
-                    Console.WriteLine("you fool!");
                     break;
             }
         } while (choice != menu.Exit);

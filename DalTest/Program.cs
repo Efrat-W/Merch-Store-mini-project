@@ -58,8 +58,8 @@ internal class Program
             DalProduct dalProduct = new DalProduct();
         do
         {
-            try
-            {
+            //try
+            //{
                 switch (op)
                 {
                     case options.Add:
@@ -92,11 +92,11 @@ internal class Program
                     default:
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex);
+            //}
         } while (op != options.Return);
     }
 

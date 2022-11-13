@@ -43,7 +43,7 @@ internal static class DataSource
     /// </summary>
     private static void initOrders()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 1; i <= 20; i++)
         {
             DateTime randomShipDate = new DateTime();
             DateTime randomDeliveryDate = new DateTime();
@@ -56,6 +56,7 @@ internal static class DataSource
 
             Order order = new Order()
             {
+                ID=Config.OrderSeqID,
                 CustomerAddress = $"Rabbi Akiva {i}, Bnei Brak",
                 CustomerEmail = $"user{i}@gmail.com",
                 CustomerName = "customer no. " + i,
@@ -82,6 +83,7 @@ internal static class DataSource
 
                 OrderItem item = new OrderItem()
                 {
+                    ID = Config.OrderItemSeqID,
                     OrderID = order.ID,
                     ProductID = prod.ID,
                     Price = prod.Price,

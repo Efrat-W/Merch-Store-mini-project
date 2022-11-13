@@ -70,7 +70,9 @@ public class DalOrderItem
     {
         if (!DataSource.orderItems.Exists(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID))
             throw new Exception("cannot delete, order item does not exists");
-        DataSource.orderItems.Remove(item); //or set inActive..
+        OrderItem toRemove = RequestById(item.ID);
+        if (!DataSource.orderItems.Remove(toRemove))
+            throw new Exception("cannot delete due to unknown error");
     }
 
     /// <summary>

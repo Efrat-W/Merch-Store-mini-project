@@ -69,8 +69,8 @@ public class DalOrder
     {
         if (!DataSource.orders.Exists(i => i.ID == order.ID))
             throw new Exception("cannot delete, order does not exists");
-        bool success=DataSource.orders.Remove(order);
-        if (!success)
-            throw new Exception("something went raelly wrong:(");
+        Order toRemove = RequestById(order.ID);
+        if(!DataSource.orders.Remove(toRemove))
+            throw new Exception("cannot delete due to unknown error");
     }
 }

@@ -69,6 +69,8 @@ public class DalProduct
     { 
         if (!DataSource.products.Exists(i => i.ID == prod.ID))
             throw new Exception("cannot delete, product does not exists");
-        DataSource.products.Remove(prod); 
+        Product toRemove = RequestById(prod.ID);
+        if (!DataSource.products.Remove(toRemove))
+            throw new Exception("cannot delete due to unknown error");
     }
 }

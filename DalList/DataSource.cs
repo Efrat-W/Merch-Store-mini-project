@@ -26,20 +26,20 @@ internal static class DataSource
         int num = 100000;
         for (int i = 0; i < 10; i++)
         {
-            Product prod = new Product();
-            /*{
+            Product prod = new Product() 
+            {
                 ID = num++,
-                Price = (double)rand.Next(50, 200),
+                Price = (double)rand.Next(50*7, 200*7) /7,
                 Name = "product " + i,
-                //Category = (category)categories.GetValue(rand.Next(categories.Length)),
+                Category = (category)rand.Next(categories.Length),
                 InStock = (int)rand.Next(50)
-            };*/
+            };
             
-            prod.Price = (double)rand.Next(50*7,200*7) / 7;
-            prod.Name = "product " + i;
-            prod.ID = num++;
-            prod.Category = (category)rand.Next(0, 5);
-            prod.InStock = rand.Next(50);
+            //prod.Price = (double)rand.Next(50*7,200*7) / 7;
+            //prod.Name = "product " + i;
+            //prod.ID = num++;
+            //prod.Category = (category)rand.Next(0, 5);
+            //prod.InStock = rand.Next(50);
             products.Add(prod);
         }
     }
@@ -84,7 +84,7 @@ internal static class DataSource
             int numOfProducts = rand.Next(1, 4);
             for (int i = 0; i < numOfProducts; i++)
             {
-                Product prod = products[rand.Next(1, 20)];
+                Product prod = products[rand.Next(products.Count)];
 
                 OrderItem item = new OrderItem()
                 {

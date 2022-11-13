@@ -13,8 +13,12 @@ public class DalProduct
     /// <exception cref="Exception"></exception>
     public void Create(Product prod)
     {
-        if (DataSource.products.Exists(i => i.ID == prod.ID))
-            throw new Exception("product already exists");
+        if (DataSource.products.Count > 0)
+
+        {
+            if (DataSource.products.Exists(i => i.ID == prod.ID))
+                throw new Exception("product already exists");
+        }
         DataSource.products.Add(prod);
     }
 
@@ -24,9 +28,9 @@ public class DalProduct
     /// <returns><list type="Product">list of products</returns>
     public List<Product> RequestAll()
     {
-        List <Product> productList = new List<Product>();
-        foreach (Product product in DataSource.products)
-            productList.Add(product);
+        List <Product> productList = new List<Product>(DataSource.products);
+        //foreach (Product product in DataSource.products)
+        //    productList.Add(product);
         return productList; 
     }
 
@@ -69,7 +73,4 @@ public class DalProduct
             throw new Exception("cannot delete, product does not exists");
         DataSource.products.Remove(prod); 
     }
-
-
-
 }

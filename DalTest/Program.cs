@@ -9,9 +9,9 @@ using System.Data.Common;
 namespace DalTest;
 internal class Program
 {
-    private DalProduct dalProduct = new DalProduct();
-    private DalOrder dalOrder = new DalOrder();
-    private DalOrderItem dalOrderItem = new DalOrderItem();
+    private DalProduct dalProduct = new();
+    private DalOrder dalOrder = new();
+    private DalOrderItem dalOrderItem = new();
     static void Main(string[] args)
     {
         menu choice = new menu();

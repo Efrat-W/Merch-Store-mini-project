@@ -6,6 +6,11 @@ namespace Dal;
 
 public class DalProduct
 {
+    /// <summary>
+    /// adds the product to the list of products
+    /// </summary>
+    /// <param name="prod">the new product</param>
+    /// <exception cref="Exception"></exception>
     public void Create(Product prod)
     {
         if (DataSource.products.Exists(i => i.ID == prod.ID))
@@ -13,6 +18,10 @@ public class DalProduct
         DataSource.products.Add(prod);
     }
 
+    /// <summary>
+    /// returns the list of products
+    /// </summary>
+    /// <returns><list type="Product">list of products</returns>
     public List<Product> RequestAll()
     {
         List <Product> productList = new List<Product>();
@@ -21,6 +30,12 @@ public class DalProduct
         return productList; 
     }
 
+    /// <summary>
+    /// returns the product by its ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public Product RequestById(int id)
     {
         if (!DataSource.products.Exists(i => i.ID == id))
@@ -28,6 +43,11 @@ public class DalProduct
         return DataSource.products.Find(i => i.ID == id);
     }
 
+    /// <summary>
+    ///  updates the order with the same id to the given order's data
+    /// </summary>
+    /// <param name="prod">the updated product</param>
+    /// <exception cref="Exception"></exception>
     public void Update(Product prod)
     {
         //if order is not exist throw exception 
@@ -38,6 +58,11 @@ public class DalProduct
         DataSource.products.Add(prod);
     }
 
+    /// <summary>
+    /// deletes the product from the list 
+    /// </summary>
+    /// <param name="prod"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(Product prod)
     { 
         if (!DataSource.products.Exists(i => i.ID == prod.ID))

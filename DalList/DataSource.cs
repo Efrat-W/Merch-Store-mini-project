@@ -34,12 +34,6 @@ internal static class DataSource
                 Category = (category)rand.Next(categories.Length),
                 InStock = (int)rand.Next(50)
             };
-            
-            //prod.Price = (double)rand.Next(50*7,200*7) / 7;
-            //prod.Name = "product " + i;
-            //prod.ID = num++;
-            //prod.Category = (category)rand.Next(0, 5);
-            //prod.InStock = rand.Next(50);
             products.Add(prod);
         }
     }

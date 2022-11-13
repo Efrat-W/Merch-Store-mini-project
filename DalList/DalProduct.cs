@@ -29,8 +29,6 @@ public class DalProduct
     public List<Product> RequestAll()
     {
         List <Product> productList = new List<Product>(DataSource.products);
-        //foreach (Product product in DataSource.products)
-        //    productList.Add(product);
         return productList; 
     }
 

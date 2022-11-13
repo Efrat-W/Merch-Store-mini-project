@@ -8,9 +8,9 @@ namespace Dal;
 public class DalOrderItem
 {
     /// <summary>
-    /// 
+    /// adds the order item to the list of order items
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="item">the new order item</param>
     /// <exception cref="Exception"></exception>
     public int Create(OrderItem item)
     {
@@ -21,6 +21,10 @@ public class DalOrderItem
         return item.ID;
     }
 
+    /// <summary>
+    /// returns the list of order items
+    /// </summary>
+    /// <returns><list type="OrderItem">list of order items</returns>
     public List<OrderItem> RequestAll()
     {
         List<OrderItem> itemList = new List<OrderItem>();
@@ -29,6 +33,12 @@ public class DalOrderItem
         return itemList;
     }
 
+    /// <summary>
+    /// returns the order item by its ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public OrderItem RequestById(int id)
     {
         if (!DataSource.orderItems.Exists(i => i.ID == id))
@@ -36,6 +46,11 @@ public class DalOrderItem
         return DataSource.orderItems.Find(i => i.ID == id);
     }
 
+    /// <summary>
+    ///  updates the order item with the same id to the given item's data
+    /// </summary>
+    /// <param name="item">the updated order item</param>
+    /// <exception cref="Exception"></exception>
     public void Update(OrderItem item)
     {
         //if order is not exist throw exception 
@@ -46,6 +61,11 @@ public class DalOrderItem
         DataSource.orderItems.Add(item);
     }
 
+    /// <summary>
+    /// deletes the order item from the list 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(OrderItem item)
     {
         if (!DataSource.orderItems.Exists(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID))
@@ -53,6 +73,13 @@ public class DalOrderItem
         DataSource.orderItems.Remove(item); //or set inActive..
     }
 
+    /// <summary>
+    /// ruturns the requested item by the produt and order it's belong to
+    /// </summary>
+    /// <param name="prod"></param>
+    /// <param name="ord"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public OrderItem RequestByProductAndOrder(Product prod, Order ord)
     {
         if (!DataSource.orderItems.Exists(i => i.ProductID == prod.ID && i.OrderID == ord.ID))
@@ -60,7 +87,12 @@ public class DalOrderItem
         return DataSource.orderItems.Find(i => i.ProductID == prod.ID && i.OrderID == ord.ID);
     }
 
-
+    /// <summary>
+    /// returns the requested item by its order id
+    /// </summary>
+    /// <param name="ordID"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public List<OrderItem> RequestAllItemsByOrderID(int ordID)
     {
         if (!DataSource.orderItems.Exists(i => i.ID == ordID))

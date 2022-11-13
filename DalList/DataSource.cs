@@ -9,7 +9,6 @@ internal static class DataSource
     internal static List<Product> products = new List<Product>();
     internal static List<Order> orders = new List<Order>();
     internal static List<OrderItem> orderItems = new List<OrderItem>();
-
     static DataSource() => s_Initialize();
     private static void s_Initialize()
     {
@@ -18,6 +17,9 @@ internal static class DataSource
         initOrderItems();
     }
 
+    /// <summary>
+    /// initializes the product list with 10 random products
+    /// </summary>
     private static void initProducts()
     {
         Array categories = Enum.GetValues(typeof(category));
@@ -42,6 +44,9 @@ internal static class DataSource
         }
     }
 
+    /// <summary>
+    /// initializes the orders list with 20 random orders
+    /// </summary>
     private static void initOrders()
     {
         for (int i = 0; i < 20; i++)
@@ -68,6 +73,9 @@ internal static class DataSource
         }
     }
 
+    /// <summary>
+    /// initializes the order items list with 20-80 random items
+    /// </summary>
     private static void initOrderItems()
     {
 
@@ -90,6 +98,9 @@ internal static class DataSource
         }
     }
 
+    /// <summary>
+    /// class for sequence numbers
+    /// </summary>
     internal static class Config
     {
         private static int orderItemSeqID = 0;
@@ -97,8 +108,5 @@ internal static class DataSource
 
         private static int orderSeqID = 0;
         public static int OrderSeqID => orderSeqID++;
-
-
-
     }
 }

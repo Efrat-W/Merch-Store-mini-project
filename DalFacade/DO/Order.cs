@@ -16,12 +16,12 @@ public struct Order
 
 
     public override string ToString() => $@"
-        ID={ID}: 
-        Customer Name: {CustomerName},
-        Customer Email: {CustomerEmail},
+        ID: {ID} 
+        Customer Name: {CustomerName}
+        Customer Email: {CustomerEmail}
         Customer Address: {CustomerAddress}
-        Order Date: {OrderDate},
-        Ship Date: {ShipDate},
+        Order Date: {OrderDate}
+        Ship Date: {ShipDate}
         Delivery Date: {DeliveryDate}
 ";
 }

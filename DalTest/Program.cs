@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
 using Dal;
 using DO;
 using Microsoft.VisualBasic;

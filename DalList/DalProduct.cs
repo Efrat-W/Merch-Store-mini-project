@@ -11,7 +11,7 @@ public class DalProduct
     /// </summary>
     /// <param name="prod">the new product</param>
     /// <exception cref="Exception"></exception>
-    public void Create(Product prod)
+    public int Create(Product prod)
     {
         if (DataSource.products.Count > 0)
 
@@ -20,6 +20,7 @@ public class DalProduct
                 throw new Exception("product already exists");
         }
         DataSource.products.Add(prod);
+        return prod.ID;
     }
 
     /// <summary>

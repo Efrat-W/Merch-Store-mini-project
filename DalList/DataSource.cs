@@ -47,12 +47,19 @@ internal static class DataSource
         {
             DateTime randomShipDate = new DateTime();
             DateTime randomDeliveryDate = new DateTime();
+            DateTime randomOrderDate = new DateTime();
+            randomOrderDate = DateTime.Now;
+
             if (i < 0.8 * 20)
-            { 
-                randomShipDate = DateTime.MinValue + TimeSpan.FromDays((double)rand.Next(5));
+            {
+                randomShipDate = randomOrderDate - new TimeSpan(rand.Next(7), rand.Next(23), rand.Next(59), 0);
                 if (i < 0.6 * 20)
-                    randomDeliveryDate = randomShipDate + TimeSpan.FromDays((double)rand.Next(7));
+                    randomDeliveryDate = randomShipDate - new TimeSpan(rand.Next(7), rand.Next(23), rand.Next(59), 0);
+                else
+                    randomDeliveryDate = DateTime.MinValue;
             }
+            else
+                randomShipDate = randomDeliveryDate = DateTime.MinValue;
 
             Order order = new Order()
             {
@@ -60,7 +67,7 @@ internal static class DataSource
                 CustomerAddress = $"Rabbi Akiva {i}, Bnei Brak",
                 CustomerEmail = $"user{i}@gmail.com",
                 CustomerName = "customer no. " + i,
-                OrderDate = DateTime.MinValue,
+                OrderDate = randomOrderDate,
                 ShipDate = randomShipDate,
                 DeliveryDate = randomDeliveryDate
             };

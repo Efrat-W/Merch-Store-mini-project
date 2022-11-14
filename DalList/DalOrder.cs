@@ -14,9 +14,9 @@ public class DalOrder
     /// <exception cref="Exception"> </exception>
     public int Create(Order order)
     {
+        order.ID = Config.OrderSeqID;
         if (DataSource.orders.Exists(i => i.ID == order.ID))
             throw new Exception("order already exists");
-        order.ID = Config.OrderSeqID;
         DataSource.orders.Add(order);
         return order.ID;
     }

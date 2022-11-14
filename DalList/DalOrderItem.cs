@@ -54,9 +54,12 @@ public class DalOrderItem
     public void Update(OrderItem item)
     {
         //if order is not exist throw exception 
-        if (!DataSource.orderItems.Exists(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID))
+        //if (!DataSource.orderItems.Exists(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID))
+        //    throw new Exception("cannot update, the order item does not exists");
+        //OrderItem itemToRemove = DataSource.orderItems.Find(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID);
+        if (!DataSource.orderItems.Exists(i => i.ID == item.ID))
             throw new Exception("cannot update, the order item does not exists");
-        OrderItem itemToRemove = DataSource.orderItems.Find(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID);
+        OrderItem itemToRemove = DataSource.orderItems.Find(i => i.ID == item.ID);
         DataSource.orderItems.Remove(itemToRemove);
         DataSource.orderItems.Add(item);
     }

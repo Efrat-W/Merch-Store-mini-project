@@ -1,10 +1,11 @@
 ﻿
+using DalApi;
 using DO;
 using System.Collections.Generic;
 
 namespace Dal;
 
-public class DalProduct
+public class DalProduct : IProduct
 {
     /// <summary>
     /// adds the product to the list of products
@@ -17,7 +18,7 @@ public class DalProduct
 
         {
             if (DataSource.products.Exists(i => i.ID == prod.ID))
-                throw new Exception("product already exists");
+                throw new DoubledEntityException();
         }
         DataSource.products.Add(prod);
         return prod.ID;
@@ -27,7 +28,7 @@ public class DalProduct
     /// returns the list of products
     /// </summary>
     /// <returns><list type="Product">list of products</returns>
-    public List<Product> RequestAll()
+    public IEnumerable<Product> RequestAll()
     {
         List <Product> productList = new List<Product>(DataSource.products);
         return productList; 
@@ -42,7 +43,7 @@ public class DalProduct
     public Product RequestById(int id)
     {
         if (!DataSource.products.Exists(i => i.ID == id))
-            throw new Exception("the product does not exist");
+            throw new MissingEntityException();
         return DataSource.products.Find(i => i.ID == id);
     }
 
@@ -55,7 +56,7 @@ public class DalProduct
     {
         //if order is not exist throw exception 
         if (!DataSource.products.Exists(i => i.ID == prod.ID))
-            throw new Exception("cannot update, the order does not exists");
+            throw new MissingEntityException();
         Product prodToRemove = DataSource.products.Find(i => i.ID == prod.ID);
         DataSource.products.Remove(prodToRemove);
         DataSource.products.Add(prod);
@@ -69,9 +70,8 @@ public class DalProduct
     public void Delete(Product prod)
     { 
         if (!DataSource.products.Exists(i => i.ID == prod.ID))
-            throw new Exception("cannot delete, product does not exists");
+            throw new MissingEntityException();
         Product toRemove = RequestById(prod.ID);
-        if (!DataSource.products.Remove(toRemove))
-            throw new Exception("cannot delete due to unknown error");
+        DataSource.products.Remove(toRemove);
     }
 }

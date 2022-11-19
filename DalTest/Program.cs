@@ -290,41 +290,7 @@ internal class Program
 
         OrderItem updatedItem = new() { ID = item.ID, Amount = amount, OrderID = item.OrderID, Price = price, ProductID = prodID };
         return updatedItem;
-
-
-        //dalList.Product dalList.Product = new();
-        //dalList.Order dalList.Order = new();
-
-        //string input = Console.ReadLine();
-        //int.TryParse(input, out int prodID);
-        //input = Console.ReadLine();
-        //int.TryParse(input, out int ordID);
-
-        //Product prod = dalList.Product.RequestById(prodID);
-        //Order ord = dalList.Order.RequestById(ordID);
-
-        //updatedItem = new OrderItem() { };
-
-
-        //string input = Console.ReadLine();
-        //int.TryParse(input, out int prodID);
-        //input = Console.ReadLine();
-        //int.TryParse(input, out int ordID);
-        //input = Console.ReadLine();
-        //int.TryParse(input, out int amount);
-        ////dalList.Product dalList.Product = new dalList.Product();
-        ////double price = dalList.Product.RequestById(prodID).Price;
-        //Product prod = new();
-        //Order ord = new();
-        //prod.ID = prodID;
-        //ord.ID = ordID;
-        //dalList.Product dalList.Product = new();
-        //dalList.Order dalList.Order = new();
-        //dalList.Product.Create(prod);
-        //dalList.Order.Create(ord);
-        //double price = dalList.Product.RequestById(prodID).Price;
-        //OrderItem updatedItem = new OrderItem() { ID = item.ID, ProductID = prodID, OrderID = ordID, Amount = amount, Price = price 
-    }
+  0  }
 
     /// <summary>
     /// reads the information from the user and innitializes the order item

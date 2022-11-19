@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dal;
 
-public class DalProduct : IProduct
+internal class DalProduct : IProduct
 {
     /// <summary>
     /// adds the product to the list of products

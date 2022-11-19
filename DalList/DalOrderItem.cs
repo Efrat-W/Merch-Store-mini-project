@@ -6,7 +6,7 @@ using static Dal.DataSource;
 
 namespace Dal;
 
-public class DalOrderItem : IOrderItem
+internal class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// adds the order item to the list of order items

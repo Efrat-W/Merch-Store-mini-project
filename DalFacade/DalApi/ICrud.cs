@@ -1,4 +1,6 @@
-﻿namespace DalApi;
+﻿
+
+namespace DalApi;
 
 public interface ICrud<T>
 {

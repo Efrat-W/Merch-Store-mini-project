@@ -1,5 +1,6 @@
 ﻿
 using Dal;
+using DalApi;
 using DO;
 using Microsoft.VisualBasic;
 using System;
@@ -9,9 +10,7 @@ using System.Data.Common;
 namespace DalTest;
 internal class Program
 {
-    private DalProduct dalProduct = new();
-    private DalOrder dalOrder = new();
-    private DalOrderItem dalOrderItem = new();
+    static private IDal dalList = new DalList();
     static void Main(string[] args)
     {
         menu choice = new menu();
@@ -58,37 +57,36 @@ internal class Program
             
         string input = Console.ReadLine();
         op = (options)Enum.Parse(typeof(options), input);
-        DalProduct dalProduct = new DalProduct();
         do
         {
                 switch (op)
                 {
                     case options.Add:
                         Console.WriteLine("Enter ID, Name, Price, category and the amount in stock");
-                        dalProduct.Create(InitializeProduct());
+                        dalList.Product.Create(InitializeProduct());
                         break;
                     case options.ShowById:
                         Console.WriteLine("Enter ID");
                         int id = int.Parse(Console.ReadLine());
-                        Console.WriteLine(dalProduct.RequestById(id)); //print requested product to console
+                        Console.WriteLine(dalList.Product.RequestById(id)); //print requested product to console
                         break;
                     case options.ShowList:
-                        List<Product> productList = dalProduct.RequestAll();
+                        IEnumerable<Product> productList = dalList.Product.RequestAll();
                         foreach (Product prod in productList)
                             Console.WriteLine(prod); ;
                         break;
                     case options.Update:
                         Console.WriteLine("Enter the existing product's ID");
                         id = int.Parse(Console.ReadLine());
-                        Product update = dalProduct.RequestById(id);
+                        Product update = dalList.Product.RequestById(id);
                         Console.WriteLine(update);
                         Console.WriteLine("Enter the new Name, Price, category and the amount in stock");
-                        dalProduct.Update(InitializeProduct(id));
+                        dalList.Product.Update(InitializeProduct(id));
                         break;
                     case options.DeleteFromList:
                         Console.WriteLine("Enter the ID of the product you wish to remove ");
                         Product product = new Product() { ID = int.Parse(Console.ReadLine()) };
-                        dalProduct.Delete(product);
+                        dalList.Product.Delete(product);
                         break;
                     default:
                         break;
@@ -113,23 +111,22 @@ internal class Program
     5: delete an order");
         string input = Console.ReadLine();
         op = (options)Enum.Parse(typeof(options), input);
-        DalOrder dalOrder = new DalOrder();
         do
         {
             switch (op)
             {
                 case options.Add:
                     Console.WriteLine("Enter your Name, Email and Adresss");
-                    dalOrder.Create(InitializeOrder());
+                    dalList.Order.Create(InitializeOrder());
                     break;
                 case options.ShowById:
                     Console.WriteLine("Enter ID");
                     input = Console.ReadLine();
                     int.TryParse(input, out int id);
-                    Console.WriteLine(dalOrder.RequestById(id)); 
+                    Console.WriteLine(dalList.Order.RequestById(id)); 
                     break;
                 case options.ShowList:
-                    List<Order> orderList = dalOrder.RequestAll();
+                    IEnumerable<Order> orderList = dalList.Order.RequestAll();
                     foreach (Order ord in orderList)
                         Console.WriteLine(ord);
                     break;
@@ -137,15 +134,15 @@ internal class Program
                     Console.WriteLine("Enter the existing order's ID");
                     input = Console.ReadLine();
                     int.TryParse(input, out id);
-                    Order update = dalOrder.RequestById(id);
+                    Order update = dalList.Order.RequestById(id);
                     Console.WriteLine(update);
                     Console.WriteLine("Enter the new Name, Email and Adresss");
-                    dalOrder.Update(UpdateOrder(update));
+                    dalList.Order.Update(UpdateOrder(update));
                     break;
                 case options.DeleteFromList:
                     Console.WriteLine("Enter the ID of the order you wish to remove ");
                     Order order = new Order() { ID = int.Parse(Console.ReadLine()) };
-                    dalOrder.Delete(order);
+                    dalList.Order.Delete(order);
                     break;
                 default:
                     break;
@@ -172,48 +169,47 @@ internal class Program
         7: print all the items in a certain order"); 
         string input = Console.ReadLine();
         op = (options)Enum.Parse(typeof(options), input);
-        DalOrderItem dalOrderItem = new DalOrderItem();
         do
         {
             switch (op)
             {
                 case options.Add:
                     Console.WriteLine("Enter product id, order id and amount ");
-                    dalOrderItem.Create(InitializeOrderItem());
+                    dalList.OrderItem.Create(InitializeOrderItem());
                     break;
                 case options.ShowById:
                     Console.WriteLine("Enter ID");
                     int id = int.Parse(Console.ReadLine());
-                    Console.WriteLine(dalOrderItem.RequestById(id)); 
+                    Console.WriteLine(dalList.OrderItem.RequestById(id)); 
                     break;
                 case options.ShowList:
-                    List<OrderItem> itemList = dalOrderItem.RequestAll();
+                    IEnumerable<OrderItem> itemList = dalList.OrderItem.RequestAll();
                     foreach (OrderItem i in itemList)
                         Console.WriteLine(i);
                     break;
                 case options.Update:
                     Console.WriteLine("Enter the existing order item's ID");
                     id = int.Parse(Console.ReadLine());
-                    OrderItem update = dalOrderItem.RequestById(id);
+                    OrderItem update = dalList.OrderItem.RequestById(id);
                     Console.WriteLine(update);
-                    dalOrderItem.Update(UpdateOrderItem(update));
+                    dalList.OrderItem.Update(UpdateOrderItem(update));
                     break;
                 case options.DeleteFromList:
                     Console.WriteLine("Enter the ID of the order item you wish to remove ");
                     OrderItem item = new OrderItem() { ID = int.Parse(Console.ReadLine()) };
-                    dalOrderItem.Delete(item);
+                    dalList.OrderItem.Delete(item);
                     break;
                 case options.ShowByProdAndOrder:
                     Console.WriteLine("Enter product id and order id:");
                     Product product = new Product() { ID = int.Parse(Console.ReadLine()) };
                     Order order = new Order() { ID = int.Parse(Console.ReadLine()) };
-                    dalOrderItem.RequestByProductAndOrder(product, order);
+                    dalList.OrderItem.RequestByProductAndOrder(product, order);
                     break;
                 case options.ShowListOfProductsInOrder:
                     Console.WriteLine("Enter order id:");
                     input = Console.ReadLine();
                     int.TryParse(input, out int orderID);
-                    List<OrderItem> list = dalOrderItem.RequestAllItemsByOrderID(orderID);
+                    IEnumerable<OrderItem> list = dalList.OrderItem.RequestAllItemsByOrderID(orderID);
                     foreach (OrderItem listItem in list)
                         Console.Write(listItem);
                     break;
@@ -290,46 +286,11 @@ internal class Program
         int.TryParse(input, out int prodID);
         input = Console.ReadLine();
         int.TryParse(input, out int amount);
-        DalProduct dalProduct = new DalProduct();
-        double price = dalProduct.RequestById(prodID).Price;
+        double price = dalList.Product.RequestById(prodID).Price;
 
         OrderItem updatedItem = new() { ID = item.ID, Amount = amount, OrderID = item.OrderID, Price = price, ProductID = prodID };
         return updatedItem;
-
-
-        //DalProduct dalProduct = new();
-        //DalOrder dalOrder = new();
-
-        //string input = Console.ReadLine();
-        //int.TryParse(input, out int prodID);
-        //input = Console.ReadLine();
-        //int.TryParse(input, out int ordID);
-
-        //Product prod = dalProduct.RequestById(prodID);
-        //Order ord = dalOrder.RequestById(ordID);
-
-        //updatedItem = new OrderItem() { };
-
-
-        //string input = Console.ReadLine();
-        //int.TryParse(input, out int prodID);
-        //input = Console.ReadLine();
-        //int.TryParse(input, out int ordID);
-        //input = Console.ReadLine();
-        //int.TryParse(input, out int amount);
-        ////DalProduct dalProduct = new DalProduct();
-        ////double price = dalProduct.RequestById(prodID).Price;
-        //Product prod = new();
-        //Order ord = new();
-        //prod.ID = prodID;
-        //ord.ID = ordID;
-        //DalProduct dalProduct = new();
-        //DalOrder dalOrder = new();
-        //dalProduct.Create(prod);
-        //dalOrder.Create(ord);
-        //double price = dalProduct.RequestById(prodID).Price;
-        //OrderItem updatedItem = new OrderItem() { ID = item.ID, ProductID = prodID, OrderID = ordID, Amount = amount, Price = price 
-    }
+  0  }
 
     /// <summary>
     /// reads the information from the user and innitializes the order item
@@ -343,8 +304,7 @@ internal class Program
         int.TryParse(input, out int ordID);
         input = Console.ReadLine();
         int.TryParse(input, out int amount);
-        DalProduct dalProduct = new DalProduct();
-        double price = dalProduct.RequestById(prodID).Price;
+        double price = dalList.Product.RequestById(prodID).Price;
 
         OrderItem item = new OrderItem() { ProductID = prodID, OrderID = ordID, Amount = amount, Price = price };
         return item;

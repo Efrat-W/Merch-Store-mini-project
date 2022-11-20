@@ -1,11 +1,12 @@
 ﻿
+using DalApi;
 using DO;
 using System.Runtime.CompilerServices;
 using static Dal.DataSource;
 
 namespace Dal;
 
-public class DalOrderItem
+internal class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// adds the order item to the list of order items
@@ -15,7 +16,7 @@ public class DalOrderItem
     public int Create(OrderItem item)
     {
         if (DataSource.orderItems.Exists(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID))
-            throw new Exception("order item already exists");
+            throw new DoubledEntityException();
         item.ID = Config.OrderItemSeqID;
         DataSource.orderItems.Add(item);
         return item.ID;
@@ -25,7 +26,7 @@ public class DalOrderItem
     /// returns the list of order items
     /// </summary>
     /// <returns><list type="OrderItem">list of order items</returns>
-    public List<OrderItem> RequestAll()
+    public IEnumerable<OrderItem> RequestAll()
     {
         List<OrderItem> itemList = new List<OrderItem>();
         foreach (OrderItem item in DataSource.orderItems)
@@ -42,7 +43,7 @@ public class DalOrderItem
     public OrderItem RequestById(int id)
     {
         if (!DataSource.orderItems.Exists(i => i.ID == id))
-            throw new Exception("the order item does not exist");
+            throw new MissingEntityException();
         return DataSource.orderItems.Find(i => i.ID == id);
     }
 
@@ -58,7 +59,7 @@ public class DalOrderItem
         //    throw new Exception("cannot update, the order item does not exists");
         //OrderItem itemToRemove = DataSource.orderItems.Find(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID);
         if (!DataSource.orderItems.Exists(i => i.ID == item.ID))
-            throw new Exception("cannot update, the order item does not exists");
+            throw new MissingEntityException();
         OrderItem itemToRemove = DataSource.orderItems.Find(i => i.ID == item.ID);
         DataSource.orderItems.Remove(itemToRemove);
         DataSource.orderItems.Add(item);
@@ -72,10 +73,9 @@ public class DalOrderItem
     public void Delete(OrderItem item)
     {
         if (!DataSource.orderItems.Exists(i => i.ProductID == item.ProductID && i.OrderID == item.OrderID))
-            throw new Exception("cannot delete, order item does not exists");
+            throw new MissingEntityException();
         OrderItem toRemove = RequestById(item.ID);
-        if (!DataSource.orderItems.Remove(toRemove))
-            throw new Exception("cannot delete due to unknown error");
+        DataSource.orderItems.Remove(toRemove);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class DalOrderItem
     public OrderItem RequestByProductAndOrder(Product prod, Order ord)
     {
         if (!DataSource.orderItems.Exists(i => i.ProductID == prod.ID && i.OrderID == ord.ID))
-            throw new Exception("the order item does not exist");
+            throw new MissingEntityException();
         return DataSource.orderItems.Find(i => i.ProductID == prod.ID && i.OrderID == ord.ID);
     }
 
@@ -98,10 +98,10 @@ public class DalOrderItem
     /// <param name="ordID"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public List<OrderItem> RequestAllItemsByOrderID(int ordID)
+    public IEnumerable<OrderItem> RequestAllItemsByOrderID(int ordID)
     {
         if (!DataSource.orderItems.Exists(i => i.ID == ordID))
-            throw new Exception("no items of the given order id exist, unfortunately");
+            throw new MissingEntityException();
         List<OrderItem> itemsInOrder = new List<OrderItem>();
         foreach (OrderItem item in orderItems)
         {

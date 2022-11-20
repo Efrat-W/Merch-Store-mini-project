@@ -1,10 +1,10 @@
 ﻿
+using DalApi;
 using DO;
 using static Dal.DataSource;
-
 namespace Dal;
 
-public class DalOrder
+internal class DalOrder : IOrder
 {
     /// <summary>
     /// adds the order to the list of orders
@@ -16,7 +16,7 @@ public class DalOrder
     {
         order.ID = Config.OrderSeqID;
         if (DataSource.orders.Exists(i => i.ID == order.ID))
-            throw new Exception("order already exists");
+            throw new DoubledEntityException();
         DataSource.orders.Add(order);
         return order.ID;
     }
@@ -25,7 +25,7 @@ public class DalOrder
     /// returns the list of orders
     /// </summary>
     /// <returns><list type="Order">list of orders</list></returns>
-    public List<Order> RequestAll()
+    public IEnumerable<Order> RequestAll()
     {
         List<Order> orderList = new List<Order>();
         foreach (Order order in DataSource.orders)
@@ -42,7 +42,7 @@ public class DalOrder
     public Order RequestById(int id)
     {
         if (!DataSource.orders.Exists(i => i.ID == id))
-            throw new Exception("the order does not exist");
+            throw new MissingEntityException();
         return DataSource.orders.Find(i => i.ID == id);
     }
 
@@ -54,7 +54,7 @@ public class DalOrder
     public void Update(Order order)
     { 
         if (!DataSource.orders.Exists(i => i.ID == order.ID))
-            throw new Exception("cannot update, the order does not exists");
+            throw new MissingEntityException();
         Order orderToRemove = DataSource.orders.Find(i => i.ID == order.ID);
         DataSource.orders.Remove(orderToRemove);
         DataSource.orders.Add(order);
@@ -68,9 +68,8 @@ public class DalOrder
     public void Delete(Order order)
     {
         if (!DataSource.orders.Exists(i => i.ID == order.ID))
-            throw new Exception("cannot delete, order does not exists");
+            throw new MissingEntityException();
         Order toRemove = RequestById(order.ID);
-        if(!DataSource.orders.Remove(toRemove))
-            throw new Exception("cannot delete due to unknown error");
+        DataSource.orders.Remove(toRemove);
     }
 }

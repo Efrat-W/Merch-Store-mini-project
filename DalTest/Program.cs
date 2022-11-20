@@ -290,7 +290,7 @@ internal class Program
 
         OrderItem updatedItem = new() { ID = item.ID, Amount = amount, OrderID = item.OrderID, Price = price, ProductID = prodID };
         return updatedItem;
-  0  }
+    }
 
     /// <summary>
     /// reads the information from the user and innitializes the order item

@@ -9,4 +9,11 @@ public class Product
     public category Category { get; set; }
     public int InStock { get; set; }
 
+    public override string ToString() => $@"
+    Product id: {ID}
+    Product Name: {Name}
+    Category: {Category}
+    Price: {Price}
+    In Stock: {InStock}";
+
 }

@@ -67,7 +67,7 @@ internal class Program
                         break;
                     case options.ShowById:
                         Console.WriteLine("Enter ID");
-                        int id = int.Parse(Console.ReadLine());
+                        int.TryParse(Console.ReadLine(), out int id);
                         Console.WriteLine(dalList.Product.RequestById(id)); //print requested product to console
                         break;
                     case options.ShowList:

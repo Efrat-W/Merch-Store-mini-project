@@ -38,7 +38,7 @@ internal class Order : IOrder
         int amount=orderItems.Sum(item=>item.Amount);
         double totalPrice = orderItems.Sum(item => item.Price);
         return new OrderForList() { ID=ord.ID, CustomerName=ord.CustomerName,
-        TotalPrice=totalPrice, AmountOfItems=amount, Status=};
+        TotalPrice=totalPrice, AmountOfItems=amount, Status=Status};
     }
 
     public BO.Order RequestOrder(int id)
@@ -78,45 +78,75 @@ internal class Order : IOrder
         };
     }
 
-
-
-
-
-
-
-
-
-
-}
-
-// Tool functions
-static class OrderTools
-{
-    public static DO.Order OrderBoToDo(this BO.Order ord)
+    public BO.Order UpdateShipment(int id)
     {
-        return new DO.Order()
-        {
-            ID = ord.Id,
-            CustomerEmail = ord.CustomerEmail,
-            CustomerAddress = ord.CustomerAddress,
-            CustomerName = ord.CustomerName,
-            OrderDate = ord.OrderDate,
-            DeliveryDate = ord.DeliveryDate,
-            ShipDate = ord.ShipDate
-        };
-    }
-
-    public static BO.Order OrderDoToBo(this DO.Order ord)//////??
-    {
+        DO.Order ord = dal.Order.RequestById(id);
+        if (ord.ShipDate > DateTime.MinValue)
+            throw new Exception("already sent");
+        ord.ShipDate = DateTime.Now;
+        IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
         return new BO.Order()
         {
-            Id = ord.ID,
+            Id = id,
+            CustomerName = ord.CustomerName,
             CustomerEmail = ord.CustomerEmail,
             CustomerAddress = ord.CustomerAddress,
-            CustomerName = ord.CustomerName,
             OrderDate = ord.OrderDate,
+            ShipDate = ord.ShipDate,
             DeliveryDate = ord.DeliveryDate,
-            ShipDate = ord.ShipDate
+            Status = orderStatus.Shipped,
+            Items = (List<BO.OrderItem>)items,
+            TotalPrice = items.Sum(item => item.Price)
+        };
+    }
+
+    public BO.Order UpdateDelivery(int id)
+    {
+        DO.Order ord = dal.Order.RequestById(id);
+        if (ord.DeliveryDate > DateTime.MinValue)
+            throw new Exception("already sent");
+        ord.DeliveryDate = DateTime.Now;
+        IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
+        return new BO.Order()
+        {
+            Id = id,
+            CustomerName = ord.CustomerName,
+            CustomerEmail = ord.CustomerEmail,
+            CustomerAddress = ord.CustomerAddress,
+            OrderDate = ord.OrderDate,
+            ShipDate = ord.ShipDate,
+            DeliveryDate = ord.DeliveryDate,
+            Status = orderStatus.Delivered,
+            Items = (List<BO.OrderItem>)items,
+            TotalPrice = items.Sum(item => item.Price)
+        };
+    }
+
+    public OrderTracking OrderTrackment (int id)
+    {
+        DO.Order ord = dal.Order.RequestById(id);
+        List<Tuple<DateTime, string>> tuples= new List<Tuple<DateTime, string>>();
+        orderStatus Status=0;
+        if (ord.OrderDate > DateTime.MinValue) {
+            Tuple<DateTime, string> tuple = new(ord.OrderDate, "order placed");
+            tuples.Add(tuple);
+            Status = orderStatus.Approved;
+            if (ord.ShipDate > DateTime.MinValue) {
+                tuples.Add(new(ord.OrderDate, "order shipped"));
+                Status = orderStatus.Shipped;
+                if (ord.DeliveryDate > DateTime.MinValue) {
+                    tuples.Add(new(ord.OrderDate, "order delivered:D"));
+                    Status = orderStatus.Delivered;
+                }
+            }
+        }
+        return new BO.OrderTracking()
+        {
+            ID = id,
+            Status = Status,
+            orderProgress = tuples
         };
     }
 }
+
+

@@ -23,14 +23,7 @@ internal class Product : IProduct
     {
         if (!CheckProduct(product))
             throw;
-        DO.Product prod = new()
-        {
-            ID = product.ID,
-            Name = product.Name,
-            Price = product.Price,
-            InStock = product.InStock,
-            Category = (DO.category)product.Category
-        };
+        DO.Product prod = product.ProductBoToDo();
         try
         {
             dal.Product.Create(prod);
@@ -44,12 +37,16 @@ internal class Product : IProduct
 
     public void Delete(int id)
     {
-        try
+        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.RequestAll();
+
+        IEnumerable<DO.OrderItem> found = from orderItem in orderItems
+                                          where orderItem.ProductID == id
+                                          select orderItem;
+        //try exception missing
+        if (found.Count<DO.OrderItem>() == 0)
         {
-            dal.Product.RequestById(id);
+            dal.Product.Delete(dal.Product.RequestById(id));
         }
-        catch (Exception)
-        { throw; }
     }
 
     public BO.Product RequestById(int id)
@@ -65,37 +62,53 @@ internal class Product : IProduct
             }
             catch { throw; }
         }
-        BO.Product newProd = new()
+        return prod.ProductDoToBo();
+    }
+
+    public IEnumerable<BO.ProductForList> RequestList() {
+        return from doProd in dal.Product.RequestAll()
+               select new BO.ProductForList()
+               {
+                   ID = doProd.ID,
+                   Name = doProd.Name,
+                   Price = doProd.Price,
+                   Category = (BO.category)doProd.Category
+               };
+    }
+
+    public void Update(BO.Product product)
+    {
+        if (product.ID > 99999 && product.ID <= 999999  //product id has 6 digits
+            && product.Name.Length > 0 && product.InStock >= 0) 
+        {
+            dal.Product.Update(product.ProductBoToDo());
+        }
+    }
+}
+
+
+// Tool functions
+static class ProductTools
+{
+    public static DO.Product ProductBoToDo(this BO.Product prod)
+    {
+        return new DO.Product()
+        {
+            ID = prod.ID,
+            Name = prod.Name,
+            Category = (DO.category)prod.Category,
+            Price = prod.Price
+        };
+    }
+
+    public static BO.Product ProductDoToBo(this DO.Product prod)
+    {
+        return new BO.Product()
         {
             ID = prod.ID,
             Name = prod.Name,
             Category = (BO.category)prod.Category,
             Price = prod.Price
         };
-        return newProd;
-    }
-
-    public IEnumerable<BO.ProductForList> RequestList()
-    {
-        IEnumerable<DO.Product> ls = dal.Product.RequestAll();
-        IEnumerable<BO.ProductForList> productForLists = new List<BO.ProductForList>();
-        foreach (DO.Product prod in ls)
-        {
-            ProductForList prodForLs = new()
-            {
-                ID = prod.ID,
-                Name = prod.Name,
-                Price = prod.Price,
-                Category = (BO.category)prod.Category
-            };
-
-            productForLists.Append(prodForLs); //🤞
-        }
-        return productForLists;
-    }
-
-    public void Update(BO.Product product)
-    {
-        
     }
 }

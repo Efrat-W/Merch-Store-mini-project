@@ -10,7 +10,6 @@ public class Order
     public string CustomerAddress { get; set; }
     public DateTime OrderDate { get; set; }
     public orderStatus Status { get; set; }
-    public DateTime PaymentDate { get; set; }
     public DateTime ShipDate { get; set; }
     public DateTime DeliveryDate { get; set; }
     public List<OrderItem> Items { get; set; }
@@ -21,7 +20,6 @@ public class Order
     Customer Email: {CustomerEmail}
     Customer Address: {CustomerAddress}
     Order Date: {OrderDate}
-    Payment Date: {PaymentDate}
     Shipping Date: {ShipDate}
     Delivery Date: {DeliveryDate}
     Items in Cart: {Items.ToString()}

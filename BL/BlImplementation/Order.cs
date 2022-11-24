@@ -13,18 +13,18 @@ using DO;
 
 namespace BlImplementation;
 
-internal class Order : IOrder
+internal class Order : BlApi.IOrder
 {
     IDal dal = new DalList();
 
-    public IEnumerable<BO.OrderForList> RequestList()
+    public IEnumerable<BO.OrderForList> RequestOrders()
     {
         IEnumerable<DO.Order> orders = dal.Order.RequestAll();
         Func<DO.Order, OrderForList> convert = OrderToOrderForList;
         IEnumerable<BO.OrderForList> orderlist = orders.Select(convert);
         return orderlist;
     }
-    //help method:
+    //auxillary method:
     private OrderForList OrderToOrderForList(DO.Order ord)
     {
         orderStatus Status;
@@ -41,7 +41,7 @@ internal class Order : IOrder
         TotalPrice=totalPrice, AmountOfItems=amount, Status=Status};
     }
 
-    public BO.Order RequestOrder(int id)
+    public BO.Order RequestById(int id)
     {
         if (!(id > 99999 && id <= 999999))
             throw new ArgumentException("blahblah");
@@ -122,7 +122,7 @@ internal class Order : IOrder
         };
     }
 
-    public OrderTracking OrderTrackment (int id)
+    public BO.OrderTracking Track(int id)
     {
         DO.Order ord = dal.Order.RequestById(id);
         List<Tuple<DateTime, string>> tuples= new List<Tuple<DateTime, string>>();

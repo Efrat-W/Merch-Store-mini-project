@@ -8,5 +8,5 @@ public interface ICart
 
     public Cart UpdateProductAmount(Cart cart, int prodId, int amount);
 
-    public void Approve(Cart cart, string name, string email, string address);
+    public BO.Order Approve(Cart cart, string name, string email, string address);
 }

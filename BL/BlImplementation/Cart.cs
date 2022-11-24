@@ -74,9 +74,9 @@ internal class Cart : ICart
         return cart;
     }
 
-    public BO.Order Approve(BO.Cart cart, string name, string email, string address)
+    public BO.Order Approve(BO.Cart cart)
     {
-        if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(address) && email.Contains('@') && !email.StartsWith('@'))
+        if (!string.IsNullOrEmpty(cart.CustomerName) && !string.IsNullOrEmpty(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
             try
             {
                 foreach (BO.OrderItem item in cart.Items)
@@ -93,9 +93,9 @@ internal class Cart : ICart
         BO.Order order = new BO.Order()
         {
             Items = cart.Items,
-            CustomerAddress = address,
-            CustomerEmail = email,
-            CustomerName = name,
+            CustomerAddress = cart.CustomerAddress,
+            CustomerEmail = cart.CustomerEmail,
+            CustomerName = cart.CustomerName,
             OrderDate = DateTime.Now,
             ShipDate = DateTime.MinValue,
             DeliveryDate = DateTime.MinValue,

@@ -11,15 +11,16 @@ using DalApi;
 
 namespace BlImplementation;
 
-internal class Product : IProduct
+internal class Product : BlApi.IProduct
 {
     IDal dal = new DalList();
-    internal bool CheckProduct(BO.Product product) {
+    //auxillary method
+    private bool CheckProduct(BO.Product product) {
         if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             return true;
         return false;
     }
-    public void Add(BO.Product product)
+    public BO.Product Add(BO.Product product)
     {
         if (!CheckProduct(product))
             throw;
@@ -33,6 +34,7 @@ internal class Product : IProduct
 
             throw;
         }
+        return product;
     }
 
     public void Delete(int id)
@@ -49,7 +51,7 @@ internal class Product : IProduct
         }
     }
 
-    public BO.Product RequestById(int id)
+    public BO.ProductItem RequestById(int id, BO.Cart cart)
     {
         DO.Product prod;
         if (id < 0)
@@ -62,7 +64,16 @@ internal class Product : IProduct
             }
             catch { throw; }
         }
-        return prod.ProductDoToBo();
+        BO.OrderItem item = cart.Items.Find(i => i.ID == id);
+        return new BO.ProductItem()
+        {
+            ID = prod.ID,
+            Name = prod.Name,
+            Category = (BO.category)prod.Category,
+            Price = prod.Price,
+            Amount = item.Amount,
+            InStock = item.Amount <= prod.InStock
+        };
     }
 
     public IEnumerable<BO.ProductForList> RequestList() {
@@ -76,13 +87,14 @@ internal class Product : IProduct
                };
     }
 
-    public void Update(BO.Product product)
+    public BO.Product Update(BO.Product product)
     {
         if (product.ID > 99999 && product.ID <= 999999  //product id has 6 digits
             && product.Name.Length > 0 && product.InStock >= 0) 
         {
             dal.Product.Update(product.ProductBoToDo());
         }
+        return product;
     }
 }
 
@@ -101,14 +113,15 @@ static class ProductTools
         };
     }
 
-    public static BO.Product ProductDoToBo(this DO.Product prod)
-    {
-        return new BO.Product()
-        {
-            ID = prod.ID,
-            Name = prod.Name,
-            Category = (BO.category)prod.Category,
-            Price = prod.Price
-        };
-    }
+    //public static BO.ProductItem ProductDoToBo(this DO.Product prod)
+    //{
+    //    return new BO.ProductItem()
+    //    {
+    //        ID = prod.ID,
+    //        Name = prod.Name,
+    //        Category = (BO.category)prod.Category,
+    //        Price = prod.Price,
+    //        Amount = 
+    //    };
+    //}
 }

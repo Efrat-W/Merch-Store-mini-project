@@ -4,10 +4,10 @@ namespace BlApi;
 
 public interface IProduct
 {
-    public IEnumerable<Product> RequestList();
+    public IEnumerable<ProductForList> RequestList();
 
-    public Product RequestById(int id);
-    public void Add(Product product);
-    public void Update(Product product);
+    public ProductItem RequestById(int id, Cart cart);
+    public Product Add(Product product);
+    public Product Update(Product product);
     public void Delete(int id);
 }

@@ -4,13 +4,13 @@ namespace BlApi;
 
 public interface IOrder
 {
-    public IEnumerable<Order> RequestOrders();
+    public IEnumerable<Order> RequestAll();
 
     public Order RequestById(int id);
 
-    public Order UpdateShip(int id);
+    public Order UpdateShipment(int id);
 
-    public Order UpdateDelivered(int id);
+    public Order UpdateDelivery(int id);
 
     public Order Track(int id);
 

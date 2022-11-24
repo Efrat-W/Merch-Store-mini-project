@@ -6,7 +6,7 @@ public class Order
 {
     public int Id { get; set; }
     public string CustomerName { get; set; }
-    public String CustomerEmail { get; set; }
+    public string CustomerEmail { get; set; }
     public string CustomerAddress { get; set; }
     public DateTime OrderDate { get; set; }
     public orderStatus Status { get; set; }
@@ -22,7 +22,7 @@ public class Order
     Order Date: {OrderDate}
     Shipping Date: {ShipDate}
     Delivery Date: {DeliveryDate}
-    Items in Cart: {Items.ToString()}
+    Items in Cart: {foreach(OrderItem item in Items) item;} 
     Total Price: {TotalPrice}";
 
 }

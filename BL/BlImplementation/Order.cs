@@ -17,7 +17,7 @@ internal class Order : IOrder
 {
     IDal dal = new DalList();
 
-    public IEnumerable<BO.OrderForList> RequestList()
+    public IEnumerable<BO.OrderForList> RequestAll()
     {
         IEnumerable<DO.Order> orders = dal.Order.RequestAll();
         Func<DO.Order, OrderForList> convert = OrderToOrderForList;
@@ -41,7 +41,7 @@ internal class Order : IOrder
         TotalPrice=totalPrice, AmountOfItems=amount, Status=Status};
     }
 
-    public BO.Order RequestOrder(int id)
+    public BO.Order RequestById(int id)
     {
         if (!(id > 99999 && id <= 999999))
             throw new ArgumentException("blahblah");
@@ -104,7 +104,7 @@ internal class Order : IOrder
     {
         DO.Order ord = dal.Order.RequestById(id);
         if (ord.DeliveryDate > DateTime.MinValue)
-            throw new Exception("already sent");
+            throw new Exception("already delivered");
         ord.DeliveryDate = DateTime.Now;
         IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
         return new BO.Order()
@@ -122,7 +122,7 @@ internal class Order : IOrder
         };
     }
 
-    public OrderTracking OrderTrackment (int id)
+    public OrderTracking Track(int id)
     {
         DO.Order ord = dal.Order.RequestById(id);
         List<Tuple<DateTime, string>> tuples= new List<Tuple<DateTime, string>>();
@@ -135,7 +135,7 @@ internal class Order : IOrder
                 tuples.Add(new(ord.OrderDate, "order shipped"));
                 Status = orderStatus.Shipped;
                 if (ord.DeliveryDate > DateTime.MinValue) {
-                    tuples.Add(new(ord.OrderDate, "order delivered:D"));
+                    tuples.Add(new(ord.OrderDate, "order delivered"));
                     Status = orderStatus.Delivered;
                 }
             }

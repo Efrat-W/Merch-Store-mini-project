@@ -49,7 +49,23 @@ internal class Product : IProduct
         }
     }
 
-    public BO.Product RequestById(int id)
+    public BO.Product RequestByIdManager(int id)
+    {
+        DO.Product prod;
+        if (id < 0)
+            throw new Exception("invalid id");
+        else
+        {
+            try
+            {
+                prod = dal.Product.RequestById(id);
+            }
+            catch { throw; }
+        }
+        return prod.ProductDoToBo();
+    }
+
+    public BO.Product RequestByIdCustomer(int id, Cart cart)
     {
         DO.Product prod;
         if (id < 0)

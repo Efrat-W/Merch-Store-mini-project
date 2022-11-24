@@ -7,7 +7,7 @@ public interface IOrder
     public IEnumerable<Order> RequestOrders();
 
     public Order RequestById(int id);
-
+    
     public Order UpdateShip(int id);
 
     public Order UpdateDelivered(int id);

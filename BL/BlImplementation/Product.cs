@@ -18,7 +18,7 @@ internal class Product : BlApi.IProduct
     private bool CheckProduct(BO.Product product) {
         if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
             return true;
-        return false;
+        throw new InvalidDataException();
     }
     public BO.Product Add(BO.Product product)
     {
@@ -55,19 +55,19 @@ internal class Product : BlApi.IProduct
     {
         DO.Product prod;
         if (id < 0)
-            throw new Exception("invalid id");
+            throw new InvalidDataException();
         else
         {
             try
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch { throw; }
+            catch(MissingEntityException ex) { throw new InvalidDataException(ex); }
         }
         return prod.ProductDoToBo();
     }
 
-    public BO.Product RequestByIdCustomer(int id, Cart cart)
+    public BO.ProductItem RequestByIdCustomer(int id, Cart cart)
     {
         DO.Product prod;
         if (id < 0)
@@ -114,7 +114,6 @@ internal class Product : BlApi.IProduct
     }
 }
 
-
 // Tool functions
 static class ProductTools
 {
@@ -125,19 +124,20 @@ static class ProductTools
             ID = prod.ID,
             Name = prod.Name,
             Category = (DO.category)prod.Category,
-            Price = prod.Price
+            Price = prod.Price,
+            InStock = prod.InStock,
         };
     }
 
-    //public static BO.ProductItem ProductDoToBo(this DO.Product prod)
-    //{
-    //    return new BO.ProductItem()
-    //    {
-    //        ID = prod.ID,
-    //        Name = prod.Name,
-    //        Category = (BO.category)prod.Category,
-    //        Price = prod.Price,
-    //        Amount = 
-    //    };
-    //}
+    public static BO.ProductItem ProductDoToBo(this DO.Product prod)
+    {
+        return new BO.ProductItem()
+        {
+            ID = prod.ID,
+            Name = prod.Name,
+            Category = (BO.category)prod.Category,
+            Price = prod.Price,
+            InStock = prod.InStock > 0
+        };
+    }
 }

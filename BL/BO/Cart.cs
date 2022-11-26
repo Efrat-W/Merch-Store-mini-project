@@ -4,8 +4,8 @@ namespace BO;
 
 public class Cart
 {
-    public String CustomerName { get; set; }
-    public String CustomerEmail { get; set; }
+    public string CustomerName { get; set; }
+    public string CustomerEmail { get; set; }
     public string CustomerAddress { get; set; }
     public List<OrderItem> Items { get; set; }
     public double TotalPrice { get; set; }
@@ -18,9 +18,9 @@ public class Cart
         Customer Address: {CustomerAddress}";
         foreach (OrderItem item in Items)
         {
-            s += item.ToString();
+            s += item;
         }
-        s += $"Total price: {TotalPrice}";
+        s += $"\nTotal price: {TotalPrice}";
         return s;
     }
 }

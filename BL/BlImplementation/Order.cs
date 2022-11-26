@@ -46,7 +46,7 @@ internal class Order : BlApi.IOrder
         if (!(id > 99999 && id <= 999999))
             throw new ArgumentException("blahblah");
 
-        DO.Order ord =dal.Order.RequestById(id);
+        DO.Order ord = dal.Order.RequestById(id);
 
         orderStatus Status;
         if (DateTime.Now > ord.DeliveryDate)

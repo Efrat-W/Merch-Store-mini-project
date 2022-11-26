@@ -15,14 +15,17 @@ public class Order
     public List<OrderItem> Items { get; set; }
     public double TotalPrice { get; set; }
 
-    public override string ToString() => $@"
+    public override string ToString()
+    {
+        string s = $@"
     Customer Name: {CustomerName}
     Customer Email: {CustomerEmail}
     Customer Address: {CustomerAddress}
     Order Date: {OrderDate}
     Shipping Date: {ShipDate}
     Delivery Date: {DeliveryDate}
-    Items in Cart: {foreach(OrderItem item in Items) item;} 
-    Total Price: {TotalPrice}";
-
+    Items in Cart: ";
+        foreach (OrderItem item in Items) s += $"{item} ";
+        return s + $"\nTotal Price: {TotalPrice}";
+    }
 }

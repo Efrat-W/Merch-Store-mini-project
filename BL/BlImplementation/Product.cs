@@ -67,7 +67,7 @@ internal class Product : BlApi.IProduct
         return prod.ProductDoToBo();
     }
 
-    public BO.ProductItem RequestByIdCustomer(int id, Cart cart)
+    public BO.ProductItem RequestByIdCustomer(int id, BO.Cart cart)
     {
         DO.Product prod;
         if (id < 0)

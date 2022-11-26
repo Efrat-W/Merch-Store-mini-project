@@ -18,7 +18,7 @@ public enum menu
 
 public enum optionsProduct
 {
-    Return, Add, ShowByIdMan, ShowByIdCus,Update, Delete
+    Return, Add, ShowByIdMan, ShowByIdCus,RequestAll, Update, Delete
 }
 public enum optionsOrder
 {

@@ -12,7 +12,7 @@ public class Order
     public orderStatus Status { get; set; }
     public DateTime ShipDate { get; set; }
     public DateTime DeliveryDate { get; set; }
-    public List<OrderItem> Items { get; set; }
+    public IEnumerable<OrderItem> Items { get; set; }
     public double TotalPrice { get; set; }
 
     public override string ToString()

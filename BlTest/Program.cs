@@ -50,8 +50,9 @@ namespace BlTest
     1: add product
     2: print product (by id) for manager
     3: print product (by id) for customer
-    4: update a product
-    5: delete a product");
+    4: print all products
+    5: update a product
+    6: delete a product");
 
             string input = Console.ReadLine();
             op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), input);
@@ -73,6 +74,11 @@ namespace BlTest
                         int.TryParse(Console.ReadLine(), out id);
                         Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
                         Console.WriteLine(bl.Product.RequestByIdCustomer(id, InitializeCart())); 
+                        break;
+                    case BO.optionsProduct.RequestAll:
+                        IEnumerable<BO.ProductForList> list = bl.Product.RequestList();
+                        foreach (BO.ProductForList item in list)
+                            Console.WriteLine(item);
                         break;
                     case BO.optionsProduct.Update:
                         Console.WriteLine("Enter the existing product's ID");
@@ -102,10 +108,9 @@ namespace BlTest
     0: return to main menu
     1: track order
     2: print order (by id)
-    3: print the list of orders
-    4: update shipment
-    5: update delivery
-    6: print all orders");
+    3: update shipment
+    4: update delivery
+    5: print all orders");
             string input = Console.ReadLine();
             op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), input);
             do
@@ -134,7 +139,7 @@ namespace BlTest
                         Console.WriteLine("Enter ID");
                         input = Console.ReadLine();
                         int.TryParse(input, out id);
-                        Console.WriteLine(bl.Order.UpdateShipment(id));
+                        Console.WriteLine(bl.Order.UpdateDelivery(id));
                         break;
                     case BO.optionsOrder.RequestAll:
                         IEnumerable<BO.OrderForList> list = bl.Order.RequestOrders();
@@ -224,6 +229,7 @@ namespace BlTest
             input = Console.ReadLine();
             int.TryParse(input, out num);
             List<BO.OrderItem> Items= new List<BO.OrderItem>();
+            Console.WriteLine("Now enter the products in your cart:/n");
             for (int i = 0; i < num; i++)
             {
                 Console.WriteLine("Enter name, product id, price and amount");

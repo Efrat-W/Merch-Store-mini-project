@@ -18,7 +18,7 @@ public class Cart
         Customer Address: {CustomerAddress}";
         foreach (OrderItem item in Items)
         {
-            s += item;
+            s += $" {item}";
         }
         s += $"\nTotal price: {TotalPrice}";
         return s;

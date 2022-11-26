@@ -23,7 +23,7 @@ internal class Product : BlApi.IProduct
     public BO.Product Add(BO.Product product)
     {
         if (!CheckProduct(product))
-            throw;
+            throw new InvalidDataException();
         DO.Product prod = product.ProductBoToDo();
         try
         {
@@ -44,8 +44,8 @@ internal class Product : BlApi.IProduct
         IEnumerable<DO.OrderItem> found = from orderItem in orderItems
                                           where orderItem.ProductID == id
                                           select orderItem;
-        //try exception missing
-        if (found.Count<DO.OrderItem>() == 0)
+        //try exception missing!!!!צריך לזרוק חריגה במקרה שלא הצליח למחוק כי המוצר מוזמן כרגע
+        if (found.Count() == 0)
         {
             dal.Product.Delete(dal.Product.RequestById(id));
         }
@@ -62,12 +62,12 @@ internal class Product : BlApi.IProduct
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch(MissingEntityException ex) { throw new InvalidDataException(ex); }
+            catch(MissingEntityException ex) { throw new InvalidDataException(); }
         }
         return prod.ProductDoToBo();
     }
 
-    public BO.ProductItem RequestByIdCustomer(int id, Cart cart)
+    public BO.ProductItem RequestByIdCustomer(int id, BO.Cart cart)
     {
         DO.Product prod;
         if (id < 0)
@@ -129,7 +129,7 @@ static class ProductTools
         };
     }
 
-    public static BO.ProductItem ProductDoToBo(this DO.Product prod)
+    public static BO.ProductItem ProductItemDoToBo(this DO.Product prod)
     {
         return new BO.ProductItem()
         {
@@ -138,6 +138,18 @@ static class ProductTools
             Category = (BO.category)prod.Category,
             Price = prod.Price,
             InStock = prod.InStock > 0
+        };
+    }
+
+    public static BO.Product ProductDoToBo(this DO.Product prod)
+    {
+        return new BO.Product()
+        {
+            ID = prod.ID,
+            Name = prod.Name,
+            Category = (BO.category)prod.Category,
+            Price = prod.Price,
+            InStock = prod.InStock
         };
     }
 }

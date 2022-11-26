@@ -28,9 +28,9 @@ internal class Order : BlApi.IOrder
     private OrderForList OrderToOrderForList(DO.Order ord)
     {
         orderStatus Status;
-        if (DateTime.Now > ord.DeliveryDate)
+        if (DateTime.MinValue < ord.DeliveryDate)
             Status = orderStatus.Delivered;
-        else if (DateTime.Now > ord.ShipDate)
+        else if (DateTime.MinValue < ord.ShipDate)
             Status = orderStatus.Shipped;
         else
             Status=orderStatus.Approved;
@@ -84,7 +84,9 @@ internal class Order : BlApi.IOrder
         if (ord.ShipDate > DateTime.MinValue)
             throw new Exception("already sent");
         ord.ShipDate = DateTime.Now;
-        IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
+        IEnumerable<BO.OrderItem> items = from DO.OrderItem item in dal.OrderItem.RequestAllItemsByOrderID(id)
+                                          select DoOrderItemToBoOrderItem(item);
+        dal.Order.Update(ord);//try catch
         return new BO.Order()
         {
             Id = id,
@@ -95,7 +97,7 @@ internal class Order : BlApi.IOrder
             ShipDate = ord.ShipDate,
             DeliveryDate = ord.DeliveryDate,
             Status = orderStatus.Shipped,
-            Items = (List<BO.OrderItem>)items,
+            Items =items,
             TotalPrice = items.Sum(item => item.Price)
         };
     }
@@ -106,6 +108,7 @@ internal class Order : BlApi.IOrder
         if (ord.DeliveryDate > DateTime.MinValue)
             throw new Exception("already delivered");
         ord.DeliveryDate = DateTime.Now;
+        dal.Order.Update(ord);//try catch
         IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
         return new BO.Order()
         {

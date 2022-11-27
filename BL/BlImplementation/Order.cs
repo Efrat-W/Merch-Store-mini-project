@@ -44,7 +44,7 @@ internal class Order : BlApi.IOrder
     public BO.Order RequestById(int id)
     {
         if (!(id > 99999 && id <= 999999))
-            throw new InvalidArgumentException("Requested id is out of range.\n");
+           throw new InvalidArgumentException("Requested id is out of range.\n");
         DO.Order ord;
         try
         { ord = dal.Order.RequestById(id); }

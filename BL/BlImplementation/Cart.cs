@@ -98,7 +98,7 @@ internal class Cart : ICart
             OrderDate = DateTime.Now,
             ShipDate = DateTime.MinValue,
             DeliveryDate = DateTime.MinValue,
-            TotalPrice = cart.Items.Sum(i => i.TotalPrice),
+            TotalPrice = cart.TotalPrice,
             Status = BO.orderStatus.Approved
         };
         int id = 0;

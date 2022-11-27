@@ -253,13 +253,14 @@ namespace BlTest
         }
         static BO.OrderItem InitializeOrderItem()
         {
-            int prodId, price, amount;
+            int prodId, amount;
+            double price;
             string input = Console.ReadLine();
             string name = input;
             input = Console.ReadLine();
             int.TryParse(input, out prodId);
             input = Console.ReadLine();
-            int.TryParse(input, out price);
+            double.TryParse(input, out price);
             input = Console.ReadLine();
             int.TryParse(input, out amount);
             

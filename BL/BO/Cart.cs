@@ -13,14 +13,14 @@ public class Cart
     public override string ToString()
     {
         string s = $@"
-        Customer Name: {CustomerName}
-        Customer Email: {CustomerEmail}
-        Customer Address: {CustomerAddress}";
+    Customer Name: {CustomerName}
+    Customer Email: {CustomerEmail}
+    Customer Address: {CustomerAddress}";
         foreach (OrderItem item in Items)
         {
             s += $" {item}";
         }
-        s += $"\nTotal price: {TotalPrice}";
+        s += $"\n\tTotal price: {TotalPrice}";
         return s;
     }
 }

@@ -44,9 +44,11 @@ internal class Order : BlApi.IOrder
     public BO.Order RequestById(int id)
     {
         if (!(id > 99999 && id <= 999999))
-            throw new ArgumentException("blahblah");
-
-        DO.Order ord = dal.Order.RequestById(id);
+            throw new InvalidArgumentException("Requested id is out of range.\n");
+        DO.Order ord;
+        try
+        { ord = dal.Order.RequestById(id); }
+        catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
 
         orderStatus Status;
         if (DateTime.Now > ord.DeliveryDate)
@@ -66,7 +68,12 @@ internal class Order : BlApi.IOrder
     //help method:
     private BO.OrderItem DoOrderItemToBoOrderItem(DO.OrderItem item)
     {
-        string name = dal.Product.RequestById(item.ProductID).Name;
+        string name;
+        try
+        {
+            name = dal.Product.RequestById(item.ProductID).Name;
+        }
+        catch (Exception ex) { throw new InvalidArgumentException("", ex); }
         return new BO.OrderItem()
         {
             Name = name,
@@ -80,13 +87,22 @@ internal class Order : BlApi.IOrder
 
     public BO.Order UpdateShipment(int id)
     {
-        DO.Order ord = dal.Order.RequestById(id);
+        DO.Order ord;
+        try
+        {
+            ord = dal.Order.RequestById(id);
+        }
+        catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
         if (ord.ShipDate > DateTime.MinValue)
-            throw new Exception("already sent");
+            throw new InvalidDateException("The order was already sent.\n");
         ord.ShipDate = DateTime.Now;
         IEnumerable<BO.OrderItem> items = from DO.OrderItem item in dal.OrderItem.RequestAllItemsByOrderID(id)
                                           select DoOrderItemToBoOrderItem(item);
-        dal.Order.Update(ord);//try catch
+        try
+        {
+            dal.Order.Update(ord);
+        }
+        catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
         return new BO.Order()
         {
             Id = id,
@@ -104,11 +120,20 @@ internal class Order : BlApi.IOrder
 
     public BO.Order UpdateDelivery(int id)
     {
-        DO.Order ord = dal.Order.RequestById(id);
+        DO.Order ord;
+        try
+        {
+            ord = dal.Order.RequestById(id);
+        }
+        catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
         if (ord.DeliveryDate > DateTime.MinValue)
             throw new Exception("already delivered");
         ord.DeliveryDate = DateTime.Now;
-        dal.Order.Update(ord);//try catch
+        try
+        {
+            dal.Order.Update(ord);
+        }
+        catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
         IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
         return new BO.Order()
         {
@@ -127,7 +152,12 @@ internal class Order : BlApi.IOrder
 
     public BO.OrderTracking Track(int id)
     {
-        DO.Order ord = dal.Order.RequestById(id);
+        DO.Order ord;
+        try
+        {
+            ord = dal.Order.RequestById(id);
+        }
+        catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
         List<Tuple<DateTime, string>> tuples= new List<Tuple<DateTime, string>>();
         orderStatus Status=0;
         if (ord.OrderDate > DateTime.MinValue) {

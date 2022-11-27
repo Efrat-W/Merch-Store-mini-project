@@ -36,7 +36,7 @@ internal class Cart : ICart
                 cart.TotalPrice += prod.Price;
             }
             else
-                throw new Exception();
+                throw new InvalidArgumentException("The amount requested is greater than available.\n");
         }
         else
         {
@@ -45,6 +45,8 @@ internal class Cart : ICart
                 cart.Items.Add(new BO.OrderItem { ID = 0, Amount = 1, Name = prod.Name, Price = prod.Price, ProductId = prod.ID, TotalPrice = prod.Price });
                 cart.TotalPrice += prod.Price;
             }
+            else
+                throw new InvalidArgumentException("The requested product is out of stock.\n");
         }
         return cart;
     }

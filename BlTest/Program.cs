@@ -62,12 +62,14 @@ namespace BlTest
                 {
                     case BO.optionsProduct.Add:
                         Console.WriteLine("Enter ID, Name, Price, category and the amount in stock");
-                        bl.Product.Add(InitializeProduct());
+                        try { bl.Product.Add(InitializeProduct()); }
+                        catch (Exception ex) { Console.WriteLine(ex); ; }
                         break;
                     case BO.optionsProduct.ShowByIdMan:
                         Console.WriteLine("Enter ID");
                         int.TryParse(Console.ReadLine(), out int id);
-                        Console.WriteLine(bl.Product.RequestByIdManager(id)); //print requested product to console
+                        try { Console.WriteLine(bl.Product.RequestByIdManager(id)); } //print requested product to console
+                        catch (Exception ex) { }
                         break;
                     case BO.optionsProduct.ShowByIdCus:
                         Console.WriteLine("Enter ID");
@@ -173,7 +175,7 @@ namespace BlTest
                         Console.WriteLine("Enter product's id:");
                         input = Console.ReadLine();
                         int.TryParse(input, out int id);
-                        Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
+                        Console.WriteLine("Enter customer name, email, address and the number of items in your cart:");
                         Console.WriteLine(bl.Cart.AddProduct(InitializeCart(),id));
                         break;
                     case BO.optionsCart.UpdateAmount:
@@ -211,7 +213,12 @@ namespace BlTest
             string name = input;
             input = Console.ReadLine();
             int.TryParse(input, out int price);
-            BO.category category = (BO.category)Enum.Parse(typeof(BO.category), Console.ReadLine());
+            BO.category category;
+            try
+            {
+                category = (BO.category)Enum.Parse(typeof(BO.category), Console.ReadLine());
+            }
+            catch (Exception ex){ throw new InvalidArgumentException("category", ex); }
             input = Console.ReadLine();
             int.TryParse(input, out int inStock);
 
@@ -229,7 +236,7 @@ namespace BlTest
             input = Console.ReadLine();
             int.TryParse(input, out num);
             List<BO.OrderItem> Items= new List<BO.OrderItem>();
-            Console.WriteLine("Now enter the products in your cart:/n");
+            Console.WriteLine("Now enter the products in your cart:\n");
             for (int i = 0; i < num; i++)
             {
                 Console.WriteLine("Enter name, product id, price and amount");

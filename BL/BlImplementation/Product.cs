@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,24 +16,27 @@ internal class Product : BlApi.IProduct
 {
     IDal dal = new DalList();
     //auxillary method
-    private bool CheckProduct(BO.Product product) {
-        if (product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0)
-            return true;
-        throw new InvalidDataException();
+    private void CheckProduct(BO.Product product) {
+        if (!(product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0))
+            throw new InvalidArgumentException("one or more attributes of product are invalid. \n");
     }
     public BO.Product Add(BO.Product product)
     {
-        if (!CheckProduct(product))
-            throw new InvalidDataException();
-        DO.Product prod = product.ProductBoToDo();
+        DO.Product prod;
+        try
+        {
+            CheckProduct(product);
+
+            prod = product.ProductBoToDo();
+        }
+        catch { throw; }
         try
         {
             dal.Product.Create(prod);
         }
-        catch (Exception)
+        catch (DoubledEntityException ex)
         {
-
-            throw;
+            throw new InvalidArgumentException(ex);
         }
         return product;
     }
@@ -55,14 +59,14 @@ internal class Product : BlApi.IProduct
     {
         DO.Product prod;
         if (id < 0)
-            throw new InvalidDataException();
+            throw new InvalidArgumentException();
         else
         {
             try
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch(MissingEntityException ex) { throw new InvalidDataException(); }
+            catch(MissingEntityException ex) { throw new InvalidArgumentException(); }
         }
         return prod.ProductDoToBo();
     }

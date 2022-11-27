@@ -9,15 +9,27 @@ namespace BlImplementation;
 using System.Runtime.Serialization;
 
 [Serializable]
-public class InvalidDataException : Exception
+public class InvalidArgumentException : Exception
 {
-    public InvalidDataException() : base() { }
-    public InvalidDataException(string message) : base(message) { }
-    public InvalidDataException(string message, Exception inner) : base(message, inner) { }
-    protected InvalidDataException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
+    public InvalidArgumentException() : base() { }
+    public InvalidArgumentException(string message) : base(message) { }
+    public InvalidArgumentException(Exception inner) : base("InvalidArgumentException caused by ", inner) { Console.WriteLine(inner); }
+    public InvalidArgumentException(string message, Exception inner) : base(message, inner) { }
+    protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
 
     override public string ToString() =>
-    "InvalidDataException: Invalid data. \n";
+    "InvalidArgumentException: Invalid data argument. ";
+}
+
+public class EntityNotFoundException : Exception
+{
+    public EntityNotFoundException() : base() { }
+    public EntityNotFoundException(string message) : base(message) { }
+    public EntityNotFoundException(string message, Exception inner) : base(message, inner) { }
+    protected EntityNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
+
+    override public string ToString() =>
+    "EntityNotFoundException: The requested entity doesn't exist.\n";
 }
 
 [Serializable]

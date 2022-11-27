@@ -99,7 +99,7 @@ internal class Cart : ICart
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Order Approve(BO.Cart cart)
     {
-        if (!string.IsNullOrEmpty(cart.CustomerName) && !string.IsNullOrEmpty(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
+        if (!string.IsNullOrWhiteSpace(cart.CustomerName) && !string.IsNullOrWhiteSpace(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
             foreach (BO.OrderItem item in cart.Items)
             {
                 try

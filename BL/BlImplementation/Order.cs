@@ -200,7 +200,7 @@ internal class Order : BlApi.IOrder
         {
             ord = dal.Order.RequestById(id);
         }
-        catch (MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+        catch (MissingEntityException ex) { throw new EntityNotFoundException(ex.Message); }
         List<Tuple<DateTime, string>> tuples = new List<Tuple<DateTime, string>>();
         orderStatus Status=0;
         if (ord.OrderDate > DateTime.MinValue) {

@@ -12,7 +12,7 @@ using System.Runtime.Serialization;
 public class InvalidArgumentException : Exception
 {
     public InvalidArgumentException() : base() { }
-    public InvalidArgumentException(string message) : base(message) { }
+    public InvalidArgumentException(string message) : base("InvalidArgumentException: " + message) { }
     public InvalidArgumentException(Exception inner) : base("InvalidArgumentException caused by ", inner) { Console.WriteLine(inner); }
     public InvalidArgumentException(string message, Exception inner) : base(message, inner) { }
     protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
@@ -20,6 +20,7 @@ public class InvalidArgumentException : Exception
     override public string ToString() =>
     "InvalidArgumentException: Invalid data argument. ";
 }
+
 
 public class EntityNotFoundException : Exception
 {

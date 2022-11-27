@@ -48,11 +48,12 @@ internal class Product : BlApi.IProduct
         IEnumerable<DO.OrderItem> found = from orderItem in orderItems
                                           where orderItem.ProductID == id
                                           select orderItem;
-        //try exception missing!!!!צריך לזרוק חריגה במקרה שלא הצליח למחוק כי המוצר מוזמן כרגע
         if (found.Count() == 0)
         {
             dal.Product.Delete(dal.Product.RequestById(id));
         }
+        else
+            throw new InvalidArgumentException("cannot delete product that is actively bought.\n");
     }
 
     public BO.Product RequestByIdManager(int id)
@@ -66,7 +67,7 @@ internal class Product : BlApi.IProduct
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch(MissingEntityException ex) { throw new InvalidArgumentException(); }
+            catch(MissingEntityException ex) { throw new InvalidArgumentException(ex); }
         }
         return prod.ProductDoToBo();
     }
@@ -75,14 +76,14 @@ internal class Product : BlApi.IProduct
     {
         DO.Product prod;
         if (id < 0)
-            throw new Exception("invalid id");
+            throw new InvalidArgumentException();
         else
         {
             try
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch { throw; }
+            catch { throw new EntityNotFoundException(); }
         }
         BO.OrderItem item = cart.Items.Find(i => i.ID == id);
         return new BO.ProductItem()

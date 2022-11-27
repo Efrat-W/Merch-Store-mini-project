@@ -63,19 +63,23 @@ namespace BlTest
                     case BO.optionsProduct.Add:
                         Console.WriteLine("Enter ID, Name, Price, category and the amount in stock");
                         try { bl.Product.Add(InitializeProduct()); }
-                        catch (Exception ex) { Console.WriteLine(ex.Message); ; }
+                        catch (Exception ex) { Console.WriteLine(ex); ; }
                         break;
                     case BO.optionsProduct.ShowByIdMan:
                         Console.WriteLine("Enter ID");
                         int.TryParse(Console.ReadLine(), out int id);
                         try { Console.WriteLine(bl.Product.RequestByIdManager(id)); } //print requested product to console
-                        catch (Exception ex) { Console.WriteLine(ex.Message); }
+                        catch (Exception ex) { Console.WriteLine(ex); }
                         break;
                     case BO.optionsProduct.ShowByIdCus:
                         Console.WriteLine("Enter ID");
                         int.TryParse(Console.ReadLine(), out id);
                         Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
-                        Console.WriteLine(bl.Product.RequestByIdCustomer(id, InitializeCart())); 
+                        try
+                        {
+                            Console.WriteLine(bl.Product.RequestByIdCustomer(id, InitializeCart()));
+                        }
+                        catch (Exception ex) { Console.WriteLine(ex); }
                         break;
                     case BO.optionsProduct.RequestAll:
                         IEnumerable<BO.ProductForList> list = bl.Product.RequestList();
@@ -123,13 +127,18 @@ namespace BlTest
                         Console.WriteLine("Enter id:");
                         input = Console.ReadLine();
                         int.TryParse(input, out int id);
-                        Console.WriteLine(bl.Order.Track(id));
+                        try
+                        {
+                            Console.WriteLine(bl.Order.Track(id));
+                        }
+                        catch (Exception ex) { Console.WriteLine(ex); }
                         break;
                     case BO.optionsOrder.ShowById:
                         Console.WriteLine("Enter ID");
                         input = Console.ReadLine();
-                        int.TryParse(input, out  id);
-                        Console.WriteLine(bl.Order.RequestById(id));
+                        int.TryParse(input, out id);
+                        try { Console.WriteLine(bl.Order.RequestById(id)); }
+                        catch (Exception ex) { Console.WriteLine(ex); }
                         break;
                     case BO.optionsOrder.UpdateShipment:
                         Console.WriteLine("Enter ID");
@@ -175,8 +184,13 @@ namespace BlTest
                         Console.WriteLine("Enter product's id:");
                         input = Console.ReadLine();
                         int.TryParse(input, out int id);
-                        Console.WriteLine("Enter customer name, email, address and the number of items in your cart:");
-                        Console.WriteLine(bl.Cart.AddProduct(InitializeCart(),id));
+                        try { bl.Product.RequestByIdManager(id); }
+                        catch (Exception ex) { Console.WriteLine(ex); break; }
+                        try
+                        {
+                            Console.WriteLine(bl.Cart.AddProduct(InitializeCart(), id));
+                        }
+                        catch (Exception ex) { Console.WriteLine(ex); }
                         break;
                     case BO.optionsCart.UpdateAmount:
                         Console.WriteLine("Enter product's id and the new amount (- or +)");
@@ -191,8 +205,10 @@ namespace BlTest
                         Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
                         Console.WriteLine(bl.Cart.Approve(InitializeCart()));
                         break;
-                    default:
+                    case BO.optionsCart.Return:
                         break;
+                    default:
+                        throw new InvalidArgumentException("Not a valid option on menu.\n");
                 }
                 //re-ask for user input
                 input = Console.ReadLine();
@@ -218,7 +234,7 @@ namespace BlTest
             {
                 category = (BO.category)Enum.Parse(typeof(BO.category), Console.ReadLine());
             }
-            catch (Exception ex){ throw new InvalidArgumentException("category", ex); }
+            catch (Exception ex){ throw new InvalidArgumentException(ex); }
             input = Console.ReadLine();
             int.TryParse(input, out int inStock);
 
@@ -226,15 +242,18 @@ namespace BlTest
         }
         static BO.Cart InitializeCart()
         {
-            string input = Console.ReadLine();
-            string name = input;
-            input = Console.ReadLine();
-            string email = input;
-            input = Console.ReadLine();
-            string adress = input;
-            int num;
-            input = Console.ReadLine();
-            int.TryParse(input, out num);
+            Console.WriteLine("Enter customer name, email, address and the number of items in your cart:");
+            string name, email, adress;  int num;
+            try
+            {
+                name = Console.ReadLine();
+                email = Console.ReadLine();
+                adress = Console.ReadLine();
+                int.TryParse(Console.ReadLine(), out num);
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(adress) || !email.Contains('@') || email.StartsWith('@') || num < 0)
+                    throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
+            }
+            catch (Exception ex){ throw new InvalidArgumentException(ex); }
             List<BO.OrderItem> Items= new List<BO.OrderItem>();
             Console.WriteLine("Now enter the products in your cart:\n");
             for (int i = 0; i < num; i++)
@@ -263,6 +282,9 @@ namespace BlTest
             double.TryParse(input, out price);
             input = Console.ReadLine();
             int.TryParse(input, out amount);
+
+            if (name.Length <= 0 && price < 0 && amount == 0)
+                throw new InvalidArgumentException();
             
            return new BO.OrderItem()
             {
@@ -270,7 +292,7 @@ namespace BlTest
                ProductId = prodId,
                Price = price,   
                Amount = amount,
-               TotalPrice=amount*price,
+               TotalPrice=amount*price
             };
         }
     }

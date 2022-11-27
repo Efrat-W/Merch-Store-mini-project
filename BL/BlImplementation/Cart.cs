@@ -62,7 +62,7 @@ internal class Cart : ICart
             throw new InvalidArgumentException(ex);
         }
         BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
-        if (amount == 0)
+        if (amount == 0 || amount >= -1*item.Amount)
             cart.Items.Remove(item);
         else
         {
@@ -70,7 +70,6 @@ internal class Cart : ICart
             item.TotalPrice += amount * prod.Price;
             cart.TotalPrice += amount * prod.Price;
         }
-
         return cart;
     }
 
@@ -106,7 +105,7 @@ internal class Cart : ICart
         {
             id = dal.Order.Create(convertOrder(order));
         }
-        catch (Exception ex){ throw new InvalidArgumentException(ex.Message); }
+        catch (Exception ex){ throw new InvalidArgumentException(ex); }
         foreach (BO.OrderItem item in order.Items)
         {
             dal.OrderItem.Create(convertOrderItem(item, id));
@@ -116,7 +115,7 @@ internal class Cart : ICart
             {
                 product = dal.Product.RequestById(item.ProductId);
             }
-            catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
+            catch (Exception ex) { throw new InvalidArgumentException(ex); }
 
             if (item.Amount > 0 && product.InStock >= item.Amount)
                 product.InStock -= item.Amount;
@@ -160,7 +159,7 @@ internal class Cart : ICart
         }
         catch (Exception ex)
         {
-            throw new InvalidArgumentException(ex.Message);
+            throw new InvalidArgumentException(ex);
         }
 
         if (item.Amount > 0 && prod.InStock >= item.Amount)

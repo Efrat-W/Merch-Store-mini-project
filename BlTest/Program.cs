@@ -63,13 +63,13 @@ namespace BlTest
                     case BO.optionsProduct.Add:
                         Console.WriteLine("Enter ID, Name, Price, category and the amount in stock");
                         try { bl.Product.Add(InitializeProduct()); }
-                        catch (Exception ex) { Console.WriteLine(ex); ; }
+                        catch (Exception ex) { Console.WriteLine(ex.Message); ; }
                         break;
                     case BO.optionsProduct.ShowByIdMan:
                         Console.WriteLine("Enter ID");
                         int.TryParse(Console.ReadLine(), out int id);
                         try { Console.WriteLine(bl.Product.RequestByIdManager(id)); } //print requested product to console
-                        catch (Exception ex) { }
+                        catch (Exception ex) { Console.WriteLine(ex.Message); }
                         break;
                     case BO.optionsProduct.ShowByIdCus:
                         Console.WriteLine("Enter ID");
@@ -262,6 +262,7 @@ namespace BlTest
             int.TryParse(input, out price);
             input = Console.ReadLine();
             int.TryParse(input, out amount);
+            
            return new BO.OrderItem()
             {
                Name = name,

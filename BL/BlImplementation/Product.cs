@@ -114,6 +114,10 @@ internal class Product : BlApi.IProduct
         {
             dal.Product.Update(product.ProductBoToDo());
         }
+        else
+        {
+            throw new InvalidArgumentException();
+        }
         return product;
     }
 }

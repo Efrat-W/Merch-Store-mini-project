@@ -21,10 +21,9 @@ internal class Cart : ICart
         {
             prod = dal.Product.RequestById(prodId);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            throw new InvalidArgumentException(ex);
         }
         if (cart.Items.FirstOrDefault(i => i.ProductId == prodId) != null) //product exists in items
         {
@@ -58,10 +57,9 @@ internal class Cart : ICart
         {
             prod = dal.Product.RequestById(prodId);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            throw new InvalidArgumentException(ex);
         }
         BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
         if (amount == 0)
@@ -79,19 +77,18 @@ internal class Cart : ICart
     public BO.Order Approve(BO.Cart cart)
     {
         if (!string.IsNullOrEmpty(cart.CustomerName) && !string.IsNullOrEmpty(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
-            try
+            foreach (BO.OrderItem item in cart.Items)
             {
-                foreach (BO.OrderItem item in cart.Items)
+                try
                 {
-                    if (!validItem(item))
-                        throw new Exception();
-                }
+                    validItem(item);
+                } 
+                catch { throw; }
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
+        else
+        {
+            throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
+        }
         BO.Order order = new BO.Order()
         {
             Items = cart.Items,
@@ -109,13 +106,22 @@ internal class Cart : ICart
         {
             id = dal.Order.Create(convertOrder(order));
         }
-        catch { }
+        catch (Exception ex){ throw new InvalidArgumentException(ex.Message); }
         foreach (BO.OrderItem item in order.Items)
         {
             dal.OrderItem.Create(convertOrderItem(item, id));
             item.ID = id;
-            DO.Product product = dal.Product.RequestById(item.ProductId);
-            product.InStock -= item.Amount;
+            DO.Product product;
+            try
+            {
+                product = dal.Product.RequestById(item.ProductId);
+            }
+            catch (Exception ex) { throw new InvalidArgumentException(ex.Message); }
+
+            if (item.Amount > 0 && product.InStock >= item.Amount)
+                product.InStock -= item.Amount;
+            else
+                throw new InvalidArgumentException("Requested amount is greater than what's available.\n");
             dal.Product.Update(product);
         }
         return order;
@@ -152,14 +158,14 @@ internal class Cart : ICart
         {
             prod = dal.Product.RequestById(item.ProductId);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
-            throw;
+            throw new InvalidArgumentException(ex.Message);
         }
 
         if (item.Amount > 0 && prod.InStock >= item.Amount)
             return true;
-        return false;
+        else
+            throw new InvalidArgumentException("Requested amount is greater than what's available.\n");
     }
 }

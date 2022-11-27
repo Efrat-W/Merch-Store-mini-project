@@ -24,7 +24,6 @@ namespace BlTest
     3: Cart");
                 string input = Console.ReadLine();
                 choice = (BO.menu)Enum.Parse(typeof(BO.menu), input);
-
                 switch (choice)
                 {
                     case BO.menu.Product:
@@ -41,7 +40,9 @@ namespace BlTest
                 }
             } while (choice != BO.menu.Exit);
         }
-
+        /// <summary>
+        ///operates all product's options
+        /// </summary>
         private void ProductMenu()
         {
             BO.optionsProduct op = new BO.optionsProduct();
@@ -107,6 +108,9 @@ namespace BlTest
                 op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), input);
             } while (op != BO.optionsProduct.Return);
         }
+        /// <summary>
+        ///operates all order's options
+        /// </summary>
         private void OrderMenu()
         {
             BO.optionsOrder op = new BO.optionsOrder();
@@ -165,7 +169,9 @@ namespace BlTest
                 op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), input);
             } while (op != BO.optionsOrder.Return);
         }
-
+        /// <summary>
+        ///operates all cart's options
+        /// </summary>
         private void CartMenu()
         {
             BO.optionsCart op = new BO.optionsCart();
@@ -215,7 +221,12 @@ namespace BlTest
                 op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), input);
             } while (op != BO.optionsCart.Return);
         }
-
+        /// <summary>
+        /// initializes a new produt
+        /// </summary>
+        /// <param name="updateId">optional- id</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidArgumentException"></exception>
         static BO.Product InitializeProduct(int updateId = 0)
         {
             int id = updateId;
@@ -240,6 +251,11 @@ namespace BlTest
 
             return new BO.Product() { ID = id, Category = category, InStock = inStock, Name = name, Price = price };
         }
+        /// <summary>
+        /// creates cart
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidArgumentException"></exception>
         static BO.Cart InitializeCart()
         {
             Console.WriteLine("Enter customer name, email, address and the number of items in your cart:");
@@ -270,6 +286,11 @@ namespace BlTest
                 TotalPrice=total,
             };           
         }
+        /// <summary>
+        /// initializes order item
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidArgumentException"></exception>
         static BO.OrderItem InitializeOrderItem()
         {
             int prodId, amount;

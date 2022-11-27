@@ -9,6 +9,7 @@ namespace BlImplementation;
 using System.Runtime.Serialization;
 
 [Serializable]
+//exception class for invalid data
 public class InvalidArgumentException : Exception
 {
     public InvalidArgumentException() : base() { }
@@ -21,7 +22,7 @@ public class InvalidArgumentException : Exception
     "InvalidArgumentException: Invalid data argument. ";
 }
 
-
+//exception class for data that does not exists
 public class EntityNotFoundException : Exception
 {
     public EntityNotFoundException() : base() { }

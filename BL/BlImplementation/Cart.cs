@@ -13,7 +13,13 @@ namespace BlImplementation;
 internal class Cart : ICart
 {
     IDal dal = new DalList();
-
+    /// <summary>
+    /// adds a product to the customer's cart
+    /// </summary>
+    /// <param name="cart"></param>
+    /// <param name="prodId"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidArgumentException"></exception>
     public BO.Cart AddProduct(BO.Cart cart, int prodId)
     {
         DO.Product prod;
@@ -37,7 +43,7 @@ internal class Cart : ICart
             else
                 throw new InvalidArgumentException("The amount requested is greater than available.\n");
         }
-        else
+        else//product does not exist in cart
         {
             if (prod.InStock > 1)
             {
@@ -49,7 +55,14 @@ internal class Cart : ICart
         }
         return cart;
     }
-
+    /// <summary>
+    /// updates a certain product's amount at the cart
+    /// </summary>
+    /// <param name="cart"></param>
+    /// <param name="prodId"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidArgumentException"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int prodId, int amount)
     {
         DO.Product prod;
@@ -57,11 +70,16 @@ internal class Cart : ICart
         {
             prod = dal.Product.RequestById(prodId);
         }
-        catch (Exception ex)
+        catch (MissingEntityException ex)
         {
             throw new InvalidArgumentException(ex);
         }
-        BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
+        BO.OrderItem item;
+        try
+        {
+            item = cart.Items.Find(i => i.ProductId == prodId);
+        }
+        catch { throw new EntityNotFoundException("the item is not in your cart"); }
         if (amount == 0 || amount >= -1*item.Amount)
             cart.Items.Remove(item);
         else
@@ -72,7 +90,13 @@ internal class Cart : ICart
         }
         return cart;
     }
-
+    /// <summary>
+    /// approves the order and makes the cart officially an order
+    /// (includes updating all product's amount in stock)
+    /// </summary>
+    /// <param name="cart"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidArgumentException"></exception>
     public BO.Order Approve(BO.Cart cart)
     {
         if (!string.IsNullOrEmpty(cart.CustomerName) && !string.IsNullOrEmpty(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
@@ -105,7 +129,7 @@ internal class Cart : ICart
         {
             id = dal.Order.Create(convertOrder(order));
         }
-        catch (Exception ex){ throw new InvalidArgumentException(ex); }
+        catch (DoubledEntityException ex){ throw new InvalidArgumentException(ex); }
         foreach (BO.OrderItem item in order.Items)
         {
             dal.OrderItem.Create(convertOrderItem(item, id));
@@ -126,7 +150,11 @@ internal class Cart : ICart
         return order;
     }
 
-    //auxillary methods
+    /// <summary>
+    /// help method, converts BO order to DO order
+    /// </summary>
+    /// <param name="order"></param>
+    /// <returns></returns>
     private DO.Order convertOrder(BO.Order order)
     {
         return new DO.Order()
@@ -139,7 +167,12 @@ internal class Cart : ICart
             ShipDate = order.ShipDate
         };
     }
-
+    /// <summary>
+    /// help method, converts BO order item to DO order item
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
     private DO.OrderItem convertOrderItem(BO.OrderItem item, int id)
     {
         return new DO.OrderItem()
@@ -150,6 +183,12 @@ internal class Cart : ICart
             Amount = item.Amount
         };
     }
+    /// <summary>
+    /// help method, makes sure that the item exists and the requested amount is in stock
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidArgumentException"></exception>
     private bool validItem(BO.OrderItem item)
     {
         DO.Product prod;

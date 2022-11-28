@@ -14,8 +14,8 @@ public class InvalidArgumentException : Exception
 {
     public InvalidArgumentException() : base() { }
     public InvalidArgumentException(string message) : base("InvalidArgumentException: " + message) { }
-    public InvalidArgumentException(Exception inner) : base("InvalidArgumentException caused by ", inner) { Console.WriteLine(inner); }
-    public InvalidArgumentException(string message, Exception inner) : base(message, inner) { }
+    public InvalidArgumentException(Exception inner) : base("InvalidArgumentException caused by ", inner) { }
+    public InvalidArgumentException(string message, Exception inner) : base("InvalidArgumentException " + message + " caused by ", inner) { }
     protected InvalidArgumentException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
 
     override public string ToString() =>
@@ -26,8 +26,10 @@ public class InvalidArgumentException : Exception
 public class EntityNotFoundException : Exception
 {
     public EntityNotFoundException() : base() { }
+    //public EntityNotFoundException(string message) : base("EntityNotFoundException: " + message) { }
     public EntityNotFoundException(string message) : base(message) { }
-    public EntityNotFoundException(string message, Exception inner) : base(message, inner) { }
+    public EntityNotFoundException(string message, Exception inner) : base("EntityNotFoundException " + message + " caused by ", inner) { }
+    public EntityNotFoundException(Exception inner) : base("EntityNotFoundException caused by ", inner) { }
     protected EntityNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
 
     override public string ToString() =>
@@ -38,10 +40,10 @@ public class EntityNotFoundException : Exception
 public class InvalidDateException : Exception
 {
     public InvalidDateException() : base() { }
-    public InvalidDateException(string message) : base(message) { }
+    public InvalidDateException(string message) : base("InvalidDateException: " + message) { }
     public InvalidDateException(string message, Exception inner) : base(message, inner) { }
     protected InvalidDateException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
 
     override public string ToString() =>
-    "InvalidDateException: Incorrect date. \n";
+    "InvalidDateException: Invalid date. \n";
 }

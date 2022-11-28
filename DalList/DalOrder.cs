@@ -42,7 +42,7 @@ internal class DalOrder : IOrder
     public Order RequestById(int id)
     {
         if (!DataSource.orders.Exists(i => i.ID == id))
-            throw new MissingEntityException();
+            throw new MissingEntityException("Requested Order does not exist.\n");
         return DataSource.orders.Find(i => i.ID == id);
     }
 

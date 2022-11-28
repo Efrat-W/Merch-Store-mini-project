@@ -45,7 +45,7 @@ internal class Product : BlApi.IProduct
         }
         catch (DoubledEntityException ex)
         {
-            throw new InvalidArgumentException(ex);
+            throw new InvalidArgumentException("Requested Product to create wasn't found.", ex);
         }
         return product;
     }
@@ -69,7 +69,7 @@ internal class Product : BlApi.IProduct
             }
             catch(MissingEntityException ex) 
             {
-                throw new InvalidArgumentException(ex); 
+                throw new InvalidArgumentException("Requested Product to delete couldn't be found.", ex); 
             }
         }
         else
@@ -85,14 +85,14 @@ internal class Product : BlApi.IProduct
     {
         DO.Product prod;
         if (id < 0)
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException("Invalid id input.\n");
         else
         {
             try
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch(MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+            catch(Exception ex) { throw new InvalidArgumentException("Requested Product isn't found.",ex); }
         }
         return prod.ProductDoToBo();//converts
     }
@@ -115,7 +115,7 @@ internal class Product : BlApi.IProduct
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch { throw new EntityNotFoundException(); }
+            catch { throw new EntityNotFoundException("Requested Product isn't found.", ex); }
         }
         BO.OrderItem item;
         try
@@ -162,11 +162,11 @@ internal class Product : BlApi.IProduct
             {
                 dal.Product.Update(product.ProductBoToDo());
             }
-            catch (MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+            catch (MissingEntityException ex) { throw new InvalidArgumentException("Requested Product to update isn't found.", ex); }
         }
         else
         {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException("id out of range.\n");
         }
         return product;
     }

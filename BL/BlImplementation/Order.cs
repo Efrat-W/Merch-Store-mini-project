@@ -53,7 +53,7 @@ internal class Order : BlApi.IOrder
         DO.Order ord;
         try
         { ord = dal.Order.RequestById(id); }
-        catch (MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+        catch (MissingEntityException ex) { throw new InvalidArgumentException("Requested Order not found.", ex); }
         orderStatus Status;
         if (DateTime.MinValue < ord.DeliveryDate)
             Status = orderStatus.Delivered;
@@ -97,7 +97,7 @@ internal class Order : BlApi.IOrder
         {
             name = dal.Product.RequestById(item.ProductID).Name;
         }
-        catch (MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+        catch (MissingEntityException ex) { throw new InvalidArgumentException("Requested Product not found.", ex); }
         return new BO.OrderItem()
         {
             Name = name,
@@ -122,7 +122,7 @@ internal class Order : BlApi.IOrder
         {
             ord = dal.Order.RequestById(id);
         }
-        catch (MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+        catch (MissingEntityException ex) { throw new InvalidArgumentException("Order to update delivery not found.", ex); }
         if (ord.ShipDate > DateTime.MinValue)
             throw new InvalidDateException("The order was already shipped.\n");
         ord.ShipDate = DateTime.Now;
@@ -132,7 +132,7 @@ internal class Order : BlApi.IOrder
         {
             dal.Order.Update(ord);
         }
-        catch (Exception ex) { throw new InvalidArgumentException(ex); }
+        catch (Exception ex) { throw new InvalidArgumentException("Requested Order to update shipment not found.", ex); }
         return new BO.Order()
         {
             Id = id,
@@ -161,7 +161,7 @@ internal class Order : BlApi.IOrder
         {
             ord = dal.Order.RequestById(id);
         }
-        catch (Exception ex) { throw new InvalidArgumentException(ex); }
+        catch (Exception ex) { throw new InvalidArgumentException("Requested Order to update delivery not found.", ex); }
         if (ord.DeliveryDate > DateTime.MinValue)
             throw new InvalidDateException("The order was already delivered");
         else if (ord.ShipDate <= DateTime.MinValue)
@@ -171,7 +171,7 @@ internal class Order : BlApi.IOrder
         {
             dal.Order.Update(ord);
         }
-        catch (MissingEntityException ex) { throw new InvalidArgumentException(ex); }
+        catch (MissingEntityException ex) { throw new InvalidArgumentException("Order to update delivery not found.", ex); }
         IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
         return new BO.Order()
         {
@@ -200,7 +200,7 @@ internal class Order : BlApi.IOrder
         {
             ord = dal.Order.RequestById(id);
         }
-        catch (MissingEntityException ex) { throw new EntityNotFoundException(ex.Message); }
+        catch (MissingEntityException ex) { throw new EntityNotFoundException("Order requested to track not found.", ex); }
         List<Tuple<DateTime, string>> tuples = new List<Tuple<DateTime, string>>();
         orderStatus Status=0;
         if (ord.OrderDate > DateTime.MinValue) {

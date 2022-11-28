@@ -16,7 +16,7 @@ namespace BlTest
             BO.menu choice = new BO.menu();
             do
             {
-                Program program = new Program();
+                Program program = new();
                 Console.WriteLine(@"Enter one of the following:
     0: Exit
     1: Product
@@ -38,12 +38,14 @@ namespace BlTest
                             program.CartMenu();
                             break;
                         default:
-                            throw new EntityNotFoundException("Invalid menu choice.\n");
+                            throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
                 }
             } while (choice != BO.menu.Exit);
         }
@@ -61,9 +63,7 @@ namespace BlTest
     4: print all products
     5: update a product
     6: delete a product");
-
-            string input = Console.ReadLine();
-            op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), input);
+            op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), Console.ReadLine());
             do
             {
                 try
@@ -82,7 +82,6 @@ namespace BlTest
                         case BO.optionsProduct.ShowByIdCus:
                             Console.WriteLine("Enter ID");
                             int.TryParse(Console.ReadLine(), out id);
-                            Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
                             Console.WriteLine(bl.Product.RequestByIdCustomer(id, InitializeCart()));
                             break;
                         case BO.optionsProduct.RequestAll:
@@ -92,7 +91,7 @@ namespace BlTest
                             break;
                         case BO.optionsProduct.Update:
                             Console.WriteLine("Enter the existing product's ID");
-                            id = int.Parse(Console.ReadLine());
+                            int.TryParse(Console.ReadLine(), out id);
                             BO.Product update = bl.Product.RequestByIdManager(id);
                             Console.WriteLine(update);
                             Console.WriteLine("Enter the new Name, Price, category and the amount in stock");
@@ -104,16 +103,17 @@ namespace BlTest
                             bl.Product.Delete(id);
                             break;
                         default:
-                            throw new EntityNotFoundException("Invalid menu choice.\n");
+                            throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
                 }
                 //re-ask for user input
-                input = Console.ReadLine();
-                op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), input);
+                op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), Console.ReadLine());
             } while (op != BO.optionsProduct.Return);
         }
         /// <summary>
@@ -129,8 +129,7 @@ namespace BlTest
     3: update shipment
     4: update delivery
     5: print all orders");
-            string input = Console.ReadLine();
-            op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), input);
+            op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), Console.ReadLine());
             do
             {
                 try
@@ -149,14 +148,12 @@ namespace BlTest
                             break;
                         case BO.optionsOrder.UpdateShipment:
                             Console.WriteLine("Enter ID");
-                            input = Console.ReadLine();
-                            int.TryParse(input, out id);
+                            int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(bl.Order.UpdateShipment(id));
                             break;
                         case BO.optionsOrder.UpdateDelivery:
                             Console.WriteLine("Enter ID");
-                            input = Console.ReadLine();
-                            int.TryParse(input, out id);
+                            int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(bl.Order.UpdateDelivery(id));
                             break;
                         case BO.optionsOrder.RequestAll:
@@ -165,10 +162,15 @@ namespace BlTest
                                 Console.WriteLine(item);
                             break;
                         default:
-                            throw new EntityNotFoundException("Invalid menu choice.\n");
+                            throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
                 }
-                catch (Exception ex) { Console.WriteLine(ex); }
+                catch (Exception ex)
+                {
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
+                }
                 //re-ask for user input
                 op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), Console.ReadLine());
             } while (op != BO.optionsOrder.Return);
@@ -184,8 +186,7 @@ namespace BlTest
     1: add product
     2: change product's amount
     3: approve the order");
-            string input = Console.ReadLine();
-            op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), input);
+            op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine());
             do
             {
                 try
@@ -202,11 +203,9 @@ namespace BlTest
                             Console.WriteLine("Enter product's id and the new amount (- or +)");
                             int.TryParse(Console.ReadLine(), out int prodId);
                             int.TryParse(Console.ReadLine(), out int amount);
-                            Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
                             Console.WriteLine(bl.Cart.UpdateProductAmount(InitializeCart(), prodId, amount));
                             break;
                         case BO.optionsCart.Approve:
-                            Console.WriteLine("Enter customer name, email, adress and the number of items in your cart:");
                             Console.WriteLine(bl.Cart.Approve(InitializeCart()));
                             break;
                         case BO.optionsCart.Return:
@@ -217,11 +216,12 @@ namespace BlTest
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException.Message);
                 }
                 //re-ask for user input
-                input = Console.ReadLine();
-                op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), input);
+                op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine());
             } while (op != BO.optionsCart.Return);
         }
         /// <summary>
@@ -233,24 +233,19 @@ namespace BlTest
         static BO.Product InitializeProduct(int updateId = 0)
         {
             int id = updateId;
-            string input;
             if (updateId == 0)
             {
-                input = Console.ReadLine();
-                int.TryParse(input, out id);
+                int.TryParse(Console.ReadLine(), out id);
             }
-            input = Console.ReadLine();
-            string name = input;
-            input = Console.ReadLine();
-            int.TryParse(input, out int price);
+            string name = Console.ReadLine();
+            double.TryParse(Console.ReadLine(), out double price);
             BO.category category;
             try
             {
                 category = (BO.category)Enum.Parse(typeof(BO.category), Console.ReadLine());
             }
             catch (Exception ex){ throw new InvalidArgumentException(ex); }
-            input = Console.ReadLine();
-            int.TryParse(input, out int inStock);
+            int.TryParse(Console.ReadLine(), out int inStock);
 
             return new BO.Product() { ID = id, Category = category, InStock = inStock, Name = name, Price = price };
         }
@@ -272,7 +267,7 @@ namespace BlTest
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !email.Contains('@') || email.StartsWith('@') || num < 0)
                     throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
             }
-            catch (Exception ex){ throw new InvalidArgumentException(ex); }
+            catch (Exception ex){ throw; }
             List<BO.OrderItem> Items= new List<BO.OrderItem>();
             Console.WriteLine("Now enter the products in your cart:\n");
             for (int i = 0; i < num; i++)
@@ -296,19 +291,13 @@ namespace BlTest
         /// <exception cref="InvalidArgumentException"></exception>
         static BO.OrderItem InitializeOrderItem()
         {
-            int prodId, amount;
-            double price;
-            string input = Console.ReadLine();
-            string name = input;
-            input = Console.ReadLine();
-            int.TryParse(input, out prodId);
-            input = Console.ReadLine();
-            double.TryParse(input, out price);
-            input = Console.ReadLine();
-            int.TryParse(input, out amount);
+            string name = Console.ReadLine();
+            int.TryParse(Console.ReadLine(), out int prodId);
+            double.TryParse(Console.ReadLine(), out double price);
+            int.TryParse(Console.ReadLine(), out int amount);
 
             if (name.Length <= 0 && price < 0 && amount == 0)
-                throw new InvalidArgumentException();
+                throw new InvalidArgumentException("One or more attributes of the initialization are invalid.\n");
             
            return new BO.OrderItem()
             {
@@ -320,6 +309,6 @@ namespace BlTest
             };
         }
 
-        public static bool IsAllChar(this string s) { foreach (char c in s) if(!Char.IsLetter(c)) return false; return true; }
+        // bool IsAllChar(this string s) { foreach (char c in s) if(!Char.IsLetter(c)) return false; return true; }
     }
 }

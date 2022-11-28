@@ -43,7 +43,7 @@ internal class DalProduct : IProduct
     public Product RequestById(int id)
     {
         if (!DataSource.products.Exists(i => i.ID == id))
-            throw new MissingEntityException();
+            throw new MissingEntityException("Requested Product does not exist.\n");
         return DataSource.products.Find(i => i.ID == id);
     }
 

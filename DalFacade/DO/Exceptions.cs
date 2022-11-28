@@ -4,12 +4,12 @@
 public class MissingEntityException : Exception
 {
     public MissingEntityException() : base() { }
-    public MissingEntityException(string message) : base(message) { }
-    public MissingEntityException(string message, Exception inner) : base(message, inner) { }
+    public MissingEntityException(string message) : base("MissingEntityException: " + message) { }
+    public MissingEntityException(string message, Exception inner) : base("MissingEntityException: " + message, inner) { }
     protected MissingEntityException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
 
-    override public string ToString() => 
-        "Requested entity not found.";
+    override public string ToString() =>
+        "MissingEntityException: Requested entity not found.";
 
 }
 
@@ -18,11 +18,11 @@ public class MissingEntityException : Exception
 public class DoubledEntityException : Exception
 {
     public DoubledEntityException() : base() { }
-    public DoubledEntityException(string message) : base(message) { }
-    public DoubledEntityException(string message, Exception inner) : base(message, inner) { }
+    public DoubledEntityException(string message) : base("DoubledEntityException: " + message) { }
+    public DoubledEntityException(string message, Exception inner) : base("DoubledEntityException: " + message, inner) { }
     protected DoubledEntityException(SerializationInfo info, StreamingContext context) : base(info, context) { } // special constructor for our custom exception
 
     override public string ToString() =>
-        "New entity already exists";
+        "DoubledEntityException: New entity already exists";
 
 }

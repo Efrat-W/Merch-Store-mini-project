@@ -29,7 +29,9 @@ internal class Cart : ICart
         }
         catch (Exception ex)
         {
-            throw new InvalidArgumentException(ex);
+            if (prodId > 999999 || prodId <= 99999)
+                throw new InvalidArgumentException("id out of range.\n");
+            throw new EntityNotFoundException("Requested Product to add not found.", ex);
         }
         if (cart.Items.FirstOrDefault(i => i.ProductId == prodId) != null) //product exists in items
         {
@@ -70,16 +72,20 @@ internal class Cart : ICart
         {
             prod = dal.Product.RequestById(prodId);
         }
-        catch (MissingEntityException ex)
+        catch (Exception ex)
         {
-            throw new InvalidArgumentException(ex);
+            if (prodId > 999999 || prodId <= 99999)
+                throw new InvalidArgumentException("id out of range.\n");
+            throw new EntityNotFoundException("Requested Product to update amount not found.", ex);
         }
         BO.OrderItem item;
         try
         {
             item = cart.Items.Find(i => i.ProductId == prodId);
+            if (item == null)
+                throw new EntityNotFoundException("Item of requested product not found.\n");
         }
-        catch { throw new EntityNotFoundException("the item is not in your cart"); }
+        catch { throw; }
         if (amount == 0 || amount >= -1*item.Amount)
             cart.Items.Remove(item);
         else
@@ -129,7 +135,7 @@ internal class Cart : ICart
         {
             id = dal.Order.Create(convertOrder(order));
         }
-        catch (DoubledEntityException ex){ throw new InvalidArgumentException(ex); }
+        catch (DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
         foreach (BO.OrderItem item in order.Items)
         {
             dal.OrderItem.Create(convertOrderItem(item, id));
@@ -139,7 +145,11 @@ internal class Cart : ICart
             {
                 product = dal.Product.RequestById(item.ProductId);
             }
-            catch (Exception ex) { throw new InvalidArgumentException(ex); }
+            catch (Exception ex) { 
+                if (item.ProductId > 999999 || item.ProductId <= 99999)
+                    throw new InvalidArgumentException("id out of range.\n");
+                throw new EntityNotFoundException("Requested Product for item creation not found.", ex);
+            }
 
             if (item.Amount > 0 && product.InStock >= item.Amount)
                 product.InStock -= item.Amount;
@@ -198,7 +208,9 @@ internal class Cart : ICart
         }
         catch (Exception ex)
         {
-            throw new InvalidArgumentException(ex);
+            if (item.ProductId > 999999 || item.ProductId <= 99999)
+                throw new InvalidArgumentException("id out of range.\n");
+            throw new EntityNotFoundException("Requested Product not found.", ex);
         }
 
         if (item.Amount > 0 && prod.InStock >= item.Amount)

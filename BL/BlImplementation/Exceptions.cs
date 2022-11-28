@@ -37,6 +37,7 @@ public class EntityNotFoundException : Exception
 }
 
 [Serializable]
+//exception class for invalid dates
 public class InvalidDateException : Exception
 {
     public InvalidDateException() : base() { }

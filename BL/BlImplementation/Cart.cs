@@ -36,7 +36,7 @@ internal class Cart : ICart
         if (cart.Items.FirstOrDefault(i => i.ProductId == prodId) != null) //product exists in items
         {
             BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
-            if (prod.InStock > item.Amount)
+            if (prod.InStock > item.Amount)//there is enough in stock
             {
                 item.Amount++;
                 item.TotalPrice += prod.Price;
@@ -47,7 +47,7 @@ internal class Cart : ICart
         }
         else//product does not exist in cart
         {
-            if (prod.InStock > 1)
+            if (prod.InStock > 1)//adds product to cart
             {
                 cart.Items.Add(new BO.OrderItem { ID = 0, Amount = 1, Name = prod.Name, Price = prod.Price, ProductId = prod.ID, TotalPrice = prod.Price });
                 cart.TotalPrice += prod.Price;
@@ -86,10 +86,11 @@ internal class Cart : ICart
                 throw new EntityNotFoundException("Item of requested product not found.\n");
         }
         catch { throw; }
-        if (amount == 0 || amount >= -1*item.Amount)
+        if (amount == 0 || amount >= -1*item.Amount)//removes item
             cart.Items.Remove(item);
         else
         {
+            //updates amount and price
             item.Amount += amount;
             item.TotalPrice += amount * prod.Price;
             cart.TotalPrice += amount * prod.Price;
@@ -105,6 +106,7 @@ internal class Cart : ICart
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Order Approve(BO.Cart cart)
     {
+        //order data validation
         if (!string.IsNullOrWhiteSpace(cart.CustomerName) && !string.IsNullOrWhiteSpace(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
             foreach (BO.OrderItem item in cart.Items)
             {
@@ -118,7 +120,7 @@ internal class Cart : ICart
         {
             throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
         }
-        BO.Order order = new BO.Order()
+        BO.Order order = new BO.Order()//creates order
         {
             Items = cart.Items,
             CustomerAddress = cart.CustomerAddress,
@@ -133,10 +135,10 @@ internal class Cart : ICart
         int id = 0;
         try
         {
-            id = dal.Order.Create(convertOrder(order));
+            id = dal.Order.Create(convertOrder(order));//founds sequence id and creates order in dl
         }
         catch (DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
-        foreach (BO.OrderItem item in order.Items)
+        foreach (BO.OrderItem item in order.Items)//creates all items in dl and updates products amount in stock
         {
             dal.OrderItem.Create(convertOrderItem(item, id));
             item.ID = id;

@@ -77,7 +77,7 @@ namespace BlTest
                         case BO.optionsProduct.ShowByIdMan:
                             Console.WriteLine("Enter ID");
                             int.TryParse(Console.ReadLine(), out int id);
-                            Console.WriteLine(bl.Product.RequestByIdManager(id)); //print requested product to console
+                            Console.WriteLine(bl.Product.RequestByIdManager(id)); 
                             break;
                         case BO.optionsProduct.ShowByIdCus:
                             Console.WriteLine("Enter ID");
@@ -233,6 +233,7 @@ namespace BlTest
         static BO.Product InitializeProduct(int updateId = 0)
         {
             int id = updateId;
+            //reading input:
             if (updateId == 0)
             {
                 int.TryParse(Console.ReadLine(), out id);
@@ -246,7 +247,7 @@ namespace BlTest
             }
             catch (Exception ex){ throw new InvalidArgumentException(ex); }
             int.TryParse(Console.ReadLine(), out int inStock);
-
+            //innitialize:
             return new BO.Product() { ID = id, Category = category, InStock = inStock, Name = name, Price = price };
         }
         /// <summary>
@@ -258,12 +259,14 @@ namespace BlTest
         {
             Console.WriteLine("Enter customer name, email, address and the number of items in your cart:");
             string name, email, adress;  int num;
+            //reading input:
             try
             {
                 name = Console.ReadLine();
                 email = Console.ReadLine();
                 adress = Console.ReadLine();
                 int.TryParse(Console.ReadLine(), out num);
+                //string attributes validation
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !email.Contains('@') || email.StartsWith('@') || num < 0)
                     throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
             }
@@ -276,6 +279,7 @@ namespace BlTest
                 Items.Add(InitializeOrderItem());
             }
             double total = Items.Sum(i => i.Price * i.Amount);
+            //innitialize customer's cart
             return new BO.Cart() { 
                 CustomerName=name,
                 CustomerEmail=email,
@@ -291,14 +295,15 @@ namespace BlTest
         /// <exception cref="InvalidArgumentException"></exception>
         static BO.OrderItem InitializeOrderItem()
         {
+            //reading input:
             string name = Console.ReadLine();
             int.TryParse(Console.ReadLine(), out int prodId);
             double.TryParse(Console.ReadLine(), out double price);
             int.TryParse(Console.ReadLine(), out int amount);
-
+            //input validation
             if (name.Length <= 0 && price < 0 && amount == 0)
                 throw new InvalidArgumentException("One or more attributes of the initialization are invalid.\n");
-            
+            //innitialize order item
            return new BO.OrderItem()
             {
                Name = name,
@@ -309,6 +314,6 @@ namespace BlTest
             };
         }
 
-        // bool IsAllChar(this string s) { foreach (char c in s) if(!Char.IsLetter(c)) return false; return true; }
+         //bool IsAllChar(this string s) { foreach (char c in s) if(!Char.IsLetter(c)) return false; return true; }
     }
 }

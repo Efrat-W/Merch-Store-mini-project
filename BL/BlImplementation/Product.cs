@@ -36,12 +36,12 @@ internal class Product : BlApi.IProduct
         try
         {
             CheckProduct(product);
-            prod = product.ProductBoToDo();
+            prod = product.ProductBoToDo();//converts to DO
         }
         catch { throw; }
         try
         {
-            dal.Product.Create(prod);
+            dal.Product.Create(prod);//tries to add to DO
         }
         catch (DoubledEntityException ex)
         {
@@ -58,7 +58,7 @@ internal class Product : BlApi.IProduct
     public void Delete(int id)
     {
         IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.RequestAll();
-        IEnumerable<DO.OrderItem> found = from orderItem in orderItems
+        IEnumerable<DO.OrderItem> found = from orderItem in orderItems//checks if the product exist in any order
                                           where orderItem.ProductID == id
                                           select orderItem;
         if (found.Count() == 0)//no items from this product where ordered
@@ -94,7 +94,7 @@ internal class Product : BlApi.IProduct
             }
             catch(Exception ex) { throw new InvalidArgumentException("Requested Product isn't found.",ex); }
         }
-        return prod.ProductDoToBo();//converts
+        return prod.ProductDoToBo();//converts to BO
     }
     /// <summary>
     /// returns a BO product item entity by product id for customer
@@ -108,19 +108,19 @@ internal class Product : BlApi.IProduct
     {
         DO.Product prod;
         if (id < 0)
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException("Invalid id input.\n");
         else
         {
             try
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch { throw new EntityNotFoundException("Requested Product isn't found.", ex); }
+            catch (Exception ex) { throw new EntityNotFoundException("Requested Product isn't found.", ex); }
         }
         BO.OrderItem item;
         try
         {
-             item = cart.Items.Find(i => i.ID == id);
+             item = cart.Items.Find(i => i.ID == id);//checks if the item exists in cart
         }
         catch (MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
         return new BO.ProductItem()
@@ -139,7 +139,7 @@ internal class Product : BlApi.IProduct
     /// <returns></returns>
     public IEnumerable<BO.ProductForList> RequestList() {
         return from doProd in dal.Product.RequestAll()
-               select new BO.ProductForList()
+               select new BO.ProductForList()//converts from DO to BO and returns list
                {
                    ID = doProd.ID,
                    Name = doProd.Name,
@@ -155,6 +155,7 @@ internal class Product : BlApi.IProduct
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Product Update(BO.Product product)
     {
+        //validation
         if (product.ID > 99999 && product.ID <= 999999  //product id has 6 digits
             && product.Name.Length > 0 && product.InStock >= 0) 
         {

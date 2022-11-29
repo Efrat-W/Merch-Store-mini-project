@@ -18,6 +18,7 @@ public class Order
     public override string ToString()
     {
         string s = $@"
+    Order ID: {Id}
     Customer Name: {CustomerName}
     Customer Email: {CustomerEmail}
     Customer Address: {CustomerAddress}

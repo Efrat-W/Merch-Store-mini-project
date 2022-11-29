@@ -36,7 +36,7 @@ internal class Cart : ICart
         if (cart.Items.FirstOrDefault(i => i.ProductId == prodId) != null) //product exists in items
         {
             BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
-            if (prod.InStock > item.Amount)//there is enough in stock
+            if (prod.InStock >= item.Amount)//there is enough in stock
             {
                 item.Amount++;
                 item.TotalPrice += prod.Price;
@@ -86,8 +86,11 @@ internal class Cart : ICart
                 throw new EntityNotFoundException("Item of requested product not found.\n");
         }
         catch { throw; }
-        if (amount == 0 || amount >= -1*item.Amount)//removes item
-            cart.Items.Remove(item);
+        if (amount == 0 || amount >= -1 * item.Amount)//removes item
+        { 
+            cart.Items.Remove(item); 
+            cart.TotalPrice -= item.Price;
+        }
         else
         {
             //updates amount and price
@@ -97,6 +100,7 @@ internal class Cart : ICart
         }
         return cart;
     }
+
     /// <summary>
     /// approves the order and makes the cart officially an order
     /// (includes updating all product's amount in stock)
@@ -138,6 +142,7 @@ internal class Cart : ICart
             id = dal.Order.Create(convertOrder(order));//founds sequence id and creates order in dl
         }
         catch (DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
+        order.Id = id;
         foreach (BO.OrderItem item in order.Items)//creates all items in dl and updates products amount in stock
         {
             dal.OrderItem.Create(convertOrderItem(item, id));
@@ -195,6 +200,18 @@ internal class Cart : ICart
             Amount = item.Amount
         };
     }
+
+    /// <summary>
+    /// empty items from cart
+    /// </summary>
+    /// <param name="cart"></param>
+    public void Empty(BO.Cart cart)
+    {
+        cart.Items.Clear();
+        cart.TotalPrice = 0;
+    }
+
+
     /// <summary>
     /// help method, makes sure that the item exists and the requested amount is in stock
     /// </summary>

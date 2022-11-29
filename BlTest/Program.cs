@@ -11,6 +11,7 @@ namespace BlTest
     internal class Program
     {
         static private IBl bl = new Bl();
+        static Cart myCart = null;
         static void Main(string[] args)
         {
             BO.menu choice = new BO.menu();
@@ -22,8 +23,7 @@ namespace BlTest
     1: Product
     2: Order
     3: Cart");
-                string input = Console.ReadLine();
-                choice = (BO.menu)Enum.Parse(typeof(BO.menu), input);
+                choice = (BO.menu)Enum.Parse(typeof(BO.menu), Console.ReadLine());
                 try
                 {
                     switch (choice)
@@ -102,6 +102,8 @@ namespace BlTest
                             int.TryParse(Console.ReadLine(), out id);
                             bl.Product.Delete(id);
                             break;
+                        case BO.optionsProduct.Return:
+                            break;
                         default:
                             throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
@@ -161,6 +163,8 @@ namespace BlTest
                             foreach (BO.OrderForList item in list)
                                 Console.WriteLine(item);
                             break;
+                        case BO.optionsOrder.Return:
+                            break;
                         default:
                             throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
@@ -180,15 +184,19 @@ namespace BlTest
         /// </summary>
         private void CartMenu()
         {
+            InitializeCart();
             BO.optionsCart op = new BO.optionsCart();
             Console.WriteLine(@"Enter one of the following:
     0: return to main menu
     1: add product
     2: change product's amount
-    3: approve the order");
-            op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine());
+    3: delete a product from cart
+    4: empty cart
+    5: approve the order");
+            
             do
-            {
+            { 
+                op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine());
                 try
                 {
                     switch (op)
@@ -197,16 +205,25 @@ namespace BlTest
                             Console.WriteLine("Enter product's id:");
                             int.TryParse(Console.ReadLine(), out int id);
                             bl.Product.RequestByIdManager(id);
-                            Console.WriteLine(bl.Cart.AddProduct(InitializeCart(), id));
+                            Console.WriteLine(bl.Cart.AddProduct(myCart, id));
                             break;
                         case BO.optionsCart.UpdateAmount:
                             Console.WriteLine("Enter product's id and the new amount (- or +)");
                             int.TryParse(Console.ReadLine(), out int prodId);
                             int.TryParse(Console.ReadLine(), out int amount);
-                            Console.WriteLine(bl.Cart.UpdateProductAmount(InitializeCart(), prodId, amount));
+                            Console.WriteLine(bl.Cart.UpdateProductAmount(myCart, prodId, amount));
+                            break;
+                        case BO.optionsCart.DeleteProduct:
+                            Console.WriteLine("Enter product id:");
+                            int.TryParse(Console.ReadLine(), out int prodid);
+                            bl.Cart.UpdateProductAmount(myCart, prodid, 0);
+                            break;
+                        case BO.optionsCart.Empty:
+                            bl.Cart.Empty(myCart);
                             break;
                         case BO.optionsCart.Approve:
-                            Console.WriteLine(bl.Cart.Approve(InitializeCart()));
+                            Console.WriteLine(bl.Cart.Approve(myCart));
+                            bl.Cart.Empty(myCart);
                             break;
                         case BO.optionsCart.Return:
                             break;
@@ -221,7 +238,6 @@ namespace BlTest
                         Console.WriteLine(ex.InnerException.Message);
                 }
                 //re-ask for user input
-                op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine());
             } while (op != BO.optionsCart.Return);
         }
         /// <summary>
@@ -257,37 +273,33 @@ namespace BlTest
         /// <exception cref="InvalidArgumentException"></exception>
         static BO.Cart InitializeCart()
         {
-            Console.WriteLine("Enter customer name, email, address and the number of items in your cart:");
-            string name, email, adress;  int num;
-            //reading input:
-            try
+            if (myCart == null)
             {
-                name = Console.ReadLine();
-                email = Console.ReadLine();
-                adress = Console.ReadLine();
-                int.TryParse(Console.ReadLine(), out num);
-                //string attributes validation
-                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !email.Contains('@') || email.StartsWith('@') || num < 0)
-                    throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
+                Console.WriteLine("Please login:\nEnter customer name, email, address");
+                string name, email, adress;
+                //reading input:
+                try
+                {
+                    name = Console.ReadLine();
+                    email = Console.ReadLine();
+                    adress = Console.ReadLine();
+                    //string attributes validation
+                    if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !email.Contains('@') || email.StartsWith('@'))
+                        throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
+                }
+                catch (Exception ex) { throw; }
+                List<BO.OrderItem> Items = new List<BO.OrderItem>();
+                myCart = new BO.Cart()
+                {
+                    CustomerName = name,
+                    CustomerEmail = email,
+                    CustomerAddress = adress,
+                    Items = Items,
+                    TotalPrice = 0,
+                };
             }
-            catch (Exception ex){ throw; }
-            List<BO.OrderItem> Items= new List<BO.OrderItem>();
-            Console.WriteLine("Now enter the products in your cart:\n");
-            for (int i = 0; i < num; i++)
-            {
-                Console.WriteLine("Enter name, product id, price and amount");
-                Items.Add(InitializeOrderItem());
-            }
-            double total = Items.Sum(i => i.Price * i.Amount);
-            //innitialize customer's cart
-            return new BO.Cart() { 
-                CustomerName=name,
-                CustomerEmail=email,
-                CustomerAddress=adress,
-                Items=Items,
-                TotalPrice=total,
-            };           
-        }
+            return myCart;
+        }        
         /// <summary>
         /// initializes order item
         /// </summary>

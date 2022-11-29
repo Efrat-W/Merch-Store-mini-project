@@ -27,5 +27,5 @@ public enum optionsOrder
 
 public enum optionsCart
 {
-    Return, Add, UpdateAmount, Approve
+    Return, Add, UpdateAmount, DeleteProduct, Empty, Approve
 }

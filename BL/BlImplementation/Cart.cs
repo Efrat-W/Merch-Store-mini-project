@@ -22,7 +22,7 @@ internal class Cart : ICart
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Cart AddProduct(BO.Cart cart, int prodId)
     {
-        DO.Product prod;
+        DO.Product? prod;
         try
         {
             prod = dal.Product.RequestById(prodId);
@@ -36,21 +36,21 @@ internal class Cart : ICart
         if (cart.Items.FirstOrDefault(i => i.ProductId == prodId) != null) //product exists in items
         {
             BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
-            if (prod.InStock >= item.Amount)//there is enough in stock
+            if (prod?.InStock >= item.Amount)//there is enough in stock
             {
                 item.Amount++;
-                item.TotalPrice += prod.Price;
-                cart.TotalPrice += prod.Price;
+                item.TotalPrice += (double)prod?.Price;
+                cart.TotalPrice += (double)prod?.Price;
             }
             else
                 throw new InvalidArgumentException("The amount requested is greater than available.\n");
         }
         else//product does not exist in cart
         {
-            if (prod.InStock > 1)//adds product to cart
+            if (prod?.InStock > 1)//adds product to cart
             {
-                cart.Items.Add(new BO.OrderItem { ID = 0, Amount = 1, Name = prod.Name, Price = prod.Price, ProductId = prod.ID, TotalPrice = prod.Price });
-                cart.TotalPrice += prod.Price;
+                cart.Items.Add(new BO.OrderItem { ID = 0, Amount = 1, Name = prod?.Name, Price = (double)prod?.Price, ProductId = (int)prod?.ID, TotalPrice = (double)prod?.Price });
+                cart.TotalPrice += (double)prod?.Price;
             }
             else
                 throw new InvalidArgumentException("The requested product is out of stock.\n");
@@ -67,7 +67,7 @@ internal class Cart : ICart
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int prodId, int amount)
     {
-        DO.Product prod;
+        DO.Product? prod;
         try
         {
             prod = dal.Product.RequestById(prodId);
@@ -95,8 +95,8 @@ internal class Cart : ICart
         {
             //updates amount and price
             item.Amount += amount;
-            item.TotalPrice += amount * prod.Price;
-            cart.TotalPrice += amount * prod.Price;
+            item.TotalPrice += amount * (double)prod?.Price;
+            cart.TotalPrice += amount * (double)prod?.Price;
         }
         return cart;
     }
@@ -131,8 +131,8 @@ internal class Cart : ICart
             CustomerEmail = cart.CustomerEmail,
             CustomerName = cart.CustomerName,
             OrderDate = DateTime.Now,
-            ShipDate = DateTime.MinValue,
-            DeliveryDate = DateTime.MinValue,
+            ShipDate = null,
+            DeliveryDate = null,
             TotalPrice = cart.TotalPrice,
             Status = BO.orderStatus.Approved
         };
@@ -220,7 +220,7 @@ internal class Cart : ICart
     /// <exception cref="InvalidArgumentException"></exception>
     private bool validItem(BO.OrderItem item)
     {
-        DO.Product prod;
+        DO.Product? prod;
         try
         {
             prod = dal.Product.RequestById(item.ProductId);
@@ -232,7 +232,7 @@ internal class Cart : ICart
             throw new EntityNotFoundException("Requested Product not found.", ex);
         }
 
-        if (item.Amount > 0 && prod.InStock >= item.Amount)
+        if (item.Amount > 0 && prod?.InStock >= item.Amount)
             return true;
         else
             throw new InvalidArgumentException("Requested amount is greater than what's available.\n");

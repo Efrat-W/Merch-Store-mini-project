@@ -57,9 +57,9 @@ internal class Product : BlApi.IProduct
     /// <exception cref="InvalidArgumentException"></exception>
     public void Delete(int id)
     {
-        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.RequestAll();
-        IEnumerable<DO.OrderItem> found = from orderItem in orderItems//checks if the product exist in any order
-                                          where orderItem.ProductID == id
+        IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.RequestAll();
+        IEnumerable<DO.OrderItem?> found = from orderItem in orderItems //checks if the product exist in any order
+                                          where orderItem?.ProductID == id
                                           select orderItem;
         if (found.Count() == 0)//no items from this product where ordered
         {
@@ -104,9 +104,9 @@ internal class Product : BlApi.IProduct
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
     /// <exception cref="EntityNotFoundException"></exception>
-    public BO.ProductItem RequestByIdCustomer(int id, BO.Cart cart)
+    public ProductItem RequestByIdCustomer(int id, BO.Cart cart)
     {
-        DO.Product prod;
+        DO.Product? prod;
         if (id < 0)
             throw new InvalidArgumentException("Invalid id input.\n");
         else
@@ -125,12 +125,12 @@ internal class Product : BlApi.IProduct
         catch (MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
         return new BO.ProductItem()
         {
-            ID = prod.ID,
-            Name = prod.Name,
-            Category = (BO.category)prod.Category,
-            Price = prod.Price,
+            ID = (int)prod?.ID,
+            Name = prod?.Name,
+            Category = (BO.category)prod?.Category,
+            Price = (int)prod?.Price,
             Amount = item.Amount,
-            InStock = item.Amount <= prod.InStock
+            InStock = item.Amount <= prod?.InStock
         };
     }
     /// <summary>
@@ -141,10 +141,10 @@ internal class Product : BlApi.IProduct
         return from doProd in dal.Product.RequestAll()
                select new BO.ProductForList()//converts from DO to BO and returns list
                {
-                   ID = doProd.ID,
-                   Name = doProd.Name,
-                   Price = doProd.Price,
-                   Category = (BO.category)doProd.Category
+                   ID = (int)doProd?.ID,
+                   Name = doProd?.Name,
+                   Price = (int)doProd?.Price,
+                   Category = (BO.category)doProd?.Category
                };
     }
     /// <summary>

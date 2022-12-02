@@ -14,12 +14,9 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Create(Product prod)
     {
-        if (DataSource.products.Count > 0)
-
-        {
-            if (DataSource.products.Exists(i => i.ID == prod.ID))
-                throw new DoubledEntityException();
-        }
+        Product? prodCheck = DataSource.products.Find(i=>i?.ID == prod.ID);
+        if (prodCheck != null)
+            throw new MissingEntityException("Requested Product already exists.\n");
         DataSource.products.Add(prod);
         return prod.ID;
     }
@@ -28,10 +25,11 @@ internal class DalProduct : IProduct
     /// returns the list of products
     /// </summary>
     /// <returns><list type="Product">list of products</returns>
-    public IEnumerable<Product> RequestAll()
+    public IEnumerable<Product?> RequestAll(Func<Product?, bool>? func = null)
     {
-        List <Product> productList = new List<Product>(DataSource.products);
-        return productList; 
+        if (func == null)
+            return DataSource.products.Select(o => o);
+        return DataSource.products.Where(o => func(o));
     }
 
     /// <summary>
@@ -42,10 +40,19 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public Product RequestById(int id)
     {
-        if (!DataSource.products.Exists(i => i.ID == id))
-            throw new MissingEntityException("Requested Product does not exist.\n");
-        return DataSource.products.Find(i => i.ID == id);
+        return RequestByFunc(i => i?.ID == id);
     }
+
+    /// <summary>
+    /// returns the product by given func condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    public Product RequestByFunc(Func<Product?, bool>? func)
+    {
+        return DataSource.products.Find(p=> func(p)) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+    }
+
 
     /// <summary>
     ///  updates the order with the same id to the given order's data
@@ -54,10 +61,8 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Update(Product prod)
     {
-        //if order is not exist throw exception 
-        if (!DataSource.products.Exists(i => i.ID == prod.ID))
-            throw new MissingEntityException();
-        Product prodToRemove = DataSource.products.Find(i => i.ID == prod.ID);
+        //if product is not exist throw exception 
+        Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
         DataSource.products.Remove(prodToRemove);
         DataSource.products.Add(prod);
     }
@@ -68,10 +73,8 @@ internal class DalProduct : IProduct
     /// <param name="prod"></param>
     /// <exception cref="Exception"></exception>
     public void Delete(Product prod)
-    { 
-        if (!DataSource.products.Exists(i => i.ID == prod.ID))
-            throw new MissingEntityException();
-        Product toRemove = RequestById(prod.ID);
-        DataSource.products.Remove(toRemove);
+    {
+        Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+        DataSource.products.Remove(prodToRemove);
     }
 }

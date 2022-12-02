@@ -6,9 +6,9 @@ namespace Dal;
 internal static class DataSource
 {
     readonly static Random rand = new Random();
-    internal static List<Product> products = new List<Product>();
-    internal static List<Order> orders = new List<Order>();
-    internal static List<OrderItem> orderItems = new List<OrderItem>();
+    internal static List<Product?>? products = new();
+    internal static List<Order?>? orders = new();
+    internal static List<OrderItem?>? orderItems = new();
     static DataSource() => s_Initialize();
     private static void s_Initialize()
     {
@@ -45,9 +45,9 @@ internal static class DataSource
     {
         for (int i = 1; i <= 20; i++)
         {
-            DateTime randomShipDate = new DateTime();
-            DateTime randomDeliveryDate = new DateTime();
-            DateTime randomOrderDate = new DateTime();
+            DateTime? randomShipDate = new();
+            DateTime? randomDeliveryDate = new();
+            DateTime? randomOrderDate = new();
             randomOrderDate = DateTime.Now;
 
             if (i < 0.8 * 20)
@@ -56,10 +56,10 @@ internal static class DataSource
                 if (i < 0.6 * 20)
                     randomDeliveryDate = randomShipDate - new TimeSpan(rand.Next(7), rand.Next(23), rand.Next(59), 0);
                 else
-                    randomDeliveryDate = DateTime.MinValue;
+                    randomDeliveryDate = null;
             }
             else
-                randomShipDate = randomDeliveryDate = DateTime.MinValue;
+                randomShipDate = randomDeliveryDate = null;
 
             Order order = new Order()
             {
@@ -86,15 +86,15 @@ internal static class DataSource
             int numOfProducts = rand.Next(1, 4);
             for (int i = 0; i < numOfProducts; i++)
             {
-                Product prod = products[rand.Next(products.Count)];
+                Product? prod = products[rand.Next(products.Count)];
 
                 OrderItem item = new OrderItem()
                 {
                     ID = Config.OrderItemSeqID,
                     OrderID = order.ID,
-                    ProductID = prod.ID,
-                    Price = prod.Price,
-                    Amount = rand.Next(1, prod.InStock)
+                    ProductID = (int)prod?.ID,
+                    Price = (double)prod?.Price,
+                    Amount = rand.Next(1, (int)prod?.InStock)
                 };
                 orderItems.Add(item);
             }

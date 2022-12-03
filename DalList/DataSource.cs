@@ -106,10 +106,10 @@ internal static class DataSource
     /// </summary>
     internal static class Config
     {
-        private static int orderItemSeqID = 0;
+        private static int orderItemSeqID = 1;
         public static int OrderItemSeqID => orderItemSeqID++;
 
-        private static int orderSeqID = 0;
+        private static int orderSeqID = 1;
         public static int OrderSeqID => orderSeqID++;
     }
 }

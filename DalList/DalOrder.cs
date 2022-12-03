@@ -9,7 +9,7 @@ internal class DalOrder : IOrder
     /// <summary>
     /// adds the order to the list of orders
     /// </summary>
-    /// <param name="order">the order to add  </param>
+    /// <param name="order">the order to add</param>
     /// <returns></returns>
     /// <exception cref="Exception"> </exception>
     public int Create(Order order)

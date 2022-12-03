@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-using BlApi;
-using BO;
+﻿using BO;
 using Dal;
 using DalApi;
 
@@ -20,7 +12,8 @@ internal class Product : BlApi.IProduct
     /// </summary>
     /// <param name="product"></param>
     /// <exception cref="InvalidArgumentException"></exception>
-    private void CheckProduct(BO.Product product) {
+    private void CheckProduct(BO.Product product)
+    {
         if (!(product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0))
             throw new InvalidArgumentException("one or more attributes of product are invalid. \n");
     }
@@ -59,17 +52,17 @@ internal class Product : BlApi.IProduct
     {
         IEnumerable<DO.OrderItem?> orderItems = dal.OrderItem.RequestAll();
         IEnumerable<DO.OrderItem?> found = from orderItem in orderItems //checks if the product exist in any order
-                                          where orderItem?.ProductID == id
-                                          select orderItem;
+                                           where orderItem?.ProductID == id
+                                           select orderItem;
         if (found.Count() == 0)//no items from this product where ordered
         {
             try
             {
                 dal.Product.Delete(dal.Product.RequestById(id));
             }
-            catch(MissingEntityException ex) 
+            catch (MissingEntityException ex)
             {
-                throw new InvalidArgumentException("Requested Product to delete couldn't be found.", ex); 
+                throw new InvalidArgumentException("Requested Product to delete couldn't be found.", ex);
             }
         }
         else
@@ -92,7 +85,7 @@ internal class Product : BlApi.IProduct
             {
                 prod = dal.Product.RequestById(id);
             }
-            catch(Exception ex) { throw new InvalidArgumentException("Requested Product isn't found.",ex); }
+            catch (Exception ex) { throw new InvalidArgumentException("Requested Product isn't found.", ex); }
         }
         return prod.ProductDoToBo();//converts to BO
     }
@@ -120,7 +113,7 @@ internal class Product : BlApi.IProduct
         BO.OrderItem item;
         try
         {
-             item = cart.Items.Find(i => i.ID == id);//checks if the item exists in cart
+            item = cart.Items.Find(i => i.ID == id);//checks if the item exists in cart
         }
         catch (MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
         return new BO.ProductItem()
@@ -137,7 +130,8 @@ internal class Product : BlApi.IProduct
     /// returns the catalog (list of productForList items)
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<BO.ProductForList> RequestList() {
+    public IEnumerable<BO.ProductForList> RequestList()
+    {
         return from doProd in dal.Product.RequestAll()
                select new BO.ProductForList()//converts from DO to BO and returns list
                {
@@ -157,7 +151,7 @@ internal class Product : BlApi.IProduct
     {
         //validation
         if (product.ID > 99999 && product.ID <= 999999  //product id has 6 digits
-            && product.Name.Length > 0 && product.InStock >= 0) 
+            && product.Name.Length > 0 && product.InStock >= 0)
         {
             try
             {

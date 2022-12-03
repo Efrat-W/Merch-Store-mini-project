@@ -17,8 +17,18 @@ internal class DalOrder : IOrder
         Order? orderCheck = DataSource.orders.Find(i => i?.ID == order.ID);
         if (orderCheck != null)
             throw new MissingEntityException("Requested Order already exists.\n");
-        DataSource.orders.Add(order);
-        return order.ID;
+        Order? newOrder = new()
+        {
+            ID = Config.OrderSeqID,
+            CustomerName=order.CustomerName,
+            CustomerAddress=order.CustomerAddress,
+            CustomerEmail=order.CustomerEmail,
+            DeliveryDate=order.DeliveryDate,
+            OrderDate=order.OrderDate,
+            ShipDate=order.ShipDate,
+        };
+        DataSource.orders.Add(newOrder);
+        return (int)newOrder?.ID;
     }
 
     /// <summary>

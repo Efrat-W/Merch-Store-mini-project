@@ -27,6 +27,6 @@ public class Order
     Delivery Date: {DeliveryDate}
     Items in Cart: ";
         foreach (OrderItem item in Items) s += $"{item} ";
-        return s + $"\n\tTotal Price: {TotalPrice}";
+        return s + $"\nTotal Price: {TotalPrice}";
     }
 }

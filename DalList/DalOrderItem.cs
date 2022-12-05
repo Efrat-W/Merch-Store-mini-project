@@ -20,13 +20,13 @@ internal class DalOrderItem : IOrderItem
             throw new MissingEntityException("Requested Order Item already exists.\n");
         OrderItem newItem = new() {
             ID = Config.OrderItemSeqID,
-            ProductID = (int)item.ProductID,
-            OrderID = (int)item.OrderID,
-            Price = (int)item.Price,
-            Amount = (int)item.Amount
+            ProductID = item.ProductID,
+            OrderID = item.OrderID,
+            Price = item.Price,
+            Amount = item.Amount
         };
         orderItems.Add(newItem);
-        return (int)newItem?.ID;
+        return newItem.ID;
     }
 
     /// <summary>

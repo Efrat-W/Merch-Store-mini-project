@@ -88,7 +88,7 @@ internal class Order : BlApi.IOrder
             DeliveryDate=ord?.DeliveryDate,
             Status=Status, 
             Items= (List<BO.OrderItem>)items, 
-            TotalPrice=items.Sum(item=>item.Price)
+            TotalPrice=items.Sum(item=>item.Price * item.Amount)
         };
     }
     /// <summary>
@@ -153,7 +153,7 @@ internal class Order : BlApi.IOrder
             DeliveryDate = ord.DeliveryDate,
             Status = orderStatus.Shipped,
             Items =items,
-            TotalPrice = items.Sum(item => item.Price)
+            TotalPrice = items.Sum(item => item.Price * item.Amount)
         };
     }
     /// <summary>
@@ -194,7 +194,7 @@ internal class Order : BlApi.IOrder
             DeliveryDate = ord.DeliveryDate,
             Status = orderStatus.Delivered,
             Items = items,
-            TotalPrice = items.Sum(item => item.Price)
+            TotalPrice = items.Sum(item => item.Price * item.Amount)
         };
     }
     /// <summary>

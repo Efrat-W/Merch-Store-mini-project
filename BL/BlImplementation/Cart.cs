@@ -79,14 +79,10 @@ internal class Cart : ICart
             throw new EntityNotFoundException("Requested Product to update amount not found.", ex);
         }
         BO.OrderItem item;
-        try
-        {
             item = cart.Items.Find(i => i.ProductId == prodId);
             if (item == null)
                 throw new EntityNotFoundException("Item of requested product not found.\n");
-        }
-        catch { throw; }
-        if (amount == 0 || amount >= -1 * item.Amount)//removes item
+        if (amount == 0 || amount * -1 > item.Amount )    //removes item
         { 
             cart.Items.Remove(item); 
             cart.TotalPrice -= item.Price;

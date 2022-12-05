@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="640" Width="800">
+    <Grid Name="MainGrid">
+        <Button x:Name="StartButton" Content="Press here" HorizontalAlignment="Center" Margin="0,312,0,0" VerticalAlignment="Top" Width="120" Height="30" FontFamily="Yu Gothic UI Semibold" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF1A2646" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
 
     </Grid>
 </Window>

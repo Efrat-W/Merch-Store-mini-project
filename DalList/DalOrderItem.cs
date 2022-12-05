@@ -18,7 +18,7 @@ internal class DalOrderItem : IOrderItem
         OrderItem? itemCheck = orderItems.Find(i => i?.ProductID == item.ProductID && i?.OrderID == item.OrderID );
         if (itemCheck != null)
             throw new MissingEntityException("Requested Order Item already exists.\n");
-        OrderItem? newItem = new() {
+        OrderItem newItem = new() {
             ID = Config.OrderItemSeqID,
             ProductID = (int)itemCheck?.ProductID,
             OrderID = (int)itemCheck?.OrderID,
@@ -26,7 +26,7 @@ internal class DalOrderItem : IOrderItem
             Amount = (int)itemCheck?.Amount
         };
         orderItems.Add(item);
-        return (int)newItem?.ID;
+        return newItem.ID;
     }
 
     /// <summary>

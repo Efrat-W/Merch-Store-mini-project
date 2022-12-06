@@ -4,6 +4,7 @@ using BO;
 using Dal;
 using DO;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace BlTest
@@ -138,32 +139,32 @@ namespace BlTest
                 {
                     switch (op)
                     {
-                        case BO.optionsOrder.Track:
+                        case optionsOrder.Track:
                             Console.WriteLine("Enter id:");
                             int.TryParse(Console.ReadLine(), out int id);
                             Console.WriteLine(bl.Order.Track(id));
                             break;
-                        case BO.optionsOrder.ShowById:
+                        case optionsOrder.ShowById:
                             Console.WriteLine("Enter ID");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(bl.Order.RequestById(id));
                             break;
-                        case BO.optionsOrder.UpdateShipment:
+                        case optionsOrder.UpdateShipment:
                             Console.WriteLine("Enter ID");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(bl.Order.UpdateShipment(id));
                             break;
-                        case BO.optionsOrder.UpdateDelivery:
+                        case optionsOrder.UpdateDelivery:
                             Console.WriteLine("Enter ID");
                             int.TryParse(Console.ReadLine(), out id);
                             Console.WriteLine(bl.Order.UpdateDelivery(id));
                             break;
-                        case BO.optionsOrder.RequestAll:
+                        case optionsOrder.RequestAll:
                             IEnumerable<BO.OrderForList> list = bl.Order.RequestOrders();
                             foreach (BO.OrderForList item in list)
                                 Console.WriteLine(item);
                             break;
-                        case BO.optionsOrder.Return:
+                        case optionsOrder.Return:
                             break;
                         default:
                             throw new InvalidArgumentException("Invalid menu choice.\n");
@@ -176,8 +177,8 @@ namespace BlTest
                         Console.WriteLine(ex.InnerException);
                 }
                 //re-ask for user input
-                op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), Console.ReadLine());
-            } while (op != BO.optionsOrder.Return);
+                op = (optionsOrder)Enum.Parse(typeof(optionsOrder), Console.ReadLine());
+            } while (op != optionsOrder.Return);
         }
         /// <summary>
         ///operates all cart's options
@@ -278,28 +279,31 @@ namespace BlTest
                 Console.WriteLine("Please login:\nEnter customer name, email, address");
                 string name, email, adress;
                 //reading input:
-                try
-                {
-                    name = Console.ReadLine();
-                    email = Console.ReadLine();
-                    adress = Console.ReadLine();
-                    //string attributes validation
-                    if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !email.Contains('@') || email.StartsWith('@'))
-                        throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
-                }
-                catch (Exception ex) { throw; }
-                List<BO.OrderItem> Items = new List<BO.OrderItem>();
-                myCart = new BO.Cart()
+                name = Console.ReadLine();
+                email = Console.ReadLine();
+                adress = Console.ReadLine();
+                //string attributes validation
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !IsValidEmail(email!))
+                    throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
+                List<BO.OrderItem> Items = new();
+                myCart = new Cart()
                 {
                     CustomerName = name,
                     CustomerEmail = email,
                     CustomerAddress = adress,
-                    Items = Items,
+                    Items = Items!,
                     TotalPrice = 0,
                 };
             }
             return myCart;
-        }        
+        }
+        /// <summary>
+        /// auxilary function, checks if string is a valid email address
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private static bool IsValidEmail(string s) => new EmailAddressAttribute().IsValid(s);
+
         /// <summary>
         /// initializes order item
         /// </summary>
@@ -316,16 +320,15 @@ namespace BlTest
             if (name.Length <= 0 && price < 0 && amount == 0)
                 throw new InvalidArgumentException("One or more attributes of the initialization are invalid.\n");
             //innitialize order item
-           return new BO.OrderItem()
+            return new BO.OrderItem()
             {
-               Name = name,
-               ProductId = prodId,
-               Price = price,   
-               Amount = amount,
-               TotalPrice=amount*price
+                Name = name,
+                ProductId = prodId,
+                Price = price,
+                Amount = amount,
+                TotalPrice = amount * price
             };
         }
-
-         //bool IsAllChar(this string s) { foreach (char c in s) if(!Char.IsLetter(c)) return false; return true; }
     }
 }
+

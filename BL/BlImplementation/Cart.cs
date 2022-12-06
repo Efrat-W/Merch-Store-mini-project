@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using BlApi;
+using BO;
 using Dal;
 using DalApi;
 
@@ -107,7 +109,7 @@ internal class Cart : ICart
     public BO.Order Approve(BO.Cart cart)
     {
         //order data validation
-        if (!string.IsNullOrWhiteSpace(cart.CustomerName) && !string.IsNullOrWhiteSpace(cart.CustomerAddress) && cart.CustomerEmail.Contains('@') && !cart.CustomerEmail.StartsWith('@'))
+        if (!string.IsNullOrWhiteSpace(cart.CustomerName) && !string.IsNullOrWhiteSpace(cart.CustomerAddress) && IsValidEmail(cart.CustomerEmail!))
             foreach (BO.OrderItem item in cart.Items)
             {
                 try
@@ -207,6 +209,12 @@ internal class Cart : ICart
         cart.TotalPrice = 0;
     }
 
+    /// <summary>
+    /// checks if string is a valid email address
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
+    private bool IsValidEmail(string s) => new EmailAddressAttribute().IsValid(s);
 
     /// <summary>
     /// help method, makes sure that the item exists and the requested amount is in stock

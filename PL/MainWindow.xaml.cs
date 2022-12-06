@@ -30,7 +30,7 @@ namespace PL
         }
 
 
-        private void StartButton_Click(object sender, RoutedEventArgs e) => new Products(bl).Show();
+        private void StartButton_Click(object sender, RoutedEventArgs e) => new Products(bl).ShowDialog();
         
     }
 }

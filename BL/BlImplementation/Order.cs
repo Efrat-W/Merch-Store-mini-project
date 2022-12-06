@@ -16,10 +16,10 @@ internal class Order : BlApi.IOrder
     public IEnumerable<BO.OrderForList> RequestOrders()
     {
         IEnumerable<DO.Order?> orders = dal.Order.RequestAll();
-        Func<DO.Order?, OrderForList> convert = OrderToOrderForList;//delegate
-        IEnumerable<OrderForList> orderlist = orders.Select(convert);//converts to order for list
+        IEnumerable<OrderForList> orderlist = orders.Select(OrderToOrderForList);//converts to order for list
         return orderlist;
     }
+
     /// <summary>
     /// help method, converts DO order to BO order for list
     /// </summary>

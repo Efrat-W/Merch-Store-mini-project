@@ -121,7 +121,7 @@ internal class Product : BlApi.IProduct
             ID = (int)prod?.ID,
             Name = prod?.Name,
             Category = (BO.category)prod?.Category,
-            Price = (int)prod?.Price,
+            Price = (double)prod?.Price,
             Amount = item.Amount,
             InStock = item.Amount <= prod?.InStock
         };
@@ -137,10 +137,22 @@ internal class Product : BlApi.IProduct
                {
                    ID = (int)doProd?.ID,
                    Name = doProd?.Name,
-                   Price = (int)doProd?.Price,
+                   Price = (double)doProd?.Price,
                    Category = (BO.category)doProd?.Category
                };
     }
+
+    /// <summary>
+    /// returns a catalog (list of productforlist items) by given condition
+    /// </summary>
+    /// <param name="func">condition</param>
+    /// <returns></returns>
+    public IEnumerable<ProductForList> RequestListByCond(Func<ProductForList, bool>? func = null)
+    {
+        return RequestList().Where(func!);
+    }
+
+
     /// <summary>
     /// updates a product
     /// </summary>

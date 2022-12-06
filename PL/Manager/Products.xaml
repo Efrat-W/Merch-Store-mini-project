@@ -10,7 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
                 VerticalAlignment="Stretch" Width="auto">
@@ -18,16 +18,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="CategorySelector_SelectionChanged" />
-            <Label Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+            <ComboBox Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="Aharoni" SelectionChanged="CategorySelector_SelectionChanged" />
+            <Label Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Aharoni"/>
         </Grid>
-        <ListView x:Name="ProductsListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" >
+        <ListView x:Name="ProductsListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="Aharoni" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-
+        <Button x:Name="AddBtn" Content="Add New Item" Grid.Row="2" HorizontalAlignment="Right"
+Margin="5" Padding="5" Click="AddBtn_Click"/>
     </Grid>
 </Window>

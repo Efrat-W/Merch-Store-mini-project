@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,8 +34,17 @@ namespace PL.Manager
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            ProductsListView.ItemsSource = bl.Product.RequestList().Where(i=>i.Category==sortBy);
+            ProductsListView.ItemsSource = bl.Product.RequestListByCond(i=>i.Category==sortBy);
                                            
         }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e) => new Product(bl, sender).Show();
+
+        private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ProductForList p = (ProductForList)ProductsListView.SelectedItem;
+            new Product(bl, sender, p).Show();
+        }
+
     }
 }

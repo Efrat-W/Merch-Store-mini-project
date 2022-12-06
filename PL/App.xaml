@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="JosefinSans-Bold">./FONTS/JosefinSans-Bold.ttf#JosefinSans</FontFamily>
+        <FontFamily x:Key="JosefinSans-ExtraLight">./FONTS/JosefinSans-ExtraLight.ttf#JosefinSans</FontFamily>
+        <FontFamily x:Key="JosefinSans-Light.ttf">./FONTS/JosefinSans-Light.ttf#JosefinSans</FontFamily>
+        <FontFamily x:Key="JosefinSans-Medium">./FONTS/JosefinSans-Medium.ttf.ttf#JosefinSans</FontFamily>
+        <FontFamily x:Key="JosefinSans-Regular">./FONTS/JosefinSans-Regular.ttf#JosefinSans</FontFamily>
     </Application.Resources>
 </Application>

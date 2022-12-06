@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
-        <Button x:Name="StartButton" Content="Press here" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="114" Height="36" FontFamily="Aharoni" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black">
+        <Button x:Name="StartButton" Content="Press here" FontFamily="Josefin Sans Medium" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="114" Height="36"  FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"></Setter>

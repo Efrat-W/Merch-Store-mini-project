@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="Aharoni" SelectionChanged="CategorySelector_SelectionChanged" />
-            <Label Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Aharoni"/>
+            <Label Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Cascadia Code" FontSize="14"/>
         </Grid>
-        <ListView x:Name="ProductsListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="Aharoni" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" >
+        <ListView x:Name="ProductsListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="Cascadia Code Light" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

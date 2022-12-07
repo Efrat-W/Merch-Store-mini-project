@@ -8,27 +8,33 @@
         Title="Products" Height="450" Width="800">
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="293*"/>
+            <RowDefinition Height="120*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-                VerticalAlignment="Stretch" Width="auto">
+        <Rectangle HorizontalAlignment="Center" Height="48" Margin="0,70,0,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" Width="848" Fill="Black"/>
+        <Grid x:Name="UpGrid" Height="auto" Grid.Row="0" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-            <ComboBox Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="Aharoni" SelectionChanged="CategorySelector_SelectionChanged" />
-            <Label Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Cascadia Code" FontSize="14"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="Josefin Sans Medium" SelectionChanged="CategorySelector_SelectionChanged" />
+            <Label x:Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Josefin Sans Medium" FontSize="14"/>
         </Grid>
-        <ListView x:Name="ProductsListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="Cascadia Code Light" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" >
+        <ListView x:Name="ProductsListView" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="Josefin Sans Medium" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" SelectionChanged="ProductsListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="AddBtn" Content="Add New Item" Grid.Row="2" HorizontalAlignment="Right"
-Margin="5" Padding="5" Click="AddBtn_Click"/>
+        <Button x:Name="AddBtn" Content="Add New Item" Grid.Row="2" HorizontalAlignment="Left"
+    Margin="691,77,0,7" Padding="5" Click="AddBtn_Click" FontFamily="Josefin Sans Medium" Background="White" BorderBrush="{x:Null}" FontSize="14" Foreground="Black" BorderThickness="0,0,0,0" Width="99">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

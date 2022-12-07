@@ -45,5 +45,9 @@ namespace PL.Manager
             new Product(bl, id).Show();
         }
 
+        private void ProductsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

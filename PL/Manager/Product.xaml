@@ -8,42 +8,49 @@
         Title="Product" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="82*"/>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="136*"/>
+            <RowDefinition Height="9*"/>
 
         </Grid.RowDefinitions>
-        <Rectangle HorizontalAlignment="Left" Height="338" Margin="239,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="322" Grid.Row="0" Fill="#FFFCE933"
+        <Border BorderBrush="Black" BorderThickness="2,2,2,2" Grid.ColumnSpan="3" Margin="10,10,10,1" Grid.RowSpan="7">
+            <Rectangle Stroke="Black" Margin="703,-2,-2,-2" Fill="#FFC3F5FF" StrokeThickness="2"/>
+        </Border>
+        <Rectangle HorizontalAlignment="Left" Height="320" Margin="239,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="323" Grid.Row="0" Fill="#FFFCE933"
                    Grid.ColumnSpan="2" Grid.RowSpan="7" StrokeThickness="2" >
             <Rectangle.Style>
                 <Style/>
             </Rectangle.Style>
         </Rectangle>
-        <Label x:Name="NameLb" Content="Name:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
-        <Label x:Name="IdLb" Content="ID:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
-        <Label x:Name="CategoryLb" Content="Category:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
-        <Label x:Name="PriceLb" Content="Price:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
-        <Label x:Name="InStockLb" Content="Amount available in stock:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
+        <Label x:Name="NameLb" Content="Name:" HorizontalAlignment="Left" Margin="334,0,0,0"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" FontFamily="Josefin Sans Light" FontSize="16" Height="29" Width="56"/>
+        <Label x:Name="IdLb" Content="ID:" HorizontalAlignment="Left" Margin="361,0,0,0"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontFamily="Josefin Sans Light" FontSize="16" Height="29" Width="29"/>
+        <Label x:Name="CategoryLb" Content="Category:" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontFamily="Josefin Sans Light" FontSize="16" Height="29" Width="77"/>
+        <Label x:Name="PriceLb" Content="Price:" HorizontalAlignment="Left" Margin="342,0,0,0"  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontFamily="Josefin Sans Light" FontSize="16" Height="29" Width="48"/>
+        <Label x:Name="InStockLb" Content="Amount in stock:" HorizontalAlignment="Left" Margin="261,8,0,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" FontFamily="Josefin Sans Light" FontSize="16" Height="29" Width="129"/>
         <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
         <TextBox x:Name="IdTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
-        <ComboBox x:Name="CategoryCB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" Background="#FFB9FAFA" FontFamily="Cascadia Code Light"/>
+        <ComboBox x:Name="CategoryCB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="Josefin Sans Light"/>
         <TextBox x:Name="PriceTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
         <TextBox x:Name="InStockTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
-        <Button x:Name="CommandBtn" Grid.Column="1" Content="We'll see" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="16" Background="Black" Foreground="White" Click="CommandBtn_Click">
+        <Button x:Name="CommandBtn" Content="We'll see" HorizontalAlignment="Left" Margin="365,10,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="16" Background="Black" Foreground="White" Click="CommandBtn_Click" Grid.ColumnSpan="2" Width="70" Height="25" BorderBrush="{x:Null}" FontFamily="Josefin Sans Medium" BorderThickness="0,0,0,0">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="CornerRadius" Value="8"/>
                 </Style>
             </Button.Resources>
         </Button>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="78" Grid.Row="6" Stroke="Black" Width="78" Fill="#FFFCE933" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,0,1"/>
+        <Rectangle HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Top" Width="50" Fill="Black"/>
     </Grid>
 
 </Window>

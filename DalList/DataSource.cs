@@ -5,10 +5,10 @@ namespace Dal;
 
 internal static class DataSource
 {
-    readonly static Random rand = new Random();
-    internal static List<Product?>? products = new();
-    internal static List<Order?>? orders = new();
-    internal static List<OrderItem?>? orderItems = new();
+    readonly static Random rand = new();
+    internal static List<Product?> products { get; } = new();
+    internal static List<Order?> orders { get; } = new();
+    internal static List<OrderItem?> OrderItems { get; } = new();
     static DataSource() => s_Initialize();
     private static void s_Initialize()
     {
@@ -26,15 +26,15 @@ internal static class DataSource
         int num = 100000;
         for (int i = 0; i < 10; i++)
         {
-            Product prod = new Product() 
+            Product prod = new() 
             {
                 ID = num++,
-                Price = (double)rand.Next(50*7, 200*7) /7,
+                Price = (double)rand.Next(5000, 20000)/100,
                 Name = "product " + i,
                 Category = (category)rand.Next(categories.Length),
-                InStock = (int)rand.Next(50)
+                InStock = rand.Next(50)
             };
-            products.Add(prod);
+            products!.Add(prod);
         }
     }
 
@@ -61,7 +61,7 @@ internal static class DataSource
             else
                 randomShipDate = randomDeliveryDate = null;
 
-            Order order = new Order()
+            Order order = new()
             {
                 ID=Config.OrderSeqID,
                 CustomerAddress = $"Rabbi Akiva {i}, Bnei Brak",
@@ -71,7 +71,7 @@ internal static class DataSource
                 ShipDate = randomShipDate,
                 DeliveryDate = randomDeliveryDate
             };
-            orders.Add(order);
+            orders!.Add(order);
         }
     }
 
@@ -88,15 +88,22 @@ internal static class DataSource
             {
                 Product? prod = products[rand.Next(products.Count)];
 
-                OrderItem item = new OrderItem()
+                try
                 {
-                    ID = Config.OrderItemSeqID,
-                    OrderID = order.ID,
-                    ProductID = (int)prod?.ID,
-                    Price = (double)prod?.Price,
-                    Amount = rand.Next(1, (int)prod?.InStock)
-                };
-                orderItems.Add(item);
+                    OrderItem item = new()
+                    {
+                        ID = Config.OrderItemSeqID,
+                        OrderID = order.ID,
+                        ProductID = prod?.ID ?? throw new Exception(),
+                        Price = prod?.Price ?? throw new Exception(),
+                        Amount = rand.Next(1, prod?.InStock ?? throw new Exception())
+                    };
+                    OrderItems!.Add(item);
+                }
+                catch (Exception e)
+                {
+                    throw new MissingEntityException("nonexistent product", e);
+                }
             }
         }
     }

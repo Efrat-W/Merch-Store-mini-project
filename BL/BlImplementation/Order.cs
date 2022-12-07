@@ -35,12 +35,12 @@ internal class Order : BlApi.IOrder
             Status = orderStatus.Shipped;
         else
             Status=orderStatus.Approved;
-        IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.RequestAllItemsByOrderID((int)ord?.ID);//collects all items of this order
-        int amount =orderItems.Sum(item=>(int)item?.Amount);
-        double totalPrice = orderItems.Sum(item => (double)item?.Price);
+        IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new MissingEntityException());//collects all items of this order
+        int amount =orderItems.Sum(item=>item?.Amount ?? throw new MissingEntityException());
+        double totalPrice = orderItems.Sum(item => item?.Price ?? throw new MissingEntityException());
         return new OrderForList() { 
-            ID = (int)ord?.ID, 
-            CustomerName = ord?.CustomerName,
+            ID = ord?.ID ?? throw new MissingEntityException(), 
+            CustomerName = ord?.CustomerName ?? throw new MissingEntityException(),
             TotalPrice = totalPrice,
             AmountOfItems = amount,
             Status = Status
@@ -59,7 +59,7 @@ internal class Order : BlApi.IOrder
         DO.Order? ord;
         try
         { ord = dal.Order.RequestById(id); }
-        catch (MissingEntityException ex) { throw new InvalidArgumentException("Requested Order not found.", ex); }
+        catch (MissingEntityException ex) { throw new EntityNotFoundException("Requested Order not found.", ex); }
         //innitializes order status:
         orderStatus Status;
         if (ord?.DeliveryDate != null)
@@ -72,14 +72,14 @@ internal class Order : BlApi.IOrder
         IEnumerable<BO.OrderItem> items;
         try
         {
-            items = dal.OrderItem.RequestAllItemsByOrderID((int)ord?.ID).Select(DoOrderItemToBoOrderItem);//collects all items of this order and convert to BO
+            items = dal.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new InvalidArgumentException()).Select(DoOrderItemToBoOrderItem);//collects all items of this order and convert to BO
         }
         catch (MissingEntityException ex)
         {
             throw new InvalidArgumentException(ex);
         }
         return new BO.Order() {
-            Id=id, 
+            Id = id, 
             CustomerName=ord?.CustomerName,
             CustomerEmail=ord?.CustomerEmail, 
             CustomerAddress=ord?.CustomerAddress,
@@ -102,17 +102,17 @@ internal class Order : BlApi.IOrder
         string name;
         try
         {
-            name = dal.Product.RequestById((int)item?.ProductID).Name;//founds name
+            name = dal.Product.RequestById(item?.ProductID ?? throw new MissingEntityException()).Name!;//finds name
         }
         catch (MissingEntityException ex) { throw new InvalidArgumentException("Requested Product not found.", ex); }
         return new BO.OrderItem()
         {
             Name = name,
-            ID = (int)item?.OrderID,
-            ProductId = (int)item?.ProductID,
-            Amount = (int)item?.Amount,
-            Price = (double)item?.Price,
-            TotalPrice = (double)item?.Price * (int)item?.Amount
+            ID = item?.OrderID ?? throw new MissingEntityException(),
+            ProductId = item?.ProductID ?? throw new MissingEntityException(),
+            Amount = item?.Amount ?? throw new MissingEntityException(),
+            Price = item?.Price ?? throw new MissingEntityException(),
+            TotalPrice = item?.Price * item?.Amount ?? throw new MissingEntityException()
         };
     }
     /// <summary>
@@ -203,7 +203,7 @@ internal class Order : BlApi.IOrder
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
-    public BO.OrderTracking Track(int id)
+    public OrderTracking Track(int id)
     {
         DO.Order? ord;
         try

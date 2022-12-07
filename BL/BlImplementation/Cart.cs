@@ -35,14 +35,14 @@ internal class Cart : ICart
                 throw new InvalidArgumentException("id out of range.\n");
             throw new EntityNotFoundException("Requested Product to add not found.", ex);
         }
-        if (cart.Items.FirstOrDefault(i => i.ProductId == prodId) != null) //product exists in items
+        if (cart.Items!.FirstOrDefault(i => i!.ProductId == prodId) != null) //product exists in items
         {
-            BO.OrderItem item = cart.Items.Find(i => i.ProductId == prodId);
-            if (prod?.InStock >= item.Amount)//there is enough in stock
+            OrderItem item = cart.Items!.Find(i => i!.ProductId == prodId);
+            if (prod?.InStock >= item!.Amount)//there is enough in stock
             {
                 item.Amount++;
-                item.TotalPrice += (double)prod?.Price;
-                cart.TotalPrice += (double)prod?.Price;
+                item.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
+                cart.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
             }
             else
                 throw new InvalidArgumentException("The amount requested is greater than available.\n");
@@ -51,8 +51,15 @@ internal class Cart : ICart
         {
             if (prod?.InStock > 1)//adds product to cart
             {
-                cart.Items.Add(new BO.OrderItem { ID = 0, Amount = 1, Name = prod?.Name, Price = (double)prod?.Price, ProductId = (int)prod?.ID, TotalPrice = (double)prod?.Price });
-                cart.TotalPrice += (double)prod?.Price;
+                cart.Items!.Add(new BO.OrderItem 
+                    { ID = 0, 
+                        Amount = 1, 
+                        Name = prod?.Name, 
+                        Price = prod?.Price ?? throw new InvalidArgumentException(), 
+                        ProductId = prod?.ID ?? throw new InvalidArgumentException(), 
+                        TotalPrice = prod?.Price ?? throw new InvalidArgumentException()
+                });
+                cart.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
             }
             else
                 throw new InvalidArgumentException("The requested product is out of stock.\n");
@@ -80,10 +87,9 @@ internal class Cart : ICart
                 throw new InvalidArgumentException("id out of range.\n");
             throw new EntityNotFoundException("Requested Product to update amount not found.", ex);
         }
-        BO.OrderItem item;
-            item = cart.Items.Find(i => i.ProductId == prodId);
-            if (item == null)
-                throw new EntityNotFoundException("Item of requested product not found.\n");
+        OrderItem item = cart.Items!.Find(i => i.ProductId == prodId);
+        if (item == null)
+            throw new EntityNotFoundException("Item of requested product not found.\n");
         if (amount == 0 || amount * -1 > item.Amount )    //removes item
         { 
             cart.Items.Remove(item); 
@@ -93,8 +99,8 @@ internal class Cart : ICart
         {
             //updates amount and price
             item.Amount += amount;
-            item.TotalPrice += amount * (double)prod?.Price;
-            cart.TotalPrice += amount * (double)prod?.Price;
+            item.TotalPrice += amount * prod?.Price ?? throw new InvalidArgumentException();
+            cart.TotalPrice += amount * prod?.Price ?? throw new InvalidArgumentException();
         }
         return cart;
     }
@@ -110,7 +116,7 @@ internal class Cart : ICart
     {
         //order data validation
         if (!string.IsNullOrWhiteSpace(cart.CustomerName) && !string.IsNullOrWhiteSpace(cart.CustomerAddress) && IsValidEmail(cart.CustomerEmail!))
-            foreach (BO.OrderItem item in cart.Items)
+            foreach (BO.OrderItem item in cart.Items!)
             {
                 try
                 {
@@ -205,7 +211,7 @@ internal class Cart : ICart
     /// <param name="cart"></param>
     public void Empty(BO.Cart cart)
     {
-        cart.Items.Clear();
+        cart!.Items!.Clear();
         cart.TotalPrice = 0;
     }
 

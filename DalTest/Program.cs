@@ -22,8 +22,7 @@ internal class Program
     1: Product
     2: Order
     3: Order Item");
-            string input = Console.ReadLine();
-            choice = (menu)Enum.Parse(typeof(menu), input);
+            choice = (menu)Enum.Parse(typeof(menu), Console.ReadLine()!);
             
             switch (choice)
             {
@@ -54,9 +53,8 @@ internal class Program
     3: print the list of products
     4: update a certain product
     5: delete a product");
-            
-        string input = Console.ReadLine();
-        op = (options)Enum.Parse(typeof(options), input);
+        op = (options)Enum.Parse(typeof(options), Console.ReadLine()!);
+        int id;
         do
         {
                 switch (op)
@@ -67,7 +65,7 @@ internal class Program
                         break;
                     case options.ShowById:
                         Console.WriteLine("Enter ID");
-                        int.TryParse(Console.ReadLine(), out int id);
+                        int.TryParse(Console.ReadLine(), out id);
                         Console.WriteLine(dalList.Product.RequestById(id)); //print requested product to console
                         break;
                     case options.ShowList:
@@ -77,7 +75,7 @@ internal class Program
                         break;
                     case options.Update:
                         Console.WriteLine("Enter the existing product's ID");
-                        id = int.Parse(Console.ReadLine());
+                        int.TryParse(Console.ReadLine(), out id);
                         Product? update = dalList.Product.RequestById(id);
                         Console.WriteLine(update);
                         Console.WriteLine("Enter the new Name, Price, category and the amount in stock");
@@ -85,15 +83,14 @@ internal class Program
                         break;
                     case options.DeleteFromList:
                         Console.WriteLine("Enter the ID of the product you wish to remove ");
-                        Product product = new() { ID = int.Parse(Console.ReadLine()) };
+                        Product product = new() { ID = int.Parse(Console.ReadLine()!) };
                         dalList.Product.Delete(product);
                         break;
                     default:
                         break;
                 }
             //re-ask for user input
-            input = Console.ReadLine();
-            op = (options)Enum.Parse(typeof(options), input);
+            op = (options)Enum.Parse(typeof(options), Console.ReadLine()!);
         } while (op != options.Return);
     }
     /// <summary>
@@ -109,8 +106,7 @@ internal class Program
     3: print the list of orders
     4: update a certain order
     5: delete an order");
-        string input = Console.ReadLine();
-        op = (options)Enum.Parse(typeof(options), input);
+        op = (options)Enum.Parse(typeof(options), Console.ReadLine()!);
         do
         {
             switch (op)
@@ -121,8 +117,7 @@ internal class Program
                     break;
                 case options.ShowById:
                     Console.WriteLine("Enter ID");
-                    input = Console.ReadLine();
-                    int.TryParse(input, out int id);
+                    int.TryParse(Console.ReadLine(), out int id);
                     Console.WriteLine(dalList.Order.RequestById(id)); 
                     break;
                 case options.ShowList:
@@ -132,8 +127,7 @@ internal class Program
                     break;
                 case options.Update:
                     Console.WriteLine("Enter the existing order's ID");
-                    input = Console.ReadLine();
-                    int.TryParse(input, out id);
+                    int.TryParse(Console.ReadLine(), out id);
                     Order update = dalList.Order.RequestById(id);
                     Console.WriteLine(update);
                     Console.WriteLine("Enter the new Name, Email and Adresss");
@@ -141,15 +135,14 @@ internal class Program
                     break;
                 case options.DeleteFromList:
                     Console.WriteLine("Enter the ID of the order you wish to remove ");
-                    Order order = new() { ID = int.Parse(Console.ReadLine()) };
+                    Order order = new() { ID = int.Parse(Console.ReadLine()!) };
                     dalList.Order.Delete(order);
                     break;
                 default:
                     break;
             }
             //re-ask for user input
-            input = Console.ReadLine();
-            op = (options)Enum.Parse(typeof(options), input);
+            op = (options)Enum.Parse(typeof(options), Console.ReadLine()!);
         } while (op != options.Return);
     }
     /// <summary>
@@ -167,8 +160,8 @@ internal class Program
         5: delete an order item
         6: print order item (by product and order)
         7: print all the items in a certain order"); 
-        string input = Console.ReadLine();
-        op = (options)Enum.Parse(typeof(options), input);
+        op = (options)Enum.Parse(typeof(options), Console.ReadLine()!);
+        int id;
         do
         {
             switch (op)
@@ -179,7 +172,7 @@ internal class Program
                     break;
                 case options.ShowById:
                     Console.WriteLine("Enter ID");
-                    int id = int.Parse(Console.ReadLine());
+                    int.TryParse(Console.ReadLine(), out id);
                     Console.WriteLine(dalList.OrderItem.RequestById(id)); 
                     break;
                 case options.ShowList:
@@ -189,26 +182,25 @@ internal class Program
                     break;
                 case options.Update:
                     Console.WriteLine("Enter the existing order item's ID");
-                    id = int.Parse(Console.ReadLine());
+                    int.TryParse(Console.ReadLine(), out id);
                     OrderItem update = dalList.OrderItem.RequestById(id);
                     Console.WriteLine(update);
                     dalList.OrderItem.Update(UpdateOrderItem(update));
                     break;
                 case options.DeleteFromList:
                     Console.WriteLine("Enter the ID of the order item you wish to remove ");
-                    OrderItem item = new() { ID = int.Parse(Console.ReadLine()) };
+                    OrderItem item = new() { ID = int.Parse(Console.ReadLine()!) };
                     dalList.OrderItem.Delete(item);
                     break;
                 case options.ShowByProdAndOrder:
                     Console.WriteLine("Enter product id and order id:");
-                    Product product = new Product() { ID = int.Parse(Console.ReadLine()) };
-                    Order order = new Order() { ID = int.Parse(Console.ReadLine()) };
+                    Product product = new() { ID = int.Parse(Console.ReadLine()!) };
+                    Order order = new() { ID = int.Parse(Console.ReadLine()!) };
                     dalList.OrderItem.RequestByProductAndOrder(product, order);
                     break;
                 case options.ShowListOfProductsInOrder:
                     Console.WriteLine("Enter order id:");
-                    input = Console.ReadLine();
-                    int.TryParse(input, out int orderID);
+                    int.TryParse(Console.ReadLine(), out int orderID);
                     IEnumerable<OrderItem?> list = dalList.OrderItem.RequestAllItemsByOrderID(orderID);
                     foreach (OrderItem listItem in list)
                         Console.Write(listItem);
@@ -217,8 +209,7 @@ internal class Program
                     break;
             }
             //re-ask for user input
-            input = Console.ReadLine();
-            op = (options)Enum.Parse(typeof(options), input);
+            op = (options)Enum.Parse(typeof(options), Console.ReadLine()!);
         } while (op != options.Return);
     }
 
@@ -230,21 +221,14 @@ internal class Program
     static Product InitializeProduct(int updateId = 0)
     {
         int id = updateId;
-        string input;
         if (updateId == 0)
-        {
-            input = Console.ReadLine();
-            int.TryParse(input, out id);
-        }
-        input = Console.ReadLine();
-        string name = input;
-        input = Console.ReadLine();
-        int.TryParse(input, out int price);
-        category category = (category)Enum.Parse(typeof(category), Console.ReadLine());
-        input = Console.ReadLine();
-        int.TryParse(input, out int inStock);
+            int.TryParse(Console.ReadLine(), out id);
+        string name = Console.ReadLine()!;
+        int.TryParse(Console.ReadLine(), out int price);
+        category category = (category)Enum.Parse(typeof(category), Console.ReadLine()!);
+        int.TryParse(Console.ReadLine(), out int inStock);
 
-        Product product = new Product() { ID = id, Category = category, InStock = inStock, Name = name, Price = price };
+        Product product = new() { ID = id, Category = category, InStock = inStock, Name = name, Price = price };
         return product;
     }
 
@@ -255,9 +239,9 @@ internal class Program
     /// <returns>the requested order, updated</returns>
     static Order UpdateOrder(Order updateOrder)
     {
-        string cusName = Console.ReadLine();
-        string cusEmail = Console.ReadLine();
-        string cusAddress = Console.ReadLine();
+        string cusName = Console.ReadLine()!;
+        string cusEmail = Console.ReadLine()!;
+        string cusAddress = Console.ReadLine()!;
         Order order = new Order() { 
             ID = updateOrder.ID, CustomerAddress = cusAddress, CustomerEmail = cusEmail, CustomerName = cusName,
             DeliveryDate = updateOrder.DeliveryDate, OrderDate = updateOrder.OrderDate, ShipDate = updateOrder.ShipDate};
@@ -270,22 +254,20 @@ internal class Program
     /// <returns>the initialized order</returns>
     static Order InitializeOrder()
     {
-        string cusName = Console.ReadLine();
-        string cusEmail = Console.ReadLine();
-        string cusAddress = Console.ReadLine();
+        string cusName = Console.ReadLine()!;
+        string cusEmail = Console.ReadLine()!;
+        string cusAddress = Console.ReadLine()!;
         DateTime orderDate = DateTime.Now; 
 
-        Order order = new Order() { CustomerAddress = cusAddress, CustomerEmail = cusEmail, CustomerName = cusName };
+        Order order = new() { CustomerAddress = cusAddress, CustomerEmail = cusEmail, CustomerName = cusName };
         return order;
     }
 
     static OrderItem UpdateOrderItem(OrderItem item)
     { 
         Console.WriteLine("Enter the new product id and amount");
-        string input = Console.ReadLine();
-        int.TryParse(input, out int prodID);
-        input = Console.ReadLine();
-        int.TryParse(input, out int amount);
+        int.TryParse(Console.ReadLine(), out int prodID);
+        int.TryParse(Console.ReadLine(), out int amount);
         double price = dalList.Product.RequestById(prodID).Price;
 
         OrderItem updatedItem = new() { ID = item.ID, Amount = amount, OrderID = item.OrderID, Price = price, ProductID = prodID };
@@ -298,15 +280,12 @@ internal class Program
     /// <returns>the initialized order item</returns>
     static OrderItem InitializeOrderItem()
     {
-        string input = Console.ReadLine();
-        int.TryParse(input, out int prodID);
-        input = Console.ReadLine();
-        int.TryParse(input, out int ordID);
-        input = Console.ReadLine();
-        int.TryParse(input, out int amount);
+        int.TryParse(Console.ReadLine(), out int prodID);
+        int.TryParse(Console.ReadLine(), out int ordID);
+        int.TryParse(Console.ReadLine(), out int amount);
         double price = dalList.Product.RequestById(prodID).Price;
 
-        OrderItem item = new OrderItem() { ProductID = prodID, OrderID = ordID, Amount = amount, Price = price };
+        OrderItem item = new() { ProductID = prodID, OrderID = ordID, Amount = amount, Price = price };
         return item;
     }
 }

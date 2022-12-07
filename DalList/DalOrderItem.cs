@@ -15,7 +15,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public int Create(OrderItem item)
     {
-        OrderItem? itemCheck = orderItems.Find(i => i?.ProductID == item.ProductID && i?.OrderID == item.OrderID );
+        OrderItem? itemCheck = OrderItems.Find(i => i?.ProductID == item.ProductID && i?.OrderID == item.OrderID );
         if (itemCheck != null)
             throw new MissingEntityException("Requested Order Item already exists.\n");
         OrderItem newItem = new() {
@@ -25,7 +25,7 @@ internal class DalOrderItem : IOrderItem
             Price = item.Price,
             Amount = item.Amount
         };
-        orderItems.Add(newItem);
+        OrderItems.Add(newItem);
         return newItem.ID;
     }
 
@@ -36,8 +36,8 @@ internal class DalOrderItem : IOrderItem
     public IEnumerable<OrderItem?> RequestAll(Func<OrderItem?, bool>? func = null)
     {
         if (func == null)
-            return orderItems.Select(o => o);
-        return orderItems.Where(o => func(o));
+            return OrderItems.Select(o => o);
+        return OrderItems.Where(o => func(o));
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ internal class DalOrderItem : IOrderItem
     /// <returns></returns>
     public OrderItem RequestByFunc(Func<OrderItem?, bool>? func)
     {
-        return orderItems.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
+        return OrderItems.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
     }
 
     /// <summary>
@@ -69,9 +69,9 @@ internal class DalOrderItem : IOrderItem
     public void Update(OrderItem item)
     {
         //if orderItem is not exist throw exception 
-        OrderItem? itemToRemove = orderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
-        orderItems.Remove(itemToRemove);
-        orderItems.Add(item);
+        OrderItem? itemToRemove = OrderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
+        OrderItems.Remove(itemToRemove);
+        OrderItems.Add(item);
     }
 
     /// <summary>
@@ -81,8 +81,8 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public void Delete(OrderItem item)
     {
-        OrderItem? itemToRemove = orderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
-        orderItems.Remove(itemToRemove);
+        OrderItem? itemToRemove = OrderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
+        OrderItems.Remove(itemToRemove);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public OrderItem? RequestByProductAndOrder(Product? prod, Order? ord)
     {
-        OrderItem? item = orderItems.Find(i => i?.ProductID == prod?.ID && i?.OrderID == ord?.ID);
+        OrderItem? item = OrderItems.Find(i => i?.ProductID == prod?.ID && i?.OrderID == ord?.ID);
         if (item != null)
             throw new MissingEntityException("Requested Order Item does not exist.\n");
         return item;

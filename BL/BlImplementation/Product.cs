@@ -118,11 +118,11 @@ internal class Product : BlApi.IProduct
         catch (MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
         return new BO.ProductItem()
         {
-            ID = (int)prod?.ID,
+            ID = prod?.ID ?? throw new InvalidArgumentException(),
             Name = prod?.Name,
-            Category = (BO.category)prod?.Category,
-            Price = (double)prod?.Price,
-            Amount = item.Amount,
+            Category = (BO.category)prod?.Category!,
+            Price = prod?.Price ?? throw new InvalidArgumentException(),
+            Amount = item!.Amount,
             InStock = item.Amount <= prod?.InStock
         };
     }
@@ -135,10 +135,10 @@ internal class Product : BlApi.IProduct
         return from doProd in dal.Product.RequestAll()
                select new BO.ProductForList()//converts from DO to BO and returns list
                {
-                   ID = (int)doProd?.ID,
+                   ID = doProd?.ID ?? throw new InvalidArgumentException(),
                    Name = doProd?.Name,
-                   Price = (double)doProd?.Price,
-                   Category = (BO.category)doProd?.Category
+                   Price = doProd?.Price ?? throw new InvalidArgumentException(),
+                   Category = (BO.category)doProd?.Category!
                };
     }
 
@@ -163,7 +163,7 @@ internal class Product : BlApi.IProduct
     {
         //validation
         if (product.ID > 99999 && product.ID <= 999999  //product id has 6 digits
-            && product.Name.Length > 0 && product.InStock >= 0)
+            && product.Name!.Length > 0 && product.InStock >= 0)
         {
             try
             {
@@ -193,7 +193,7 @@ static class ProductTools
         {
             ID = prod.ID,
             Name = prod.Name,
-            Category = (DO.category)prod.Category,
+            Category = (DO.category)prod.Category!,
             Price = prod.Price,
             InStock = prod.InStock,
         };
@@ -209,7 +209,7 @@ static class ProductTools
         {
             ID = prod.ID,
             Name = prod.Name,
-            Category = (BO.category)prod.Category,
+            Category = (BO.category)prod.Category!,
             Price = prod.Price,
             InStock = prod.InStock
         };

@@ -14,7 +14,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"> </exception>
     public int Create(Order order)
     {
-        Order? orderCheck = DataSource.orders.Find(i => i?.ID == order.ID);
+        Order? orderCheck = orders.Find(i => i?.ID == order.ID);
         if (orderCheck != null)
             throw new MissingEntityException("Requested Order already exists.\n");
         Order? newOrder = new()
@@ -28,7 +28,7 @@ internal class DalOrder : IOrder
             ShipDate=order.ShipDate,
         };
         DataSource.orders.Add(newOrder);
-        return (int)newOrder?.ID;
+        return newOrder?.ID ?? throw new MissingEntityException();
     }
 
     /// <summary>
@@ -58,9 +58,10 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
-    public Order RequestByFunc(Func<Order?, bool>? func)
+    public Order RequestByFunc(Func<Order?, bool>? func = null)
     {
-        return DataSource.orders.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order does not exist.\n");
+        if (func == null) throw new MissingEntityException("No filter condition was given.\n");
+        return orders.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order does not exist.\n");
     }
 
     /// <summary>
@@ -70,7 +71,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"></exception>
     public void Update(Order order)
     {
-        Order? orderToRemove = DataSource.orders.Find(i => i?.ID == order.ID) ?? throw new MissingEntityException("Requested Order does not exist.\n");
+        Order? orderToRemove = orders.Find(i => i?.ID == order.ID) ?? throw new MissingEntityException("Requested Order does not exist.\n");
         orders.Remove(orderToRemove);
         orders.Add(order);
     }

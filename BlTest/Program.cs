@@ -24,7 +24,7 @@ namespace BlTest
     1: Product
     2: Order
     3: Cart");
-                choice = (BO.menu)Enum.Parse(typeof(BO.menu), Console.ReadLine());
+                choice = (BO.menu)Enum.Parse(typeof(BO.menu), Console.ReadLine()!);
                 try
                 {
                     switch (choice)
@@ -64,7 +64,7 @@ namespace BlTest
     4: print all products
     5: update a product
     6: delete a product");
-            op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), Console.ReadLine());
+            op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), Console.ReadLine()!);
             do
             {
                 try
@@ -116,7 +116,7 @@ namespace BlTest
                         Console.WriteLine(ex.InnerException);
                 }
                 //re-ask for user input
-                op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), Console.ReadLine());
+                op = (BO.optionsProduct)Enum.Parse(typeof(BO.optionsProduct), Console.ReadLine()!);
             } while (op != BO.optionsProduct.Return);
         }
         /// <summary>
@@ -132,7 +132,7 @@ namespace BlTest
     3: update shipment
     4: update delivery
     5: print all orders");
-            op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), Console.ReadLine());
+            op = (BO.optionsOrder)Enum.Parse(typeof(BO.optionsOrder), Console.ReadLine()!);
             do
             {
                 try
@@ -177,7 +177,7 @@ namespace BlTest
                         Console.WriteLine(ex.InnerException);
                 }
                 //re-ask for user input
-                op = (optionsOrder)Enum.Parse(typeof(optionsOrder), Console.ReadLine());
+                op = (optionsOrder)Enum.Parse(typeof(optionsOrder), Console.ReadLine()!);
             } while (op != optionsOrder.Return);
         }
         /// <summary>
@@ -197,7 +197,7 @@ namespace BlTest
             
             do
             { 
-                op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine());
+                op = (BO.optionsCart)Enum.Parse(typeof(BO.optionsCart), Console.ReadLine()!);
                 try
                 {
                     switch (op)
@@ -255,12 +255,12 @@ namespace BlTest
             {
                 int.TryParse(Console.ReadLine(), out id);
             }
-            string name = Console.ReadLine();
+            string name = Console.ReadLine()!;
             double.TryParse(Console.ReadLine(), out double price);
             BO.category category;
             try
             {
-                category = (BO.category)Enum.Parse(typeof(BO.category), Console.ReadLine());
+                category = (BO.category)Enum.Parse(typeof(BO.category), Console.ReadLine()!);
             }
             catch (Exception ex){ throw new InvalidArgumentException(ex); }
             int.TryParse(Console.ReadLine(), out int inStock);
@@ -272,16 +272,16 @@ namespace BlTest
         /// </summary>
         /// <returns></returns>
         /// <exception cref="InvalidArgumentException"></exception>
-        static BO.Cart InitializeCart()
+        static Cart InitializeCart()
         {
             if (myCart == null)
             {
                 Console.WriteLine("Please login:\nEnter customer name, email, address");
                 string name, email, adress;
                 //reading input:
-                name = Console.ReadLine();
-                email = Console.ReadLine();
-                adress = Console.ReadLine();
+                name = Console.ReadLine()!;
+                email = Console.ReadLine()!;
+                adress = Console.ReadLine()!;
                 //string attributes validation
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(adress) || !IsValidEmail(email!))
                     throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
@@ -312,7 +312,7 @@ namespace BlTest
         static BO.OrderItem InitializeOrderItem()
         {
             //reading input:
-            string name = Console.ReadLine();
+            string name = Console.ReadLine()!;
             int.TryParse(Console.ReadLine(), out int prodId);
             double.TryParse(Console.ReadLine(), out double price);
             int.TryParse(Console.ReadLine(), out int amount);

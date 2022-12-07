@@ -18,7 +18,7 @@ public class OrderTracking
     Order id: {ID}
     Status: {Status}
     ";
-        foreach (var tuple in orderProgress)
+        foreach (var tuple in orderProgress!)
         {
             s += $"at {tuple.Item1}: {tuple.Item2}\n";
         }

@@ -6,6 +6,15 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         Title="Products" Height="450" Width="800">
+    <Window.Resources>
+        <FontFamily x:Key="JosefinSansBold">/FONTS/JosefinSans-Bold.ttf#Josefin Sans Bold</FontFamily>
+        <FontFamily x:Key="JosefinSansExtraLight">/FONTS/JosefinSans-ExtraLight.ttf#Josefin Sans ExtraLight</FontFamily>
+        <FontFamily x:Key="JosefinSansLight">/FONTS/JosefinSans-Light.ttf#Josefin Sans Light</FontFamily>
+        <FontFamily x:Key="JosefinSansMedium">/FONTS/JosefinSans-Medium.ttf#Josefin Sans Medium</FontFamily>
+        <FontFamily x:Key="JosefinSansRegular">/FONTS/JosefinSans-Regular.ttf#Josefin Sans Regular</FontFamily>
+        <FontFamily x:Key="JosefinSansSemiBold">/FONTS/JosefinSans-SemiBold.ttf#Josefin Sans SemiBold</FontFamily>
+        <FontFamily x:Key="JosefinSansThin">/FONTS/JosefinSans-Thin.ttf#Josefin Sans Thin</FontFamily>
+    </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -18,18 +27,18 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="Josefin Sans Medium" SelectionChanged="CategorySelector_SelectionChanged" />
-            <Label x:Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Josefin Sans Medium" FontSize="14"/>
+            <ComboBox x:Name="CategorySelector" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" />
+            <Label x:Name="CategoryLB" Content="category:" Grid.Column="0" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansRegular}" FontSize="14"/>
         </Grid>
-        <ListView x:Name="ProductsListView" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="Josefin Sans Medium" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" SelectionChanged="ProductsListView_SelectionChanged" >
+        <ListView x:Name="ProductsListView" d:ItemsSource="{d:SampleData ItemCount=5}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" SelectionChanged="ProductsListView_SelectionChanged" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="AddBtn" Content="Add New Item" Grid.Row="2" HorizontalAlignment="Left"
-    Margin="691,77,0,7" Padding="5" Click="AddBtn_Click" FontFamily="Josefin Sans Medium" Background="White" BorderBrush="{x:Null}" FontSize="14" Foreground="Black" BorderThickness="0,0,0,0" Width="99">
+        <Button x:Name="AddBtn" Content="Add New Item" Grid.Row="2" HorizontalAlignment="Left" FontFamily="{StaticResource JosefinSansBold}"
+    Margin="673,77,0,7" Padding="5" Click="AddBtn_Click" Background="White" BorderBrush="{x:Null}" FontSize="14" Foreground="Black" BorderThickness="0,0,0,0" Width="117">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="8"/>

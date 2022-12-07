@@ -6,8 +6,17 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
+    <Window.Resources>
+        <FontFamily x:Key="JosefinSansBold">/FONTS/JosefinSans-Bold.ttf#Josefin Sans Bold</FontFamily>
+        <FontFamily x:Key="JosefinSansExtraLight">/FONTS/JosefinSans-ExtraLight.ttf#Josefin Sans ExtraLight</FontFamily>
+        <FontFamily x:Key="JosefinSansLight">/FONTS/JosefinSans-Light.ttf#Josefin Sans Light</FontFamily>
+        <FontFamily x:Key="JosefinSansMedium">/FONTS/JosefinSans-Medium.ttf#Josefin Sans Medium</FontFamily>
+        <FontFamily x:Key="JosefinSansRegular">/FONTS/JosefinSans-Regular.ttf#Josefin Sans Regular</FontFamily>
+        <FontFamily x:Key="JosefinSansSemiBold">/FONTS/JosefinSans-SemiBold.ttf#Josefin Sans SemiBold</FontFamily>
+        <FontFamily x:Key="JosefinSansThin">/FONTS/JosefinSans-Thin.ttf#Josefin Sans Thin</FontFamily>
+    </Window.Resources>
     <Grid Name="MainGrid">
-        <Button x:Name="StartButton" Content="Welcome!" FontFamily="Josefin Sans Medium" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="114" Height="36"  FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" Margin="0,288,0,0" RenderTransformOrigin="0.496,-11.521">
+        <Button x:Name="StartButton" Content="Welcome!" FontFamily="{StaticResource JosefinSansBold}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="114" Height="36"  FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" Margin="0,288,0,0" RenderTransformOrigin="0.496,-11.521">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"></Setter>

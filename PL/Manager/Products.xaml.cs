@@ -23,7 +23,7 @@ namespace PL.Manager
     public partial class Products : Window
     {
         private IBl bl = new Bl();
-        public Products( IBl bl1)
+        public Products(IBl bl1)
         {
             bl = bl1;
             InitializeComponent();
@@ -34,16 +34,15 @@ namespace PL.Manager
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            ProductsListView.ItemsSource = bl.Product.RequestListByCond(i=>i.Category==sortBy);
-                                           
+            ProductsListView.ItemsSource = bl.Product.RequestListByCond(i=>i.Category==sortBy);                 
         }
 
-        private void AddBtn_Click(object sender, RoutedEventArgs e) => new Product(bl, sender).Show();
+        private void AddBtn_Click(object sender, RoutedEventArgs e) => new Product(bl).Show();
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ProductForList p = (ProductForList)ProductsListView.SelectedItem;
-            new Product(bl, sender, p).Show();
+            int id = ((ProductForList)ProductsListView.SelectedItem).ID;
+            new Product(bl, id).Show();
         }
 
     }

@@ -23,21 +23,21 @@ namespace PL.Manager
     public partial class Product : Window
     {
         private IBl bl = new Bl();
-        public Product(IBl blOrigin, object originSender, ProductForList pForList)
+        public Product(IBl blOrigin, int id)
         {
             InitializeComponent();
             bl = blOrigin;
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
             CommandBtn.Content = "Update";
 
-            BO.Product p = bl.Product.RequestByIdManager(pForList.ID);
+            BO.Product p = bl.Product.RequestByIdManager(id);
             IdTB.Text = p.ID.ToString();
             NameTB.Text = p.Name;
             PriceTB.Text = p.Price.ToString();
             InStockTB.Text = p.InStock.ToString();
             CategoryCB.SelectedItem = p.Category;
         }
-        public Product(IBl blOrigin, object originSender)
+        public Product(IBl blOrigin)
         {
             InitializeComponent();
             bl = blOrigin;

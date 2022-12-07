@@ -17,6 +17,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="FONTS\JosefinSans-Bold.ttf" />
+    <None Remove="FONTS\JosefinSans-ExtraLight.ttf" />
+    <None Remove="FONTS\JosefinSans-Light.ttf" />
+    <None Remove="FONTS\JosefinSans-Medium.ttf" />
+    <None Remove="FONTS\JosefinSans-Regular.ttf" />
+    <None Remove="FONTS\JosefinSans-SemiBold.ttf" />
+    <None Remove="FONTS\JosefinSans-Thin.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="FONTS\JosefinSans-Bold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FONTS\JosefinSans-ExtraLight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FONTS\JosefinSans-Light.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FONTS\JosefinSans-Medium.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FONTS\JosefinSans-Regular.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FONTS\JosefinSans-SemiBold.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FONTS\JosefinSans-Thin.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 

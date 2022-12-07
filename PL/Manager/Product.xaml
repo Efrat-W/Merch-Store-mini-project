@@ -21,6 +21,12 @@
             <RowDefinition Height="3*"/>
 
         </Grid.RowDefinitions>
+        <Rectangle HorizontalAlignment="Left" Height="338" Margin="239,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="322" Grid.Row="0" Fill="#FFFCE933"
+                   Grid.ColumnSpan="2" Grid.RowSpan="7" StrokeThickness="2" >
+            <Rectangle.Style>
+                <Style/>
+            </Rectangle.Style>
+        </Rectangle>
         <Label x:Name="NameLb" Content="Name:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
         <Label x:Name="IdLb" Content="ID:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
         <Label x:Name="CategoryLb" Content="Category:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
@@ -28,15 +34,16 @@
         <Label x:Name="InStockLb" Content="Amount available in stock:" HorizontalAlignment="right" Margin="0,0,10,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" FontFamily="Cascadia Mono ExtraLight" FontSize="16"/>
         <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
         <TextBox x:Name="IdTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
-        <ComboBox x:Name="CategoryCB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="White" Background="#FFB9F7FF"/>
+        <ComboBox x:Name="CategoryCB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" Background="#FFB9FAFA" FontFamily="Cascadia Code Light"/>
         <TextBox x:Name="PriceTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
         <TextBox x:Name="InStockTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
         <Button x:Name="CommandBtn" Grid.Column="1" Content="We'll see" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="16" Background="Black" Foreground="White" Click="CommandBtn_Click">
-        <Button.Resources>
-            <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="5"></Setter>
-            </Style>
-        </Button.Resources>
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
         </Button>
     </Grid>
+
 </Window>

@@ -34,15 +34,19 @@ namespace PL.Manager
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            ProductsListView.ItemsSource = bl.Product.RequestListByCond(i=>i.Category==sortBy);                 
+            ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == sortBy);
         }
 
-        private void AddBtn_Click(object sender, RoutedEventArgs e) => new Product(bl).Show();
+        private void AddBtn_Click(object sender, RoutedEventArgs e) {
+            new Product().Show();
+            ProductsListView.ItemsSource = bl.Product.RequestList();
+        }
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int id = ((ProductForList)ProductsListView.SelectedItem).ID;
-            new Product(bl, id).Show();
+            new Product(id).Show();
+            ProductsListView.ItemsSource = bl.Product.RequestList();
         }
 
         private void ProductsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

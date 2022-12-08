@@ -23,10 +23,9 @@ namespace PL.Manager
     public partial class Product : Window
     {
         private IBl bl = new Bl();
-        public Product(IBl blOrigin, int id)
+        public Product(int id)
         {
             InitializeComponent();
-            bl = blOrigin;
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
             CommandBtn.Content = "Update";
 
@@ -37,10 +36,9 @@ namespace PL.Manager
             InStockTB.Text = p.InStock.ToString();
             CategoryCB.SelectedItem = p.Category;
         }
-        public Product(IBl blOrigin)
+        public Product()
         {
             InitializeComponent();
-            bl = blOrigin;
             CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
             CommandBtn.Content = "Add";
         }

@@ -102,7 +102,7 @@ internal static class DataSource
                 }
                 catch (Exception e)
                 {
-                    throw new MissingEntityException("nonexistent product", e);
+                    //throw new MissingEntityException("nonexistent product", e);
                 }
             }
         }

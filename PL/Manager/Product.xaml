@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
-        Title="Product" Height="450" Width="800">
+        Title="Product" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Window.Resources>
         <FontFamily x:Key="JosefinSansBold">/FONTS/JosefinSans-Bold.ttf#Josefin Sans Bold</FontFamily>
         <FontFamily x:Key="JosefinSansExtraLight">/FONTS/JosefinSans-ExtraLight.ttf#Josefin Sans ExtraLight</FontFamily>
@@ -46,7 +47,7 @@
         <Label x:Name="CategoryLb" Content="Category:" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="77"/>
         <Label x:Name="PriceLb" Content="Price:" HorizontalAlignment="Left" Margin="342,0,0,0"  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="48"/>
         <Label x:Name="InStockLb" Content="Amount in stock:" HorizontalAlignment="Left" Margin="261,8,0,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129"/>
-        <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
+        <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" TextChanged="NameTB_TextChanged"/>
         <TextBox x:Name="IdTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
         <ComboBox x:Name="CategoryCB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="{StaticResource JosefinSansLight}"/>
         <TextBox x:Name="PriceTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>

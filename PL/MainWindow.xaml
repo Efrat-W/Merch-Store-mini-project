@@ -16,7 +16,7 @@
         <FontFamily x:Key="JosefinSansThin">/FONTS/JosefinSans-Thin.ttf#Josefin Sans Thin</FontFamily>
     </Window.Resources>
     <Grid Name="MainGrid">
-        <Button x:Name="StartButton" Content="Welcome!" FontFamily="{StaticResource JosefinSansBold}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="114" Height="36"  FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" Margin="0,288,0,0" RenderTransformOrigin="0.496,-11.521">
+        <Button x:Name="StartButton" Content="Welcome!" FontFamily="{StaticResource JosefinSansBold}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="114" Height="36" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" RenderTransformOrigin="0.496,-11.521">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"></Setter>

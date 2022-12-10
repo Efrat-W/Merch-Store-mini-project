@@ -101,6 +101,17 @@ namespace PL.Manager
                 else
                     e.Handled = result;
             }
+
+            int index = PriceTB.Text.IndexOf('.');
+            if (index != -1 && PriceTB.Text.Substring(index).Length > 2)
+            {
+                e.Handled = true;
+                string s = PriceTB.Text.Substring(0, index);
+                s += ".";
+                s += PriceTB.Text.Substring(index + 1, 2);
+                PriceTB.Text = s;
+            }
+
         }
 
         //textbox focus methods

@@ -53,5 +53,10 @@ namespace PL.Manager
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ProductsListView.ItemsSource = bl.Product.RequestList();
+        }
     }
 }

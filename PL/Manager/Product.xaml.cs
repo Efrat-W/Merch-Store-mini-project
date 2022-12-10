@@ -47,17 +47,9 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
-            //check if the attributes where filled 
-            bool valid = true;
-            if (string.IsNullOrWhiteSpace(IdTB.Text))
-            { IdTB.Text = "Fill in ID."; valid = false; }
-            if (string.IsNullOrWhiteSpace(PriceTB.Text))
-            { PriceTB.Text = "Fill in price."; valid = false; }
-            if (string.IsNullOrWhiteSpace(InStockTB.Text))
-            { InStockTB.Text = "Fill in amount."; valid = false; }
-            if (string.IsNullOrWhiteSpace(NameTB.Text))
-            { NameTB.Text = "Fill in product name."; valid = false; }
-            if (!valid) return;
+            //check if the attributes where filled
+            if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(IdTB.Text) || string.IsNullOrWhiteSpace(PriceTB.Text) || string.IsNullOrWhiteSpace(InStockTB.Text))
+                return;
 
             try
             {
@@ -94,6 +86,7 @@ namespace PL.Manager
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        //textbox focus methods
         private void NameTB_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameTB.Text))
@@ -103,6 +96,38 @@ namespace PL.Manager
         private void NameTB_GotFocus(object sender, RoutedEventArgs e)
         {
             InvalidNameLb.Visibility = Visibility.Hidden;
+        }
+
+        private void IdTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(IdTB.Text))
+                InvalidIdLb.Visibility = Visibility.Visible;
+        }
+        private void IdTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            InvalidIdLb.Visibility = Visibility.Hidden;
+        }
+
+        private void PriceTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(PriceTB.Text))
+                InvalidPriceLb.Visibility = Visibility.Visible;
+        }
+
+        private void PriceTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            InvalidPriceLb.Visibility = Visibility.Hidden;
+        }
+
+        private void InStockTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(InStockTB.Text))
+                InvalidInStockLb.Visibility = Visibility.Visible;
+        }
+
+        private void InStockTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            InvalidInStockLb.Visibility = Visibility.Hidden;
         }
     }
 }

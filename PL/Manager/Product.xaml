@@ -50,15 +50,15 @@
         <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" LostFocus="NameTB_LostFocus" GotFocus="NameTB_GotFocus"/>
         <Label x:Name="InvalidNameLb" Content="Fill in name." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Grid.RowSpan="2" Visibility="Hidden"/>
 
-        <TextBox x:Name="IdTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
+        <TextBox x:Name="IdTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus"/>
         <Label x:Name="InvalidIdLb" Content="Fill in ID." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
 
         <ComboBox x:Name="CategoryCB" SelectedIndex="0" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="{StaticResource JosefinSansLight}"/>
 
-        <TextBox x:Name="PriceTB" PreviewTextInput="PreviewTextInputDecimal" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
+        <TextBox x:Name="PriceTB" PreviewTextInput="PreviewTextInputDecimal" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" LostFocus="PriceTB_LostFocus" GotFocus="PriceTB_GotFocus"/>
         <Label x:Name="InvalidPriceLb" Content="Fill in price." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
 
-        <TextBox x:Name="InStockTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" Height="25" FontSize="14"/>
+        <TextBox x:Name="InStockTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" LostFocus="InStockTB_LostFocus" GotFocus="InStockTB_GotFocus"/>
         <Label x:Name="InvalidInStockLb" Content="Fill in amount." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
 
         <Button x:Name="CommandBtn" Content="We'll see" HorizontalAlignment="Left" Margin="365,10,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="16" Background="Black" Foreground="White" Click="CommandBtn_Click" Grid.ColumnSpan="2" Width="70" Height="25" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansBold}" BorderThickness="0,0,0,0">

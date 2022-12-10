@@ -101,6 +101,10 @@ namespace PL.Manager
                 else
                     e.Handled = result;
             }
+            else if (!PriceTB.Text.Contains('.') && e.Text.StartsWith(".")) //no '.' yet
+                e.Handled = false;
+            else
+                e.Handled = result;
 
             int index = PriceTB.Text.IndexOf('.');
             if (index != -1 && PriceTB.Text.Substring(index).Length > 2)

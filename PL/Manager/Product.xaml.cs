@@ -49,7 +49,10 @@ namespace PL.Manager
         {
             //check if the attributes where filled
             if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(IdTB.Text) || string.IsNullOrWhiteSpace(PriceTB.Text) || string.IsNullOrWhiteSpace(InStockTB.Text))
+            {
+                MessageBox.Show("Make sure you fill out the entire form.");
                 return;
+            }
 
             try
             {
@@ -82,8 +85,22 @@ namespace PL.Manager
 
         private void PreviewTextInputDecimal(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new("[^0-9]+\\.?[^0-9]*");
-            e.Handled = regex.IsMatch(e.Text);
+            if (e.Text.StartsWith(".") && string.IsNullOrWhiteSpace(PriceTB.Text))
+            {
+                PriceTB.Text = "0.";
+                e.Handled = true;
+                return;
+            }
+
+            Regex regex = new("[^0-9]+");
+            bool result = regex.IsMatch(e.Text);
+            if (PriceTB.Text.Contains('.'))
+            {
+                if (e.Text.StartsWith("."))
+                    e.Handled = true;
+                else
+                    e.Handled = result;
+            }
         }
 
         //textbox focus methods

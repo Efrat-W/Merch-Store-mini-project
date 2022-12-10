@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace PL.Manager
 {
@@ -45,22 +47,17 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
-            //check fields correctness
-            if (int.Parse(IdTB.Text) <= 99999 || int.Parse(IdTB.Text) > 999999)
-            {
-                IdTB.Text = "X Invalid price.";
-                IdTB.Foreground = Brushes.Red;
-            }
-            double.TryParse(PriceTB.Text, out double price);
-            if (price < 0)
-            {
-                PriceTB.Text = "X Invalid price.";
-                PriceTB.Foreground = Brushes.Red;
-            }
-            if (int.Parse(InStockTB.Text) < 0)
-                Console.WriteLine();
-                
-
+            //check if the attributes where filled 
+            bool valid = true;
+            if (string.IsNullOrWhiteSpace(IdTB.Text))
+            { IdTB.Text = "Fill in ID."; valid = false; }
+            if (string.IsNullOrWhiteSpace(PriceTB.Text))
+            { PriceTB.Text = "Fill in price."; valid = false; }
+            if (string.IsNullOrWhiteSpace(InStockTB.Text))
+            { InStockTB.Text = "Fill in amount."; valid = false; }
+            if (string.IsNullOrWhiteSpace(NameTB.Text))
+            { NameTB.Text = "Fill in product name."; valid = false; }
+            if (!valid) return;
 
             try
             {
@@ -68,26 +65,44 @@ namespace PL.Manager
                 {
                     ID = int.Parse(IdTB.Text),
                     Name = NameTB.Text,
-                    Price = price,
+                    Price = double.Parse(PriceTB.Text),
                     InStock = int.Parse(InStockTB.Text),
                     Category = (BO.category)CategoryCB.SelectedItem
                 };
 
                 if (CommandBtn.Content == "Add")
-                {
                     bl.Product.Add(prod);
-                }
-                else
-                {
+                else // "Update"
                     bl.Product.Update(prod);
-                }
                 Close();
             }
             catch
             {
-                MessageBox.Show("One or more fields where filled in incorrectly.");
+                MessageBox.Show("An unexpected error has occured.\nMake sure you fill it out correctly.");
             }
         }
 
+        private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void PreviewTextInputDecimal(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new("[^0-9]+\\.?[^0-9]*");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void NameTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NameTB.Text))
+                InvalidNameLb.Visibility = Visibility.Visible;
+        }
+
+        private void NameTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            InvalidNameLb.Visibility = Visibility.Hidden;
+        }
     }
 }

@@ -162,8 +162,7 @@ internal class Product : BlApi.IProduct
     public BO.Product Update(BO.Product product)
     {
         //validation
-        if (product.ID > 99999 && product.ID <= 999999  //product id has 6 digits
-            && product.Name!.Length > 0 && product.InStock >= 0)
+        if (product.ID >= 0 && product.Name!.Length > 0 && product.InStock >= 0)
         {
             try
             {

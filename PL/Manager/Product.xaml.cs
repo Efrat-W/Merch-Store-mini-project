@@ -33,6 +33,7 @@ namespace PL.Manager
 
             BO.Product p = bl.Product.RequestByIdManager(id);
             IdTB.Text = p.ID.ToString();
+            IdTB.IsReadOnly = true;
             NameTB.Text = p.Name;
             PriceTB.Text = p.Price.ToString();
             InStockTB.Text = p.InStock.ToString();
@@ -81,10 +82,19 @@ namespace PL.Manager
         {
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+            IdTB.Text.Trim();
+            InStockTB.Text.Trim();
+            if (IdTB.Text.Length > 6)
+                IdTB.Text = IdTB.Text.Substring(0, 6);
+            if (InStockTB.Text.Length > 6)
+                InStockTB.Text = InStockTB.Text.Substring(0, 6);
         }
 
         private void PreviewTextInputDecimal(object sender, TextCompositionEventArgs e)
         {
+            PriceTB.Text.Trim();
+            if (PriceTB.Text.Length > 8)
+                PriceTB.Text = PriceTB.Text.Substring(0, 8);
             if (e.Text.StartsWith(".") && string.IsNullOrWhiteSpace(PriceTB.Text))
             {
                 PriceTB.Text = "0.";

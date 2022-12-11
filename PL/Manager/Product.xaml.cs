@@ -82,8 +82,7 @@ namespace PL.Manager
         {
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-            IdTB.Text.Trim();
-            InStockTB.Text.Trim();
+            //restrict size of input
             if (IdTB.Text.Length > 6)
                 IdTB.Text = IdTB.Text.Substring(0, 6);
             if (InStockTB.Text.Length > 6)
@@ -92,30 +91,23 @@ namespace PL.Manager
 
         private void PreviewTextInputDecimal(object sender, TextCompositionEventArgs e)
         {
-            PriceTB.Text.Trim();
+            //restrict size of input
             if (PriceTB.Text.Length > 8)
                 PriceTB.Text = PriceTB.Text.Substring(0, 8);
-            if (e.Text.StartsWith(".") && string.IsNullOrWhiteSpace(PriceTB.Text))
+
+            //append '0.' whenever user inputs a dot at the start
+            if (e.Text.Contains('.') && string.IsNullOrWhiteSpace(PriceTB.Text))
             {
                 PriceTB.Text = "0.";
                 e.Handled = true;
                 return;
             }
 
-            Regex regex = new("[^0-9]+");
-            bool result = regex.IsMatch(e.Text);
-            if (PriceTB.Text.Contains('.'))
-            {
-                if (e.Text.StartsWith("."))
-                    e.Handled = true;
-                else
-                    e.Handled = result;
-            }
-            else if (!PriceTB.Text.Contains('.') && e.Text.StartsWith(".")) //no '.' yet
-                e.Handled = false;
-            else
-                e.Handled = result;
+            //regex restriction of invalid chars in event, and unnecessary '.'
+            Regex regex = new("[^0-9.]+");
+            e.Handled = (e.Text.Contains('.') && PriceTB.Text.Contains('.')) ? true : e.Handled = regex.IsMatch(e.Text);
 
+            //restriction of 2 digits after the dot.
             int index = PriceTB.Text.IndexOf('.');
             if (index != -1 && PriceTB.Text.Substring(index).Length > 2)
             {
@@ -125,7 +117,6 @@ namespace PL.Manager
                 s += PriceTB.Text.Substring(index + 1, 2);
                 PriceTB.Text = s;
             }
-
         }
 
         //textbox focus methods

@@ -3,6 +3,7 @@ using BlImplementation;
 using BO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,26 +34,36 @@ namespace PL.Manager
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == sortBy);
+            if (CategorySelector.SelectedItem == null)
+                ProductsListView.ItemsSource = bl.Product.RequestList();
+            else
+            {
+                BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
+                ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == sortBy);
+            }
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e) {
             new Product().ShowDialog();
-            ProductsListView.Items.Refresh();
-           // ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == (BO.category)CategorySelector.SelectedItem);
-
+            if (CategorySelector.SelectedItem == null)
+                ProductsListView.ItemsSource = bl.Product.RequestList();
+            else
+                ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == (BO.category)CategorySelector.SelectedItem);
         }
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int id = ((ProductForList)ProductsListView.SelectedItem).ID;
             new Product(id).ShowDialog();
-            ProductsListView.Items.Refresh();
+            if (CategorySelector.SelectedItem == null)
+                ProductsListView.ItemsSource = bl.Product.RequestList();
+            else
+                ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == (BO.category)CategorySelector.SelectedItem);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            CategorySelector.SelectedItem = null;
             ProductsListView.ItemsSource = bl.Product.RequestList();
         }
     }

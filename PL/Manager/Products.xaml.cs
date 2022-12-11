@@ -49,11 +49,6 @@ namespace PL.Manager
             ProductsListView.ItemsSource = bl.Product.RequestList();
         }
 
-        private void ProductsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ProductsListView.ItemsSource = bl.Product.RequestList();

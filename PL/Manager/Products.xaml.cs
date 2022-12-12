@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,8 +21,8 @@ namespace PL.Manager
     /// </summary>
     public partial class Products : Window
     {
-        private IBl bl = new Bl();
-        public Products(IBl bl1)
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        public Products(BlApi.IBl? bl1)
         {
             bl = bl1;
             InitializeComponent();

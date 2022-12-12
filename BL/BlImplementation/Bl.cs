@@ -8,7 +8,7 @@ using BlApi;
 using BO;
 namespace BlImplementation;
 
-sealed public class Bl : IBl
+internal class Bl : IBl
 {
     public IProduct Product => new Product();
     public IOrder Order => new Order();

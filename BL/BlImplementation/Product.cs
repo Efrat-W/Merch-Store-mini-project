@@ -1,12 +1,11 @@
 ﻿using BO;
-using Dal;
-using DalApi;
+
 
 namespace BlImplementation;
 
 internal class Product : BlApi.IProduct
 {
-    IDal dal = new DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
     /// <summary>
     /// help method for veryfying a new product 
     /// </summary>

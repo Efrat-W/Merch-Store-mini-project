@@ -10,7 +10,7 @@ using System.Data.Common;
 namespace DalTest;
 internal class Program
 {
-    static private IDal dalList = new DalList();
+    static private IDal? dalList = Factory.Get();
     static void Main(string[] args)
     {
         menu choice = new menu();

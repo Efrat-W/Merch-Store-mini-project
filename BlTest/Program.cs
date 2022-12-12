@@ -1,8 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
 using BO;
-using Dal;
-using DO;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
@@ -11,7 +9,7 @@ namespace BlTest
 {
     internal class Program
     {
-        static private IBl bl = new Bl();
+        static private IBl bl = Factory.Get();
         static Cart myCart = null;
         static void Main(string[] args)
         {

@@ -1,14 +1,13 @@
 ﻿
 using BO;
-using Dal;
-using DalApi;
-using DO;
+
 
 namespace BlImplementation;
 
 internal class Order : BlApi.IOrder
 {
-    IDal dal = new DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
+
     /// <summary>
     /// returns list of orders
     /// </summary>

@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 using BlApi;
 using BO;
-using Dal;
-using DalApi;
+
 
 namespace BlImplementation;
 
 internal class Cart : ICart
 {
-    IDal dal = new DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
     /// <summary>
     /// adds a product to the customer's cart
     /// </summary>

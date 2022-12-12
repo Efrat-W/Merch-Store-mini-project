@@ -53,6 +53,7 @@ namespace PL.Manager
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (ProductsListView.SelectedItem == null) return;
             int id = ((ProductForList)ProductsListView.SelectedItem).ID;
             new Product(id).ShowDialog();
             if (CategorySelector.SelectedItem == null)

@@ -5,9 +5,15 @@ namespace Dal;
 
 sealed public class DalList : IDal
 {
-    public static DalList Instance { get; } = new DalList();
-    private DalList() { }
-    public IProduct Product => new DalProduct();
-    public IOrder Order => new DalOrder();
-    public IOrderItem OrderItem => new DalOrderItem();
+    public static readonly Lazy<DalList> lazy = new Lazy<DalList>(() => new DalList());
+    public static DalList Instance { get { return lazy.Value; } }
+    private DalList() 
+    { 
+        Product = new DalProduct();
+        Order = new DalOrder();
+        OrderItem = new DalOrderItem();
+    }
+    public IProduct Product { get; }
+    public IOrder Order { get; }
+    public IOrderItem OrderItem { get; }
 }

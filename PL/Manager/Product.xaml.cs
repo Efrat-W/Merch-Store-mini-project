@@ -65,9 +65,19 @@ namespace PL.Manager
                 };
 
                 if (CommandBtn.Content == "Add")
-                    bl.Product.Add(prod);
+                { 
+                    if (IdTB.Text.Length < 6)
+                    {
+                        InvalidIdLb.Content = "Fill in 6 digits.";
+                        InvalidIdLb.Visibility = Visibility.Visible;
+                        return;
+                    }
+                    else
+                        InvalidIdLb.Visibility = Visibility.Hidden;
+                    bl?.Product.Add(prod); 
+                }
                 else // "Update"
-                    bl.Product.Update(prod);
+                    bl?.Product.Update(prod);
                 Close();
             }
             catch

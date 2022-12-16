@@ -2,7 +2,7 @@
 using DalApi;
 
 namespace Dal;
-
+//lazy and thread safe singleton for saving the data in lists 
 sealed internal class DalList : IDal
 {
     private static readonly Lazy<DalList> lazy = new (() => new DalList());

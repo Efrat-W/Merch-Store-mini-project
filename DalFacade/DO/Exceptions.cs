@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+namespace DO;
 
 [Serializable]
 public class MissingEntityException : Exception

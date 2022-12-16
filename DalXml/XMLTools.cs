@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
+using DO;
 namespace Dal;
 
 class XMLTools
@@ -52,7 +53,7 @@ class XMLTools
         }
         catch (Exception ex)
         {
-            DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
+           throw new DO.XMLFileLoadCreateException(filePath, $"fail to load xml file: {filePath}", ex);
         }
     }
     #endregion

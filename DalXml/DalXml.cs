@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Dal;
 
 sealed internal class DalXml: IDal
@@ -13,14 +14,29 @@ sealed internal class DalXml: IDal
     
         private static readonly Lazy<DalXml> lazy = new(() => new DalXml());
         public static DalXml Instance { get { return lazy.Value; } }
-        private DalXml()
-        {
-            Product = new Dal.Product();
-            Order = new Dal.Order();
-            OrderItem = new Dal.OrderItem();
-        }
         public IProduct Product { get; }
         public IOrder Order { get; }
         public IOrderItem OrderItem { get; }
-    
+
+    static string dir = @"..\xml\";
+    string productsFilePath = @"products.xml";
+    string ordersFilePath = @"ordersList.xml";
+    string orderItemsFilePath = @"orderItems.xml";
+
+    private DalXml()
+    {
+        if (!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
+
+        if (!File.Exists(dir + productsFilePath))
+            Dal.XMLTools.SaveListToXMLSerializer<DO.Product?>(DataSource.products, dir + productsFilePath);
+
+        if (!File.Exists(dir + ordersFilePath))
+            Dal.XMLTools.SaveListToXMLSerializer<DO.Order?>(DataSource.orders, dir + ordersFilePath);
+
+        if (!File.Exists(dir + orderItemsFilePath))
+            Dal.XMLTools.SaveListToXMLSerializer<DO.OrderItem?>(DataSource.orderItems, dir + orderItemsFilePath);
+
+    }
+
 }

@@ -3,11 +3,11 @@ using DalApi;
 
 namespace Dal;
 
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
-    public static readonly Lazy<DalList> lazy = new Lazy<DalList>(() => new DalList());
+    private static readonly Lazy<DalList> lazy = new (() => new DalList());
     public static DalList Instance { get { return lazy.Value; } }
-    private DalList() 
+    private DalList()
     { 
         Product = new DalProduct();
         Order = new DalOrder();

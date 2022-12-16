@@ -14,11 +14,14 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Create(Product prod)
     {
-        Product? prodCheck = DataSource.products.Find(i=>i?.ID == prod.ID);
-        if (prodCheck != null)
-            throw new MissingEntityException("Requested Product already exists.\n");
-        DataSource.products.Add(prod);
-        return prod.ID;
+        lock (this)
+        {
+            Product? prodCheck = DataSource.products.Find(i => i?.ID == prod.ID);
+            if (prodCheck != null)
+                throw new MissingEntityException("Requested Product already exists.\n");
+            DataSource.products.Add(prod);
+            return prod.ID;
+        }
     }
 
     /// <summary>
@@ -61,10 +64,13 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Update(Product prod)
     {
-        //if product is not exist throw exception 
-        Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
-        DataSource.products.Remove(prodToRemove);
-        DataSource.products.Add(prod);
+        lock (this)
+        {
+            //if product is not exist throw exception 
+            Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+            DataSource.products.Remove(prodToRemove);
+            DataSource.products.Add(prod);
+        }
     }
 
     /// <summary>
@@ -74,7 +80,10 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Delete(Product prod)
     {
-        Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
-        DataSource.products.Remove(prodToRemove);
+        lock (this)
+        {
+            Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+            DataSource.products.Remove(prodToRemove);
+        }
     }
 }

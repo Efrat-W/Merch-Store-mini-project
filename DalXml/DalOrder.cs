@@ -20,7 +20,7 @@ internal class DalOrder : IOrder
         try
         {
             if (File.Exists(path))
-                ordersRoot = XElement.Load("xml/"+ path);
+                ordersRoot = XElement.Load(@"xml/"+ path);
             else
             {
                 ordersRoot = new XElement("orders");

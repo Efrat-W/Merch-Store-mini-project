@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Security.Principal;
 
-internal class Order : IOrder
+internal class DalProduct : IProduct
 {
 
 }

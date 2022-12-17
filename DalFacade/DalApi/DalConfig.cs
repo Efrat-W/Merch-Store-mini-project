@@ -23,4 +23,10 @@ static class DalConfig
         s_dalPackages = packages.ToDictionary(p => "" + p.Name, p => p.Value);
     }
 }
+[Serializable]
+public class DalConfigException : Exception
+{
+    public DalConfigException(string msg) : base(msg) { }
+    public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
+}
 

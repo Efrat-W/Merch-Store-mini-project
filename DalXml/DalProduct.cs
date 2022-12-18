@@ -33,11 +33,11 @@ internal class DalProduct : IProduct
     }
     public int Create(Product prod)
     { 
-        XElement Id = new XElement("Id", prod.ID);
-        XElement Name = new XElement("Name", prod.Name);
-        XElement Price = new XElement("Price", prod.Price);
-        XElement Category = new XElement("Category", prod.Category);
-        XElement InStock = new XElement("In Stock", prod.InStock);
+        XElement Id = new ("Id", prod.ID);
+        XElement Name = new ("Name", prod.Name);
+        XElement Price = new ("Price", prod.Price);
+        XElement Category = new ("Category", prod.Category);
+        XElement InStock = new ("In Stock", prod.InStock);
 
         productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock));
         productsRoot.Save(path);
@@ -54,12 +54,12 @@ internal class DalProduct : IProduct
             products = (from p in productsRoot.Elements()
                         let prod= new Product()
                         {
-                            ID = Convert.ToInt32(p.Element("Id").Value)                                              ,
-                            Name = p.Element("Name").Value,
-                            Price = Convert.ToInt32(p.Element("Price").Value),
-                            InStock = Convert.ToInt32(p.Element("In Stock").Value),
-                            Category = (category)Enum.Parse(typeof(category), p.Element("Category").Value)
-                        });
+                            ID = Convert.ToInt32(p.Element("Id")!.Value)                                              ,
+                            Name = p.Element("Name")!.Value,
+                            Price = Convert.ToInt32(p.Element("Price")!.Value),
+                            InStock = Convert.ToInt32(p.Element("In Stock")!.Value),
+                            Category = (category)Enum.Parse(typeof(category), p.Element("Category")!.Value)
+                        } select (Product?)prod);
         }
         catch (Exception ex)
         {

@@ -32,7 +32,7 @@ namespace PL
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Products products = new Products(bl);
+            Products products = new (bl);
             products.Show();
         }
 

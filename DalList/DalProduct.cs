@@ -62,13 +62,10 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public void Update(Product prod)
     {
-        lock (this)
-        {
             //if product is not exist throw exception 
             Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
             DataSource.products.Remove(prodToRemove);
             DataSource.products.Add(prod);
-        }
     }
 
     /// <summary>
@@ -77,11 +74,8 @@ internal class DalProduct : IProduct
     /// <param name="prod"></param>
     /// <exception cref="Exception"></exception>
     public void Delete(Product prod)
-    {
-        lock (this)
-        {
+    { 
             Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
             DataSource.products.Remove(prodToRemove);
-        }
     }
 }

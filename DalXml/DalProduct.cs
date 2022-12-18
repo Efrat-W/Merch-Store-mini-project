@@ -52,14 +52,15 @@ internal class DalProduct : IProduct
         try
         {
             products = (from p in productsRoot.Elements()
-                        select new Product?()
+                        let prod = new Product()
                         {
-                            ID = Convert.ToInt32(p.Element("Id").Value)                                              ,
-                            Name = p.Element("Name").Value,
-                            Price = Convert.ToInt32(p.Element("Price").Value),
-                            InStock = Convert.ToInt32(p.Element("In Stock").Value),
-                            Category = (category)Enum.Parse(typeof(category), p.Element("Category").Value)
-                        });
+                            ID = Convert.ToInt32(p.Element("Id")!.Value)                                              ,
+                            Name = p.Element("Name")!.Value,
+                            Price = Convert.ToInt32(p.Element("Price")!.Value),
+                            InStock = Convert.ToInt32(p.Element("In Stock")!.Value),
+                            Category = (category)Enum.Parse(typeof(category), p.Element("Category")!.Value)
+                        }
+                        select (Product?)prod);
         }
         catch (Exception ex)
         {

@@ -14,14 +14,12 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     public int Create(Product prod)
     {
-        lock (this)
-        {
             Product? prodCheck = DataSource.products.Find(i => i?.ID == prod.ID);
             if (prodCheck != null)
                 throw new MissingEntityException("Requested Product already exists.\n");
             DataSource.products.Add(prod);
             return prod.ID;
-        }
+        
     }
 
     /// <summary>

@@ -11,37 +11,11 @@ internal class DalOrderItem : IOrderItem
 {
     string path = "ordersItems.xml";
     string configPath = "config.xml";
-    XElement orderItemsRoot;
-
-    public DalOrderItem()
-    {
-        LoadData();
-    }
-
-    private void LoadData()
-    {
-        try
-        {
-            if (File.Exists(path))
-                orderItemsRoot = XElement.Load(@"xml/" + path);
-            else
-            {
-                orderItemsRoot = new XElement("ordersItems");
-                orderItemsRoot.Save(path);
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("product File upload problem" + ex.Message);
-        }
-    }
+    
 
     public int Create(OrderItem item)
     {
-        //נחוץ? כי בגלל המספר הרץ אין סיכוי שיהיה קיים עוד אחד כמוהו לפני
-        //OrderItem? itemCheck = OrderItems.Find(i => i?.ProductID == item.ProductID && i?.OrderID == item.OrderID);
-        //if (itemCheck != null)
-        // throw new MissingEntityException("Requested Order Item already exists.\n");
+        List<OrderItem> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem>(path);
 
         //Read config file
         XElement configRoot = XElement.Load(configPath);
@@ -53,14 +27,13 @@ internal class DalOrderItem : IOrderItem
         configRoot.Element("orderItemSeq").SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
-        XElement Id = new XElement("Id", item.ID);
-        XElement ProductID = new XElement("Product Id", item.ProductID);
-        XElement OrderID = new XElement("Order Id", item.OrderID);
-        XElement Price = new XElement("Price", item.Price);
-        XElement Amount = new XElement("Amount", item.Amount);
+        if (orderItems.Exists(x => x?.ID == item.ID))
+            throw new MissingEntityException("Requested Order already exists.\n");
 
-        orderItemsRoot.Add(new XElement("OrderItem", Id, ProductID, OrderID, Price, Amount));
-        orderItemsRoot.Save(path);
+        orderItems.Add(item);
+
+        XMLTools.SaveListToXMLSerializer(orders, path);
+
         return item.ID;
     }
 

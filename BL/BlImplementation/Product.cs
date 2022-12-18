@@ -35,7 +35,7 @@ internal class Product : BlApi.IProduct
         {
             dal.Product.Create(prod);//tries to add to DO
         }
-        catch (DoubledEntityException ex)
+        catch (DO.DoubledEntityException ex)
         {
             throw new InvalidArgumentException("Requested Product to create wasn't found.", ex);
         }
@@ -59,7 +59,7 @@ internal class Product : BlApi.IProduct
             {
                 dal.Product.Delete(dal.Product.RequestById(id));
             }
-            catch (MissingEntityException ex)
+            catch (DO.MissingEntityException ex)
             {
                 throw new InvalidArgumentException("Requested Product to delete couldn't be found.", ex);
             }
@@ -114,7 +114,7 @@ internal class Product : BlApi.IProduct
         {
             item = cart.Items.Find(i => i.ID == id);//checks if the item exists in cart
         }
-        catch (MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
+        catch (DO.MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
         return new BO.ProductItem()
         {
             ID = prod?.ID ?? throw new InvalidArgumentException(),
@@ -167,7 +167,7 @@ internal class Product : BlApi.IProduct
             {
                 dal.Product.Update(product.ProductBoToDo());
             }
-            catch (MissingEntityException ex) { throw new InvalidArgumentException("Requested Product to update isn't found.", ex); }
+            catch (DO.MissingEntityException ex) { throw new InvalidArgumentException("Requested Product to update isn't found.", ex); }
         }
         else
         {

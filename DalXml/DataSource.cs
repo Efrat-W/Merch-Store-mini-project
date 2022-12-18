@@ -29,7 +29,7 @@ internal static class DataSource
             {
                 ID = num++,
                 Price = (double)rand.Next(5000, 20000) / 100,
-                Name = "product " + i,
+                Name = "product tz" + i,
                 Category = (category)rand.Next(categories.Length),
                 InStock = rand.Next(50)
             };

@@ -144,7 +144,7 @@ internal class Cart : ICart
         {
             id = dal.Order.Create(convertOrder(order));//founds sequence id and creates order in dl
         }
-        catch (DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
+        catch (DO.DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
         order.Id = id;
         foreach (BO.OrderItem item in order.Items)//creates all items in dl and updates products amount in stock
         {

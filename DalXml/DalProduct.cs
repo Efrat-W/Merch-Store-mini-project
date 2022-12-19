@@ -1,11 +1,13 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Xml.Linq;
 
 internal class DalProduct : IProduct
 {
+    public static string dir = @"xml\";
     string path = "products.xml";
     string configPath = "config.xml";
     XElement productsRoot;
@@ -13,7 +15,10 @@ internal class DalProduct : IProduct
     {
         LoadData();
     }
-
+    /// <summary>
+    /// loadind the file's data to the root
+    /// </summary>
+    /// <exception cref="Exception"></exception>
     private void LoadData()
     {
         try
@@ -31,35 +36,43 @@ internal class DalProduct : IProduct
             throw new Exception("product File upload problem" + ex.Message);
         }
     }
+    /// <summary>
+    /// adds the product to the list of products
+    /// </summary>
+    /// <param name="prod">the new product</param>
+    /// <exception cref="Exception"></exception>
     public int Create(Product prod)
     { 
-        XElement Id = new ("Id", prod.ID);
+        XElement Id = new ("ID", prod.ID);
         XElement Name = new ("Name", prod.Name);
         XElement Price = new ("Price", prod.Price);
         XElement Category = new ("Category", prod.Category);
-        XElement InStock = new ("In Stock", prod.InStock);
+        XElement InStock = new ("InStock", prod.InStock);
 
         productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock));
-        productsRoot.Save(path);
+        productsRoot.Save(@"..\xml\"+path);
 
         return prod.ID;
     }
-
+    /// <summary>
+    /// returns the list of products
+    /// </summary>
+    /// <returns><list type="Product">list of products</returns>
     public IEnumerable<Product?> RequestAll(Func<Product?, bool>? func = null)
     {
-        LoadData();
+        //LoadData();
         IEnumerable<Product?> products;
         try
         {
             products = (from p in productsRoot.Elements()
-                        let prod = new Product()
-                        {
-                            ID = Convert.ToInt32(p.Element("Id")!.Value),
-                            Name = p.Element("Name")!.Value,
-                            Price = Convert.ToInt32(p.Element("Price")!.Value),
-                            InStock = Convert.ToInt32(p.Element("In Stock")!.Value),
-                            Category = (category)Enum.Parse(typeof(category), p.Element("Category")!.Value)
-                        } 
+                                              let prod= new Product()
+                                              {
+                                                  ID = int.Parse(p.Element("ID").Value),
+                                                  Name = p.Element("Name").Value,
+                                                  Price = double.Parse(p.Element("Price").Value),
+                                                  InStock = int.Parse(p.Element("InStock").Value),
+                                                  Category = (category)Enum.Parse(typeof(category), p.Element("Category").Value)
+                                              }
                         select (Product?)prod);
         }
         catch (Exception ex)
@@ -67,39 +80,59 @@ internal class DalProduct : IProduct
             products = null;
         }
         if (func == null)
-            return products!;
+         return products;
         return products!.Where(o => func(o));
+        
     }
-
+    /// <summary>
+    /// returns the product by its ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public Product RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
     }
-    //logically right???
+    /// <summary>
+    /// returns the product by given func condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
     public Product RequestByFunc(Func<Product?, bool>? func)
     {
         IEnumerable<Product?> filteredProducts= RequestAll(func) ?? throw new MissingEntityException("Requested Product does not exist.\n");
         return filteredProducts.First() ?? throw new MissingEntityException("Requested Product does not exist.\n"); ;
     }
+    /// <summary>
+    ///  updates the order with the same id to the given order's data
+    /// </summary>
+    /// <param name="prod">the updated product</param>
+    /// <exception cref="Exception"></exception>
     public void Update(Product prod)
     {
         try
         {
-            Delete(prod);
-            Create(prod);
+            Delete(prod);//deletes the old object
+            Create(prod);//creates the new one
         }
         catch
         {
             throw;
         }
     }
+    /// <summary>
+    /// deletes the product from the list 
+    /// </summary>
+    /// <param name="prod"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(Product prod)
     {
         XElement productElement;
         try
         {
             productElement = (XElement)(from p in productsRoot.Elements()
-                                        where Convert.ToInt32(p.Element("Id").Value) == prod.ID
+                                        where int.Parse(p.Element("ID").Value) == prod.ID
                               select p).FirstOrDefault();
             productElement.Remove();
             productsRoot.Save(path);

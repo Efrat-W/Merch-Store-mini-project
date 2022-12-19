@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{5F3005F7-FD7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{2F536252-8E09-4629-A7DC-3A048E93C6EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLPrepareFiles", "XMLPrepareFiles\XMLPrepareFiles.csproj", "{F8B573F8-F8AB-48CD-8E18-FA8196DD7A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLPrepareFiles", "XMLPrepareFiles\XMLPrepareFiles.csproj", "{F8B573F8-F8AB-48CD-8E18-FA8196DD7A9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

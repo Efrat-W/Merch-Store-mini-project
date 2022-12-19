@@ -1,4 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?>
-<products>
-
-</products>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Product>
+    <ID>100000</ID>
+    <Name>product tz0</Name>
+    <Price>122.09</Price>
+    <Category>Mugs</Category>
+    <InStock>29</InStock>
+  </Product>
+  <Product>
+    <ID>100001</ID>
+    <Name>product tz1</Name>
+    <Price>113.94</Price>
+    <Category>Notebooks</Category>
+    <InStock>7</InStock>
+  </Product>
+  <Product>
+    <ID>100002</ID>
+    <Name>product tz2</Name>
+    <Price>163.31</Price>
+    <Category>Mugs</Category>
+    <InStock>23</InStock>
+  </Product>
+  <Product>
+    <ID>100003</ID>
+    <Name>product tz3</Name>
+    <Price>62.44</Price>
+    <Category>Notebooks</Category>
+    <InStock>1</InStock>
+  </Product>
+  <Product>
+    <ID>100005</ID>
+    <Name>product tz5</Name>
+    <Price>173.88</Price>
+    <Category>Stickers</Category>
+    <InStock>9</InStock>
+  </Product>
+  <Product>
+    <ID>100006</ID>
+    <Name>product tz6</Name>
+    <Price>141.32</Price>
+    <Category>Apparel</Category>
+    <InStock>15</InStock>
+  </Product>
+  <Product>
+    <ID>100008</ID>
+    <Name>product tz8</Name>
+    <Price>187.48</Price>
+    <Category>Apparel</Category>
+    <InStock>21</InStock>
+  </Product>
+  <Product>
+    <ID>100009</ID>
+    <Name>product tz9</Name>
+    <Price>85.12</Price>
+    <Category>Stickers</Category>
+    <InStock>23</InStock>
+  </Product>
+  <product>
+    <ID>100007</ID>
+    <Name>uuu</Name>
+    <Price>195.37</Price>
+    <Category>Notebooks</Category>
+    <InStock>9</InStock>
+  </product>
+  <product>
+    <ID>123456</ID>
+    <Name>iuiuiui</Name>
+    <Price>78</Price>
+    <Category>Mugs</Category>
+    <InStock>8</InStock>
+  </product>
+  <product>
+    <ID>100004</ID>
+    <Name>queen tzip</Name>
+    <Price>100000</Price>
+    <Category>Prints</Category>
+    <InStock>18</InStock>
+  </product>
+</ArrayOfProduct>

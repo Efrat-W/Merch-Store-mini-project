@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 internal class DalProduct : IProduct
 {
+    public static string dir = @"xml\";
     string path = "products.xml";
     string configPath = "config.xml";
     XElement productsRoot;
@@ -14,7 +15,10 @@ internal class DalProduct : IProduct
     {
         LoadData();
     }
-
+    /// <summary>
+    /// loadind the file's data to the root
+    /// </summary>
+    /// <exception cref="Exception"></exception>
     private void LoadData()
     {
         try
@@ -32,6 +36,11 @@ internal class DalProduct : IProduct
             throw new Exception("product File upload problem" + ex.Message);
         }
     }
+    /// <summary>
+    /// adds the product to the list of products
+    /// </summary>
+    /// <param name="prod">the new product</param>
+    /// <exception cref="Exception"></exception>
     public int Create(Product prod)
     { 
         XElement Id = new ("ID", prod.ID);
@@ -41,11 +50,14 @@ internal class DalProduct : IProduct
         XElement InStock = new ("InStock", prod.InStock);
 
         productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock));
-        productsRoot.Save(path);
+        productsRoot.Save(@"..\xml\"+path);
 
         return prod.ID;
     }
-
+    /// <summary>
+    /// returns the list of products
+    /// </summary>
+    /// <returns><list type="Product">list of products</returns>
     public IEnumerable<Product?> RequestAll(Func<Product?, bool>? func = null)
     {
         //LoadData();
@@ -72,29 +84,48 @@ internal class DalProduct : IProduct
         return products!.Where(o => func(o));
         
     }
-
+    /// <summary>
+    /// returns the product by its ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public Product RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
     }
-    //logically right???
+    /// <summary>
+    /// returns the product by given func condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
     public Product RequestByFunc(Func<Product?, bool>? func)
     {
         IEnumerable<Product?> filteredProducts= RequestAll(func) ?? throw new MissingEntityException("Requested Product does not exist.\n");
         return filteredProducts.First() ?? throw new MissingEntityException("Requested Product does not exist.\n"); ;
     }
+    /// <summary>
+    ///  updates the order with the same id to the given order's data
+    /// </summary>
+    /// <param name="prod">the updated product</param>
+    /// <exception cref="Exception"></exception>
     public void Update(Product prod)
     {
         try
         {
-            Delete(prod);
-            Create(prod);
+            Delete(prod);//deletes the old object
+            Create(prod);//creates the new one
         }
         catch
         {
             throw;
         }
     }
+    /// <summary>
+    /// deletes the product from the list 
+    /// </summary>
+    /// <param name="prod"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(Product prod)
     {
         XElement productElement;

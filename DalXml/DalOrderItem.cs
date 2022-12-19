@@ -11,8 +11,12 @@ internal class DalOrderItem : IOrderItem
 {
     string path = "orderItems.xml";
     string configPath = "config.xml";
-    
 
+    /// <summary>
+    /// adds the order item to the list of order items
+    /// </summary>
+    /// <param name="item">the new order item</param>
+    /// <exception cref="Exception"></exception>
     public int Create(OrderItem item)
     {
         List<OrderItem> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem>(path);
@@ -36,7 +40,10 @@ internal class DalOrderItem : IOrderItem
 
         return item.ID;
     }
-
+    /// <summary>
+    /// returns the list of order items
+    /// </summary>
+    /// <returns><list type="OrderItem">list of order items</returns>
     public IEnumerable<OrderItem?> RequestAll(Func<OrderItem?, bool>? func = null)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -44,18 +51,31 @@ internal class DalOrderItem : IOrderItem
             return OrderItems.Select(o => o);
         return OrderItems.Where(o => func(o));
     }
-
+    /// <summary>
+    /// returns the order item by its ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public OrderItem RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
     }
-
+    /// <summary>
+    /// returns the order item by given func condition
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
     public OrderItem RequestByFunc(Func<OrderItem?, bool>? func)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
         return OrderItems.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
     }
-
+    /// <summary>
+    ///  updates the order item with the same id to the given item's data
+    /// </summary>
+    /// <param name="item">the updated order item</param>
+    /// <exception cref="Exception"></exception>
     public void Update(OrderItem item)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -65,6 +85,11 @@ internal class DalOrderItem : IOrderItem
         OrderItems.Add(item);
         XMLTools.SaveListToXMLSerializer(OrderItems, path);
     }
+    /// <summary>
+    /// deletes the order item from the list 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(OrderItem item)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -72,7 +97,13 @@ internal class DalOrderItem : IOrderItem
         OrderItems.Remove(itemToRemove);
         XMLTools.SaveListToXMLSerializer(OrderItems, path);
     }
-
+    /// <summary>
+    /// ruturns the requested item by the produt and order it's belong to
+    /// </summary>
+    /// <param name="prod"></param>
+    /// <param name="ord"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public OrderItem? RequestByProductAndOrder(Product? prod, Order? ord)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -81,6 +112,12 @@ internal class DalOrderItem : IOrderItem
             throw new MissingEntityException("Requested Order Item does not exist.\n");
         return item;
     }
+    /// <summary>
+    /// returns the requested item by its order id
+    /// </summary>
+    /// <param name="ordID"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public IEnumerable<OrderItem?> RequestAllItemsByOrderID(int ordID)
     {
         //Func<OrderItem?, bool>? func = (item) => { return item?.OrderID == ordID; };

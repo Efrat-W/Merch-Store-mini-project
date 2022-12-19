@@ -47,7 +47,7 @@ internal class DalProduct : IProduct
 
     public IEnumerable<Product?> RequestAll(Func<Product?, bool>? func = null)
     {
-        LoadData();
+        //LoadData();
         IEnumerable<Product?> products;
         try
         {

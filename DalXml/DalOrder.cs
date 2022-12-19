@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace Dal;
 internal class DalOrder : IOrder
 {
-    string path = "products.xml";
+    string path = "orders.xml";
     string configPath = "config.xml";
 
     public int Create(Order Ord) { 

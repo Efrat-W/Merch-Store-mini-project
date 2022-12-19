@@ -11,6 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bin", "bin", "{BAED56FF-E50B-4B8E-9FA5-3464ABF2FBDA}"
+	ProjectSection(SolutionItems) = preProject
+		products.xml = products.xml
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{7163B4A4-F58A-420B-8A00-9A94C8D60A7A}"
 EndProject
@@ -31,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{5F3005F7-FD7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{2F536252-8E09-4629-A7DC-3A048E93C6EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLPrepareFiles", "XMLPrepareFiles\XMLPrepareFiles.csproj", "{F8B573F8-F8AB-48CD-8E18-FA8196DD7A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLPrepareFiles", "XMLPrepareFiles\XMLPrepareFiles.csproj", "{F8B573F8-F8AB-48CD-8E18-FA8196DD7A9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

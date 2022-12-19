@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 internal class DalOrderItem : IOrderItem
 {
-    string path = "ordersItems.xml";
+    string path = "orderItems.xml";
     string configPath = "config.xml";
     
 
@@ -20,11 +20,11 @@ internal class DalOrderItem : IOrderItem
         //Read config file
         XElement configRoot = XElement.Load(configPath);
 
-        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderItemSeq").Value);
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderItemSeq")!.Value);
         nextSeqNum++;
         item.ID = nextSeqNum;
         //update config file
-        configRoot.Element("orderItemSeq").SetValue(nextSeqNum);
+        configRoot.Element("orderItemSeq")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
         if (OrderItems.Exists(x => x.ID == item.ID))

@@ -101,7 +101,7 @@ internal static class DataSource
                 }
                 catch (Exception e)
                 {
-                    //throw new MissingEntityException("nonexistent product", e);
+                    throw new MissingEntityException("nonexistent product", e);
                 }
             }
         }
@@ -113,10 +113,10 @@ internal static class DataSource
 /// </summary>
 internal static class Config
 {
-    private static int orderItemSeqID = 1;
+    public static int orderItemSeqID = 1;
     public static int OrderItemSeqID => orderItemSeqID++;
 
-    private static int orderSeqID = 1;
+    public static int orderSeqID = 1;
     public static int OrderSeqID => orderSeqID++;
 }
 }

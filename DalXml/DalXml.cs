@@ -18,12 +18,18 @@ sealed internal class DalXml: IDal
     public IOrder Order { get; } = new DalOrder();
     public IOrderItem OrderItem { get; } = new DalOrderItem();
 
+    static DalXml()
+    {
+        if (!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
+    }
+
     static string dir = @"..\xml\";
     string productsFilePath = @"products.xml";
     string ordersFilePath = @"ordersList.xml";
     string orderItemsFilePath = @"orderItems.xml";
 
-    private DalXml()
+    public DalXml()
     {
         if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
@@ -36,7 +42,6 @@ sealed internal class DalXml: IDal
 
         if (!File.Exists(dir + orderItemsFilePath))
             Dal.XMLTools.SaveListToXMLSerializer<DO.OrderItem?>(DataSource.orderItems, dir + orderItemsFilePath);
-
     }
 
 }

@@ -5,7 +5,6 @@ using Dal;
 using System.Data.Common;
 using System.Xml.Linq;
 
-Console.WriteLine("Hello, World!");
 XMLTools.SaveListToXMLSerializer(DataSource.products, "products.xml");
 XMLTools.SaveListToXMLSerializer(DataSource.orders, "orders.xml");
 XMLTools.SaveListToXMLSerializer(DataSource.orderItems, "orderItems.xml");

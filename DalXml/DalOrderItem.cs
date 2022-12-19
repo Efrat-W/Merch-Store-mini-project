@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Xml.Linq;
-using static Dal.DataSource;
+
 
 internal class DalOrderItem : IOrderItem
 {
@@ -27,12 +27,12 @@ internal class DalOrderItem : IOrderItem
         configRoot.Element("orderItemSeq").SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
-        if (orderItems.Exists(x => x?.ID == item.ID))
+        if (OrderItems.Exists(x => x.ID == item.ID))
             throw new MissingEntityException("Requested Order already exists.\n");
 
-        orderItems.Add(item);
+        OrderItems.Add(item);
 
-        XMLTools.SaveListToXMLSerializer(orders, path);
+        XMLTools.SaveListToXMLSerializer(OrderItems, path);
 
         return item.ID;
     }
@@ -63,14 +63,14 @@ internal class DalOrderItem : IOrderItem
         OrderItem? itemToRemove = OrderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
         OrderItems.Remove(itemToRemove);
         OrderItems.Add(item);
-        XMLTools.SaveListToXMLSerializer(orderItems, path);
+        XMLTools.SaveListToXMLSerializer(OrderItems, path);
     }
     public void Delete(OrderItem item)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
         OrderItem? itemToRemove = OrderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
         OrderItems.Remove(itemToRemove);
-        XMLTools.SaveListToXMLSerializer(orderItems, path);
+        XMLTools.SaveListToXMLSerializer(OrderItems, path);
     }
 
     public OrderItem? RequestByProductAndOrder(Product? prod, Order? ord)

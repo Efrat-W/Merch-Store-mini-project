@@ -5,9 +5,9 @@ namespace Dal;
 internal static class DataSource
 {
     readonly static Random rand = new();
-    internal static List<DO.Product?> products { get; } = new();
-    internal static List<DO.Order?> orders { get; } = new();
-    internal static List<DO.OrderItem?> orderItems { get; } = new();
+    internal static List<DO.Product?> products { get; } =new List<Product?>(); 
+    internal static List<DO.Order?> orders { get; }=new List<Order?>();
+    internal static List<DO.OrderItem?> orderItems { get; } =new List<OrderItem?>(); 
     static DataSource() => s_Initialize();
     private static void s_Initialize()
     {

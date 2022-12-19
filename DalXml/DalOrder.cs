@@ -1,11 +1,11 @@
-﻿namespace Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Xml.Linq;
-using XMLPrepareFiles.XMLTools;
 
+
+namespace Dal;
 internal class DalOrder : IOrder
 {
     string path = "products.xml";

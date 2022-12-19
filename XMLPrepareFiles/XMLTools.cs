@@ -10,8 +10,8 @@ using System.Xml.Serialization;
 using DO;
 namespace Dal;
 
-class XMLTools
-{
+public class XMLTools
+{ 
     public static string dir = @"xml\";
     static XMLTools()
     {

@@ -42,12 +42,12 @@ internal class DalProduct : IProduct
     /// <param name="prod">the new product</param>
     /// <exception cref="Exception"></exception>
     public int Create(Product prod)
-    { 
-        XElement Id = new ("ID", prod.ID);
-        XElement Name = new ("Name", prod.Name);
-        XElement Price = new ("Price", prod.Price);
-        XElement Category = new ("Category", prod.Category);
-        XElement InStock = new ("InStock", prod.InStock);
+    {
+        XElement Id = new("ID", prod.ID);
+        XElement Name = new("Name", prod.Name);
+        XElement Price = new("Price", prod.Price);
+        XElement Category = new("Category", prod.Category);
+        XElement InStock = new("InStock", prod.InStock);
 
         productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock));
         productsRoot.Save(path);
@@ -65,14 +65,14 @@ internal class DalProduct : IProduct
         try
         {
             products = (from p in productsRoot.Elements()
-                                              let prod= new Product()
-                                              {
-                                                  ID = int.Parse(p.Element("ID").Value),
-                                                  Name = p.Element("Name").Value,
-                                                  Price = double.Parse(p.Element("Price").Value),
-                                                  InStock = int.Parse(p.Element("InStock").Value),
-                                                  Category = (category)Enum.Parse(typeof(category), p.Element("Category").Value)
-                                              }
+                        let prod = new Product()
+                        {
+                            ID = int.Parse(p.Element("ID")!.Value),
+                            Name = p.Element("Name")!.Value,
+                            Price = double.Parse(p.Element("Price")!.Value),
+                            InStock = int.Parse(p.Element("InStock")!.Value),
+                            Category = (category)Enum.Parse(typeof(category), p.Element("Category")!.Value)
+                        }
                         select (Product?)prod);
         }
         catch (Exception ex)
@@ -80,9 +80,9 @@ internal class DalProduct : IProduct
             products = null;
         }
         if (func == null)
-         return products;
+            return products;
         return products!.Where(o => func(o));
-        
+
     }
     /// <summary>
     /// returns the product by its ID
@@ -101,7 +101,7 @@ internal class DalProduct : IProduct
     /// <returns></returns>
     public Product RequestByFunc(Func<Product?, bool>? func)
     {
-        IEnumerable<Product?> filteredProducts= RequestAll(func) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+        IEnumerable<Product?> filteredProducts = RequestAll(func) ?? throw new MissingEntityException("Requested Product does not exist.\n");
         return filteredProducts.First() ?? throw new MissingEntityException("Requested Product does not exist.\n"); ;
     }
     /// <summary>
@@ -122,7 +122,7 @@ internal class DalProduct : IProduct
         }
     }
     /// <summary>
-    /// deletes the product from the list 
+    /// deletes the product from the list
     /// </summary>
     /// <param name="prod"></param>
     /// <exception cref="Exception"></exception>
@@ -133,10 +133,10 @@ internal class DalProduct : IProduct
         {
             productElement = (XElement)(from p in productsRoot.Elements()
                                         where int.Parse(p.Element("ID").Value) == prod.ID
-                              select p).FirstOrDefault();
+                                        select p).FirstOrDefault();
             productElement.Remove();
             productsRoot.Save(path);
-       }
+        }
         catch
         {
             throw;

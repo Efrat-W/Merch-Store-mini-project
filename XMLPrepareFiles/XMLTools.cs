@@ -12,7 +12,6 @@ namespace Dal;
 
 public class XMLTools
 { 
-    public static string dir = @"xml\";
     static XMLTools()
     {
         if (!Directory.Exists(dir))
@@ -25,7 +24,7 @@ public class XMLTools
     {
         try
         {
-            FileStream file = new FileStream(dir + filePath, FileMode.Create);
+            FileStream file = new FileStream(filePath, FileMode.Create);
             XmlSerializer x = new XmlSerializer(list.GetType());
             x.Serialize(file, list);
             file.Close();

@@ -71,10 +71,10 @@
     <InStock>8</InStock>
   </product>
   <product>
-    <ID>100004</ID>
-    <Name>queen tzip</Name>
-    <Price>100000</Price>
-    <Category>Prints</Category>
-    <InStock>18</InStock>
+    <ID>123123</ID>
+    <Name>lilach</Name>
+    <Price>56</Price>
+    <Category>Notebooks</Category>
+    <InStock>7</InStock>
   </product>
 </ArrayOfProduct>

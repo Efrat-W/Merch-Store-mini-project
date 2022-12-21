@@ -24,7 +24,7 @@ internal class DalProduct : IProduct
         try
         {
             if (File.Exists(path))
-                productsRoot = XElement.Load(@"..\xml\" + path);
+                productsRoot = XElement.Load(path);
             else
             {
                 productsRoot = new XElement("products");
@@ -50,7 +50,7 @@ internal class DalProduct : IProduct
         XElement InStock = new ("InStock", prod.InStock);
 
         productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock));
-        productsRoot.Save(@"..\xml\"+path);
+        productsRoot.Save(path);
 
         return prod.ID;
     }

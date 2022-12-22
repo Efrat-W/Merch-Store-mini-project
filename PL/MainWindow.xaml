@@ -5,23 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640" Width="800">
+        Title="MainWindow" Height="1660" Width="805">
     <Window.Resources>
-        <FontFamily x:Key="JosefinSansBold">/FONTS/JosefinSans-Bold.ttf#Josefin Sans Bold</FontFamily>
-        <FontFamily x:Key="JosefinSansExtraLight">/FONTS/JosefinSans-ExtraLight.ttf#Josefin Sans ExtraLight</FontFamily>
-        <FontFamily x:Key="JosefinSansLight">/FONTS/JosefinSans-Light.ttf#Josefin Sans Light</FontFamily>
-        <FontFamily x:Key="JosefinSansMedium">/FONTS/JosefinSans-Medium.ttf#Josefin Sans Medium</FontFamily>
-        <FontFamily x:Key="JosefinSansRegular">/FONTS/JosefinSans-Regular.ttf#Josefin Sans Regular</FontFamily>
-        <FontFamily x:Key="JosefinSansSemiBold">/FONTS/JosefinSans-SemiBold.ttf#Josefin Sans SemiBold</FontFamily>
-        <FontFamily x:Key="JosefinSansThin">/FONTS/JosefinSans-Thin.ttf#Josefin Sans Thin</FontFamily>
     </Window.Resources>
-    <Grid Name="MainGrid">
-        <Button x:Name="StartButton" Content="Welcome!" FontFamily="{StaticResource JosefinSansBold}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="114" Height="36" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" RenderTransformOrigin="0.496,-11.521">
+    <Grid Name="MainGrid" Height="NaN" Width="NaN" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="48*"/>
+
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="464" Margin="201,55,0,0" Stroke="Black" VerticalAlignment="Top" Width="403" Grid.RowSpan="2" Grid.ColumnSpan="3" Fill="#FFFFF000" StrokeThickness="0"/>
+        <Button x:Name="StartButton" Content="Welcome!" HorizontalAlignment="Center" VerticalAlignment="Top" Width="114" Height="36" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" RenderTransformOrigin="0.496,-11.521" Margin="0,368,0,0" Grid.Row="1" Grid.Column="3">
             <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="15"></Setter>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="15"/>
                 </Style>
             </Button.Resources>
+            <Button.FontFamily>
+                <StaticResource ResourceKey="JosefinSansBold"/>
+            </Button.FontFamily>
         </Button>
+
+        <Image x:Name="new" Source="/Images/Notebooks.jpg"  Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="270" Margin="154,53,0,0" Grid.Row="1" VerticalAlignment="Top" Width="380" Grid.Column="1" OpacityMask="Black" />
+        <Rectangle Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="97" Stroke="Black" VerticalAlignment="Top" Width="805" Margin="0,-16,0,0" Fill="Black"/>
+        <Border BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="154,53,70,459"/>
+        <Label x:Name="NawItems" Grid.Row="1" Content="  OUR NEW &#xA;NOTEBOOKS&#xA;COLLECTION&#xA;    IS HERE!" VerticalAlignment="Top" Background="White" 
+                   FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Height="169" Grid.ColumnSpan="2"  Cursor="Arrow" Margin="150,89,0,0" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="3,3,3,3" FontStretch="Normal" Grid.IsSharedSizeScope="True"/>
+        <Button Content="COME SEE" HorizontalAlignment="Left" Margin="29,223,0,0" Grid.Row="1" VerticalAlignment="Top" Width="92" VerticalContentAlignment="Center" Grid.Column="1">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="9"/>
+                </Style>
+            </Button.Resources>
+            <Button.Style>
+                <StaticResource ResourceKey="BlackButton"/>
+            </Button.Style>
+        </Button>
+        <Menu Grid.Column="3" Background="Black" HorizontalAlignment="Left" Margin="86,10,0,10" Width="115" Foreground="#FFCCF0FF" FontFamily="{StaticResource JosefinSansLight}" FontSize="15">
+
+            <MenuItem Header="About Us" Click="MenuItem_Click"></MenuItem>
+            <MenuItem Header="Order Tracking"></MenuItem>
+            <MenuItem Header="Manager Login"></MenuItem>
+
+        </Menu>
     </Grid>
 </Window>

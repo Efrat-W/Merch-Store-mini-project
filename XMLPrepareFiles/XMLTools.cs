@@ -12,6 +12,7 @@ namespace Dal;
 
 public class XMLTools
 { 
+    public static string dir = @"xml\";
     static XMLTools()
     {
         if (!Directory.Exists(dir))

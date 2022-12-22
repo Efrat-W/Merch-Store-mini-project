@@ -36,5 +36,9 @@ namespace PL
             products.Show();
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

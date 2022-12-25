@@ -1,0 +1,22 @@
+﻿<Window x:Class="PL.Manager.ManagerLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Manager"
+        mc:Ignorable="d"
+        Title="ManagerLogin" Height="300" Width="300">
+    <Grid>
+        <Label Style="{StaticResource BlackLabel}"  Content="Welcome!" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top"/>
+        <Label Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" Margin="0,123,0,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" Margin="0,152,0,0" VerticalAlignment="Top" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+        <Button x:Name="CommandBtn" Style="{StaticResource BlackButton}" Content="Submit" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" >
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Window>

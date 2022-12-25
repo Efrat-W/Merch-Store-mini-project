@@ -48,10 +48,8 @@
                 <StaticResource ResourceKey="BlackButton"/>
             </Button.Style>
         </Button>
-        <Frame  x:Name="MenuFrame" Grid.Column="3" Margin="10,81,10,344" Grid.RowSpan="2" />
-        <Button x:Name="Menu" Content="🍔"  Grid.Column="3" HorizontalAlignment="Left" Margin="131,0,0,0" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="37" FontSize="30" Click="Menu_Click">
-
-        </Button>
+        <Frame  x:Name="MenuFrame" Grid.Column="3" Margin="0,55,0,344" Grid.RowSpan="2" Background="Black" Opacity="0" />
+        <Button x:Name="Menu" Content="🍔"  Grid.Column="3" HorizontalAlignment="Left" Margin="117,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" Click="Menu_Click" UseLayoutRounding="False"/>
 
 
     </Grid>

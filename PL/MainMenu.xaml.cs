@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Manager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,22 @@ namespace PL
         {
             InitializeComponent();
         }
+
         
+        private void Manager_Click(object sender, RoutedEventArgs e)
+        {
+            ManagerLogin manager=new();
+            manager.Show();
+        }
+
+        private void OrderTrack_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

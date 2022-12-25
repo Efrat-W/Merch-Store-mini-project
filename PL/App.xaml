@@ -26,9 +26,13 @@
             <Setter Property="BorderThickness" Value="0,0,0,0" />
            
         </Style>
-        
-    </Application.Resources>
-    
+        <Style x:Key="BlackLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="{StaticResource JosefinSansLight}" />
+            <Setter Property="Foreground" Value="Black" />
+       </Style>
 
+    </Application.Resources>
+    
 
 </Application>

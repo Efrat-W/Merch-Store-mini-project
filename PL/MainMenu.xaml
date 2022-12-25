@@ -7,13 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="150" d:DesignWidth="70"
       Title="MainMenu">
+    <Grid Background="Black">
+        
+        <StackPanel Margin="0,0,0,0">
 
-    <StackPanel>
-        <Button Content="About Us" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC"   />
-        <Button Content="Order Tracking" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" />
-        <Button Content="Manager Login" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" />
+            <Button x:Name="About"  Content="About Us" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="About_Click"    />
+            <Button x:Name="OrderTrack" Content="Order Tracking" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="OrderTrack_Click" />
+            <Button x:Name="Manager" Content="Manager Login" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Manager_Click" />
+
         </StackPanel>
-       
-    
+    </Grid>
 
 </Page>

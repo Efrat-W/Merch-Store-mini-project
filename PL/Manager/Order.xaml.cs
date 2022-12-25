@@ -20,22 +20,46 @@ namespace PL.Manager
     public partial class Order : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        BO.Order Ord;
         public Order(int id)
         {
             InitializeComponent();
-            //CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
+            StatusCB.ItemsSource = Enum.GetValues(typeof(BO.orderStatus));
             CommandBtn.Content = "Update";
 
-            BO.Order Ord = bl.Order.RequestById(id);
+            Ord = bl.Order.RequestById(id);
             IdTB.Text = Ord.Id.ToString();
             CustomerNameTB.Text = Ord.CustomerName;
             CustomerEmailTB.Text = Ord.CustomerEmail;
             CustomerAdressTB.Text = Ord.CustomerAddress;
             TotalPriceTB.Text = Ord.TotalPrice.ToString();
-            
-            //CategoryCB.SelectedItem = p.Category;
+            OrderDateTB.Text = Ord.OrderDate.ToString();
+            if (Ord.ShipDate == null)
+            {
+                ShipCB.IsEnabled = true;
+                ShipDateTB.IsEnabled = false;
+                ShipDateLb.IsEnabled = false;
+            }
+            else
+                ShipDateTB.Text = Ord.ShipDate.ToString();
+            if (Ord.DeliveryDate == null)
+            {
+                DeliveryCB.IsEnabled = true;
+                DeliveryDateTB.IsEnabled = false;
+                DeliveryDateLb.IsEnabled = false;
+            }
+            else
+                DeliveryDateTB.Text = Ord.DeliveryDate.ToString();
+            StatusCB.SelectedItem = Ord.Status;
         }
 
-        
+        private void CommandBtn_Click(object sender, RoutedEventArgs e)
+        { 
+            if(ShipCB.IsChecked==true)
+                bl?.Order.UpdateShipment(Ord.Id);
+            if(DeliveryCB.IsChecked==true)
+                bl?.Order.UpdateDelivery(Ord.Id);
+        }
+
     }
 }

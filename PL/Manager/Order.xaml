@@ -43,28 +43,28 @@
         <Label x:Name="StatusLb" Content="Status:" HorizontalAlignment="Left" Margin="351,0,0,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="57"/>
         <Label x:Name="IdLb" Content="ID:" HorizontalAlignment="Left" Margin="379,0,0,0"  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="29"/>
         <Label x:Name="OrderDateLb" Content="Order Date:" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="100"/>
-        <Label x:Name="ShipDateLb" Content="Ship Date:" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="100"/>
-        <Label x:Name="DeliveryDateLb" Content="Delivery Date:" HorizontalAlignment="Left" Margin="300,0,0,0"  Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="120"/>
+        <Label x:Name="ShipDateLb" Content="Ship Date:" IsEnabled="True" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="100"/>
+        <Label x:Name="DeliveryDateLb" Content="Delivery Date:" IsEnabled="True" HorizontalAlignment="Left" Margin="300,0,0,0"  Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="120"/>
         <Label x:Name="PriceLb" Content="Total Price:" HorizontalAlignment="Left" Margin="320,0,0,0"  Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="100" Grid.ColumnSpan="2"/>
         <Label x:Name="ItemsLb" Content="Items:" HorizontalAlignment="Left" Margin="351,0,0,0"  Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Grid.ColumnSpan="2"/>
-        
-        <TextBox x:Name="CustomerNameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" FontFamily="{StaticResource JosefinSansLight}" LostFocus="NameTB_LostFocus" GotFocus="NameTB_GotFocus" VerticalContentAlignment="Center"/>
-        
-        <TextBox x:Name="CustomerEmailTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus" VerticalContentAlignment="Center"/>
-        
+
+        <TextBox x:Name="CustomerNameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" FontFamily="{StaticResource JosefinSansLight}"  VerticalContentAlignment="Center"/>
+
+        <TextBox x:Name="CustomerEmailTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+
         <ComboBox x:Name="StatusCB" SelectedIndex="0" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="{StaticResource JosefinSansLight}" VerticalContentAlignment="Center"/>
 
-        <TextBox x:Name="IdTB" PreviewTextInput="PreviewTextInputDecimal" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" LostFocus="PriceTB_LostFocus" GotFocus="PriceTB_GotFocus" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="IdTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
         <Label x:Name="InvalidPriceLb" Content="Fill in price." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
 
-        <TextBox x:Name="OrderDateTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14" LostFocus="InStockTB_LostFocus" GotFocus="InStockTB_GotFocus" VerticalContentAlignment="Center" IsEnabled="False"/>
-        
-        <TextBox x:Name="CustomerAdressTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="ShipDateTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="DeliveryDateTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="ItemsTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,4,0,0" Grid.Row="9" VerticalAlignment="Top" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="TotalPriceTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" GotFocus="IdTB_GotFocus" LostFocus="IdTB_LostFocus" VerticalContentAlignment="Center"/>
-        
+        <TextBox x:Name="OrderDateTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
+
+        <TextBox x:Name="CustomerAdressTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="ShipDateTB"  IsEnabled="True" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="DeliveryDateTB" IsEnabled="True" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="ItemsTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,4,0,0" Grid.Row="9" VerticalAlignment="Top" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="TotalPriceTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="10" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+
         <Button x:Name="CommandBtn" Style="{StaticResource BlackButton}" Content="We'll see" HorizontalAlignment="Left" Margin="375,10,0,0" Grid.Row="11" VerticalAlignment="Top" Click="CommandBtn_Click" Grid.ColumnSpan="2">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -74,6 +74,8 @@
         </Button>
         <Rectangle HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Top" Width="50" Fill="Black"/>
         <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="78" Grid.Row="11" Stroke="Black" Width="78" Fill="#FFFCE933" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,72,5" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <CheckBox  x:Name="ShipCB" Content="Shipped" HorizontalAlignment="Left" Margin="370,6,0,0" Grid.Row="7" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" Grid.ColumnSpan="2" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" IsEnabled="False"/>
+        <CheckBox x:Name="DeliveryCB" Content="Delivered" HorizontalAlignment="Left" Margin="370,0,0,0" Grid.Row="8" VerticalAlignment="Center" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" Grid.ColumnSpan="2" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" IsEnabled="False"/>
 
     </Grid>
 </Window>

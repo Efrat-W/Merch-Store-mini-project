@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="1660" Width="805">
-    <Window.Resources>
-    </Window.Resources>
+
     <Grid Name="MainGrid" Height="NaN" Width="NaN" Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -49,12 +48,11 @@
                 <StaticResource ResourceKey="BlackButton"/>
             </Button.Style>
         </Button>
-        <Menu Grid.Column="3" Background="Black" HorizontalAlignment="Left" Margin="86,10,0,10" Width="115" Foreground="#FFCCF0FF" FontFamily="{StaticResource JosefinSansLight}" FontSize="15">
+        <Frame  x:Name="MenuFrame" Grid.Column="3" Margin="10,81,10,344" Grid.RowSpan="2" />
+        <Button x:Name="Menu" Content="🍔"  Grid.Column="3" HorizontalAlignment="Left" Margin="131,0,0,0" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="37" FontSize="30" Click="Menu_Click">
 
-            <MenuItem Header="About Us" Click="MenuItem_Click"></MenuItem>
-            <MenuItem Header="Order Tracking"></MenuItem>
-            <MenuItem Header="Manager Login"></MenuItem>
+        </Button>
 
-        </Menu>
+
     </Grid>
 </Window>

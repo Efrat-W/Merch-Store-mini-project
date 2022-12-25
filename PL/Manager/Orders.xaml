@@ -1,0 +1,29 @@
+﻿<Window x:Class="PL.Manager.Orders"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Manager"
+        mc:Ignorable="d"
+        Title="Orders" Height="450" Width="800">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18*"/>
+            <RowDefinition Height="140*"/>
+            <RowDefinition Height="59*"/>
+        </Grid.RowDefinitions>
+        
+        <ListView x:Name="OrdersListView" ItemsSource="{Binding}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="OrdersListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID}" Header="ID" Width="60"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=CustomerName}" Header="Customer Name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Status" Width="70"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=AmountOfItems}" Header="Items Amount" Width="80"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Total Price" Width="70"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+    </Grid>
+</Window>

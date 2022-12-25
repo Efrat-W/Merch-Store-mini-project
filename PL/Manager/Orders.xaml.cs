@@ -1,10 +1,8 @@
-﻿
-using PL.Manager;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,34 +11,32 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.Manager
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Orders.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Orders : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public MainWindow()
+
+        public Orders(BlApi.IBl? bl1)
         {
+            bl = bl1;
             InitializeComponent();
+            OrdersListView.ItemsSource = bl.Order.RequestOrders();
+            
         }
 
-
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Products products = new (bl);
-            products.Show();
+            if (OrdersListView.SelectedItem == null) return;
+            int id = ((OrderForList)OrdersListView.SelectedItem).ID;
+            new Order(id).ShowDialog();
         }
 
         
-
-        private void Menu_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFrame.Navigate(new Uri("MainMenu.xaml", UriKind.Relative));
-        }
     }
 }

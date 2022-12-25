@@ -24,15 +24,18 @@ namespace PL.Manager
         {
             InitializeComponent();
             //CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
-            //CommandBtn.Content = "Update";
+            CommandBtn.Content = "Update";
 
-            //BO.Product p = bl.Product.RequestByIdManager(id);
-            //IdTB.Text = p.ID.ToString();
-            //IdTB.IsReadOnly = true;
-            //NameTB.Text = p.Name;
-            //PriceTB.Text = p.Price.ToString();
-            //InStockTB.Text = p.InStock.ToString();
+            BO.Order Ord = bl.Order.RequestById(id);
+            IdTB.Text = Ord.Id.ToString();
+            CustomerNameTB.Text = Ord.CustomerName;
+            CustomerEmailTB.Text = Ord.CustomerEmail;
+            CustomerAdressTB.Text = Ord.CustomerAddress;
+            TotalPriceTB.Text = Ord.TotalPrice.ToString();
+            
             //CategoryCB.SelectedItem = p.Category;
         }
+
+        
     }
 }

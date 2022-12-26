@@ -24,6 +24,7 @@
     <None Remove="FONTS\JosefinSans-Regular.ttf" />
     <None Remove="FONTS\JosefinSans-SemiBold.ttf" />
     <None Remove="FONTS\JosefinSans-Thin.ttf" />
+    <None Remove="Notebooks.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +49,7 @@
     <Resource Include="FONTS\JosefinSans-Thin.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Notebooks.jpg" />
   </ItemGroup>
 
   <ItemGroup>

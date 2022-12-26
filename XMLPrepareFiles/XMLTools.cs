@@ -43,7 +43,7 @@ public class XMLTools
             {
                 List<T> list;
                 XmlSerializer x = new XmlSerializer(typeof(List<T>));
-                FileStream file = new FileStream(dir + filePath, FileMode.Open);
+                FileStream file = new FileStream(filePath, FileMode.Open);
                 list = (List<T>)x.Deserialize(file);
                 file.Close();
                 return list;

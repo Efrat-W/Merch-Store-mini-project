@@ -21,35 +21,42 @@
             <RowDefinition Height="48*"/>
 
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="1" HorizontalAlignment="Left" Height="464" Margin="201,55,0,0" Stroke="Black" VerticalAlignment="Top" Width="403" Grid.RowSpan="2" Grid.ColumnSpan="3" Fill="#FFFFF000" StrokeThickness="0"/>
-        <Button x:Name="StartButton" Content="Welcome!" HorizontalAlignment="Center" VerticalAlignment="Top" Width="114" Height="36" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" RenderTransformOrigin="0.496,-11.521" Margin="0,368,0,0" Grid.Row="1" Grid.Column="3">
-            <Button.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="15"/>
-                </Style>
-            </Button.Resources>
-            <Button.FontFamily>
-                <StaticResource ResourceKey="JosefinSansBold"/>
-            </Button.FontFamily>
-        </Button>
+        <Grid Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="535" Margin="0,-16,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="805">
+            <Rectangle HorizontalAlignment="Left" Height="464" Margin="402,71,0,0" Stroke="Black" VerticalAlignment="Top" Width="403" Fill="#FFFFF000" StrokeThickness="0"/>
+            <Button x:Name="StartButton" Content=";!" HorizontalAlignment="Left" VerticalAlignment="Top" Width="114" Height="36" FontSize="20" Foreground="White" FontWeight="Bold" Click="StartButton_Click" BorderThickness="0,0,0,0" Background="Black" RenderTransformOrigin="0.496,-11.521" Margin="647,465,0,0">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+                <Button.FontFamily>
+                    <StaticResource ResourceKey="JosefinSansBold"/>
+                </Button.FontFamily>
+            </Button>
 
-        <Image x:Name="new" Source="/Images/Notebooks.jpg"  Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="270" Margin="154,53,0,0" Grid.Row="1" VerticalAlignment="Top" Width="380" Grid.Column="1" OpacityMask="Black" />
-        <Rectangle Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="97" Stroke="Black" VerticalAlignment="Top" Width="805" Margin="0,-16,0,0" Fill="Black"/>
-        <Border BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="154,53,70,459"/>
-        <Label x:Name="NawItems" Grid.Row="1" Content="  OUR NEW &#xA;NOTEBOOKS&#xA;COLLECTION&#xA;    IS HERE!" VerticalAlignment="Top" Background="White" 
-                   FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Height="169" Grid.ColumnSpan="2"  Cursor="Arrow" Margin="150,89,0,0" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="3,3,3,3" FontStretch="Normal" Grid.IsSharedSizeScope="True"/>
-        <Button Content="COME SEE" HorizontalAlignment="Left" Margin="29,223,0,0" Grid.Row="1" VerticalAlignment="Top" Width="92" VerticalContentAlignment="Center" Grid.Column="1">
-            <Button.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="9"/>
-                </Style>
-            </Button.Resources>
-            <Button.Style>
-                <StaticResource ResourceKey="BlackButton"/>
-            </Button.Style>
-        </Button>
-        <Frame  x:Name="MenuFrame" Grid.Column="3" Margin="0,55,0,344" Grid.RowSpan="2" Background="Black" Opacity="0" />
-        <Button x:Name="Menu" Content="🍔"  Grid.Column="3" HorizontalAlignment="Left" Margin="117,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" Click="Menu_Click" UseLayoutRounding="False"/>
+            <Rectangle HorizontalAlignment="Center" Height="97" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black"/>
+            <Border BorderBrush="Black" BorderThickness="3,3,3,3" Margin="355,150,70,115">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Notebooks.jpg"/>
+                </Border.Background>
+            </Border>
+            <Label x:Name="NawItems" Content="  OUR NEW &#xA;NOTEBOOKS&#xA;COLLECTION&#xA;    IS HERE!" VerticalAlignment="Top" Background="White" 
+                FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Height="169"  Cursor="Arrow" Margin="150,186,403,0" HorizontalContentAlignment="Center" BorderBrush="Black" BorderThickness="3,3,3,3" FontStretch="Normal" Grid.IsSharedSizeScope="True"/>
+            <Button Content="COME SEE" HorizontalAlignment="Left" Margin="230,320,0,0" VerticalAlignment="Top" Width="92" VerticalContentAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="9"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <StaticResource ResourceKey="BlackButton"/>
+                </Button.Style>
+            </Button>
+            <Frame  x:Name="MenuFrame" Margin="604,71,0,0" Background="Black" Opacity="0" />
+            <Button x:Name="Menu" Content="🍔" HorizontalAlignment="Left" Margin="721,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" Click="Menu_Click" UseLayoutRounding="False"/>
+
+
+        </Grid>
 
 
     </Grid>

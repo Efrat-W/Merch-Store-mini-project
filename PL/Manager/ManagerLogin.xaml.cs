@@ -20,7 +20,8 @@ namespace PL.Manager
     /// </summary>
     public partial class ManagerLogin : Window
     {
-        int password = 123;
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        const int PASSWORD = 123;
         public ManagerLogin()
         {
             InitializeComponent();
@@ -28,8 +29,23 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (int.Parse(PasswordTB.Text) == password)//to be continue..
-                return;
+            if (int.Parse(PasswordTB.Text) == PASSWORD)
+            {
+                Login.Visibility = Visibility.Hidden;
+                LoggedIn.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ProductViewButton_Click(object sender, RoutedEventArgs e)
+        {
+            Products products = new(bl);
+            products.Show();
+        }
+
+        private void OrdersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Orders orders = new(bl);
+            orders.Show();
         }
     }
 }

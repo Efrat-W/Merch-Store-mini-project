@@ -4,12 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
-      mc:Ignorable="d" 
-      d:DesignHeight="150" d:DesignWidth="70"
-      Title="MainMenu">
-    <Grid Background="Black">
-        
-        <StackPanel Margin="0,0,0,0">
+      mc:Ignorable="d" d:DesignWidth="70"
+      Title="MainMenu" Height="131">
+    <Grid Background="Black" Margin="0,0,0,16">
+
+        <StackPanel Margin="0,0,0,49">
 
             <Button x:Name="About"  Content="About Us" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="About_Click"    />
             <Button x:Name="OrderTrack" Content="Order Tracking" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="OrderTrack_Click" />

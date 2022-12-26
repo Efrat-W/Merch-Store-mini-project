@@ -7,16 +7,45 @@
         mc:Ignorable="d"
         Title="ManagerLogin" Height="300" Width="300">
     <Grid>
-        <Label Style="{StaticResource BlackLabel}"  Content="Welcome!" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top"/>
-        <Label Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" Margin="0,123,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="InvalidCodeLb" Content="Incorrect password. Please try again." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
+        <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0">
+            <Label x:Name="EnterCodeLB" Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" Margin="0,152,0,0" VerticalAlignment="Top" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
-        <Button x:Name="CommandBtn" Style="{StaticResource BlackButton}" Content="Submit" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" >
-            <Button.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="8"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+            <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+            <Button x:Name="CommandBtn" Content="Submit" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" >
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <StaticResource ResourceKey="BlackButton"/>
+                </Button.Style>
+            </Button>
+        </Grid>
+        <Grid x:Name="LoggedIn" HorizontalAlignment="Left" Height="115" Margin="23,0,0,0" VerticalAlignment="Center" Width="258" Visibility="Hidden">
+
+            <Label x:Name="WelcomeLB" Style="{StaticResource BlackLabel}"  Content="Welcome!" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="ProductsBtn" Content="view products" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top"  Width="106" Click="ProductViewButton_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <StaticResource ResourceKey="BlackButton"/>
+                </Button.Style>
+            </Button>
+            <Button x:Name="OrdersBtn" Content="view orders" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top" Width="92" Click="OrdersBtn_Click" >
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+                <Button.Style>
+                    <StaticResource ResourceKey="BlackButton"/>
+                </Button.Style>
+            </Button>
+        </Grid>
     </Grid>
 </Window>

@@ -34,7 +34,7 @@
                 </Button.FontFamily>
             </Button>
 
-            <Rectangle HorizontalAlignment="Center" Height="97" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black"/>
+            <Rectangle HorizontalAlignment="Center" Height="71" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black"/>
             <Border BorderBrush="Black" BorderThickness="3,3,3,3" Margin="355,150,70,115">
                 <Border.Background>
                     <ImageBrush ImageSource="/Notebooks.jpg"/>
@@ -52,8 +52,8 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
-            <Frame  x:Name="MenuFrame" Margin="604,71,0,0" Background="Black" Opacity="0" />
-            <Button x:Name="Menu" Content="🍔" HorizontalAlignment="Left" Margin="721,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" Click="Menu_Click" UseLayoutRounding="False"/>
+            <Frame  x:Name="MenuFrame" Margin="690,60,0,295" Background="Black" Opacity="0" />
+            <Button x:Name="Menu" Content="🍔" HorizontalAlignment="Left" Margin="721,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" Click="Menu_Click" UseLayoutRounding="False"/>
 
 
         </Grid>

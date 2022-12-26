@@ -39,7 +39,7 @@ public class XMLTools
     {
         try
         {
-            if (File.Exists(dir + filePath))
+            if (File.Exists(filePath))
             {
                 List<T> list;
                 XmlSerializer x = new XmlSerializer(typeof(List<T>));

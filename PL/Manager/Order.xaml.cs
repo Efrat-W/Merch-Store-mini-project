@@ -28,29 +28,23 @@ namespace PL.Manager
             CommandBtn.Content = "Update";
 
             Ord = bl.Order.RequestById(id);
-            IdTB.Text = Ord.Id.ToString();
-            CustomerNameTB.Text = Ord.CustomerName;
-            CustomerEmailTB.Text = Ord.CustomerEmail;
-            CustomerAdressTB.Text = Ord.CustomerAddress;
-            TotalPriceTB.Text = Ord.TotalPrice.ToString();
-            OrderDateTB.Text = Ord.OrderDate.ToString();
+            MainGrid.DataContext = Ord;
+            ItemsList.ItemsSource= Ord.Items;
+
             if (Ord.ShipDate == null)
             {
-                ShipCB.IsEnabled = true;
-                ShipDateTB.IsEnabled = false;
-                ShipDateLb.IsEnabled = false;
+                ShipCB.Opacity = 1;
+                ShipDateLb.Opacity = 0;
             }
             else
-                ShipDateTB.Text = Ord.ShipDate.ToString();
+                ShipDate.Content = Ord.ShipDate.ToString();
             if (Ord.DeliveryDate == null)
             {
-                DeliveryCB.IsEnabled = true;
-                DeliveryDateTB.IsEnabled = false;
-                DeliveryDateLb.IsEnabled = false;
+                DeliveryCB.Opacity = 1;
+                DeliveryDateLb.Opacity = 0;
             }
             else
-                DeliveryDateTB.Text = Ord.DeliveryDate.ToString();
-            StatusCB.SelectedItem = Ord.Status;
+                DeliveryDate.Content = Ord.DeliveryDate.ToString();
         }
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)

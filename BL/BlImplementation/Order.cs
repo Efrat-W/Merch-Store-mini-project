@@ -51,7 +51,7 @@ internal class Order : BlApi.IOrder
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Order RequestById(int id)
     {
-        if (!(id > 99999 && id <= 999999))
+        if (id <0)
            throw new InvalidArgumentException("Requested id is out of range.\n");
         DO.Order? ord;
         try
@@ -67,6 +67,7 @@ internal class Order : BlApi.IOrder
             Status = orderStatus.Approved;
 
         IEnumerable<BO.OrderItem> items;
+
         try
         {
             items = dal.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new InvalidArgumentException()).Select(DoOrderItemToBoOrderItem);//collects all items of this order and convert to BO
@@ -84,7 +85,7 @@ internal class Order : BlApi.IOrder
             ShipDate=ord?.ShipDate, 
             DeliveryDate=ord?.DeliveryDate,
             Status=Status, 
-            Items= (List<BO.OrderItem>)items, 
+            Items=items, 
             TotalPrice=items.Sum(item=>item.Price * item.Amount)
         };
     }

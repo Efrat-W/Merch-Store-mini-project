@@ -5,9 +5,9 @@ using Dal;
 using System.Data.Common;
 using System.Xml.Linq;
 
-XMLTools.SaveListToXMLSerializer(DataSource.products, "products.xml");
-XMLTools.SaveListToXMLSerializer(DataSource.orders, "orders.xml");
-XMLTools.SaveListToXMLSerializer(DataSource.orderItems, "orderItems.xml");
+//XMLTools.SaveListToXMLSerializer(DataSource.products, "products.xml");
+//XMLTools.SaveListToXMLSerializer(DataSource.orders, "orders.xml");
+//XMLTools.SaveListToXMLSerializer(DataSource.orderItems, "orderItems.xml");
 
 XElement configRoot = new XElement("config");
 configRoot.Add(new XElement("orderSeq"), DataSource.Config.orderSeqID);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -36,6 +37,8 @@ namespace PL.Manager
             PriceTB.Text = p.Price.ToString();
             InStockTB.Text = p.InStock.ToString();
             CategoryCB.SelectedItem = p.Category;
+            ImageTB.Text = p.Image;
+            DescriptionTB.Text = p.Description;
         }
         public Product()
         {
@@ -61,7 +64,9 @@ namespace PL.Manager
                     Name = NameTB.Text,
                     Price = double.Parse(PriceTB.Text),
                     InStock = int.Parse(InStockTB.Text),
-                    Category = (BO.category)CategoryCB.SelectedItem
+                    Category = (BO.category)CategoryCB.SelectedItem,
+                    Image=ImageTB.Text,
+                    Description = DescriptionTB.Text,
                 };
 
                 if (CommandBtn.Content == "Add")
@@ -78,6 +83,18 @@ namespace PL.Manager
                 }
                 else // "Update"
                     bl?.Product.Update(prod);
+                Close();
+            }
+            catch
+            {
+                MessageBox.Show("An unexpected error has occured.\nMake sure you fill it out correctly.");
+            }
+        }
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl?.Product.Delete(int.Parse(IdTB.Text));
                 Close();
             }
             catch
@@ -190,5 +207,6 @@ namespace PL.Manager
         {
             InvalidInStockLb.Visibility = Visibility.Hidden;
         }
+
     }
 }

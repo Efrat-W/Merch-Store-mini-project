@@ -122,7 +122,9 @@ internal class Product : BlApi.IProduct
             Category = (BO.category)prod?.Category!,
             Price = prod?.Price ?? throw new InvalidArgumentException(),
             Amount = item!.Amount,
-            InStock = item.Amount <= prod?.InStock
+            InStock = item.Amount <= prod?.InStock,
+            Image=prod?.Image,
+            Description=prod?.Description,
         };
     }
     /// <summary>
@@ -137,7 +139,9 @@ internal class Product : BlApi.IProduct
                    ID = doProd?.ID ?? throw new InvalidArgumentException(),
                    Name = doProd?.Name,
                    Price = doProd?.Price ?? throw new InvalidArgumentException(),
-                   Category = (BO.category)doProd?.Category!
+                   Category = (BO.category)doProd?.Category!,
+                   Image = doProd?.Image,
+                   Description = doProd?.Description
                };
     }
 
@@ -194,6 +198,8 @@ static class ProductTools
             Category = (DO.category)prod.Category!,
             Price = prod.Price,
             InStock = prod.InStock,
+            Image=prod.Image!,
+            Description=prod!.Description!
         };
     }
     /// <summary>
@@ -209,7 +215,9 @@ static class ProductTools
             Name = prod.Name,
             Category = (BO.category)prod.Category!,
             Price = prod.Price,
-            InStock = prod.InStock
+            InStock = prod.InStock,
+            Image = prod.Image,
+            Description = prod.Description!
         };
     }
 }

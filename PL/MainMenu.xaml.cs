@@ -1,4 +1,5 @@
 ﻿using PL.Manager;
+using PL.OrderProcess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace PL
     /// </summary>
     public partial class MainMenu : Page
     {
+        BlApi.IBl? bl = BlApi.Factory.Get();
         public MainMenu()
         {
             InitializeComponent();
@@ -41,6 +43,12 @@ namespace PL
         private void About_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Products_Click(object sender, RoutedEventArgs e)
+        {
+            Catalouge catalouge = new Catalouge(bl);
+            catalouge.Show();
         }
     }
 }

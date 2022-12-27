@@ -48,8 +48,10 @@ internal class DalProduct : IProduct
         XElement Price = new("Price", prod.Price);
         XElement Category = new("Category", prod.Category);
         XElement InStock = new("InStock", prod.InStock);
+        XElement Image = new("Image", prod.Image);
+        XElement Description = new("Description", prod.Description);
 
-        productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock));
+        productsRoot.Add(new XElement("product", Id, Name, Price, Category, InStock, Image, Description));
         productsRoot.Save(path);
 
         return prod.ID;
@@ -71,7 +73,9 @@ internal class DalProduct : IProduct
                             Name = p.Element("Name")!.Value,
                             Price = double.Parse(p.Element("Price")!.Value),
                             InStock = int.Parse(p.Element("InStock")!.Value),
-                            Category = (category)Enum.Parse(typeof(category), p.Element("Category")!.Value)
+                            Category = (category)Enum.Parse(typeof(category), p.Element("Category")!.Value),
+                            Image = p.Element("Image")!.Value,
+                            Description = p.Element("Description")!.Value
                         }
                         select (Product?)prod);
         }

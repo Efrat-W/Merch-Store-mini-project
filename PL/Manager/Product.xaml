@@ -23,6 +23,8 @@
             <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="48*"/>
             <RowDefinition Height="48*"/>
             <RowDefinition Height="48*"/>
             <RowDefinition Height="48*"/>
@@ -33,11 +35,11 @@
             <RowDefinition Height="9*"/>
 
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="2,2,2,2" Grid.ColumnSpan="3" Margin="10,10,10,1" Grid.RowSpan="7">
+        <Border BorderBrush="Black" BorderThickness="2,2,2,2" Grid.ColumnSpan="3" Margin="10,10,10,1" Grid.RowSpan="9">
             <Rectangle Stroke="Black" Margin="703,-2,-2,-2" Fill="#FFC3F5FF" StrokeThickness="2"/>
         </Border>
-        <Rectangle HorizontalAlignment="Left" Height="320" Margin="239,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="323" Grid.Row="0" Fill="#FFFCE933"
-                   Grid.ColumnSpan="2" Grid.RowSpan="7" StrokeThickness="2" >
+        <Rectangle HorizontalAlignment="Left" Height="370" Margin="239,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="323" Grid.Row="0" Fill="#FFFCE933"
+                   Grid.ColumnSpan="2" Grid.RowSpan="9" StrokeThickness="2" >
             <Rectangle.Style>
                 <Style/>
             </Rectangle.Style>
@@ -46,7 +48,7 @@
         <Label x:Name="IdLb" Content="ID:" HorizontalAlignment="Left" Margin="361,0,0,0"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="29"/>
         <Label x:Name="CategoryLb" Content="Category:" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="77"/>
         <Label x:Name="PriceLb" Content="Price:" HorizontalAlignment="Left" Margin="342,0,0,0"  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="48"/>
-        <Label x:Name="InStockLb" Content="Amount in stock:" HorizontalAlignment="Left" Margin="261,8,0,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129"/>
+        <Label x:Name="InStockLb" Content="Amount in stock:" HorizontalAlignment="Left" Margin="261,7,0,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129"/>
         <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" FontFamily="{StaticResource JosefinSansLight}" LostFocus="NameTB_LostFocus" GotFocus="NameTB_GotFocus" VerticalContentAlignment="Center"/>
         <Label x:Name="InvalidNameLb" Content="Fill in name." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Grid.RowSpan="2" Visibility="Hidden"/>
 
@@ -60,16 +62,32 @@
 
         <TextBox x:Name="InStockTB" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14" LostFocus="InStockTB_LostFocus" GotFocus="InStockTB_GotFocus" VerticalContentAlignment="Center"/>
         <Label x:Name="InvalidInStockLb" Content="Fill in amount." HorizontalAlignment="Left" Margin="10,-10,0,0"  Grid.Column="1" Grid.Row="5" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Visibility="Hidden"/>
-
-        <Button x:Name="CommandBtn" Style="{StaticResource BlackButton}" Content="We'll see" HorizontalAlignment="Left" Margin="376,10,0,0" Grid.Row="6" VerticalAlignment="Top" Click="CommandBtn_Click" Grid.ColumnSpan="2">
-            <Button.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="8"/>
-            </Style>
-            </Button.Resources>
-        </Button>
-        <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="78" Grid.Row="6" Stroke="Black" Width="78" Fill="#FFFCE933" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,70,1" Grid.ColumnSpan="2"/>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="78" Grid.Row="8" Stroke="Black" Width="78" Fill="#FFFCE933" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,70,1" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Top" Width="50" Fill="Black"/>
+        <Button x:Name="CommandBtn" Content="We'll see" HorizontalAlignment="Left" Margin="376,17,0,0" Grid.Row="8" VerticalAlignment="Top" Click="CommandBtn_Click" Grid.ColumnSpan="2">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Button.Resources>
+            <Button.Style>
+                <StaticResource ResourceKey="BlackButton"/>
+            </Button.Style>
+        </Button>
+        <Label x:Name="ImageLb" Content="Image Path:" HorizontalAlignment="Left" Margin="289,0,0,0"  Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="101"/>
+        <Label x:Name="DescriptionLb" Content="Product Description:" HorizontalAlignment="Left" Margin="241,0,0,0"  Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="149"/>
+        <TextBox x:Name="ImageTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="6" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="DescriptionTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
+        <Button x:Name="DeleteBtn" Content="Delete" HorizontalAlignment="Left" Margin="376,47,0,0" Grid.Row="8" VerticalAlignment="Top" Click="DeleteBtn_Click"  Grid.ColumnSpan="2">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Button.Resources>
+            <Button.Style>
+                <StaticResource ResourceKey="BlackButton"/>
+            </Button.Style>
+        </Button>
     </Grid>
 
 </Window>

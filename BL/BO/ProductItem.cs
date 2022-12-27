@@ -9,5 +9,6 @@ public class ProductItem
     public category? Category { get; set; }
     public bool InStock { get; set; }
     public int Amount { get; set; }
-
+    public string? Image { get; set; }
+    public string? Description { get; set; }
 }

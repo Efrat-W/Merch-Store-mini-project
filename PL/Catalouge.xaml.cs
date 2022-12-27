@@ -30,19 +30,19 @@ namespace PL.OrderProcess
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            return;
-        //    if (CategorySelector.SelectedItem == null)
-        //        ProductsScrollViewItemsSource = bl.Product.RequestList();
-        //    else
-        //    {
-        //        BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-        //        ProductsScrollView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == sortBy);
-        //    }
-        //}
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CategorySelector.SelectedItem = null;
-        //    ProductsScrollView.ItemsSource = bl.Product.RequestList();
+            
+           if (CategorySelector.SelectedItem == null)
+                ProductsScrollView.DataContext = bl.Product.RequestList();
+            else
+            {
+                BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
+                ProductsScrollView.DataContext = bl.Product.RequestListByCond(i => i.Category == sortBy);
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CategorySelector.SelectedItem = null;
+            ProductsScrollView.DataContext = bl.Product.RequestList();
         }
     }
 }

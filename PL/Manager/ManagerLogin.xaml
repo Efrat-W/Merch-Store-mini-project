@@ -11,7 +11,7 @@
         <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0">
             <Label x:Name="EnterCodeLB" Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center" PreviewKeyDown="PasswordTB_PreviewKeyDown" KeyUp="PasswordTB_KeyUp"/>
             <Button x:Name="CommandBtn" Content="Submit" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" >
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -23,8 +23,8 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <Grid x:Name="LoggedIn" HorizontalAlignment="Left" Height="115" Margin="23,0,0,0" VerticalAlignment="Center" Width="258" Visibility="Hidden">
-
+        <Grid x:Name="LoggedIn" HorizontalAlignment="Left" Height="131" Margin="23,0,0,0" VerticalAlignment="Center" Width="258" Visibility="Hidden">
+            
             <Label x:Name="WelcomeLB" Style="{StaticResource BlackLabel}"  Content="Welcome!" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top"/>
             <Button x:Name="ProductsBtn" Content="view products" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top"  Width="106" Click="ProductViewButton_Click">
                 <Button.Resources>
@@ -46,6 +46,7 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
+            <TextBlock x:Name="logOutText" Text="Click here to log out." Foreground="DeepSkyBlue" FontSize="10" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Center" MouseLeftButtonDown="logOutText_MouseLeftButtonDown"  MouseEnter="logOutText_MouseEnter" MouseLeave="logOutText_MouseLeave" />
         </Grid>
     </Grid>
 </Window>

@@ -13,7 +13,7 @@
         <FontFamily x:Key="JosefinSansRegular">/FONTS/JosefinSans-Regular.ttf#Josefin Sans Regular</FontFamily>
         <FontFamily x:Key="JosefinSansSemiBold">/FONTS/JosefinSans-SemiBold.ttf#Josefin Sans SemiBold</FontFamily>
         <FontFamily x:Key="JosefinSansThin">/FONTS/JosefinSans-Thin.ttf#Josefin Sans Thin</FontFamily>
-        
+        <!--button default style-->
         <Style x:Key="BlackButton" TargetType="Button">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontFamily" Value="{StaticResource JosefinSansBold}" />
@@ -24,13 +24,19 @@
             <Setter Property="Width" Value="70" />
             <Setter Property="Height" Value="25" />
             <Setter Property="BorderThickness" Value="0,0,0,0" />
-           
         </Style>
+        <!--general label default style-->
         <Style x:Key="BlackLabel" TargetType="Label">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontFamily" Value="{StaticResource JosefinSansLight}" />
             <Setter Property="Foreground" Value="Black" />
        </Style>
+        <!--invalid label default style-->
+        <Style x:Key="InvalidLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontFamily" Value="{StaticResource JosefinSansLight}" />
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
 
     </Application.Resources>
     

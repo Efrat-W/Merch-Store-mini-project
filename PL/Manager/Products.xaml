@@ -27,7 +27,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="CategorySelector" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="192,2,57,12" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="CategorySelector" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="192,2,57,12" VerticalContentAlignment="Center" BorderBrush="White" >
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
             <Label x:Name="CategoryLB" Content="category:" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="14" Margin="119,2,0,0"/>
             <Button x:Name="ClearBTN" Grid.Column="1" Content="Clear" HorizontalAlignment="Left" Margin="343,4,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" Background="#FFF5F90F" BorderThickness="0,0,0,0" RenderTransformOrigin="-0.147,0.238" Click="Button_Click" Width="40" Height="18" VerticalContentAlignment="Bottom">
                 <Button.Resources>

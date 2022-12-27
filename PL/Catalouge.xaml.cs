@@ -25,23 +25,24 @@ namespace PL.OrderProcess
         {
             bl = bl1;
             InitializeComponent();
-            products = bl.Product.RequestList();
+            ProductsScrollView.DataContext = bl.Product.RequestList();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem == null)
-                ProductsListView.ItemsSource = bl.Product.RequestList();
-            else
-            {
-                BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-                ProductsListView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == sortBy);
-            }
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            CategorySelector.SelectedItem = null;
-            ProductsListView.ItemsSource = bl.Product.RequestList();
+            return;
+        //    if (CategorySelector.SelectedItem == null)
+        //        ProductsScrollViewItemsSource = bl.Product.RequestList();
+        //    else
+        //    {
+        //        BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
+        //        ProductsScrollView.ItemsSource = bl.Product.RequestListByCond(i => i.Category == sortBy);
+        //    }
+        //}
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    CategorySelector.SelectedItem = null;
+        //    ProductsScrollView.ItemsSource = bl.Product.RequestList();
         }
     }
 }

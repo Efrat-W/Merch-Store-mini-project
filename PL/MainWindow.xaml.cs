@@ -40,8 +40,18 @@ namespace PL
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
+            MenuFrame.Opacity = 0;
+        }
+
+        private void Menu_MouseEnter(object sender, MouseEventArgs e)
+        {
             MenuFrame.Opacity = 1;
             MenuFrame.Navigate(new Uri("MainMenu.xaml", UriKind.Relative));
+        }
+
+        private void Menu_MouseLeave(object sender, MouseEventArgs e)
+        {
+          
         }
     }
 }

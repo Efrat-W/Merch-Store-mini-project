@@ -17,6 +17,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AlufMug.jpeg" />
+    <None Remove="AlufNotebook.jpeg" />
+    <None Remove="c-hprint.jpg" />
+    <None Remove="DrSuessNotebook.jpeg" />
+    <None Remove="EviatarNotebook.jpeg" />
     <None Remove="FONTS\JosefinSans-Bold.ttf" />
     <None Remove="FONTS\JosefinSans-ExtraLight.ttf" />
     <None Remove="FONTS\JosefinSans-Light.ttf" />
@@ -24,7 +29,48 @@
     <None Remove="FONTS\JosefinSans-Regular.ttf" />
     <None Remove="FONTS\JosefinSans-SemiBold.ttf" />
     <None Remove="FONTS\JosefinSans-Thin.ttf" />
+    <None Remove="image4.jpeg" />
+    <None Remove="mugs.jpg" />
     <None Remove="Notebooks.jpg" />
+    <None Remove="RenanaNotebook.jpeg" />
+    <None Remove="TubsMug.jpeg" />
+    <None Remove="tubsPrint.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AlufMug.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AlufNotebook.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="c-hprint.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DrSuessNotebook.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="EviatarNotebook.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="image4.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mugs.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Notebooks.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TubsMug.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tubsPrint.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -49,11 +95,46 @@
     <Resource Include="FONTS\JosefinSans-Thin.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Notebooks.jpg" />
+    <Content Include="RenanaNotebook.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\AlufMug.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\AlufNotebook.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\c-hprint.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\DrSuessNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\EviatarNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\mugs.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\Notebooks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\RenanaNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\TubsMug.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Images\tubsPrint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

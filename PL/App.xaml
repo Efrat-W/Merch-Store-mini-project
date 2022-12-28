@@ -13,6 +13,8 @@
         <FontFamily x:Key="JosefinSansRegular">/FONTS/JosefinSans-Regular.ttf#Josefin Sans Regular</FontFamily>
         <FontFamily x:Key="JosefinSansSemiBold">/FONTS/JosefinSans-SemiBold.ttf#Josefin Sans SemiBold</FontFamily>
         <FontFamily x:Key="JosefinSansThin">/FONTS/JosefinSans-Thin.ttf#Josefin Sans Thin</FontFamily>
+        <!--<Image x:Key="Aluf" >/Images/AlufMug.jpg</Image>-->
+
         <!--button default style-->
         <Style x:Key="BlackButton" TargetType="Button">
             <Setter Property="FontSize" Value="14" />

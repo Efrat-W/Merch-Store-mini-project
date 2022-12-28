@@ -30,6 +30,17 @@
     <None Remove="FONTS\JosefinSans-SemiBold.ttf" />
     <None Remove="FONTS\JosefinSans-Thin.ttf" />
     <None Remove="image4.jpeg" />
+    <None Remove="Images\AlufMug.jpeg" />
+    <None Remove="Images\AlufNotebook.jpeg" />
+    <None Remove="Images\c-hprint.jpg" />
+    <None Remove="Images\DrSuessNotebook.jpeg" />
+    <None Remove="Images\EviatarNotebook.jpeg" />
+    <None Remove="Images\image4.jpeg" />
+    <None Remove="Images\mugs.jpg" />
+    <None Remove="Images\Notebooks.jpg" />
+    <None Remove="Images\RenanaNotebook.jpeg" />
+    <None Remove="Images\TubsMug.jpeg" />
+    <None Remove="Images\tubsPrint.jpg" />
     <None Remove="mugs.jpg" />
     <None Remove="Notebooks.jpg" />
     <None Remove="RenanaNotebook.jpeg" />
@@ -38,38 +49,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="AlufMug.jpeg">
+    <Content Include="Images\AlufMug.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AlufNotebook.jpeg">
+    <Content Include="Images\AlufNotebook.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="c-hprint.jpg">
+    <Content Include="Images\c-hprint.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DrSuessNotebook.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\DrSuessNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="EviatarNotebook.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\EviatarNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="image4.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\image4.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="mugs.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\mugs.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Notebooks.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\Notebooks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="TubsMug.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\RenanaNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="tubsPrint.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\TubsMug.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\tubsPrint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -95,46 +106,10 @@
     <Resource Include="FONTS\JosefinSans-Thin.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Content Include="RenanaNotebook.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Images\AlufMug.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\AlufNotebook.jpeg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\c-hprint.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\DrSuessNotebook.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\EviatarNotebook.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\mugs.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\Notebooks.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\RenanaNotebook.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\TubsMug.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\tubsPrint.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

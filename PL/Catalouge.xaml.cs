@@ -44,5 +44,12 @@ namespace PL.OrderProcess
             CategorySelector.SelectedItem = null;
             ProductsScrollView.DataContext = bl.Product.RequestList();
         }
+
+        private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ViewProduct product = new ViewProduct(123456);
+            product.Show();
+        }
+
     }
 }

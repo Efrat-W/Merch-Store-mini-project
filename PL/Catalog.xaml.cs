@@ -22,9 +22,9 @@ namespace PL
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         IEnumerable<BO.ProductForList> products;
-        public Catalog(BlApi.IBl? bl1)
+        public Catalog()
         {
-            bl = bl1;
+            
             InitializeComponent();
             ProductsScrollView.DataContext = bl.Product.RequestList();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));

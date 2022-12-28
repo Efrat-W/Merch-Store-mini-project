@@ -16,7 +16,11 @@
                     <RowDefinition Height="0.5*" />
                     <RowDefinition Height="0.5*" />
                 </Grid.RowDefinitions>
-                <Image Grid.Row="0" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="30" Source="{Binding Path=Image}" Stretch="UniformToFill"/>
+                <Border Grid.Row="0" HorizontalAlignment="Center" Height="150"  Width="125" BorderBrush="Black" BorderThickness="0,0,0,0" >
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Path=Image}" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
                 <Label Style="{StaticResource BlackLabel}" Grid.Row="1" Content="{Binding Path=Name}" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
                 <Label Style="{StaticResource BlackLabel}" Grid.Row="2" Content="{Binding Path=Price}" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                 <Button x:Name="btnAddToCart" Style="{StaticResource BlackButton}" Content="Add To Cart" Grid.Row="0" VerticalAlignment="Bottom" Visibility="Collapsed"/>
@@ -24,10 +28,8 @@
         </DataTemplate>
     </Page.Resources>
     <Grid>
-        <Grid HorizontalAlignment="Center" Height="434" VerticalAlignment="Center">
-            <Rectangle HorizontalAlignment="Left" Height="54" Stroke="Black" VerticalAlignment="Top" Width="804" Fill="Black"/>
-            <Button x:Name="Cart" Content="🛒" HorizontalAlignment="Left" Margin="12,5,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="49" Width="55" FontSize="30" UseLayoutRounding="False"/>
-            <ComboBox x:Name="CategorySelector" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="631,58,48,356" VerticalContentAlignment="Center" BorderBrush="White" >
+        <Grid HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Background="White">
+             <ComboBox x:Name="CategorySelector" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="626,10,53,404" VerticalContentAlignment="Center" BorderBrush="White" >
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -35,8 +37,8 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <Label x:Name="CategoryLB" Content="category:" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="14" Margin="563,56,0,0"/>
-            <Button x:Name="ClearBTN" Content="Clear" HorizontalAlignment="Left" Margin="757,59,0,0" VerticalAlignment="Top" Background="#FFF5F90F" BorderThickness="0,0,0,0" RenderTransformOrigin="-0.147,0.238"  Width="40" Height="18" VerticalContentAlignment="Bottom">
+            <Label x:Name="CategoryLB" Content="category:" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="14" Margin="546,10,0,0"/>
+            <Button x:Name="ClearBTN" Content="Clear" HorizontalAlignment="Left" Margin="744,11,0,0" VerticalAlignment="Top" Background="#FFF5F90F" BorderThickness="0,0,0,0" RenderTransformOrigin="-0.147,0.238"  Width="40" Height="18" VerticalContentAlignment="Bottom">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -46,7 +48,7 @@
                     <StaticResource ResourceKey="JosefinSansRegular"/>
                 </Button.FontFamily>
             </Button>
-            <ScrollViewer x:Name="ProductsScrollView" Margin="0,83,0,0">
+            <ScrollViewer x:Name="ProductsScrollView" Margin="0,39,0,0">
                 <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

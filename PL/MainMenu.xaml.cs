@@ -23,6 +23,7 @@ namespace PL
     public partial class MainMenu : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        //Frame CatalogFrame = (Frame)MainWindow.FindName("CatalogFrame");
         public MainMenu()
         {
             InitializeComponent();
@@ -47,8 +48,10 @@ namespace PL
 
         private void Products_Click(object sender, RoutedEventArgs e)
         {
-            Catalouge catalouge = new Catalouge(bl);
+            Catalouge catalouge=new Catalouge(bl);
             catalouge.Show();
+           
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,6 @@ namespace PL
         IEnumerable<BO.ProductForList> products;
         public Catalog()
         {
-            
             InitializeComponent();
             ProductsScrollView.DataContext = bl.Product.RequestList();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
@@ -44,6 +44,12 @@ namespace PL
         {
             CategorySelector.SelectedItem = null;
             ProductsScrollView.DataContext = bl.Product.RequestList();
+        }
+
+        private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int id = ((ProductForList)ProductsScrollView.SelectedItem).ID;
+            new ViewProduct(id).ShowDialog();
         }
     }
 }

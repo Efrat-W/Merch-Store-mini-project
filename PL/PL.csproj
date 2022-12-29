@@ -112,4 +112,10 @@
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="OrderMaking.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+
 </Project>

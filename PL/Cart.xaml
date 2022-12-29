@@ -42,7 +42,7 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
-            <Button Style="{StaticResource BlackButton}" Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="265,377,0,0" VerticalAlignment="Top">
+            <Button Style="{StaticResource BlackButton}" Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="265,377,0,0" VerticalAlignment="Top" Click="Button_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="9"/>

@@ -48,10 +48,15 @@ namespace PL
 
         private void Products_Click(object sender, RoutedEventArgs e)
         {
-            Catalouge catalouge=new Catalouge(bl);
-            catalouge.Show();
-           
+            //Catalouge catalouge=new Catalouge(bl);
+            //catalouge.Show();
+            MainWindow.mainFrame.Opacity = 1;
+            MainWindow.mainFrame.Navigate(new Uri("Catalog.xaml", UriKind.Relative));
         }
 
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

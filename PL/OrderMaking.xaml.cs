@@ -1,6 +1,4 @@
-﻿using BO;
-using PL.OrderProcess;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,29 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.OrderProcess
 {
     /// <summary>
-    /// Interaction logic for Cart.xaml
+    /// Interaction logic for OrderMaking.xaml
     /// </summary>
-    public partial class Cart : Page
+    public partial class OrderMaking : Page
     {
-        public Cart()
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        public OrderMaking()
         {
             InitializeComponent();
             ProductsScrollView.DataContext = MainWindow.cart.Items;
             MainGrid.DataContext = MainWindow.cart;
         }
-        private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            int id = ((OrderItem)ProductsScrollView.SelectedItem).ProductId;
-            new ViewProduct(id).ShowDialog();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.mainFrame.Navigate(new Uri("OrderMaking.xaml", UriKind.Relative)); ;
-           
+            bl.Cart.Approve(MainWindow.cart);
         }
     }
 }

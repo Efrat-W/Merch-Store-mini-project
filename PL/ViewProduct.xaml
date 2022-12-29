@@ -23,12 +23,12 @@
         <Frame  x:Name="MenuFrame" Margin="65,30,19,363" Background="Black" Opacity="0" MouseLeave="MenuFrame_MouseLeave" Grid.Column="3" Grid.Row="1" />
         <Button x:Name="MenuBtn" Content="≡" HorizontalAlignment="Left" Margin="290,-4,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30"  UseLayoutRounding="False" MouseEnter="MenuBtn_MouseEnter" Grid.Column="2" />
         <Button x:Name="Cart" Content="🛒" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" UseLayoutRounding="False" RenderTransformOrigin="0.473,0.078"/>
-        <Image Grid.Column="2" Source="{Binding Path=Image}" HorizontalAlignment="Left" Height="361" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="260" Grid.ColumnSpan="2" Stretch="UniformToFill"/>
+        <Image Grid.Column="2" Source="{Binding Path=Image}" HorizontalAlignment="Left" Height="300" Width="339" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" Stretch="UniformToFill"/>
         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
             <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Content="{Binding Path=Name}"/>
-            <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="24" Text="{Binding Path=Description}" TextWrapping="WrapWithOverflow" Width="280" />
+            <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Path=Description}" TextWrapping="WrapWithOverflow" Width="280" />
             <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Path=Price}"/>
-            <Button Style="{StaticResource BlackButton}" Content="Add To Cart" Width="102">
+            <Button Style="{StaticResource BlackButton}" Content="Add To Cart" Width="102" Click="AddToCart_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="9"/>

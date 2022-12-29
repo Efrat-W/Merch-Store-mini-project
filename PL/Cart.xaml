@@ -1,0 +1,37 @@
+﻿<Page x:Class="PL.Cart"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="400"
+      Title="Cart">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Height="42" Grid.Row="1" Fill="Black" VerticalAlignment="Center" Width="400"/>
+        <Label Style="{StaticResource BlackLabel}" Foreground="White"  Grid.Column="1" Content="Label" HorizontalAlignment="Right" Margin="153,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label Style="{StaticResource BlackLabel}" Foreground="White"  Grid.Column="2" Content="25" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="25"/>
+        <ScrollViewer x:Name="ProductsScrollView" Margin="0,83,0,0" Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding}"  >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+
+
+
+    </Grid>
+</Page>

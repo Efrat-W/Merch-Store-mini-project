@@ -40,5 +40,10 @@ namespace PL
         {
             MenuFrame.Opacity = 0;
         }
+
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

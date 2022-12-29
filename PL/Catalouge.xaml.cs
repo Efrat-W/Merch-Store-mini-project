@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,8 +48,8 @@ namespace PL.OrderProcess
 
         private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ViewProduct product = new ViewProduct(123456);
-            product.Show();
+            int id = ((ProductForList)ProductsScrollView.SelectedItem).ID;
+            new ViewProduct(id).ShowDialog();
         }
 
     }

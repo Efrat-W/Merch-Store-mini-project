@@ -35,9 +35,9 @@ namespace PL
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.mainFrame.Navigate(new Uri("OrderMaking.xaml", UriKind.Relative)); ;
-           
+        { 
+            MainWindow.mainFrame.Navigate(new Uri("OrderMaking.xaml", UriKind.Relative)); 
+          
         }
     }
 }

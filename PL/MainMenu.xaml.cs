@@ -50,7 +50,6 @@ namespace PL
         {
             //Catalouge catalouge=new Catalouge(bl);
             //catalouge.Show();
-            MainWindow.mainFrame.Opacity = 1;
             MainWindow.mainFrame.Navigate(new Uri("Catalog.xaml", UriKind.Relative));
         }
 

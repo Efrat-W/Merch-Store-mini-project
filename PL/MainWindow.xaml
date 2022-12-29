@@ -45,7 +45,7 @@
                 </Button>
             </Grid>
 
-            <Frame  x:Name="MainFrame" Width="800" Height="440"  Grid.Row="2" Margin="0,66,0,20"  />
+            <Frame  x:Name="MainFrame" Margin="0,55,3,25"  NavigationUIVisibility="Hidden"  />
             <Frame  x:Name="MenuFrame" Margin="695,66,0,329" Background="Black" Opacity="0" MouseLeave="MenuFrame_MouseLeave" />
             <Rectangle HorizontalAlignment="Center" Height="50" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black" Margin="0,16,0,0"/>
             <Frame x:Name="CartFrame" Margin="0,66,455,20"  Background="White" Opacity="0" MouseLeave="CartFrame_MouseLeave"/>

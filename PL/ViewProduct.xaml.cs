@@ -20,8 +20,10 @@ namespace PL
     public partial class ViewProduct : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        int ID;
         public ViewProduct(int id)
         {
+            ID=id;
             InitializeComponent();
             MainGrid.DataContext = bl.Product.RequestByIdManager(id);
         }
@@ -43,7 +45,7 @@ namespace PL
 
         private void AddToCart_Click(object sender, RoutedEventArgs e)
         {
-
+            bl.Cart.AddProduct(MainWindow.cart , ID);
         }
     }
 }

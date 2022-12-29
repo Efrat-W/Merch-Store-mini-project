@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,13 @@ namespace PL
         public Cart()
         {
             InitializeComponent();
+            ProductsScrollView.DataContext = MainWindow.cart.Items;
+            MainGrid.DataContext = MainWindow.cart;
+        }
+        private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int id = ((OrderItem)ProductsScrollView.SelectedItem).ID;
+            new ViewProduct(id).ShowDialog();
         }
     }
 }

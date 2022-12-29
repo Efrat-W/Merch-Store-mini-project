@@ -25,6 +25,7 @@ namespace PL
     public partial class MainWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        public static BO.Cart cart = new BO.Cart();
         public MainWindow()
         {
             InitializeComponent();
@@ -57,6 +58,16 @@ namespace PL
             MenuFrame.Opacity = 0;
         }
 
-        
+        private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            CartFrame.Opacity = 0;
+        }
+
+        private void Cart_Click(object sender, RoutedEventArgs e)
+        {
+            CartFrame.Opacity = 1;
+            CartFrame.Navigate(new Uri("Cart.xaml", UriKind.Relative));
+        }
+       
     }
 }

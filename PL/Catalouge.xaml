@@ -48,16 +48,16 @@
                     <StaticResource ResourceKey="JosefinSansRegular"/>
                 </Button.FontFamily>
             </Button>
-            <ScrollViewer Margin="0,83,0,0 ">
-                <ListView  x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,83,0,0"
-                    ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ListView>
-            </ScrollViewer>
+
+            <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="12,85,12,10"
+                    ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0" Width="775">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ListView>
+
         </Grid>
     </Grid>
 

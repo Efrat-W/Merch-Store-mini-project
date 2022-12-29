@@ -1,35 +1,55 @@
 ﻿<Page x:Class="PL.Cart"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="400"
-      Title="Cart">
+      mc:Ignorable="d"
+      Title="Cart" Height="420" Width="365">
+    <Page.Resources>
+        <DataTemplate x:Key="Product" DataType="local: Product" >
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" Content="{Binding Path=Name}" Width="200"  HorizontalAlignment="Left"/>
+                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=Price}"  HorizontalAlignment="Left" />
+                </StackPanel>
+                <Button x:Name="increaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="+" Background="#FFFAF9F9" BorderBrush="Black" />
+                <Label  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  x:Name="amountTextBlock" Content="{Binding Amount}" VerticalAlignment="Center" />
+                <Button x:Name="decreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="-" Background="#FFFAF9F9" BorderBrush="Black" />
+                
 
-    <Grid>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="48*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="1" HorizontalAlignment="Center" Height="42" Grid.Row="1" Fill="Black" VerticalAlignment="Center" Width="400"/>
-        <Label Style="{StaticResource BlackLabel}" Foreground="White"  Grid.Column="1" Content="Label" HorizontalAlignment="Right" Margin="153,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
-        <Label Style="{StaticResource BlackLabel}" Foreground="White"  Grid.Column="2" Content="25" HorizontalAlignment="Left" Margin="5,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Width="25"/>
-        <ScrollViewer x:Name="ProductsScrollView" Margin="0,83,0,0" Grid.Column="1">
-            <ItemsControl ItemsSource="{Binding}"  >
-                <ItemsControl.ItemsPanel>
+        <Grid HorizontalAlignment="Center" Height="420" Grid.RowSpan="2" VerticalAlignment="Center" Grid.Column="1">
+            <Rectangle HorizontalAlignment="Center" Fill="Black" VerticalAlignment="Top" Width="366" Margin="0,373,0,0" Height="47"/>
+            <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="Total Price:" HorizontalAlignment="Right" Margin="0,378,135,0" VerticalAlignment="Top"/>
+            <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="230,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="30" Height="24"/>
+            <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,-1,47"
+                ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0">
+                <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+                </ListView.ItemsPanel>
+            </ListView>
+            <Button Style="{StaticResource BlackButton}" Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="265,377,0,0" VerticalAlignment="Top">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="9"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
 
 
 

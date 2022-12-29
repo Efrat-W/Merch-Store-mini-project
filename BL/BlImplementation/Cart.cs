@@ -34,35 +34,42 @@ internal class Cart : ICart
                 throw new InvalidArgumentException("id out of range.\n");
             throw new EntityNotFoundException("Requested Product to add not found.", ex);
         }
-        if (cart.Items!.FirstOrDefault(i => i!.ProductId == prodId) != null) //product exists in items
+        if (cart.Items != null)
         {
-            OrderItem item = cart.Items!.Find(i => i!.ProductId == prodId);
-            if (prod?.InStock >= item!.Amount)//there is enough in stock
+            if (cart.Items!.FirstOrDefault(i => i!.ProductId == prodId) != null) //product exists in items
             {
-                item.Amount++;
-                item.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
-                cart.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
+                OrderItem item = cart.Items!.Find(i => i!.ProductId == prodId);
+                if (prod?.InStock >= item!.Amount)//there is enough in stock
+                {
+                    item.Amount++;
+                    item.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
+                    cart.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
+                }
+                else
+                    throw new InvalidArgumentException("The amount requested is greater than available.\n");
+                return cart;
             }
-            else
-                throw new InvalidArgumentException("The amount requested is greater than available.\n");
         }
-        else//product does not exist in cart
-        {
+        
+            if(cart.Items == null)
+                cart.Items = new List<OrderItem?>();
             if (prod?.InStock > 1)//adds product to cart
             {
-                cart.Items!.Add(new BO.OrderItem 
-                    { ID = 0, 
-                        Amount = 1, 
-                        Name = prod?.Name, 
-                        Price = prod?.Price ?? throw new InvalidArgumentException(), 
-                        ProductId = prod?.ID ?? throw new InvalidArgumentException(), 
-                        TotalPrice = prod?.Price ?? throw new InvalidArgumentException()
-                });
                 cart.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
+                cart.Items.Add(new BO.OrderItem
+                {
+                    ID = 0,
+                    Amount = 1,
+                    Name = prod?.Name,
+                    Price = prod?.Price ?? throw new InvalidArgumentException(),
+                    ProductId = prod?.ID ?? throw new InvalidArgumentException(),
+                    TotalPrice = prod?.Price ?? throw new InvalidArgumentException()
+                });
+                
             }
             else
                 throw new InvalidArgumentException("The requested product is out of stock.\n");
-        }
+        
         return cart;
     }
     /// <summary>

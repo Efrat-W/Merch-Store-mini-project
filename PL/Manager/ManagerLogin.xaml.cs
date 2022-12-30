@@ -30,6 +30,7 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
+            currentPassword= PasswordTB.Text;
             if (currentPassword == PASSWORD)
                 Toggle();
             PasswordTB.Text = "";
@@ -63,16 +64,16 @@ namespace PL.Manager
 
         private void Toggle()
         {
-            if (Login.Visibility == Visibility.Hidden)
-            {
-                LoggedIn.Visibility = Visibility.Hidden;
-                Login.Visibility = Visibility.Visible;
-            }
-            else
-            {
+            //if (Login.Visibility == Visibility.Hidden)
+            //{
+            //    LoggedIn.Visibility = Visibility.Hidden;
+            //    Login.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
                 Login.Visibility = Visibility.Hidden;
                 LoggedIn.Visibility = Visibility.Visible;
-            }
+            
         }
 
         private void logOutText_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

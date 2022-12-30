@@ -48,7 +48,7 @@
             <Frame  x:Name="MainFrame" Margin="0,55,3,25"  NavigationUIVisibility="Hidden"  />
             <Frame  x:Name="MenuFrame" Margin="695,66,0,329" Background="Black" Opacity="0" MouseLeave="MenuFrame_MouseLeave" />
             <Rectangle HorizontalAlignment="Center" Height="50" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black" Margin="0,16,0,0"/>
-            <Frame x:Name="CartFrame" Margin="0,66,455,20"  Background="White" Opacity="0" MouseLeave="CartFrame_MouseLeave"/>
+            <Frame x:Name="CartFrame" IsHitTestVisible="False"  Margin="0,66,455,20"  Background="White" Opacity="0" MouseLeave="CartFrame_MouseLeave"/>
             <Button x:Name="Cart" Content="🛒" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" UseLayoutRounding="False" Click="Cart_Click"/>
             <Button x:Name="MenuBtn" Content="≡" HorizontalAlignment="Left" Margin="713,21,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30"  UseLayoutRounding="False" MouseEnter="MenuBtn_MouseEnter" />
 

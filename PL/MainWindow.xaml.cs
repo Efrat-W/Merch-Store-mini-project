@@ -63,11 +63,21 @@ namespace PL
         private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)
         {
             CartFrame.Opacity = 0;
+            CartFrame.IsHitTestVisible = false;
+            if (CartFrame.CanGoBack)
+            {
+                CartFrame.RemoveBackEntry();
+            }
         }
 
         private void Cart_Click(object sender, RoutedEventArgs e)
         {
             CartFrame.Opacity = 1;
+            CartFrame.IsHitTestVisible = true;
+            if (CartFrame.CanGoBack)
+            {
+                CartFrame.RemoveBackEntry();
+            }
             CartFrame.Navigate(new Uri("Cart.xaml", UriKind.Relative));
         }
        

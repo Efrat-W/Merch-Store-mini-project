@@ -24,11 +24,11 @@ internal class DalOrderItem : IOrderItem
         //Read config file
         XElement configRoot = XElement.Load(configPath);
 
-        int nextSeqNum = Convert.ToInt32(configRoot.Element("orderItemSeq")!.Value);
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("seqOrderItem")!.Value);
         nextSeqNum++;
         item.ID = nextSeqNum;
         //update config file
-        configRoot.Element("orderItemSeq")!.SetValue(nextSeqNum);
+        configRoot.Element("seqOrderItem")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
         if (OrderItems.Exists(x => x.ID == item.ID))

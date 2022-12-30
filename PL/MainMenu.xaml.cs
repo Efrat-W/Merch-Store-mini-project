@@ -50,6 +50,10 @@ namespace PL
         {
             //Catalouge catalouge=new Catalouge(bl);
             //catalouge.Show();
+            if (MainWindow.mainFrame.CanGoBack)
+            {
+                MainWindow.mainFrame.RemoveBackEntry();
+            }
             MainWindow.mainFrame.Navigate(new Uri("Catalog.xaml", UriKind.Relative));
         }
 

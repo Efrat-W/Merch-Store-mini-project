@@ -30,6 +30,9 @@ namespace PL.OrderProcess
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.cart.CustomerName=NameTB.Text;
+            MainWindow.cart.CustomerEmail= EmailTB.Text;
+            MainWindow.cart.CustomerAddress = AdressTB.Text;
             bl.Cart.Approve(MainWindow.cart);
         }
     }

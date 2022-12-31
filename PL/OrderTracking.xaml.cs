@@ -39,12 +39,12 @@ namespace PL
             {
                 ShipBtn.Background = Brushes.Black;
                 ShipBtn.Content = "✔️";
-                ShipDate.Content = track.orderProgress[1];
+                ShipDate.Content = track.orderProgress[1].Item1;
                 if (track.Status == BO.orderStatus.Delivered)
                 {
                     DeliverBtn.Background = Brushes.Black;
                     DeliverBtn.Content = "✔️";
-                    DeliveryDate.Content = track.orderProgress[2];
+                    DeliveryDate.Content = track.orderProgress[2].Item1;
                 }
                 else
                     DeliveryDate.Content = "Not yet";

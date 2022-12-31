@@ -22,7 +22,7 @@
                     </Border.Background>
                 </Border>
                 <Label Style="{StaticResource BlackLabel}" Grid.Row="1" Content="{Binding Path=Name}" Width="200" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
-                <Label Style="{StaticResource BlackLabel}" Grid.Row="2" Content="{Binding Path=Price}" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                <Label Style="{StaticResource BlackLabel}" Grid.Row="2" Content="{Binding Path=Price}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
                 <Button x:Name="btnAddToCart" Style="{StaticResource BlackButton}" Content="Add To Cart" Grid.Row="0" VerticalAlignment="Bottom" Visibility="Collapsed"/>
             </Grid>
         </DataTemplate>

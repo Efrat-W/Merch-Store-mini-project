@@ -13,7 +13,7 @@
                 <StackPanel Orientation="Vertical">
                     <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" Content="{Binding Path=Name}" Width="200"  HorizontalAlignment="Left"/>
                     <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=Amount}"  HorizontalAlignment="Left" />
-                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=TotalPrice}"  HorizontalAlignment="Left" />
+                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=TotalPrice}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Left" />
                 </StackPanel>
 
             </StackPanel>

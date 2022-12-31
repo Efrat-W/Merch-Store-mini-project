@@ -12,7 +12,7 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" Content="{Binding Path=Name}" Width="200"  HorizontalAlignment="Left"/>
-                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=Price}"  HorizontalAlignment="Left" />
+                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=Price}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Left" />
                 </StackPanel>
                 <Button x:Name="increaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="+" Background="#FFFAF9F9" BorderBrush="Black" />
                 <Label  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  x:Name="amountTextBlock" Content="{Binding Amount}" VerticalAlignment="Center" />
@@ -33,7 +33,7 @@
         <Grid HorizontalAlignment="Center" Height="420" Grid.RowSpan="2" VerticalAlignment="Center" Grid.Column="1">
             <Rectangle HorizontalAlignment="Center" Fill="Black" VerticalAlignment="Top" Width="366" Margin="0,373,0,0" Height="47"/>
             <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="Total Price:" HorizontalAlignment="Right" Margin="0,378,135,0" VerticalAlignment="Top"/>
-            <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="230,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="30" Height="24"/>
+            <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="{Binding TotalPrice}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Left"  Width="80" Margin="230,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"  Height="24"/>
             <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,-1,47"
                 ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0">
                 <ListView.ItemsPanel>
@@ -42,7 +42,7 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
-            <Button Style="{StaticResource BlackButton}" Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="265,377,0,0" VerticalAlignment="Top" Click="Button_Click">
+            <Button Style="{StaticResource BlackButton}" Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="265,378,0,0" VerticalAlignment="Top" Click="Button_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="9"/>

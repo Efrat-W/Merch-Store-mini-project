@@ -27,7 +27,7 @@
         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
             <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Content="{Binding Path=Name}"/>
             <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Path=Description}" TextWrapping="WrapWithOverflow" Width="280" />
-            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Path=Price}"/>
+            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Path=Price}" ContentStringFormat=" {0} ₪"/>
             <Button Style="{StaticResource BlackButton}" Content="Add To Cart" Width="102" Click="AddToCart_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

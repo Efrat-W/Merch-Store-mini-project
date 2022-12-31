@@ -35,7 +35,7 @@
                         </Button.Resources>
                     </Button>
                     <Label Style="{StaticResource BlackLabel}" Content="Approved:" />
-                    <Label Style="{StaticResource BlackLabel}" Content="{Binding Path=[0]}" />
+                    <Label Style="{StaticResource BlackLabel}" Content="{Binding Path=[0].Item1}" />
                 </StackPanel>
                 <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content=" |" />
                 <StackPanel Orientation="Horizontal">
@@ -62,7 +62,7 @@
                     <Label x:Name="DeliveryDate"  Style="{StaticResource BlackLabel}"  />
                 </StackPanel>
             </StackPanel>
-            <TextBlock FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Text="We are doing our best to provide service as quickly as possible, In case of any problem, you can always contact us at Blabla@gmail.com.         
+            <TextBlock FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Text="We are doing our best to provide service as quickly as possible. In case of any problem, you can always contact us at Blabla@gmail.com.         
                    Our team is here to help! " TextWrapping="WrapWithOverflow" Margin="241,245,241,105" LineHeight="20" />
 
         </Grid>

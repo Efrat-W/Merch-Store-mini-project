@@ -11,7 +11,7 @@
         <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0">
             <Label x:Name="EnterCodeLB" Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center" PreviewKeyDown="PasswordTB_PreviewKeyDown" KeyUp="PasswordTB_KeyUp"/>
+            <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center" PreviewKeyDown="PasswordTB_PreviewKeyDown"/>
             <Button x:Name="CommandBtn" Content="Submit" HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" >
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

@@ -30,6 +30,7 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
+            currentPassword = PasswordTB.Text;
             if (currentPassword == PASSWORD)
                 Toggle();
             PasswordTB.Text = "";
@@ -51,13 +52,28 @@ namespace PL.Manager
         {
             if (e.Key == Key.Enter)
             {
+                currentPassword = PasswordTB.Text;
                 if (currentPassword == PASSWORD)
                     Toggle();
             }
             else
             {
                 //regex needed
-                
+                //char inputKey = PasswordTB.Text.ElementAt(PasswordTB.Text.Length - 1);
+                //char inputKey = 'a';
+                //if (e.Key.ToString().StartsWith("NumPad"))
+                //    inputKey = e.Key.ToString().Last();
+                //else if (e.Key.ToString().StartsWith("D"))
+                //    inputKey = e.Key.ToString().Last();
+                //else
+                //    e.Handled = true;
+                //currentPassword.Append(inputKey);
+                //int len = PasswordTB.Text.Length+1;
+                //PasswordTB.Text = "";
+                //for (int i = 0; i < len; i++)
+                //    PasswordTB.AppendText("•");
+
+                //e.Handled = false;
             }
         }
 
@@ -89,13 +105,6 @@ namespace PL.Manager
         private void logOutText_MouseLeave(object sender, MouseEventArgs e)
         {
             logOutText.TextDecorations = null;
-        }
-
-        private void PasswordTB_KeyUp(object sender, KeyEventArgs e)
-        {
-            char inputKey = PasswordTB.Text.ElementAt(PasswordTB.Text.Length - 1);
-            currentPassword += inputKey;
-            PasswordTB.Text.Replace(inputKey, '•');
         }
     }
 }

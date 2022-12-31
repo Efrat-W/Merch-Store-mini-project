@@ -33,7 +33,9 @@ namespace PL.OrderProcess
             MainWindow.cart.CustomerName=NameTB.Text;
             MainWindow.cart.CustomerEmail= EmailTB.Text;
             MainWindow.cart.CustomerAddress = AdressTB.Text;
-            bl.Cart.Approve(MainWindow.cart);
+            BO.Order order=bl.Cart.Approve(MainWindow.cart);
+            MessageBox.Show("HOORAY! Your order has been received in the system and will start its way to you soon, we cant wait!" +
+                "Your order id is: "+ order.Id);
         }
     }
 }

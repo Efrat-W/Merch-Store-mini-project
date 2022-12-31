@@ -38,7 +38,11 @@ namespace PL
 
         private void OrderTrack_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MainWindow.mainFrame.CanGoBack)
+            {
+                MainWindow.mainFrame.RemoveBackEntry();
+            }
+            MainWindow.mainFrame.Navigate(new Uri("OrderTracking.xaml", UriKind.Relative));
         }
 
         private void About_Click(object sender, RoutedEventArgs e)

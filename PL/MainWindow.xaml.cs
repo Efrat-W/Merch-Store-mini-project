@@ -36,10 +36,8 @@ namespace PL
 
         private void NewCollBtn_Click(object sender, RoutedEventArgs e)
         {
-            BO.category category = BO.category.Notebooks;
-            Catalouge catalouge = new Catalouge(bl);
-            catalouge.CategorySelector.SelectedItem = category;
-            catalouge.Show();
+           
+            
         }
 
         
@@ -80,6 +78,6 @@ namespace PL
             }
             CartFrame.Navigate(new Uri("Cart.xaml", UriKind.Relative));
         }
-       
+
     }
 }

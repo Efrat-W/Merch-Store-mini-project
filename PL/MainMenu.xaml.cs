@@ -63,7 +63,11 @@ namespace PL
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MainWindow.mainFrame.CanGoBack)
+            {
+                MainWindow.mainFrame.RemoveBackEntry();
+            }
+            MainWindow.mainFrame.Navigate(new Uri("HomePage.xaml", UriKind.Relative));
         }
     }
 }

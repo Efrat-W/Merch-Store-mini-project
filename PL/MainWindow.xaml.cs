@@ -31,16 +31,8 @@ namespace PL
         {
             InitializeComponent();
             mainFrame = MainFrame;
+            mainFrame.Navigate(new Uri("HomePage.xaml", UriKind.Relative));
         }
-
-
-        private void NewCollBtn_Click(object sender, RoutedEventArgs e)
-        {
-           
-            
-        }
-
-        
 
         private void MenuBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -72,11 +64,8 @@ namespace PL
         {
             CartFrame.Opacity = 1;
             CartFrame.IsHitTestVisible = true;
-            if (CartFrame.CanGoBack)
-            {
-                CartFrame.RemoveBackEntry();
-            }
             CartFrame.Navigate(new Uri("Cart.xaml", UriKind.Relative));
+            CartFrame.Refresh();
         }
 
     }

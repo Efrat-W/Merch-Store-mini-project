@@ -9,7 +9,7 @@
       Title="OrderTracking">
     <Grid>
         <Grid x:Name="SignIn" Background="White">
-            <Border BorderBrush="Black" BorderThickness="3,3,3,3" Margin="265,150,265,150"/>
+            <Border Background="#FFD2F4FF" BorderThickness="0" Margin="265,150,265,150" CornerRadius="15"/>
             <Label Style="{StaticResource BlackLabel}" Content="Please enter your order's id:" Margin="312,175,312,250" />
             <TextBox x:Name="IdTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="26" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
 

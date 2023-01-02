@@ -26,8 +26,25 @@ namespace PL
         }
         private void NewCollBtn_Click(object sender, RoutedEventArgs e)
         {
-
-
+            if (MainWindow.mainFrame.CanGoBack)
+            {
+                MainWindow.mainFrame.RemoveBackEntry();
+            }
+            BO.category category = BO.category.Notebooks;
+            //MainWindow.mainFrame.NavigationService.Navigate(new Uri("Catalog.xaml", UriKind.Relative), category);
+            MainWindow.mainFrame.Navigate(new Catalog( category));
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         }
     }
     

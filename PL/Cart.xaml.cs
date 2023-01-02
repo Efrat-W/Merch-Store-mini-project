@@ -51,6 +51,7 @@ namespace PL
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
             MainWindow.cart = bl.Cart.UpdateProductAmount(MainWindow.cart, item.ProductId, 1);
             ProductsScrollView.Items.Refresh();
+            Total.Content = MainWindow.cart.TotalPrice;
 
         }
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
@@ -58,7 +59,14 @@ namespace PL
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
             MainWindow.cart = bl.Cart.UpdateProductAmount(MainWindow.cart, item.ProductId, -1);
             ProductsScrollView.Items.Refresh();
-
+            Total.Content = MainWindow.cart.TotalPrice;
+        }
+        private void RemoveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
+            MainWindow.cart = bl.Cart.UpdateProductAmount(MainWindow.cart, item.ProductId, 0);
+            ProductsScrollView.Items.Refresh();
+            Total.Content = MainWindow.cart.TotalPrice;
         }
     }
 }

@@ -14,7 +14,7 @@
                 <Grid x:Name="Advertisment">
                     <Rectangle HorizontalAlignment="Left" Height="449" Margin="397,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="403" Fill="#FFFFF000" StrokeThickness="0"/>
 
-                    <Border BorderBrush="Black" BorderThickness="3,3,3,3" Margin="355,95,70,115">
+                    <Border BorderBrush="Black" BorderThickness="3,3,3,3" Margin="355,74,85,101">
                         <Border.Background>
                             <ImageBrush ImageSource="Images/Notebooks.jpg"/>
                         </Border.Background>

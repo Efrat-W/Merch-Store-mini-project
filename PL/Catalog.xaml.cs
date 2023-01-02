@@ -1,6 +1,8 @@
 ﻿using BO;
+using PL.Manager;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -22,12 +25,28 @@ namespace PL
     public partial class Catalog : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        IEnumerable<BO.ProductForList> products;
+        //ObservableCollection<BO.ProductForList> products
+        //{
+        //    get { return productsProperty; }
+        //    set { SetValue(productsProperty, value); }
+        //}
+        //// Using a DependencyProperty as the backing store for products.
+        //public static readonly DependencyProperty productsProperty =
+        //DependencyProperty.Register("products", typeof(bool), typeof(Catalog), new PropertyMetadata(true));
+
         public Catalog()
         {
             InitializeComponent();
             ProductsScrollView.DataContext = bl.Product.RequestList();
+            //products = new(bl.Product.RequestList());
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
+        }
+        public Catalog(BO.category category)
+        {
+            InitializeComponent();
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
+            ProductsScrollView.DataContext = bl.Product.RequestListByCond(i => i.Category == category);
+            CategorySelector.SelectedItem=category;
         }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

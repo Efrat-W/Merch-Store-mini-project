@@ -32,18 +32,7 @@ namespace PL
             }
             BO.category category = BO.category.Notebooks;
             //MainWindow.mainFrame.NavigationService.Navigate(new Uri("Catalog.xaml", UriKind.Relative), category);
-            MainWindow.mainFrame.Navigate(new Catalog( category));
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+            MainWindow.mainFrame.Navigate(new Catalog(category));
         
         }
     }

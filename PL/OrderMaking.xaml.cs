@@ -22,22 +22,24 @@ namespace PL.OrderProcess
     public partial class OrderMaking : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public OrderMaking()
+        private BO.Cart cart;
+        public OrderMaking(BO.Cart cart)
         {
             InitializeComponent();
-            ProductsScrollView.DataContext = MainWindow.cart.Items;
-            MainGrid.DataContext = MainWindow.cart;
+            ProductsScrollView.DataContext = cart.Items;
+            MainGrid.DataContext = cart;
+            this.cart = cart;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.cart.CustomerName=NameTB.Text;
-            MainWindow.cart.CustomerEmail= EmailTB.Text;
-            MainWindow.cart.CustomerAddress = AdressTB.Text;
+            cart.CustomerName=NameTB.Text;
+            cart.CustomerEmail= EmailTB.Text;
+            cart.CustomerAddress = AdressTB.Text;
             BO.Order order = new();
             try
             {
-                order = bl.Cart.Approve(MainWindow.cart);
+                order = bl.Cart.Approve(cart);
             }
             catch (InvalidArgumentException ex)
             {

@@ -1,11 +1,11 @@
-﻿<Window x:Class="PL.ViewProduct"
+﻿<Page x:Class="PL.ViewProduct"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ViewProduct" Height="450" Width="800">
+        Title="ViewProduct" Height="440" Width="800">
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
 
@@ -14,27 +14,21 @@
             <ColumnDefinition Width="5*"/>
 
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="48*"/>
-        </Grid.RowDefinitions>
-        <Rectangle HorizontalAlignment="Left" Height="50" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black" Margin="0,-10,0,0" Grid.ColumnSpan="5" Grid.Row="0"/>
-
-        <Frame  x:Name="MenuFrame" Margin="65,30,19,363" Background="Black" Opacity="0" MouseLeave="MenuFrame_MouseLeave" Grid.Column="3" Grid.Row="1" />
-        <Button x:Name="MenuBtn" Content="≡" HorizontalAlignment="Left" Margin="290,-4,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30"  UseLayoutRounding="False" MouseEnter="MenuBtn_MouseEnter" Grid.Column="2" />
-        <Button x:Name="Cart" Content="🛒" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" UseLayoutRounding="False" RenderTransformOrigin="0.473,0.078"/>
-        <Image Grid.Column="2" Source="{Binding Path=Image}" HorizontalAlignment="Left" Height="300" Width="339" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" Stretch="UniformToFill"/>
-        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
-            <TextBlock  FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow" Width="280" />
-            <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Path=Description}" TextWrapping="WrapWithOverflow" Width="280" />
-            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Path=Price}" ContentStringFormat=" {0} ₪"/>
-            <Button Style="{StaticResource BlackButton}" Content="Add To Cart" Width="102" Click="AddToCart_Click">
+        <Image Grid.Column="2" Source="{Binding Image}" HorizontalAlignment="Left" Height="300" Width="339" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" Stretch="UniformToFill"/>
+        <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="218" Margin="145,0,0,0" Width="280">
+            <TextBlock  FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Text="{Binding Name}" TextWrapping="WrapWithOverflow" Width="280" />
+            <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Width="280" />
+            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Price}" ContentStringFormat=" {0} ₪"/>
+            <Button Content="Add To Cart" Width="102" Click="AddToCart_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="9"/>
                     </Style>
                 </Button.Resources>
+                <Button.Style>
+                    <StaticResource ResourceKey="BlackButton"/>
+                </Button.Style>
             </Button>
         </StackPanel>
     </Grid>
-</Window>
+</Page>

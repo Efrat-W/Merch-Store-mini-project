@@ -13,7 +13,7 @@
     <Page.Resources>
         <Style x:Key="CategorySelectedItem" TargetType="ComboBox">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Category}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding category}" Value="{x:Null}">
                     <Setter Property="SelectedItem" Value="null"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -36,8 +36,8 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Grid  DataContext="{Binding Products}"  Background="White" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center">
-        <ComboBox x:Name="CategorySelector" ItemsSource="{Binding Path=categories}"  FontFamily="{StaticResource JosefinSansRegular}" SelectedItem="{Binding Path=category}" SelectionChanged="CategorySelector_SelectionChanged" Margin="629,10,50,404" VerticalContentAlignment="Center" BorderBrush="White" >
+    <Grid Background="White" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center">
+        <ComboBox x:Name="CategorySelector" ItemsSource="{Binding categories}"  FontFamily="{StaticResource JosefinSansRegular}" SelectedItem="{Binding Path=category}" SelectionChanged="CategorySelector_SelectionChanged" Margin="612,10,67,404" VerticalContentAlignment="Center" BorderBrush="White" >
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -45,8 +45,8 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Label x:Name="CategoryLB" Content="category:" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="14" Margin="561,8,0,0"/>
-        <Button x:Name="ClearBTN" Content="Clear" HorizontalAlignment="Left" Margin="754,12,0,0" VerticalAlignment="Top" Background="#FFF5F90F" BorderThickness="0,0,0,0" RenderTransformOrigin="-0.147,0.238"  Width="40" Height="18" VerticalContentAlignment="Bottom" Click="Button_Click">
+        <Label x:Name="CategoryLB" Content="category:" HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="14" Margin="544,8,0,0"/>
+        <Button x:Name="ClearBTN" Content="Clear" HorizontalAlignment="Right" Margin="0,11,22,0" VerticalAlignment="Top" Background="#FFF5F90F" BorderThickness="0,0,0,0" RenderTransformOrigin="-0.147,0.238"  Width="40" Height="18" VerticalContentAlignment="Bottom" Click="Button_Click">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -58,7 +58,7 @@
         </Button>
 
         <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="12,37,12,10"
-                    ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0" Width="775">
+                    ItemsSource="{Binding Products}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0" Width="775">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

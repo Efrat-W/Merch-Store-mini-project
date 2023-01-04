@@ -23,9 +23,11 @@ namespace PL
     public partial class MainMenu : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        //Frame CatalogFrame = (Frame)MainWindow.FindName("CatalogFrame");
-        public MainMenu()
+
+        private static BO.Cart cart = new();
+        public MainMenu(BO.Cart cart1)
         {
+            cart = cart1;
             InitializeComponent();
         }
 
@@ -52,13 +54,11 @@ namespace PL
 
         private void Products_Click(object sender, RoutedEventArgs e)
         {
-            //Catalouge catalouge=new Catalouge(bl);
-            //catalouge.Show();
             if (MainWindow.mainFrame.CanGoBack)
             {
                 MainWindow.mainFrame.RemoveBackEntry();
             }
-            MainWindow.mainFrame.Navigate(new Uri("Catalog.xaml", UriKind.Relative));
+            MainWindow.mainFrame.Navigate(new Catalog(cart));
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -67,7 +67,7 @@ namespace PL
             {
                 MainWindow.mainFrame.RemoveBackEntry();
             }
-            MainWindow.mainFrame.Navigate(new Uri("HomePage.xaml", UriKind.Relative));
+            MainWindow.mainFrame.Navigate(new HomePage(cart));
         }
     }
 }

@@ -25,24 +25,21 @@ namespace PL
     public partial class MainWindow : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public static BO.Cart cart = new BO.Cart();
+        private static BO.Cart cart = new();
         public static Frame mainFrame;
         public MainWindow()
         {
             InitializeComponent();
             mainFrame = MainFrame;
-            mainFrame.Navigate(new Uri("HomePage.xaml", UriKind.Relative));
+            mainFrame.Navigate(new HomePage(cart));
         }
 
-        private void MenuBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MenuFrame.Opacity = 0;
-        }
+        
 
         private void MenuBtn_MouseEnter(object sender, MouseEventArgs e)
         {
             MenuFrame.Opacity = 0.9;
-            MenuFrame.Navigate(new Uri("MainMenu.xaml", UriKind.Relative));
+            MenuFrame.Navigate(new MainMenu(cart));
         }
 
         private void MenuFrame_MouseLeave(object sender, RoutedEventArgs e)
@@ -64,8 +61,7 @@ namespace PL
         {
             CartFrame.Opacity = 1;
             CartFrame.IsHitTestVisible = true;
-            CartFrame.Navigate(new Uri("Cart.xaml", UriKind.Relative));
-            CartFrame.Refresh();
+            CartFrame.Navigate(new Cart(cart));
         }
 
     }

@@ -37,11 +37,11 @@
             <Label Style="{StaticResource BlackLabel}" Content="Your name:"/>
             <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
             <Label Style="{StaticResource BlackLabel}" Content="Your email address:"/>
-            <TextBox x:Name="EmailTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+            <TextBox x:Name="EmailTB" InputScope="EmailSmtpAddress" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
             <Label Style="{StaticResource BlackLabel}" Content="Your address:"/>
             <TextBox x:Name="AdressTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
             <Label Style="{StaticResource BlackLabel}" Content="Your Credit card:"/>
-            <TextBox x:Name="CreditTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="CreditTB" InputScope="Number" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
 
         </StackPanel>
         <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="25,32,25,32"

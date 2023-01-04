@@ -20,8 +20,11 @@ namespace PL
     /// </summary>
     public partial class HomePage : Page
     {
-        public HomePage()
+
+        private static BO.Cart cart = new();
+        public HomePage( BO.Cart cart1)
         {
+            cart = cart1;
             InitializeComponent();
         }
         private void NewCollBtn_Click(object sender, RoutedEventArgs e)
@@ -31,8 +34,7 @@ namespace PL
                 MainWindow.mainFrame.RemoveBackEntry();
             }
             BO.category category = BO.category.Notebooks;
-            //MainWindow.mainFrame.NavigationService.Navigate(new Uri("Catalog.xaml", UriKind.Relative), category);
-            MainWindow.mainFrame.Navigate(new Catalog(category));
+            MainWindow.mainFrame.Navigate(new Catalog(category, cart));
         
         }
     }

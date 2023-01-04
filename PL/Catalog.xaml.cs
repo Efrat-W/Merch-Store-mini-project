@@ -27,6 +27,7 @@ public partial class Catalog : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
     private BO.category? category;
+    private static BO.Cart cart = new();
     private Array categories = Enum.GetValues(typeof(BO.category));
     public static readonly DependencyProperty ProductsDependency =
         DependencyProperty.Register(nameof(Products), typeof(ObservableCollection<ProductForList?>), typeof(Catalog));
@@ -36,18 +37,18 @@ public partial class Catalog : Page
         private set => SetValue(ProductsDependency, value);
     }
 
-    public Catalog()
+    public Catalog(BO.Cart cart1)
     {
+        cart = cart1;
         category = null;
         InitializeComponent();
         Products = new(bl.Product.RequestList());
-        CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
     }
-    public Catalog(BO.category cat)
+    public Catalog(BO.category cat, BO.Cart cart1)
     {
+        cart=cart1;
         category = cat;
         InitializeComponent();
-        CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
         Products = new(bl.Product.RequestListByCond(i => i.Category == cat));
     }
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,14 +64,14 @@ public partial class Catalog : Page
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        CategorySelector.SelectedItem = null;
+        category = null;
         Products = new(bl.Product.RequestList());
     }
 
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         int id = ((ProductForList)ProductsScrollView.SelectedItem).ID;
-        new ViewProduct(id).ShowDialog();
+        MainWindow.mainFrame.Navigate(new ViewProduct(id, cart));
     }
 }
 

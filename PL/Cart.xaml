@@ -6,14 +6,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d"
-      Title="Cart" Height="420" Width="365">
+      Title="Cart" Height="400" Width="365"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Page.Resources>
         <Style x:Key="EmptyCartTextBox" TargetType="TextBlock">
             <Setter Property="Visibility" Value="Collapsed"/>
-            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="{StaticResource JosefinSansLight}" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Items}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding}" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -24,7 +25,7 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontFamily" Value="{StaticResource JosefinSansLight}" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Items}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding Items}" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -36,15 +37,15 @@
                     <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=TotalPrice}" ContentStringFormat=" {0}₪" HorizontalAlignment="Left" />
                 </StackPanel>
                 <Button x:Name="IncreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="+" Background="#FFFAF9F9" BorderBrush="Black" Click="IncreaseBtn_Click"/>
-                <Label x:Name="AmountLb"  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Content="{Binding Amount}" VerticalAlignment="Center" />
+                <Label x:Name="AmountLb"  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Content="{Binding Path=Amount}" VerticalAlignment="Center" />
                 <Button x:Name="DecreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="-" Background="#FFFAF9F9" BorderBrush="Black" Click="DecreaseBtn_Click" />
                 <Label Content="   "/>
                 <Button x:Name="RemoveButton" Foreground="White" Width="20" Height="20" FontFamily="{StaticResource JosefinSansBold}" FontSize="14"  Content="x" Background="Black" BorderBrush="Black" Click="RemoveBtn_Click">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="20"/>
-                    </Style>
-                </Button.Resources>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
                 </Button>
             </StackPanel>
         </DataTemplate>
@@ -58,28 +59,33 @@
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <Grid HorizontalAlignment="Center" Height="420" Grid.RowSpan="2" VerticalAlignment="Center" Grid.Column="1">
-            <Rectangle HorizontalAlignment="Center" Fill="Black" VerticalAlignment="Top" Width="366" Margin="0,373,0,0" Height="47"/>
-            <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="Total Price:" HorizontalAlignment="Right" Margin="0,378,135,0" VerticalAlignment="Top"/>
-            
-                <Label x:Name="Total"  Style="{StaticResource BlackLabel}" Foreground="White" Content="{Binding TotalPrice}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Left"  Width="80" Margin="225,378,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"  Height="24"/>
-            
-            <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,-1,47"
+            <Grid DataContext="{Binding cart}" Margin="0,373,0,0" Visibility="Visible">
+                <Rectangle HorizontalAlignment="Center" Fill="Black" VerticalAlignment="Top" Width="366" Margin="0,373,0,0" Height="47"/>
+                <Label Style="{StaticResource BlackLabel}" Foreground="White" Content="Total Price:" HorizontalAlignment="Left" Margin="155,0,0,0" VerticalAlignment="Center" Height="27"/>
+                <Label x:Name="Total"  Style="{StaticResource BlackLabel}" Foreground="White" Content="{Binding TotalPrice}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Left"  Width="80" Margin="225,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"  Height="27"/>
+
+            </Grid>
+            <Grid DataContext="{Binding Items}" Margin="0,10,0,52">
+                <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,-1,0"
                 ItemsSource="{Binding}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
-            <Button Style="{StaticResource OrderButton}" Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="265,378,0,0" VerticalAlignment="Top" Click="Button_Click">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="9"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <TextBlock Style="{StaticResource EmptyCartTextBox}" TextWrapping="WrapWithOverflow" Margin="73,65,72,315"  Text="There are no Items on your cart yet..
-                       Let's fix that!" TextAlignment="Center" />
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+                <TextBlock Style="{StaticResource EmptyCartTextBox}" TextWrapping="WrapWithOverflow" Margin="73,65,72,256"  Text="There are no Items on your cart yet..                        Let's fix that!" TextAlignment="Center" />
+                <Button Background="White" Foreground="Black"  Content="Order" HorizontalAlignment="Left" Margin="280,370,0,0" VerticalAlignment="Top" Click="Button_Click" Width="70" Height="25" RenderTransformOrigin="0.5,0.6">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="9"/>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Style>
+                        <StaticResource ResourceKey="OrderButton"/>
+                    </Button.Style>
+                </Button>
+            </Grid>
         </Grid>
 
 

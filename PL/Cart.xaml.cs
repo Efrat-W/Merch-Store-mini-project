@@ -2,6 +2,7 @@
 using PL.OrderProcess;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,16 +25,27 @@ namespace PL
     public partial class Cart : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public Cart()
+        private static BO.Cart cart;
+        public static readonly DependencyProperty ItemsDependency =
+       DependencyProperty.Register(nameof(Items), typeof(ObservableCollection<OrderItem?>), typeof(Catalog));
+        public ObservableCollection<OrderItem?> Items
         {
+            get => (ObservableCollection<OrderItem?>)GetValue(ItemsDependency);
+            private set => SetValue(ItemsDependency, value);
+        }
+        public Cart(BO.Cart cart1)
+        {
+            cart = cart1;
+            if (cart.Items != null)
+                Items = new(cart.Items);
+            else
+                Items = null;
             InitializeComponent();
-            ProductsScrollView.DataContext = MainWindow.cart.Items;
-            MainGrid.DataContext = MainWindow.cart;
         }
         private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int id = ((OrderItem)ProductsScrollView.SelectedItem).ProductId;
-            new ViewProduct(id).ShowDialog();
+            MainWindow.mainFrame.Navigate(new ViewProduct(id,cart));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,24 +59,24 @@ namespace PL
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
-            MainWindow.cart = bl.Cart.UpdateProductAmount(MainWindow.cart, item.ProductId, 1);
-            ProductsScrollView.Items.Refresh();
-            Total.Content = MainWindow.cart.TotalPrice;
+            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
+            Items = new(cart.Items);
+            Total.Content = cart.TotalPrice;
 
         }
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
-            MainWindow.cart = bl.Cart.UpdateProductAmount(MainWindow.cart, item.ProductId, -1);
-            ProductsScrollView.Items.Refresh();
-            Total.Content = MainWindow.cart.TotalPrice;
+            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, -1);
+            Items = new(cart.Items);
+            Total.Content = cart.TotalPrice;
         }
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
-            MainWindow.cart = bl.Cart.UpdateProductAmount(MainWindow.cart, item.ProductId, 0);
-            ProductsScrollView.Items.Refresh();
-            Total.Content = MainWindow.cart.TotalPrice;
+            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 0);
+            Items = new(cart.Items); ;
+            Total.Content = cart.TotalPrice;
         }
     }
 }

@@ -4,9 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
-      mc:Ignorable="d" d:DesignWidth="70"
-      Title="MainMenu" Height="131">
-    <Grid x:Name="Menu" Background="Black" Margin="0,0,-15,21" >
+      mc:Ignorable="d"
+      Title="MainMenu" Height="150" Width="100">
+    <Grid x:Name="Menu" Background="Black" Margin="0,0,-5,21" >
 
         <StackPanel Margin="0,0,0,29">
             <Button x:Name="Products" Content="Our Products" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Products_Click" />
@@ -14,7 +14,7 @@
             <Button x:Name="Home" Content="Home Page" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Home_Click" />
             <Button x:Name="OrderTrack" Content="Order Tracking" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="OrderTrack_Click" />
             <Button x:Name="Manager" Content="Manager Login" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Manager_Click" />
-            
+
         </StackPanel>
     </Grid>
 

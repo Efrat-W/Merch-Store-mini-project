@@ -96,7 +96,7 @@ internal class Cart : ICart
         OrderItem item = cart.Items!.Find(i => i.ProductId == prodId);
         if (item == null)
             throw new EntityNotFoundException("Item of requested product not found.\n");
-        if (amount == 0 || amount * -1 > item.Amount )    //removes item
+        if (amount == 0 || amount * -1 > item.Amount || item.Amount+amount==0)    //removes item
         { 
             cart.Items.Remove(item); 
             cart.TotalPrice -= item.Price;
@@ -171,7 +171,7 @@ internal class Cart : ICart
             if (item.Amount > 0 && product.InStock >= item.Amount)
                 product.InStock -= item.Amount;
             else
-                throw new InvalidArgumentException("Requested amount is greater than what's available.\n");
+                throw new InvalidArgumentException($"Requested amount is greater than {item.Name}'s available.\n");
             dal.Product.Update(product);
         }
         return order;
@@ -251,6 +251,6 @@ internal class Cart : ICart
         if (item.Amount > 0 && prod?.InStock >= item.Amount)
             return true;
         else
-            throw new InvalidArgumentException("Requested amount is greater than what's available.\n");
+            throw new InvalidArgumentException($"Requested amount is greater than {item.Name}'s available.\n");
     }
 }

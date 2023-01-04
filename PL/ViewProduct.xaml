@@ -25,9 +25,9 @@
         <Button x:Name="Cart" Content="🛒" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" UseLayoutRounding="False" RenderTransformOrigin="0.473,0.078"/>
         <Image Grid.Column="2" Source="{Binding Path=Image}" HorizontalAlignment="Left" Height="300" Width="339" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" Stretch="UniformToFill"/>
         <StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
-            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Content="{Binding Path=Name}"/>
+            <TextBlock  FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Text="{Binding Path=Name}" TextWrapping="WrapWithOverflow" Width="280" />
             <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Path=Description}" TextWrapping="WrapWithOverflow" Width="280" />
-            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Path=Price}"/>
+            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Path=Price}" ContentStringFormat=" {0} ₪"/>
             <Button Style="{StaticResource BlackButton}" Content="Add To Cart" Width="102" Click="AddToCart_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

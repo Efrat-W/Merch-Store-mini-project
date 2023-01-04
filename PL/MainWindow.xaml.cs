@@ -31,18 +31,8 @@ namespace PL
         {
             InitializeComponent();
             mainFrame = MainFrame;
+            mainFrame.Navigate(new Uri("HomePage.xaml", UriKind.Relative));
         }
-
-
-        private void NewCollBtn_Click(object sender, RoutedEventArgs e)
-        {
-            BO.category category = BO.category.Notebooks;
-            Catalouge catalouge = new Catalouge(bl);
-            catalouge.CategorySelector.SelectedItem = category;
-            catalouge.Show();
-        }
-
-        
 
         private void MenuBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -63,13 +53,20 @@ namespace PL
         private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)
         {
             CartFrame.Opacity = 0;
+            CartFrame.IsHitTestVisible = false;
+            if (CartFrame.CanGoBack)
+            {
+                CartFrame.RemoveBackEntry();
+            }
         }
 
         private void Cart_Click(object sender, RoutedEventArgs e)
         {
             CartFrame.Opacity = 1;
+            CartFrame.IsHitTestVisible = true;
             CartFrame.Navigate(new Uri("Cart.xaml", UriKind.Relative));
+            CartFrame.Refresh();
         }
-       
+
     }
 }

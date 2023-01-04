@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlImplementation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,20 @@ namespace PL.OrderProcess
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            bl.Cart.Approve(MainWindow.cart);
+            MainWindow.cart.CustomerName=NameTB.Text;
+            MainWindow.cart.CustomerEmail= EmailTB.Text;
+            MainWindow.cart.CustomerAddress = AdressTB.Text;
+            BO.Order order = new();
+            try
+            {
+                order = bl.Cart.Approve(MainWindow.cart);
+            }
+            catch (InvalidArgumentException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            MessageBox.Show("HOORAY! Your order has been received in the system and will start its way to you soon, we cant wait!" +
+                " Your order id is: "+ order.Id+ ". An approval mail is  already in your inbox.");
         }
     }
 }

@@ -39,9 +39,7 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainFrame.CanGoBack)
-            {
                 MainWindow.mainFrame.RemoveBackEntry();
-            }
             
             MainWindow.mainFrame.Navigate(new Uri("OrderMaking.xaml", UriKind.Relative));
            

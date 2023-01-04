@@ -7,10 +7,17 @@
       mc:Ignorable="d" 
       d:DesignHeight="440" d:DesignWidth="800"
       Title="Catalog"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}" >
+      DataContext="{Binding RelativeSource={RelativeSource Self}}" >
 
 
     <Page.Resources>
+        <Style x:Key="CategorySelectedItem" TargetType="ComboBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Category}" Value="{x:Null}">
+                    <Setter Property="SelectedItem" Value="null"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <DataTemplate x:Key="Product" DataType="local: Product" >
             <Grid>
                 <Grid.RowDefinitions>
@@ -30,7 +37,7 @@
         </DataTemplate>
     </Page.Resources>
     <Grid  DataContext="{Binding Products}"  Background="White" HorizontalAlignment="Center" Height="434" VerticalAlignment="Center">
-        <ComboBox x:Name="CategorySelector" FontFamily="{StaticResource JosefinSansRegular}" SelectedItem="{Binding category}" SelectionChanged="CategorySelector_SelectionChanged" Margin="629,10,50,404" VerticalContentAlignment="Center" BorderBrush="White" >
+        <ComboBox x:Name="CategorySelector" ItemsSource="{Binding Path=categories}"  FontFamily="{StaticResource JosefinSansRegular}" SelectedItem="{Binding Path=category}" SelectionChanged="CategorySelector_SelectionChanged" Margin="629,10,50,404" VerticalContentAlignment="Center" BorderBrush="White" >
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>

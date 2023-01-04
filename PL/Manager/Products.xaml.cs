@@ -66,4 +66,6 @@ namespace PL.Manager
             ProductsListView.ItemsSource = bl.Product.RequestList();
         }
     }
+
+
 }

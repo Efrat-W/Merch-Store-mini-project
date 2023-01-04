@@ -29,11 +29,11 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <DataTemplate x:Key="Product" DataType="local: Product" >
+        <DataTemplate x:Key="Product" DataType="local: Product">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" Content="{Binding Path=Name}" Width="200"  HorizontalAlignment="Left"/>
-                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=TotalPrice}" ContentStringFormat=" {0} ₪" HorizontalAlignment="Left" />
+                    <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=TotalPrice}" ContentStringFormat=" {0}₪" HorizontalAlignment="Left" />
                 </StackPanel>
                 <Button x:Name="IncreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="+" Background="#FFFAF9F9" BorderBrush="Black" Click="IncreaseBtn_Click"/>
                 <Label x:Name="AmountLb"  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Content="{Binding Amount}" VerticalAlignment="Center" />

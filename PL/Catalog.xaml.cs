@@ -26,6 +26,8 @@ namespace PL;
 public partial class Catalog : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
+    private BO.category? category;
+    private Array categories = Enum.GetValues(typeof(BO.category));
     public static readonly DependencyProperty ProductsDependency =
         DependencyProperty.Register(nameof(Products), typeof(ObservableCollection<ProductForList?>), typeof(Catalog));
     public ObservableCollection<ProductForList?> Products
@@ -36,16 +38,17 @@ public partial class Catalog : Page
 
     public Catalog()
     {
+        category = null;
         InitializeComponent();
         Products = new(bl.Product.RequestList());
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
     }
-    public Catalog(BO.category category)
+    public Catalog(BO.category cat)
     {
+        category = cat;
         InitializeComponent();
         CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.category));
-        Products = new(bl.Product.RequestListByCond(i => i.Category == category));
-        CategorySelector.SelectedItem = category;
+        Products = new(bl.Product.RequestListByCond(i => i.Category == cat));
     }
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

@@ -164,49 +164,5 @@ namespace PL.Manager
             }
         }
 
-        //textbox focus methods
-        private void NameTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(NameTB.Text))
-                InvalidNameLb.Visibility = Visibility.Visible;
-        }
-
-        private void NameTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            InvalidNameLb.Visibility = Visibility.Hidden;
-        }
-
-        private void IdTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(IdTB.Text))
-                InvalidIdLb.Visibility = Visibility.Visible;
-        }
-        private void IdTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            InvalidIdLb.Visibility = Visibility.Hidden;
-        }
-
-        private void PriceTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(PriceTB.Text))
-                InvalidPriceLb.Visibility = Visibility.Visible;
-        }
-
-        private void PriceTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            InvalidPriceLb.Visibility = Visibility.Hidden;
-        }
-
-        private void InStockTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(InStockTB.Text))
-                InvalidInStockLb.Visibility = Visibility.Visible;
-        }
-
-        private void InStockTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            InvalidInStockLb.Visibility = Visibility.Hidden;
-        }
-
     }
 }

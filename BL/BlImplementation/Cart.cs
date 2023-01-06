@@ -26,27 +26,27 @@ internal class Cart : ICart
         DO.Product? prod;
         try
         {
-            prod = dal.Product.RequestById(prodId);
+            prod = dal!.Product.RequestById(prodId);
         }
         catch (Exception ex)
         {
-            if (prodId > 999999 || prodId <= 99999)
-                throw new InvalidArgumentException("id out of range.\n");
-            throw new EntityNotFoundException("Requested Product to add not found.", ex);
+            if (prodId <= 99999)
+                throw new InvalidArgumentException($"{prodId} is out of id range.\n");
+            throw new EntityNotFoundException($"Requested Product of id {prodId} to add not found.", ex);
         }
         if (cart.Items != null)
         {
             if (cart.Items!.FirstOrDefault(i => i!.ProductId == prodId) != null) //product exists in items
             {
                 OrderItem item = cart.Items!.Find(i => i!.ProductId == prodId);
-                if (prod?.InStock >= item!.Amount)//there is enough in stock
+                if (prod?.InStock >= item!.Amount) //there is enough in stock
                 {
                     item.Amount++;
                     item.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
                     cart.TotalPrice += prod?.Price ?? throw new InvalidArgumentException();
                 }
                 else
-                    throw new InvalidArgumentException("The amount requested is greater than available.\n");
+                    throw new InvalidArgumentException($"The amount {item!.Amount} requested is greater than {prod?.InStock} available in stock.\n");
                 return cart;
             }
         }
@@ -68,7 +68,7 @@ internal class Cart : ICart
                 
             }
             else
-                throw new InvalidArgumentException("The requested product is out of stock.\n");
+                throw new InvalidArgumentException($"The requested product {prod?.Name} is out of stock.\n");
         
         return cart;
     }
@@ -85,11 +85,11 @@ internal class Cart : ICart
         DO.Product? prod;
         try
         {
-            prod = dal.Product.RequestById(prodId);
+            prod = dal!.Product.RequestById(prodId);
         }
         catch (Exception ex)
         {
-            if (prodId > 999999 || prodId <= 99999)
+            if (prodId <= 99999)
                 throw new InvalidArgumentException("id out of range.\n");
             throw new EntityNotFoundException("Requested Product to update amount not found.", ex);
         }
@@ -126,7 +126,7 @@ internal class Cart : ICart
             {
                 try
                 {
-                    validItem(item);
+                    validItem(item!);
                 } 
                 catch { throw; }
             }
@@ -149,21 +149,21 @@ internal class Cart : ICart
         int id = 0;
         try
         {
-            id = dal.Order.Create(convertOrder(order));//founds sequence id and creates order in dl
+            id = dal!.Order.Create(convertOrder(order));//finds sequence id and creates order in dl
         }
         catch (DO.DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
         order.Id = id;
         foreach (BO.OrderItem item in order.Items)//creates all items in dl and updates products amount in stock
         {
-            dal.OrderItem.Create(convertOrderItem(item, id));
-            item.ID = id;
+            dal.OrderItem.Create(convertOrderItem(item!, id));
+            item!.ID = id;
             DO.Product product;
             try
             {
                 product = dal.Product.RequestById(item.ProductId);
             }
             catch (Exception ex) { 
-                if (item.ProductId > 999999 || item.ProductId <= 99999)
+                if (item.ProductId <= 99999)
                     throw new InvalidArgumentException("id out of range.\n");
                 throw new EntityNotFoundException("Requested Product for item creation not found.", ex);
             }
@@ -239,18 +239,14 @@ internal class Cart : ICart
         DO.Product? prod;
         try
         {
-            prod = dal.Product.RequestById(item.ProductId);
+            prod = dal!.Product.RequestById(item.ProductId);
         }
         catch (Exception ex)
         {
-            if (item.ProductId > 999999 || item.ProductId <= 99999)
+            if (item.ProductId <= 99999)
                 throw new InvalidArgumentException("id out of range.\n");
             throw new EntityNotFoundException("Requested Product not found.", ex);
         }
-
-        if (item.Amount > 0 && prod?.InStock >= item.Amount)
-            return true;
-        else
-            throw new InvalidArgumentException($"Requested amount is greater than {item.Name}'s available.\n");
+        return item.Amount > 0 && prod?.InStock >= item.Amount ? true : throw new InvalidArgumentException($"Requested amount is greater than {item.Name}'s available.\n");
     }
 }

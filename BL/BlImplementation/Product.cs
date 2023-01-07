@@ -13,7 +13,7 @@ internal class Product : BlApi.IProduct
     /// <exception cref="InvalidArgumentException"></exception>
     private void CheckProduct(BO.Product product)
     {
-        if (!(product.ID > 0 && product.Name != "" && product.Price > 0 && product.InStock >= 0))
+        if (!(product.ID > 99999 && product.Name.Length > 0 && product.Price > 0 && product.InStock >= 0))
             throw new InvalidArgumentException("one or more attributes of product are invalid. \n");
     }
     /// <summary>
@@ -172,11 +172,11 @@ internal class Product : BlApi.IProduct
     public BO.Product Update(BO.Product product)
     {
         //validation
-        if (product.ID >= 0 && product.Name!.Length > 0 && product.InStock >= 0)
+        if (product.ID > 99999 && product.Name!.Length > 0 && product.InStock >= 0 && product.Price >= 0)
         {
             try
             {
-                dal.Product.Update(product.ProductBoToDo());
+                dal!.Product.Update(product.ProductBoToDo());
             }
             catch (DO.MissingEntityException ex) { throw new InvalidArgumentException("Requested Product to update isn't found.", ex); }
         }

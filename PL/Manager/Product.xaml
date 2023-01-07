@@ -3,12 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Converters"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="Product" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
 >
     <Window.Resources>
         <local:NotBooleanToVisibilityConverter x:Key="isValidTB"/>
+        <local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
         <local:UpdateBtnToBooleanIdTBConverter x:Key="UpdateIdEnable"/>
         <local:UpdateBtnToBooleanDltBtnConverter x:Key="UpdateDltBtnEnable"/>
     </Window.Resources>
@@ -80,6 +82,10 @@
         <TextBox x:Name="ImageTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="6" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
         <TextBox x:Name="DescriptionTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
         <ComboBox x:Name="CategoryCB" SelectedIndex="0" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="{StaticResource JosefinSansLight}" VerticalContentAlignment="Center"/>
+        <TextBlock Visibility="{Binding ElementName=IdTB, Path=IsMouseOver, Converter={StaticResource isBoolTrue}}" Foreground="#FFFCE933"  Text="Must contain 6 or more digits."  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="106" Margin="175,0,0,0"/>
+        <TextBlock Visibility="{Binding ElementName=PriceTB, Path=IsMouseOver, Converter={StaticResource isBoolTrue}}" Foreground="#FFFCE933"  Text="Must not be free."  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="106" Margin="175,0,0,0"/>
+        <TextBlock Visibility="{Binding ElementName=InStockTB, Path=IsMouseOver, Converter={StaticResource isBoolTrue}}" Foreground="#FFFCE933"  Text="Must be initialized with over 0."  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="106" Margin="175,0,0,0"/>
+
     </Grid>
 
 </Window>

@@ -37,15 +37,15 @@ namespace PL.OrderProcess
             BO.Order order = new();
             try
             {
-                order = bl.Cart.Approve(cart);
+                order = bl!.Cart.Approve(cart);
             }
             catch (InvalidArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            cart.Items=null;
-            MessageBox.Show("HOORAY! Your order has been received in the system and will start its way to you soon, we cant wait!" +
-                " Your order id is: "+ order.Id+ ". An approval email is  already in your inbox.");
+            MessageBox.Show($@" HOORAY! 
+Your order has been placed successfully and will soon be on its way. We can't wait!
+Your order id is: {order.Id}. A verification mail is already in your inbox.");
         }
     }
 }

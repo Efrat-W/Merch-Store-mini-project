@@ -8,9 +8,10 @@ using System.Windows.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Threading.Channels;
-using BO;
+using System.Windows.Input;
 
-namespace Converters;
+namespace Converters
+{
 
 public class NotBooleanToVisibilityConverter : IValueConverter
 {
@@ -24,27 +25,20 @@ public class NotBooleanToVisibilityConverter : IValueConverter
     }
 }
 
+    public class BooleanToVisibilityConverter : IValueConverter
+    {
+        //convert from source property type to target property type
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? Visibility.Visible : Visibility.Hidden;
 
-public class UpdateBtnToBooleanIdTBConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value == "Add";
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
-}
+    public class UpdateBtnToBooleanIdTBConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value == "Add";
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    }
 
-public class UpdateBtnToBooleanDltBtnConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value == "Update";
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
-}
-
-public class OrderStatusToBooleanShipConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>(BO.orderStatus)value == BO.orderStatus.Shipped;
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)=>throw new NotImplementedException();
-}
-
-public class OrderStatusToBooleanDelConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (BO.orderStatus)value == BO.orderStatus.Delivered;
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public class UpdateBtnToBooleanDltBtnConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (string)value == "Update";
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    }
 }

@@ -26,9 +26,21 @@ namespace PL;
 public partial class Catalog : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    private BO.category? category;
+    
+
+
+    private BO.category? category
+    {
+        get { return (BO.category?)GetValue(categoryProperty); }
+        set { SetValue(categoryProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for category.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty categoryProperty =
+        DependencyProperty.Register("category", typeof(BO.category?), typeof(Catalog));
+
+
     private static BO.Cart cart = new();
-    private Array categories = Enum.GetValues(typeof(BO.category));
     public static readonly DependencyProperty ProductsDependency =
         DependencyProperty.Register(nameof(Products), typeof(ObservableCollection<ProductForList?>), typeof(Catalog));
     public ObservableCollection<ProductForList?> Products
@@ -37,18 +49,32 @@ public partial class Catalog : Page
         private set => SetValue(ProductsDependency, value);
     }
 
+
+    public Array categories
+    {
+        get { return (Array)GetValue(categoriesProperty); }
+        set { SetValue(categoriesProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty categoriesProperty =
+        DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
+
+
     public Catalog(BO.Cart cart1)
     {
         cart = cart1;
         category = null;
         InitializeComponent();
         Products = new(bl.Product.RequestList());
+        categories = Enum.GetValues(typeof(BO.category));
     }
     public Catalog(BO.category cat, BO.Cart cart1)
     {
         cart=cart1;
         category = cat;
         InitializeComponent();
+        categories = Enum.GetValues(typeof(BO.category));
         Products = new(bl.Product.RequestListByCond(i => i.Category == cat));
     }
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

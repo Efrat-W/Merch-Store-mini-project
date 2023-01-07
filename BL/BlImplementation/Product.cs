@@ -109,20 +109,27 @@ internal class Product : BlApi.IProduct
             }
             catch (Exception ex) { throw new EntityNotFoundException("Requested Product isn't found.", ex); }
         }
-        BO.OrderItem item;
-        try
+        BO.OrderItem? item = null;
+        if (cart.Items != null)
         {
-            item = cart.Items.Find(i => i.ID == id);//checks if the item exists in cart
+            try
+            {
+                item = cart.Items.Find(i => i.ProductId == id);//checks if the item exists in cart
+            }
+            catch (DO.MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
         }
-        catch (DO.MissingEntityException) { throw new EntityNotFoundException("your cart does not contain this product"); }
+
+        int amount = 0;
+        if (item != null)
+            amount = item.Amount;
         return new BO.ProductItem()
         {
             ID = prod?.ID ?? throw new InvalidArgumentException(),
             Name = prod?.Name,
             Category = (BO.category)prod?.Category!,
             Price = prod?.Price ?? throw new InvalidArgumentException(),
-            Amount = item!.Amount,
-            InStock = item.Amount <= prod?.InStock,
+            Amount = amount,
+            InStock = amount <= prod?.InStock,
             Image=prod?.Image,
             Description=prod?.Description,
         };

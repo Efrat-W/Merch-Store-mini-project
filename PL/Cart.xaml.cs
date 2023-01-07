@@ -25,21 +25,18 @@ namespace PL
     public partial class Cart : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        private static BO.Cart cart;
-        public static readonly DependencyProperty ItemsDependency =
-       DependencyProperty.Register(nameof(Items), typeof(ObservableCollection<OrderItem?>), typeof(Catalog));
-        public ObservableCollection<OrderItem?> Items
+        public BO.Cart cart
         {
-            get => (ObservableCollection<OrderItem?>)GetValue(ItemsDependency);
-            private set => SetValue(ItemsDependency, value);
+            get { return (BO.Cart)GetValue(cartProperty); }
+            set { SetValue(cartProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for cart.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty cartProperty =
+            DependencyProperty.Register("cart", typeof(BO.Cart), typeof(Cart));
         public Cart(BO.Cart cart1)
         {
             cart = cart1;
-            if (cart.Items != null)
-                Items = new(cart.Items);
-            else
-                Items = null;
             InitializeComponent();
         }
         private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -60,23 +57,23 @@ namespace PL
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
-            Items = new(cart.Items);
-            Total.Content = cart.TotalPrice;
+            
+            //this.UpdateLayout();
 
         }
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, -1);
-            Items = new(cart.Items);
-            Total.Content = cart.TotalPrice;
+            
+            //this.UpdateLayout();
         }
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 0);
-            Items = new(cart.Items); ;
-            Total.Content = cart.TotalPrice;
+            
+            //this.UpdateLayout();
         }
     }
 }

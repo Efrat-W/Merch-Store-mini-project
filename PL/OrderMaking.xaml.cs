@@ -23,12 +23,10 @@ namespace PL.OrderProcess
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         private BO.Cart cart;
-        public OrderMaking(BO.Cart cart)
+        public OrderMaking(BO.Cart cart1)
         {
             InitializeComponent();
-            ProductsScrollView.DataContext = cart.Items;
-            MainGrid.DataContext = cart;
-            this.cart = cart;
+            cart = cart1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -45,8 +43,9 @@ namespace PL.OrderProcess
             {
                 MessageBox.Show(ex.Message);
             }
+            cart.Items=null;
             MessageBox.Show("HOORAY! Your order has been received in the system and will start its way to you soon, we cant wait!" +
-                " Your order id is: "+ order.Id+ ". An approval mail is  already in your inbox.");
+                " Your order id is: "+ order.Id+ ". An approval email is  already in your inbox.");
         }
     }
 }

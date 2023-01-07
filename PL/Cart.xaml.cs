@@ -50,7 +50,7 @@ namespace PL
             if (MainWindow.mainFrame.CanGoBack)
                 MainWindow.mainFrame.RemoveBackEntry();
             
-            MainWindow.mainFrame.Navigate(new Uri("OrderMaking.xaml", UriKind.Relative));
+            MainWindow.mainFrame.Navigate(new OrderMaking(cart));
            
         }
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)

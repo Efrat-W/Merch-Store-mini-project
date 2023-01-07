@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:PL.OrderProcess"
       mc:Ignorable="d" 
       d:DesignHeight="440" d:DesignWidth="800"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="OrderMaking">
     <Page.Resources>
         <DataTemplate x:Key="Item" DataType="local: Item" >
@@ -19,7 +20,7 @@
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
-    <Grid x:Name="MainGrid"  Background="White">
+    <Grid x:Name="MainGrid" DataContext="{Binding cart}" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="61*"/>
@@ -45,7 +46,7 @@
 
         </StackPanel>
         <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="25,32,25,32"
-                ItemsSource="{Binding}" ItemTemplate="{StaticResource Item}" BorderThickness="0,0,0,0" Grid.Column="1" Grid.RowSpan="3">
+                ItemsSource="{Binding Items}" ItemTemplate="{StaticResource Item}" BorderThickness="0,0,0,0" Grid.Column="1" Grid.RowSpan="3">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

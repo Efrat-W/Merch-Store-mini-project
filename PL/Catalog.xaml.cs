@@ -26,9 +26,7 @@ namespace PL;
 public partial class Catalog : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    
-
-
+    private static BO.Cart cart;
     private BO.category? category
     {
         get { return (BO.category?)GetValue(categoryProperty); }
@@ -39,8 +37,6 @@ public partial class Catalog : Page
     public static readonly DependencyProperty categoryProperty =
         DependencyProperty.Register("category", typeof(BO.category?), typeof(Catalog));
 
-
-    private static BO.Cart cart = new();
     public static readonly DependencyProperty ProductsDependency =
         DependencyProperty.Register(nameof(Products), typeof(ObservableCollection<ProductForList?>), typeof(Catalog));
     public ObservableCollection<ProductForList?> Products
@@ -59,7 +55,6 @@ public partial class Catalog : Page
     // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty categoriesProperty =
         DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
-
 
     public Catalog(BO.Cart cart1)
     {

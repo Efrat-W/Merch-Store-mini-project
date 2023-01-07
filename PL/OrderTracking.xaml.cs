@@ -13,47 +13,35 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
-{
-    /// <summary>
-    /// Interaction logic for OrderTracking.xaml
-    /// </summary>
-    public partial class OrderTracking : Page
-    {
-        BlApi.IBl? bl = BlApi.Factory.Get();
-        BO.OrderTracking track;
-        public OrderTracking()
-        {
-            InitializeComponent();
-            
-        }
+namespace PL;
 
-        private void TrackBtn_Click(object sender, RoutedEventArgs e)
-        {
-            SignIn.Visibility = Visibility.Collapsed;
-            Tracking.Visibility = Visibility.Visible;
-            track = bl.Order.Track(int.Parse(IdTB.Text));
-            Tracking.DataContext=track;
-            DatesAndStuff.DataContext = track.orderProgress;
-            if (track.Status == BO.orderStatus.Shipped || track.Status == BO.orderStatus.Delivered)
-            {
-                ShipBtn.Background = Brushes.Black;
-                ShipBtn.Content = "✔️";
-                ShipDate.Content = track.orderProgress[1].Item1;
-                if (track.Status == BO.orderStatus.Delivered)
-                {
-                    DeliverBtn.Background = Brushes.Black;
-                    DeliverBtn.Content = "✔️";
-                    DeliveryDate.Content = track.orderProgress[2].Item1;
-                }
-                else
-                    DeliveryDate.Content = "Not yet";
-            }
-            else
-            {
-                ShipDate.Content = "Not yet";
-                DeliveryDate.Content = "Not yet";
-            }
-            }
+/// <summary>
+/// Interaction logic for OrderTracking.xaml
+/// </summary>
+public partial class OrderTracking : Page
+{
+    BlApi.IBl? bl = BlApi.Factory.Get();
+    public BO.OrderTracking track
+    {
+        get { return (BO.OrderTracking)GetValue(trackProperty); }
+        set { SetValue(trackProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for track.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty trackProperty =
+        DependencyProperty.Register("track", typeof(BO.OrderTracking), typeof(OrderTracking));
+
+
+    public OrderTracking()
+    {
+        InitializeComponent();
+        
+    }
+
+    private void TrackBtn_Click(object sender, RoutedEventArgs e)
+    {
+        SignIn.Visibility = Visibility.Collapsed;
+        Tracking.Visibility = Visibility.Visible;
+        track = bl.Order.Track(int.Parse(IdTB.Text));
     }
 }

@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Manager"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ManagerLogin" Height="300" Width="300">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
+    </Window.Resources>
     <Grid>
         <Label x:Name="InvalidCodeLb" Content="Incorrect password. Please try again." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
         <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0">
@@ -46,7 +49,18 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
-            <TextBlock x:Name="logOutText" Text="Click here to log out." Foreground="DeepSkyBlue" FontSize="10" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Center" MouseLeftButtonDown="logOutText_MouseLeftButtonDown"  MouseEnter="logOutText_MouseEnter" MouseLeave="logOutText_MouseLeave" />
+            <TextBlock x:Name="logOutText" Text="Click here to log out." Foreground="DeepSkyBlue" FontSize="10" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="TextDecorations" Value="Underline"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </Grid>
     </Grid>
 </Window>

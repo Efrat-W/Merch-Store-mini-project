@@ -49,13 +49,6 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
-            //check if the attributes where filled
-            if (string.IsNullOrWhiteSpace(NameTB.Text) || string.IsNullOrWhiteSpace(IdTB.Text) || string.IsNullOrWhiteSpace(PriceTB.Text) || string.IsNullOrWhiteSpace(InStockTB.Text))
-            {
-                MessageBox.Show("Make sure you fill out the entire form.");
-                return;
-            }
-
             try
             {
                 BO.Product prod = new()
@@ -70,24 +63,14 @@ namespace PL.Manager
                 };
 
                 if (CommandBtn.Content == "Add")
-                { 
-                    if (IdTB.Text.Length < 6)
-                    {
-                        InvalidIdLb.Content = "Fill in 6 digits.";
-                        InvalidIdLb.Visibility = Visibility.Visible;
-                        return;
-                    }
-                    else
-                        InvalidIdLb.Visibility = Visibility.Hidden;
-                    bl?.Product.Add(prod); 
-                }
+                   bl?.Product.Add(prod);
                 else // "Update"
                     bl?.Product.Update(prod);
                 Close();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An unexpected error has occured.\nMake sure you fill it out correctly.");
+                MessageBox.Show("One or more of the input fields were filled in incorrectly.\nHover over the fields in order to see the according restrictions.");
             }
         }
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)

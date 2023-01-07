@@ -95,16 +95,5 @@ namespace PL.Manager
         {
             Toggle();
         }
-
-
-        private void logOutText_MouseEnter(object sender, MouseEventArgs e)
-        {
-            logOutText.TextDecorations = TextDecorations.Underline;
-        }
-
-        private void logOutText_MouseLeave(object sender, MouseEventArgs e)
-        {
-            logOutText.TextDecorations = null;
-        }
     }
 }

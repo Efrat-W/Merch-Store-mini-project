@@ -82,6 +82,11 @@ internal class Cart : ICart
     /// <exception cref="InvalidArgumentException"></exception>
     public BO.Cart UpdateProductAmount(BO.Cart cart, int prodId, int amount)
     {
+        if (cart.Items == null || cart.Items!.Find(i => i.ProductId == prodId) == null)
+        {
+            AddProduct(cart, prodId);
+            amount--;
+        }
         DO.Product? prod;
         try
         {

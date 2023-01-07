@@ -5,20 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ViewProduct" Height="440" Width="800">
-    <Grid x:Name="MainGrid">
+        Title="ViewProduct" Height="440" Width="800"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Page.Resources>
+        <Style x:Key="InStockLabel" TargetType="Label">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="{StaticResource JosefinSansLight}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=InStock}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid x:Name="MainGrid" DataContext="{Binding Product}">
         <Grid.ColumnDefinitions>
-
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="5*"/>
 
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="2" Source="{Binding Image}" HorizontalAlignment="Left" Height="300" Width="339" Margin="10,30,0,0" Grid.Row="1" VerticalAlignment="Top" Stretch="UniformToFill"/>
-        <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="218" Margin="145,0,0,0" Width="280">
+        <Image Grid.Column="1" Source="{Binding Image}" HorizontalAlignment="Left" Height="355" Width="339" Margin="10,30,0,0" VerticalAlignment="Top" Stretch="UniformToFill"/>
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
             <TextBlock  FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Text="{Binding Name}" TextWrapping="WrapWithOverflow" Width="280" />
             <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Width="280" />
             <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansMedium}" FontSize="24" Content="{Binding Price}" ContentStringFormat=" {0} ₪"/>
+            <Label Style="{StaticResource InStockLabel}" Content="Sorry, we ran out of those😣" Foreground="Red"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Style="{StaticResource BlackLabel}" Content="In Your Cart: "/>
+                <Button x:Name="IncreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="+" Background="#FFFAF9F9" BorderBrush="Black" Click="IncreaseBtn_Click"/>
+                <Label x:Name="AmountLb"  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Content="{Binding Path=Amount, Mode=TwoWay}" VerticalAlignment="Center" />
+                <Button x:Name="DecreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="-" Background="#FFFAF9F9" BorderBrush="Black" Click="DecreaseBtn_Click" />
+            </StackPanel>
             <Button Content="Add To Cart" Width="102" Click="AddToCart_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

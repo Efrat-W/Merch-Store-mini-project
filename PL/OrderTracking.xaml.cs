@@ -30,6 +30,7 @@ public partial class OrderTracking : Page
     // Using a DependencyProperty as the backing store for track.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty trackProperty =
         DependencyProperty.Register("track", typeof(BO.OrderTracking), typeof(OrderTracking));
+    int id;
 
 
     public OrderTracking()
@@ -40,8 +41,14 @@ public partial class OrderTracking : Page
 
     private void TrackBtn_Click(object sender, RoutedEventArgs e)
     {
+        id = int.Parse(IdTB.Text);
+        track = bl.Order.Track(id);
         SignIn.Visibility = Visibility.Collapsed;
         Tracking.Visibility = Visibility.Visible;
-        track = bl.Order.Track(int.Parse(IdTB.Text));
+    }
+
+    private void DetailsBtn_Click(object sender, RoutedEventArgs e)
+    {
+        MainWindow.mainFrame.Navigate(new OrderDetails(id));
     }
 }

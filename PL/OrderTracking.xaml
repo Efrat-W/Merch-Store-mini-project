@@ -27,7 +27,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
-            </DataTrigger>
+                </DataTrigger>
                 <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDeliveryConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
                 </DataTrigger>
@@ -63,7 +63,7 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <Grid x:Name="Tracking" DataContext="{Binding track}"  Background="White" Margin="0,0,0,0" Visibility="Collapsed">
+        <Grid x:Name="Tracking" DataContext="{Binding track}"  Background="White" Margin="0,0,0,0" Visibility="Hidden">
             <Label Margin="320,50,400,375" Style="{StaticResource BlackLabel}" Content="Order ID:"  FontFamily="{StaticResource JosefinSansBold}" />
             <Label Margin="395,50,350,375"  Style="{StaticResource BlackLabel}" Content="{Binding ID}" FontFamily="{StaticResource JosefinSansBold}"/>
 
@@ -104,8 +104,16 @@
                     <Label x:Name="DeliveryDate"  Style="{StaticResource DeliveryLabel}" Content="Not yet" />
                 </StackPanel>
             </StackPanel>
+            <Button x:Name="DetailsBtn"  Style="{StaticResource BlackButton}" Content="Order Details" HorizontalAlignment="Center" VerticalAlignment="Top" Width="110" VerticalContentAlignment="Center" Click="DetailsBtn_Click" Margin="0,225,0,0">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="9"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
             <TextBlock FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Text="We are doing our best to provide service as quickly as possible. In case of any problem, you can always contact us at Blabla@gmail.com.         
-                   Our team is here to help! " TextWrapping="WrapWithOverflow" Margin="241,245,241,105" LineHeight="20" />
+                   Our team is here to help! " TextWrapping="WrapWithOverflow" Margin="241,265,241,85" LineHeight="20" />
 
         </Grid>
     </Grid>

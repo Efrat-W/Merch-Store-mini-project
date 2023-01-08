@@ -39,6 +39,7 @@ namespace PL
         private void MenuBtn_MouseEnter(object sender, MouseEventArgs e)
         {
             MenuFrame.Opacity = 0.9;
+            MenuFrame.IsHitTestVisible = true;
             MenuFrame.Navigate(new MainMenu(cart));
         }
 

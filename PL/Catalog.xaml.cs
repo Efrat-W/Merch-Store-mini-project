@@ -4,6 +4,7 @@ using PL.Manager;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,11 @@ public partial class Catalog : Page
     public static readonly DependencyProperty categoriesProperty =
         DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
 
+
+    private string groupName = "Category";
+    PropertyGroupDescription propertyGroupDescription;
+    public ICollectionView CollectionViewProductItemList { set; get; }
+
     public Catalog(BO.Cart cart1)
     {
         categories = Enum.GetValues(typeof(BO.category));
@@ -92,6 +98,13 @@ public partial class Catalog : Page
                 Products = Products.Append((BO.ProductItem)item);
             }
         }
+
+
+        CollectionViewProductItemList = CollectionViewSource.GetDefaultView(Products);
+
+        propertyGroupDescription = new PropertyGroupDescription(groupName);
+        CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
+
         InitializeComponent();
         
     }
@@ -147,19 +160,6 @@ public partial class Catalog : Page
     {
 
         if (CategorySelector.SelectedItem != null) {
-            //BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            //Products = from ListProd in bl!.Product.RequestListByCond(i => i.Category == sortBy)
-            //           select new BO.ProductItem()
-            //           {
-            //               ID = ListProd.ID,
-            //               Name = ListProd.Name,
-            //               Description = ListProd.Description,
-            //               Image = ListProd.Image,
-            //               Price = ListProd.Price,
-            //               Category = ListProd.Category,
-            //               InStock = true,
-            //               Amount = 0
-            //           };
             Products = new List<ProductItem>();
             foreach (var categoryGroup in ProductsGroupedByCategory)
             {
@@ -188,6 +188,7 @@ public partial class Catalog : Page
                        InStock = true,
                        Amount = 0
                    };
+        CollectionViewProductItemList.GroupDescriptions.Clear();
     }
 
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e) =>

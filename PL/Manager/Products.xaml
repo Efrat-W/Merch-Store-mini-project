@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:PL.Converters"
         mc:Ignorable="d"
-        Title="Products" Height="450" Width="800">
+        Title="Products" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
         <FontFamily x:Key="JosefinSansBold">/FONTS/JosefinSans-Bold.ttf#Josefin Sans Bold</FontFamily>
         <FontFamily x:Key="JosefinSansExtraLight">/FONTS/JosefinSans-ExtraLight.ttf#Josefin Sans ExtraLight</FontFamily>
@@ -27,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="CategorySelector" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="192,2,57,12" VerticalContentAlignment="Center" BorderBrush="White" >
+            <ComboBox x:Name="CategorySelector" ItemsSource="{Binding Categories}" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="192,2,57,12" VerticalContentAlignment="Center" BorderBrush="White" >
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -44,7 +45,7 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ListView x:Name="ProductsListView" ItemsSource="{Binding}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
+        <ListView x:Name="ProductsListView" ItemsSource="{Binding ProductsDP}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ID}" Header="ID" Width="60"/>

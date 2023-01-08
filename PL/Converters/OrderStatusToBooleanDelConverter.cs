@@ -10,7 +10,7 @@ namespace PL.Converters
 {
     public class OrderStatusToBooleanDelConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (BO.orderStatus)value == BO.orderStatus.Delivered;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (BO.orderStatus)value is BO.orderStatus.Delivered;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

@@ -26,7 +26,7 @@ namespace PL
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         private static BO.Cart cart = new();
-        public static Frame mainFrame;
+        internal static Frame mainFrame;
         public MainWindow()
         {
             InitializeComponent();

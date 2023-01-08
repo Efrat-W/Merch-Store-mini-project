@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:converter="clr-namespace:PL.Converters"
-
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -13,6 +12,7 @@
         <converter:OrderStatusToBooleanShipConverter x:Key="OrderStatusShipConverter"/>
         <converter:OrderStatusToBooleanDelConverter x:Key="OrderStatusDelConverter"/>
         <Style x:Key="ShipButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
@@ -25,6 +25,7 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="ShipLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
+            <Setter Property="Content" Value="Not yet"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
@@ -35,6 +36,7 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="DeliveryButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
@@ -43,6 +45,7 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="DeliveryLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
+            <Setter Property="Content" Value="Not yet"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[2].Item1}"/>
@@ -82,7 +85,7 @@
                 </StackPanel>
                 <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content=" |" />
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ShipBtn" Style="{StaticResource ShipButton}" Height="25" Width="25"  BorderBrush="Black" BorderThickness="2,2,2,2" Background="White"  Foreground="White" >
+                    <Button x:Name="ShipBtn" Style="{StaticResource ShipButton}" Height="25" Width="25"  BorderBrush="Black" BorderThickness="2,2,2,2"  Foreground="White" >
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -90,11 +93,11 @@
                         </Button.Resources>
                     </Button>
                     <Label Style="{StaticResource BlackLabel}" Content="Shipped:" />
-                    <Label x:Name="ShipDate" Style="{StaticResource ShipLabel}" Content="Not yet"  />
+                    <Label x:Name="ShipDate" Style="{StaticResource ShipLabel}" />
                 </StackPanel>
                 <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content=" |" />
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="DeliverBtn" Style="{StaticResource DeliveryButton}" Height="25" Width="25"  BorderBrush="Black" BorderThickness="2,2,2,2" Background="White"  Foreground="White" >
+                    <Button x:Name="DeliverBtn" Style="{StaticResource DeliveryButton}" Height="25" Width="25"  BorderBrush="Black" BorderThickness="2,2,2,2"  Foreground="White" >
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -102,7 +105,7 @@
                         </Button.Resources>
                     </Button>
                     <Label Style="{StaticResource BlackLabel}" Content="Delivered:" />
-                    <Label x:Name="DeliveryDate"  Style="{StaticResource DeliveryLabel}" Content="Not yet" />
+                    <Label x:Name="DeliveryDate"  Style="{StaticResource DeliveryLabel}" />
                 </StackPanel>
             </StackPanel>
             <Button x:Name="DetailsBtn"  Style="{StaticResource BlackButton}" Content="Order Details" HorizontalAlignment="Center" VerticalAlignment="Top" Width="110" VerticalContentAlignment="Center" Click="DetailsBtn_Click" Margin="0,225,0,0">

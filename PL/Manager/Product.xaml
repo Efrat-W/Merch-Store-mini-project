@@ -9,8 +9,8 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
 >
     <Window.Resources>
-        <!--<local:NotBooleanToVisibilityConverter x:Key="isValidTB"/>-->
-        <!--<local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
+        <!--<local:NotBooleanToVisibilityConverter x:Key="isValidTB"/>
+        <local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
         <local:UpdateBtnToBooleanIdTBConverter x:Key="UpdateIdEnable"/>
         <local:UpdateBtnToBooleanDltBtnConverter x:Key="UpdateDltBtnEnable"/>-->
     </Window.Resources>

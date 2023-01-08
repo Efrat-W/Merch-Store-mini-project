@@ -23,12 +23,10 @@ namespace PL.OrderProcess
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         private BO.Cart cart;
-        public OrderMaking(BO.Cart cart)
+        public OrderMaking(BO.Cart cart1)
         {
             InitializeComponent();
-            ProductsScrollView.DataContext = cart.Items;
-            MainGrid.DataContext = cart;
-            this.cart = cart;
+            cart = cart1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

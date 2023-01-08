@@ -45,6 +45,10 @@ namespace PL
         private void MenuFrame_MouseLeave(object sender, RoutedEventArgs e)
         {
             MenuFrame.Opacity = 0;
+            if (MenuFrame.CanGoBack)
+            {
+                MenuFrame.RemoveBackEntry();
+            }
         }
 
         private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)

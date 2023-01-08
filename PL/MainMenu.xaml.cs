@@ -44,12 +44,16 @@ namespace PL
             {
                 MainWindow.mainFrame.RemoveBackEntry();
             }
-            MainWindow.mainFrame.Navigate(new Uri("OrderTracking.xaml", UriKind.Relative));
+            MainWindow.mainFrame.Navigate(new OrderTracking());
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MainWindow.mainFrame.CanGoBack)
+            {
+                MainWindow.mainFrame.RemoveBackEntry();
+            }
+            MainWindow.mainFrame.Navigate(new About());
         }
 
         private void Products_Click(object sender, RoutedEventArgs e)

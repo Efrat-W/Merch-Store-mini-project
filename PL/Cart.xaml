@@ -37,7 +37,7 @@
                     <Label Style="{StaticResource BlackLabel}"  Content="{Binding Path=TotalPrice}" ContentStringFormat=" {0}₪" HorizontalAlignment="Left" />
                 </StackPanel>
                 <Button x:Name="IncreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="+" Background="#FFFAF9F9" BorderBrush="Black" Click="IncreaseBtn_Click"/>
-                <Label x:Name="AmountLb"  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Content="{Binding Path=Amount}" VerticalAlignment="Center" />
+                <Label x:Name="AmountLb"  Style="{StaticResource BlackLabel}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Content="{Binding Amount}" VerticalAlignment="Center" />
                 <Button x:Name="DecreaseButton" Width="20" Height="20" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Content="-" Background="#FFFAF9F9" BorderBrush="Black" Click="DecreaseBtn_Click" />
                 <Label Content="   "/>
                 <Button x:Name="RemoveButton" Foreground="White" Width="20" Height="20" FontFamily="{StaticResource JosefinSansBold}" FontSize="14"  Content="x" Background="Black" BorderBrush="Black" Click="RemoveBtn_Click">
@@ -70,7 +70,7 @@
             </Button.Style>
         </Button>
         <ListView x:Name="ProductsScrollView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="0"
-                ItemsSource="{Binding Items}" ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0">
+                ItemsSource="{Binding Items}"  ItemTemplate="{StaticResource Product}" MouseDoubleClick="MouseDoubleClick" BorderThickness="0,0,0,0">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

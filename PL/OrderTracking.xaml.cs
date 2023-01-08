@@ -36,7 +36,6 @@ public partial class OrderTracking : Page
     public OrderTracking()
     {
         InitializeComponent();
-        
     }
 
     private void TrackBtn_Click(object sender, RoutedEventArgs e)
@@ -44,7 +43,7 @@ public partial class OrderTracking : Page
         id = int.Parse(IdTB.Text);
         try
         {
-            track = bl.Order.Track(id);
+            track = bl!.Order.Track(id);
         }
         catch(Exception ex)
         {

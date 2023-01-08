@@ -56,7 +56,7 @@ namespace PL.OrderProcess
             MessageBox.Show($@" HOORAY! 
 Your order has been placed successfully and will soon be on its way. We can't wait!
 Your order id is: {order.Id}. A verification mail is already in your inbox.");
-            bl.Cart.Empty(cart);
+            bl!.Cart.Empty(cart);
         }
        
     }

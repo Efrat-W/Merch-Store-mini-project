@@ -27,17 +27,16 @@ namespace PL.Manager
             bl = bl1;
             InitializeComponent();
 
-            var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
-                                        group ord by ord.Status into statusGroup
-                                        select statusGroup;
-            OrdersListView.ItemsSource = orderGroupsByStatus;
+            //var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
+            //                            group ord by ord.Status into statusGroup
+            //                            select statusGroup;
+            //OrdersListView.ItemsSource = orderGroupsByStatus;
         }
 
-        private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) 
         {
-            if (OrdersListView.SelectedItem == null) return;
-            int id = ((OrderForList)OrdersListView.SelectedItem).ID;
-            new Order(id).ShowDialog();
+            if (OrdersListView.SelectedItem != null)
+                new Order(((OrderForList)OrdersListView.SelectedItem).ID).ShowDialog();
         }
     }
 }

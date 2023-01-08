@@ -27,6 +27,9 @@ public partial class Catalog : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
     private static BO.Cart cart;
+
+    public IEnumerable<IGrouping<BO.category?, ProductItem>> ProductsGroupedByCategory;
+
     private BO.category? category
     {
         get { return (BO.category?)GetValue(categoryProperty); }
@@ -54,6 +57,7 @@ public partial class Catalog : Page
         get { return (Array)GetValue(categoriesProperty); }
         set { SetValue(categoriesProperty, value); }
     }
+    
 
     // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty categoriesProperty =
@@ -61,68 +65,118 @@ public partial class Catalog : Page
 
     public Catalog(BO.Cart cart1)
     {
+        categories = Enum.GetValues(typeof(BO.category));
         cart = cart1;
         category = null;
+
+        ProductsGroupedByCategory = from ListProd in bl.Product.RequestList()
+                                        let prod = new BO.ProductItem()
+                                        {
+                                            ID = ListProd.ID,
+                                            Name = ListProd.Name,
+                                            Description = ListProd.Description,
+                                            Image = ListProd.Image,
+                                            Price = ListProd.Price,
+                                            Category = ListProd.Category,
+                                            InStock = true,
+                                            Amount = 0
+                                        }
+                                        orderby prod.Price
+                                        group prod by prod.Category into CategoryGroup
+                                        select CategoryGroup;
+        Products = new List<ProductItem>();
+        foreach (var categoryGroup in ProductsGroupedByCategory)
+        {
+            foreach (var item in categoryGroup)
+            {
+                Products = Products.Append((BO.ProductItem)item);
+            }
+        }
         InitializeComponent();
-        Products = from ListProd in bl.Product.RequestList()
-                                                       select new BO.ProductItem()
-                                                       {
-                                                           ID = ListProd.ID,
-                                                           Name = ListProd.Name,
-                                                           Description = ListProd.Description,
-                                                           Image = ListProd.Image,
-                                                           Price = ListProd.Price,
-                                                           Category = ListProd.Category,
-                                                           InStock = true,
-                                                           Amount = 0
-                                                       };
-        categories = Enum.GetValues(typeof(BO.category));
+        
     }
     public Catalog(BO.category cat, BO.Cart cart1)
     {
-        cart=cart1;
-        category = cat;
-        InitializeComponent();
         categories = Enum.GetValues(typeof(BO.category));
-        Products = from ListProd in bl.Product.RequestListByCond(i => i.Category == cat)
-                   select new BO.ProductItem()
+        cart = cart1;
+        category = cat;
+
+        ProductsGroupedByCategory = from ListProd in bl.Product.RequestList()
+                                    let prod = new BO.ProductItem()
+                                    {
+                                        ID = ListProd.ID,
+                                        Name = ListProd.Name,
+                                        Description = ListProd.Description,
+                                        Image = ListProd.Image,
+                                        Price = ListProd.Price,
+                                        Category = ListProd.Category,
+                                        InStock = true,
+                                        Amount = 0
+                                    }
+                                    group prod by prod.Category into CategoryGroup
+                                    select CategoryGroup;
+        Products = new List<ProductItem>();
+        foreach (var categoryGroup in ProductsGroupedByCategory)
         {
-            ID = ListProd.ID,
-            Name = ListProd.Name,
-            Description = ListProd.Description,
-            Image = ListProd.Image,
-            Price = ListProd.Price,
-            Category = ListProd.Category,
-            InStock = true,
-            Amount = 0
-        };
+            if (categoryGroup.Key == cat)
+            {
+                foreach (var item in categoryGroup)
+                {
+                    Products = Products.Append((BO.ProductItem)item);
+                }
+            }
+        }
+
+        InitializeComponent();
+        //Products = from ListProd in bl.Product.RequestListByCond(i => i.Category == cat)
+        //           select new BO.ProductItem()
+        //{
+        //    ID = ListProd.ID,
+        //    Name = ListProd.Name,
+        //    Description = ListProd.Description,
+        //    Image = ListProd.Image,
+        //    Price = ListProd.Price,
+        //    Category = ListProd.Category,
+        //    InStock = true,
+        //    Amount = 0
+        //};
+        
+
     }
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
-        if (CategorySelector.SelectedItem == null)
-            return;
-        else
-        {
-            BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            Products = from ListProd in bl.Product.RequestListByCond(i => i.Category == sortBy)
-                       select new BO.ProductItem()
-                       {
-                           ID = ListProd.ID,
-                           Name = ListProd.Name,
-                           Description = ListProd.Description,
-                           Image = ListProd.Image,
-                           Price = ListProd.Price,
-                           Category = ListProd.Category,
-                           InStock = true,
-                           Amount = 0
-                       };
+        if (CategorySelector.SelectedItem != null) {
+            //BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
+            //Products = from ListProd in bl!.Product.RequestListByCond(i => i.Category == sortBy)
+            //           select new BO.ProductItem()
+            //           {
+            //               ID = ListProd.ID,
+            //               Name = ListProd.Name,
+            //               Description = ListProd.Description,
+            //               Image = ListProd.Image,
+            //               Price = ListProd.Price,
+            //               Category = ListProd.Category,
+            //               InStock = true,
+            //               Amount = 0
+            //           };
+            Products = new List<ProductItem>();
+            foreach (var categoryGroup in ProductsGroupedByCategory)
+            {
+                if (categoryGroup.Key == (BO.category)CategorySelector.SelectedItem)
+                {
+                    foreach (var item in categoryGroup)
+                    {
+                        Products = Products.Append((BO.ProductItem)item);
+                    }
+                }
+            }
         }
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         category = null;
-        Products = from ListProd in bl.Product.RequestList()
+        Products = from ListProd in bl!.Product.RequestList()
                    select new BO.ProductItem()
                    {
                        ID = ListProd.ID,
@@ -136,11 +190,8 @@ public partial class Catalog : Page
                    };
     }
 
-    private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        int id = ((ProductItem)ProductsScrollView.SelectedItem).ID;
-        MainWindow.mainFrame.Navigate(new ViewProduct(id, cart));
-    }
+    private void MouseDoubleClick(object sender, MouseButtonEventArgs e) =>
+        MainWindow.mainFrame.Navigate(new ViewProduct(((ProductItem)ProductsScrollView.SelectedItem).ID, cart));
 }
 
 

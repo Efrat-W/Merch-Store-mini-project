@@ -34,6 +34,17 @@ public partial class Cart : Page
     // Using a DependencyProperty as the backing store for cart.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty cartProperty =
         DependencyProperty.Register("cart", typeof(BO.Cart), typeof(Cart));
+    public BO.OrderItem item
+    {
+        get { return (BO.OrderItem)GetValue(itemProperty); }
+        set { SetValue(itemProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for item.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty itemProperty =
+        DependencyProperty.Register("item", typeof(BO.OrderItem), typeof(Cart));
+
+
     public Cart(BO.Cart cart1)
     {
         cart = cart1;
@@ -55,7 +66,7 @@ public partial class Cart : Page
     }
     private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
     {
-        BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
+        item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
@@ -67,22 +78,19 @@ public partial class Cart : Page
     }
     private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
     {
-        BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
+        item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, -1);
-          
         }
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message);
         }
-
-        //this.UpdateLayout();
     }
     private void RemoveBtn_Click(object sender, RoutedEventArgs e)
     {
-        BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
+        item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 0);
@@ -91,7 +99,5 @@ public partial class Cart : Page
         {
             MessageBox.Show(ex.Message);
         }
-
-        //this.UpdateLayout();
     }
 }

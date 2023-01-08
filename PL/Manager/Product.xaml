@@ -3,16 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Converters"
+        xmlns:converter="clr-namespace:PL.Converters"
         mc:Ignorable="d"
         Title="Product" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
 >
     <Window.Resources>
-        <local:NotBooleanToVisibilityConverter x:Key="isValidTB"/>
-        <local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
+        <!--<local:NotBooleanToVisibilityConverter x:Key="isValidTB"/>-->
+        <!--<local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
         <local:UpdateBtnToBooleanIdTBConverter x:Key="UpdateIdEnable"/>
-        <local:UpdateBtnToBooleanDltBtnConverter x:Key="UpdateDltBtnEnable"/>
+        <local:UpdateBtnToBooleanDltBtnConverter x:Key="UpdateDltBtnEnable"/>-->
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -46,7 +46,7 @@
         <Label x:Name="IdLb" Content="ID:" HorizontalAlignment="Left" Margin="361,0,0,0"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="29"/>
         <Label x:Name="CategoryLb" Content="Category:" HorizontalAlignment="Left" Margin="313,0,0,0"  Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="77"/>
         <Label x:Name="PriceLb" Content="Price:" HorizontalAlignment="Left" Margin="342,0,0,0"  Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="48"/>
-        <!--invalid labels aka no input given-->
+        invalid labels aka no input given
         <Label x:Name="InStockLb" Content="Amount in stock:" HorizontalAlignment="Left" Margin="261,7,0,0"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129"/>
         <Label x:Name="InvalidNameLb" Content="Fill in name." HorizontalAlignment="Left" Margin="10,29,0,0"  Grid.Column="1" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Grid.RowSpan="2" Visibility="{Binding ElementName=NameTB, Path=Text, Converter={StaticResource isValidTB}}"/>
         <Label x:Name="InvalidIdLb" Content="Fill in ID." HorizontalAlignment="Left" Margin="10,28,0,0"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Visibility="{Binding ElementName=IdTB, Path=Text, Converter={StaticResource isValidTB}}" Grid.RowSpan="2"/>

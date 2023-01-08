@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Threading.Channels;
 using System.Windows.Input;
 
-namespace Converters;
+namespace PL;
 
 public class NotBooleanToVisibilityConverter : IValueConverter
 {

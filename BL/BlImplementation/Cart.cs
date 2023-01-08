@@ -86,6 +86,8 @@ internal class Cart : ICart
         {
             AddProduct(cart, prodId);
             amount--;
+            if (amount == 0)
+                return cart;
         }
         DO.Product? prod;
         try

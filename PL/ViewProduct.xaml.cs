@@ -55,19 +55,43 @@ public partial class ViewProduct : Page
     
     private void AddToCart_Click(object sender, RoutedEventArgs e)
     {
-        cart=bl.Cart.AddProduct(cart, Product.ID);
-        
+        try
+        {
+            if (Product.Amount == 0)
+                cart = bl.Cart.AddProduct(cart, Product.ID);
+            Product = bl.Product.RequestByIdCustomer(Product.ID, cart);
+        }
+        catch(Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+
     }
     private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
     {
-        cart = bl.Cart.UpdateProductAmount(cart, Product.ID , 1);
-       
+        try 
+        { 
+            cart = bl.Cart.UpdateProductAmount(cart, Product.ID , 1);
+            Product = bl.Product.RequestByIdCustomer(Product.ID, cart);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
 
     }
     private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
     {
-        cart = bl.Cart.UpdateProductAmount(cart, Product.ID, -1);
-       
+        try
+        {
+            cart = bl.Cart.UpdateProductAmount(cart, Product.ID, -1);
+            Product = bl.Product.RequestByIdCustomer(Product.ID, cart);
+        }   
+        catch(Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+
     }
 }
 

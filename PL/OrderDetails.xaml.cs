@@ -35,7 +35,14 @@ namespace PL
         public OrderDetails(int id)
         {
             InitializeComponent();
-            order=bl.Order.RequestById(id);
+            try
+            {
+                order = bl.Order.RequestById(id);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

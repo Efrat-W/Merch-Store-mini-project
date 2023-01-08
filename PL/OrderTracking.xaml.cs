@@ -42,7 +42,15 @@ public partial class OrderTracking : Page
     private void TrackBtn_Click(object sender, RoutedEventArgs e)
     {
         id = int.Parse(IdTB.Text);
-        track = bl.Order.Track(id);
+        try
+        {
+            track = bl.Order.Track(id);
+        }
+        catch(Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+            return;
+        }
         SignIn.Visibility = Visibility.Collapsed;
         Tracking.Visibility = Visibility.Visible;
     }

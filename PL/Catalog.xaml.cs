@@ -37,15 +37,6 @@ public partial class Catalog : Page
     public static readonly DependencyProperty categoryProperty =
         DependencyProperty.Register("category", typeof(BO.category?), typeof(Catalog));
 
-    //public static readonly DependencyProperty ProductsDependency =
-    //    DependencyProperty.Register(nameof(Products), typeof(ObservableCollection<ProductItem>), typeof(Catalog));
-    //public ObservableCollection<BO.ProductItem> Products
-    //{
-    //    get => (ObservableCollection<BO.ProductItem>)GetValue(ProductsDependency);
-    //    private set => SetValue(ProductsDependency, value);
-    //}
-
-
     public IEnumerable<BO.ProductItem> Products
     {
         get { return (IEnumerable<BO.ProductItem>)GetValue(ProductsProperty); }

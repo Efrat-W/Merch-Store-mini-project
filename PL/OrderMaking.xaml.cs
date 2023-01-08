@@ -22,7 +22,17 @@ namespace PL.OrderProcess
     public partial class OrderMaking : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        private BO.Cart cart;
+        public BO.Cart cart
+        {
+            get { return (BO.Cart)GetValue(cartProperty); }
+            set { SetValue(cartProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for cart.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty cartProperty =
+            DependencyProperty.Register("cart", typeof(BO.Cart), typeof(OrderMaking));
+
+
         public OrderMaking(BO.Cart cart1)
         {
             InitializeComponent();
@@ -46,6 +56,8 @@ namespace PL.OrderProcess
             MessageBox.Show($@" HOORAY! 
 Your order has been placed successfully and will soon be on its way. We can't wait!
 Your order id is: {order.Id}. A verification mail is already in your inbox.");
+            bl.Cart.Empty(cart);
         }
+       
     }
 }

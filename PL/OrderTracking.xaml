@@ -3,21 +3,22 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Converters"
+      xmlns:converter="clr-namespace:PL.Converters"
+
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding RelativeSource={RelativeSource Self}}"
       Title="OrderTracking">
     <Page.Resources>
-        <local:OrderStatusToBooleanShipConverter x:Key="OrderStatusShipConverter" />
-        <local:OrderStatusToBooleanDelConverter x:Key="OrderStatusDeliveryConverter"/>
+        <converter:OrderStatusToBooleanShipConverter x:Key="OrderStatusShipConverter"/>
+        <converter:OrderStatusToBooleanDelConverter x:Key="OrderStatusDelConverter"/>
         <Style x:Key="ShipButton" TargetType="Button">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Path=Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Content" Value="✔️"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDeliveryConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Content" Value="✔️"/>
                 </DataTrigger>
@@ -28,14 +29,14 @@
                 <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDeliveryConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="DeliveryButton" TargetType="Button">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDeliveryConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Content" Value="✔️"/>
                 </DataTrigger>
@@ -43,7 +44,7 @@
         </Style>
         <Style x:Key="DeliveryLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDeliveryConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Content" Value="{Binding Path=orderProgress[2].Item1}"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -77,7 +78,7 @@
                         </Button.Resources>
                     </Button>
                     <Label Style="{StaticResource BlackLabel}" Content="Approved:" />
-                    <Label Style="{StaticResource BlackLabel}" Content="{Binding Path=[0].Item1}" />
+                    <Label Style="{StaticResource BlackLabel}" Content="{Binding Path=orderProgress[0].Item1}" />
                 </StackPanel>
                 <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content=" |" />
                 <StackPanel Orientation="Horizontal">

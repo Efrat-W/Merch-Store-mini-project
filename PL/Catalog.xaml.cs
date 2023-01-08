@@ -61,6 +61,7 @@ public partial class Catalog : Page
         DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
 
 
+
     public Catalog(BO.Cart cart1)
     {
         cart = cart1;
@@ -81,24 +82,18 @@ public partial class Catalog : Page
     {
 
         if (CategorySelector.SelectedItem == null)
-            Products = new(bl.Product.RequestList());
+            Products = new(bl!.Product.RequestList());
         else
-        {
-            BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-            Products = new(bl.Product.RequestListByCond(i => i.Category == sortBy));
-        }
+            Products = new(bl!.Product.RequestListByCond(i => i.Category == (BO.category)CategorySelector.SelectedItem));
     }
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         category = null;
-        Products = new(bl.Product.RequestList());
+        Products = new(bl!.Product.RequestList());
     }
 
-    private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
-    {
-        int id = ((ProductForList)ProductsScrollView.SelectedItem).ID;
-        MainWindow.mainFrame.Navigate(new ViewProduct(id, cart));
-    }
+    private void MouseDoubleClick(object sender, MouseButtonEventArgs e) =>
+        MainWindow.mainFrame.Navigate(new ViewProduct(((ProductForList)ProductsScrollView.SelectedItem).ID, cart));
 }
 
 

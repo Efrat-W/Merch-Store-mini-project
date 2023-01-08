@@ -26,8 +26,11 @@ namespace PL.Manager
         {
             bl = bl1;
             InitializeComponent();
-            OrdersListView.ItemsSource = bl.Order.RequestOrders();
-            
+
+            var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
+                                        group ord by ord.Status into statusGroup
+                                        select statusGroup;
+            OrdersListView.ItemsSource = orderGroupsByStatus;
         }
 
         private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -36,7 +39,5 @@ namespace PL.Manager
             int id = ((OrderForList)OrdersListView.SelectedItem).ID;
             new Order(id).ShowDialog();
         }
-
-        
     }
 }

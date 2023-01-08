@@ -25,11 +25,10 @@ namespace PL.Manager
         {
             InitializeComponent();
             StatusCB.ItemsSource = Enum.GetValues(typeof(BO.orderStatus));
-            CommandBtn.Content = "Update";
 
             Ord = bl.Order.RequestById(id);
-            MainGrid.DataContext = Ord;
-            ItemsList.ItemsSource= Ord.Items;
+            //MainGrid.DataContext = Ord;
+            //ItemsList.ItemsSource= Ord.Items;
 
             if (Ord.ShipDate == null)
             {
@@ -49,10 +48,17 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         { 
-            if(ShipCB.IsChecked==true)
+            if (ShipCB.IsChecked == true) 
                 bl?.Order.UpdateShipment(Ord.Id);
-            if(DeliveryCB.IsChecked==true)
-                bl?.Order.UpdateDelivery(Ord.Id);
+            if (DeliveryCB.IsChecked == true)
+                try
+                {
+                    bl?.Order.UpdateDelivery(Ord.Id);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Cannot update delivery before commencing shipment.");
+                }
         }
 
     }

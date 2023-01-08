@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="ManagerLogin" Height="300" Width="300">
+        Title="ManagerLogin" Height="300" Width="300"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
-        <local:BooleanToVisibilityConverter x:Key="isBoolTrue"/>
+        <!--<local:VisibilityToggleConverter x:Key="isNotVisible"/>-->
     </Window.Resources>
     <Grid>
         <Label x:Name="InvalidCodeLb" Content="Incorrect password. Please try again." HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="Red" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="129" Visibility="Hidden"/>
-        <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0">
+        <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0" Visibility="{Binding ElementName=logOutText, Path=IsMouseOver}">
             <Label x:Name="EnterCodeLB" Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center" PreviewKeyDown="PasswordTB_PreviewKeyDown"/>
@@ -27,7 +28,7 @@
             </Button>
         </Grid>
         <Grid x:Name="LoggedIn" HorizontalAlignment="Left" Height="131" Margin="23,0,0,0" VerticalAlignment="Center" Width="258" Visibility="Hidden">
-            
+
             <Label x:Name="WelcomeLB" Style="{StaticResource BlackLabel}"  Content="Welcome!" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top"/>
             <Button x:Name="ProductsBtn" Content="view products" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top"  Width="106" Click="ProductViewButton_Click">
                 <Button.Resources>
@@ -49,18 +50,22 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
-            <TextBlock x:Name="logOutText" Text="Click here to log out." Foreground="DeepSkyBlue" FontSize="10" HorizontalAlignment="Center" Margin="0,105,0,0" TextWrapping="Wrap" VerticalAlignment="Center">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="Blue"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="TextDecorations" Value="Underline"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+            <Button x:Name="logOutBtn" Margin="70,116,70,0" VerticalAlignment="Top" Click="logOutBtn_Click" BorderThickness="0" Background="white">
+                <Button.Content>
+                    <TextBlock x:Name="logOutText" Text="Click here to log out." Foreground="DeepSkyBlue" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="Blue"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="TextDecorations" Value="Underline"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Window>

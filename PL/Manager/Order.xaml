@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         Title="Order" Height="450" Width="800">
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" DataContext="{Binding RelativeSource=Ord}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -39,11 +39,11 @@
             <ComboBox x:Name="StatusCB" SelectedItem="{Binding Status}"  SelectedIndex="0" HorizontalAlignment="Left" Margin="357,2,0,0" VerticalAlignment="Top" Width="113" Height="20" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="{StaticResource JosefinSansLight}" VerticalContentAlignment="Center"/>
             <Label x:Name="ID" Content="{Binding Id}" HorizontalAlignment="Left" Margin="139,0,0,266" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="124"/>
             <Label x:Name="OrderDate" Content="{Binding OrderDate}" HorizontalAlignment="Left" Margin="388,27,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="165"/>
-            <Label x:Name="ShipDate"  HorizontalAlignment="Left" Margin="383,56,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="170"/>
-            <Label x:Name="DeliveryDate"  HorizontalAlignment="Left" Margin="403,85,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="175"/>
+            <Label x:Name="ShipDate" Content="{Binding ShipDate}" HorizontalAlignment="Left" Margin="383,56,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="170"/>
+            <Label x:Name="DeliveryDate" Content="{Binding DeliveryDate}" HorizontalAlignment="Left" Margin="403,85,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="175"/>
             <Label x:Name="TotalPrice" Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="568,0,0,43" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="124"/>
 
-            <Button x:Name="CommandBtn" Content="We'll see" HorizontalAlignment="Left" Margin="257,353,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" Height="25" Width="70">
+            <Button x:Name="CommandBtn" Content="Update" HorizontalAlignment="Left" Margin="257,353,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" Height="25" Width="70">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="8"/>
@@ -53,9 +53,9 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
-            <CheckBox  x:Name="ShipCB" Content="Shipped" HorizontalAlignment="Left" Margin="303,56,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="28" Width="69" Opacity="0"/>
+            <CheckBox x:Name="ShipCB" Content="Shipped" HorizontalAlignment="Left" Margin="303,56,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="28" Width="69" Opacity="0"/>
             <CheckBox x:Name="DeliveryCB" Content="Delivered" HorizontalAlignment="Left" Margin="303,86,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="24" Width="76" Opacity="0"/>
-            <ListView x:Name="ItemsList"  FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin"  Foreground="#FF12224C" Margin="116,126,222,52" ScrollViewer.CanContentScroll="False" >
+            <ListView x:Name="ItemsList" ItemsSource="{Binding RelativeSource=Ord, Path=Items}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin"  Foreground="#FF12224C" Margin="116,126,222,52" ScrollViewer.CanContentScroll="False" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding ID}" Header="ID" Width="30"/>

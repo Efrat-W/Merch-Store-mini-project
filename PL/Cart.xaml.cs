@@ -56,7 +56,7 @@ namespace PL
         private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
-            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
+            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 1);
             
             //this.UpdateLayout();
 
@@ -64,14 +64,14 @@ namespace PL
         private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
-            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, -1);
+            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, -1);
             
             //this.UpdateLayout();
         }
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem item = (BO.OrderItem)((Button)sender).DataContext;
-            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 0);
+            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 0);
             
             //this.UpdateLayout();
         }

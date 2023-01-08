@@ -91,9 +91,10 @@ namespace PL.Manager
             
         }
 
-        private void logOutText_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void logOutBtn_Click(object sender, RoutedEventArgs e)
         {
-            Toggle();
+            Login.Visibility = Visibility.Visible;
+            LoggedIn.Visibility = Visibility.Hidden;
         }
     }
 }

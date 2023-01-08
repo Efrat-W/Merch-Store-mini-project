@@ -89,29 +89,15 @@ namespace PL.Manager
         private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
         {
             //restrict size of input
-            if (!(IdTB.Text.Length == 0) && int.Parse(IdTB.Text) > int.MaxValue / 10)
+            if ((!(IdTB.Text.Length == 0) && int.Parse(IdTB.Text) > int.MaxValue / 10) || (!(InStockTB.Text.Length == 0) && int.Parse(InStockTB.Text) > int.MaxValue / 10))
             {
                 e.Handled = true;
-                InvalidIdLb.Content = "Input too big.";
-                InvalidIdLb.Visibility = Visibility.Visible;
                 return;
-            }
-            else
-            {
-                InvalidIdLb.Visibility = Visibility.Hidden;
-                InvalidIdLb.Content = "Fill in ID.";
             }
             if (!(InStockTB.Text.Length == 0) && int.Parse(InStockTB.Text) > int.MaxValue / 10)
             {
                 e.Handled = true;
-                InvalidInStockLb.Content = "Input too big.";
-                InvalidInStockLb.Visibility = Visibility.Visible;
                 return;
-            }
-            else
-            {
-                InvalidInStockLb.Visibility = Visibility.Hidden;
-                InvalidInStockLb.Content = "Fill in amount.";
             }
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);

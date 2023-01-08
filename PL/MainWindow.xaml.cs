@@ -26,7 +26,7 @@ namespace PL
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         private static BO.Cart cart = new();
-        public static Frame mainFrame;
+        internal static Frame mainFrame;
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +45,7 @@ namespace PL
         private void MenuFrame_MouseLeave(object sender, RoutedEventArgs e)
         {
             MenuFrame.Opacity = 0;
+            MenuFrame.IsHitTestVisible = false;
             if (MenuFrame.CanGoBack)
             {
                 MenuFrame.RemoveBackEntry();

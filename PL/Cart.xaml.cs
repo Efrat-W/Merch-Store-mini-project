@@ -3,6 +3,7 @@ using PL.OrderProcess;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,6 +26,7 @@ namespace PL;
 public partial class Cart : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
+
     public BO.Cart cart
     {
         get { return (BO.Cart)GetValue(cartProperty); }
@@ -33,7 +35,7 @@ public partial class Cart : Page
 
     // Using a DependencyProperty as the backing store for cart.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty cartProperty =
-        DependencyProperty.Register("cart", typeof(BO.Cart), typeof(Cart));
+       DependencyProperty.Register("cart", typeof(BO.Cart), typeof(Cart));
     public BO.OrderItem item
     {
         get { return (BO.OrderItem)GetValue(itemProperty); }

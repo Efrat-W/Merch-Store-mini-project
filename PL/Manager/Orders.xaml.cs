@@ -22,15 +22,18 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
+
         public Orders(BlApi.IBl? bl1)
         {
             bl = bl1;
             InitializeComponent();
 
-            //var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
-            //                            group ord by ord.Status into statusGroup
-            //                            select statusGroup;
-            //OrdersListView.ItemsSource = orderGroupsByStatus;
+            var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
+                                      orderby ord.ID
+                                      group ord by ord.Status into statusGroup
+                                      select statusGroup;
+
+            OrdersListView.ItemsSource = orderGroupsByStatus;
         }
 
         private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) 

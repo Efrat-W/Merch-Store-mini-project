@@ -24,26 +24,40 @@ namespace PL.Manager
     public partial class Product : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+
+        public BO.Product product
+        {
+            get { return (BO.Product)GetValue(productProperty); }
+            set { SetValue(productProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for product.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty productProperty =
+            DependencyProperty.Register("product", typeof(BO.Product), typeof(Product));
+        public Array categories
+        {
+            get { return (Array)GetValue(categoriesProperty); }
+            set { SetValue(categoriesProperty, value); }
+        }
+
+
+        // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty categoriesProperty =
+            DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
+
+
+
         public Product(int id)
         {
+            categories = Enum.GetValues(typeof(BO.category));
             InitializeComponent();
-            CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
             CommandBtn.Content = "Update";
-
-            BO.Product p = bl.Product.RequestByIdManager(id);
-            IdTB.Text = p.ID.ToString();
-            IdTB.IsReadOnly = true;
-            NameTB.Text = p.Name;
-            PriceTB.Text = p.Price.ToString();
-            InStockTB.Text = p.InStock.ToString();
-            CategoryCB.SelectedItem = p.Category;
-            ImageTB.Text = p.Image;
-            DescriptionTB.Text = p.Description;
+            product = bl.Product.RequestByIdManager(id);
         }
         public Product()
         {
             InitializeComponent();
-            CategoryCB.ItemsSource = Enum.GetValues(typeof(BO.category));
+            categories = Enum.GetValues(typeof(BO.category));
             CommandBtn.Content = "Add";
         }
 
@@ -51,21 +65,12 @@ namespace PL.Manager
         {
             try
             {
-                BO.Product prod = new()
-                {
-                    ID = int.Parse(IdTB.Text),
-                    Name = NameTB.Text,
-                    Price = double.Parse(PriceTB.Text),
-                    InStock = int.Parse(InStockTB.Text),
-                    Category = (BO.category)CategoryCB.SelectedItem,
-                    Image=ImageTB.Text,
-                    Description = DescriptionTB.Text,
-                };
+                product=bl.Product.RequestByIdManager(product.ID);
 
                 if (CommandBtn.Content == "Add")
-                   bl?.Product.Add(prod);
+                   bl?.Product.Add(product);
                 else // "Update"
-                    bl?.Product.Update(prod);
+                    bl?.Product.Update(product);
                 Close();
             }
             catch (Exception ex)
@@ -77,7 +82,7 @@ namespace PL.Manager
         {
             try
             {
-                bl?.Product.Delete(int.Parse(IdTB.Text));
+                bl?.Product.Delete(product.ID);
                 Close();
             }
             catch

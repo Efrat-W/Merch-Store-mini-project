@@ -22,18 +22,35 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
+        public IEnumerable<BO.OrderForList> OrdersDP
+        {
+            get { return (IEnumerable<BO.OrderForList>)GetValue(OrdersProperty); }
+            set { SetValue(OrdersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Products.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OrdersProperty =
+            DependencyProperty.Register("Products", typeof(IEnumerable<BO.OrderForList>), typeof(Orders));
 
         public Orders(BlApi.IBl? bl1)
         {
             bl = bl1;
-            InitializeComponent();
 
             var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
                                       orderby ord.ID
                                       group ord by ord.Status into statusGroup
                                       select statusGroup;
 
-            OrdersListView.ItemsSource = orderGroupsByStatus;
+            //OrdersListView.ItemsSource = orderGroupsByStatus;
+            OrdersDP = new List<BO.OrderForList>();
+            foreach (var categoryGroup in orderGroupsByStatus)
+            {
+                foreach (var item in categoryGroup)
+                {
+                    OrdersDP = OrdersDP.Append(item);
+                }
+            }
+            InitializeComponent();
         }
 
         private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) 

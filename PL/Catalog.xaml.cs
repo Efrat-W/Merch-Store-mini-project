@@ -106,7 +106,6 @@ public partial class Catalog : Page
         CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
 
         InitializeComponent();
-        
     }
     public Catalog(BO.category cat, BO.Cart cart1)
     {

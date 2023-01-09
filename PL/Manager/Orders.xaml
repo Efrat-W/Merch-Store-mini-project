@@ -14,7 +14,7 @@
             <RowDefinition Height="59*"/>
         </Grid.RowDefinitions>
         
-        <ListView x:Name="OrdersListView" ItemsSource="{Binding }" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="OrdersListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
+        <ListView x:Name="OrdersListView" ItemsSource="{Binding OrdersDP}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="OrdersListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ID}" Header="ID" Width="60"/>

@@ -23,17 +23,21 @@ namespace PL.Manager
         BlApi.IBl? bl = BlApi.Factory.Get();
         const string PASSWORD = "123";
         string currentPassword = "";
+        
+        public string password
+        {
+            get { return (string)GetValue(passwordProperty); }
+            set { SetValue(passwordProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for password.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty passwordProperty =
+            DependencyProperty.Register("password", typeof(string), typeof(ManagerLogin));
+
+
         public ManagerLogin()
         {
             InitializeComponent();
-        }
-
-        private void CommandBtn_Click(object sender, RoutedEventArgs e)
-        {
-            currentPassword= PasswordTB.Text;
-            if (currentPassword == PASSWORD)
-                Toggle();
-            PasswordTB.Text = "";
         }
 
         private void ProductViewButton_Click(object sender, RoutedEventArgs e)
@@ -48,46 +52,10 @@ namespace PL.Manager
             orders.Show();
         }
 
-        private void PasswordTB_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                currentPassword = PasswordTB.Text;
-                if (currentPassword == PASSWORD)
-                    Toggle();
-            }
-            else
-            {
-                //regex needed
-                //char inputKey = PasswordTB.Text.ElementAt(PasswordTB.Text.Length - 1);
-                //char inputKey = 'a';
-                //if (e.Key.ToString().StartsWith("NumPad"))
-                //    inputKey = e.Key.ToString().Last();
-                //else if (e.Key.ToString().StartsWith("D"))
-                //    inputKey = e.Key.ToString().Last();
-                //else
-                //    e.Handled = true;
-                //currentPassword.Append(inputKey);
-                //int len = PasswordTB.Text.Length+1;
-                //PasswordTB.Text = "";
-                //for (int i = 0; i < len; i++)
-                //    PasswordTB.AppendText("•");
-
-                //e.Handled = false;
-            }
-        }
-
-        private void Toggle()
-        {
-                Login.Visibility = Visibility.Hidden;
-                LoggedIn.Visibility = Visibility.Visible;
-            
-        }
-
-        private void logOutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Login.Visibility = Visibility.Visible;
-            LoggedIn.Visibility = Visibility.Hidden;
-        }
+        //private void logOutBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Login.Visibility = Visibility.Visible;
+        //    LoggedIn.Visibility = Visibility.Hidden;
+        //}
     }
 }

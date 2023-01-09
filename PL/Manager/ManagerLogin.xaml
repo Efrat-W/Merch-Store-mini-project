@@ -8,6 +8,7 @@
         Title="ManagerLogin" Height="300" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Window.Resources>
+        <converter:PasswordToVisibilityConverter x:Key="PasswordToVisibilityConverter" />
         <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid>
@@ -15,18 +16,9 @@
         <Grid x:Name="Login" HorizontalAlignment="Center" Height="84" VerticalAlignment="Center" Width="204" Margin="0,0,0,0" Visibility="{Binding ElementName=logOutText, Path=IsMouseOver}">
             <Label x:Name="EnterCodeLB" Style="{StaticResource BlackLabel}"  Content="Please Enter Manager Password:" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="PasswordTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center" PreviewKeyDown="PasswordTB_PreviewKeyDown"/>
-            <ToggleButton x:Name="CommandBtn" Content="Submit" Background="Black" Foreground="White" FontSize="10" FontFamily="{StaticResource JosefinSansBold}"  Width="40" VerticalContentAlignment="Center"   BorderBrush="{x:Null}"
-                 HorizontalAlignment="Center" Margin="0,59,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" Height="15" >
-                <ToggleButton.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="8"/>
-                    </Style>
-                </ToggleButton.Resources>
-            </ToggleButton>
+            <TextBox x:Name="passwordBox" HorizontalAlignment="Center" Text="{Binding password, Mode=OneWayToSource}" VerticalAlignment="Center"  Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  />
         </Grid>
-        <Grid x:Name="LoggedIn" HorizontalAlignment="Left" Height="131" Margin="23,0,0,0" VerticalAlignment="Center" Width="258"  Visibility="{Binding IsChecked, ElementName=trackBtn, Converter={StaticResource BooleanToVisibilityConverter}}">
-
+        <Grid x:Name="LoggedIn" HorizontalAlignment="Left" Height="131" Margin="23,0,0,0" VerticalAlignment="Center" Width="258" Background="White"  Visibility="{Binding Text , ElementName=passwordBox, Converter={StaticResource PasswordToVisibilityConverter}, ConverterParameter='123'}">
             <Label x:Name="WelcomeLB" Style="{StaticResource BlackLabel}"  Content="Welcome!" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top"/>
             <Button x:Name="ProductsBtn" Content="view products" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top"  Width="106" Click="ProductViewButton_Click">
                 <Button.Resources>
@@ -48,7 +40,7 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
-            <Button x:Name="logOutBtn" Margin="70,116,70,0" VerticalAlignment="Top" Click="logOutBtn_Click" BorderThickness="0" Background="white">
+            <!--<Button x:Name="logOutBtn" Margin="70,116,70,0" VerticalAlignment="Top" Click="logOutBtn_Click" BorderThickness="0" Background="white">
                 <Button.Content>
                     <TextBlock x:Name="logOutText" Text="Click here to log out." Foreground="DeepSkyBlue" FontSize="10" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center">
                         <TextBlock.Style>
@@ -63,7 +55,7 @@
                         </TextBlock.Style>
                     </TextBlock>
                 </Button.Content>
-            </Button>
+            </Button>-->
         </Grid>
     </Grid>
 </Window>

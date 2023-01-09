@@ -34,41 +34,41 @@ namespace PL
             mainFrame.Navigate(new HomePage(cart));
         }
 
-        
 
-        private void MenuBtn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            MenuFrame.Opacity = 0.9;
-            MenuFrame.IsHitTestVisible = true;
-            MenuFrame.Navigate(new MainMenu(cart));
-        }
 
-        private void MenuFrame_MouseLeave(object sender, RoutedEventArgs e)
-        {
-            MenuFrame.Opacity = 0;
-            MenuFrame.IsHitTestVisible = false;
-            if (MenuFrame.CanGoBack)
-            {
-                MenuFrame.RemoveBackEntry();
-            }
-        }
+        //private void MenuBtn_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    MenuFrame.Navigate(new MainMenu(cart));
+        //}
 
-        private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)
-        {
-            CartFrame.Opacity = 0;
-            CartFrame.IsHitTestVisible = false;
-            if (CartFrame.CanGoBack)
-            {
-                CartFrame.RemoveBackEntry();
-            }
-        }
+        //private void MenuFrame_MouseLeave(object sender, RoutedEventArgs e)
+        //{
+        //    MenuFrame.Opacity = 0;
+        //    MenuFrame.IsHitTestVisible = false;
+        //    if (MenuFrame.CanGoBack)
+        //    {
+        //        MenuFrame.RemoveBackEntry();
+        //    }
+        //}
+
+        //private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)
+        //{
+        //    CartFrame.Opacity = 0;
+        //    CartFrame.IsHitTestVisible = false;
+        //    if (CartFrame.CanGoBack)
+        //    {
+        //        CartFrame.RemoveBackEntry();
+        //    }
+        //}
 
         private void Cart_Click(object sender, RoutedEventArgs e)
         {
-            CartFrame.Opacity = 1;
-            CartFrame.IsHitTestVisible = true;
             CartFrame.Navigate(new Cart(cart));
         }
 
+        private void MenuBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFrame.Navigate(new MainMenu(cart));
+        }
     }
 }

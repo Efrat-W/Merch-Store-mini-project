@@ -25,15 +25,20 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public BO.Product product
+        
+
+
+        public string CommandBtnDP
         {
-            get { return (BO.Product)GetValue(productProperty); }
-            set { SetValue(productProperty, value); }
+            get { return (string)GetValue(CommandBtnDPProperty); }
+            set { SetValue(CommandBtnDPProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for product.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty productProperty =
-            DependencyProperty.Register("product", typeof(BO.Product), typeof(Product));
+        // Using a DependencyProperty as the backing store for CommandBtnDP.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandBtnDPProperty =
+            DependencyProperty.Register("CommandBtnDP", typeof(string), typeof(Product));
+
+
         public Array categories
         {
             get { return (Array)GetValue(categoriesProperty); }
@@ -50,33 +55,49 @@ namespace PL.Manager
         public Product(int id)
         {
             categories = Enum.GetValues(typeof(BO.category));
-            InitializeComponent();
-            CommandBtn.Content = "Update";
             product = bl.Product.RequestByIdManager(id);
+            CommandBtnDP = "Update";
+            InitializeComponent();
         }
         public Product()
         {
-            InitializeComponent();
             categories = Enum.GetValues(typeof(BO.category));
-            CommandBtn.Content = "Add";
+            product = new BO.Product();
+            CommandBtnDP = "Add";
+            InitializeComponent();
         }
+
+        public BO.Product? product
+        {
+            get { return (BO.Product)GetValue(productProperty); }
+            set { SetValue(productProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for product.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty productProperty =
+            DependencyProperty.Register("product", typeof(BO.Product), typeof(Product));
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                product=bl.Product.RequestByIdManager(product.ID);
-
-                if (CommandBtn.Content == "Add")
-                   bl?.Product.Add(product);
+                if (CommandBtnDP == "Add")
+                {
+                    bl?.Product.Add(product);
+                    MessageBox.Show($"{product.Name} was added successfully.");
+                }
                 else // "Update"
+                {
                     bl?.Product.Update(product);
+                    MessageBox.Show($"{product.Name} was updated successfully.");
+                }
                 Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("One or more of the input fields were filled in incorrectly.\nHover over the fields in order to see the according restrictions.");
             }
+
         }
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {

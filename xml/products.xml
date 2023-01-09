@@ -1,111 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<product>
-		<ID>242424</ID>
-		<Name>Tabs Print</Name>
-		<Price>34</Price>
-		<Category>Prints</Category>
-		<InStock>22</InStock>
-		<Image>Images\tubsPrint.jpg</Image>
-		<Description>A4 high quality print, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>456456</ID>
-		<Name>Too Many Tabs Mug</Name>
-		<Price>49</Price>
-		<Category>Mugs</Category>
-		<InStock>51</InStock>
-		<Image>Images\TubsMug.jpeg</Image>
-		<Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>787878</ID>
-		<Name>Hanetzach Hazeh Notebook</Name>
-		<Price>45</Price>
-		<Category>Notebooks</Category>
-		<InStock>10</InStock>
-		<Image>Images\EviatarNotebook.jpeg</Image>
-		<Description>Hand crafted A5 notebook, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>343434</ID>
-		<Name>Renana Notebook</Name>
-		<Price>45</Price>
-		<Category>Notebooks</Category>
-		<InStock>19</InStock>
-		<Image>Images\RenanaNotebook.jpeg</Image>
-		<Description>Hand crafted A5 notebook, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>111111</ID>
-		<Name>Chasdey Hashem Print</Name>
-		<Price>80</Price>
-		<Category>Prints</Category>
-		<InStock>1</InStock>
-		<Image>Images\c-hprint.jpg</Image>
-		<Description>High quality A4 print, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>676767</ID>
-		<Name>Dr Suess Notebook</Name>
-		<Price>56</Price>
-		<Category>Notebooks</Category>
-		<InStock>49</InStock>
-		<Image>Images\DrSuessNotebook.jpeg</Image>
-		<Description>Hand crafted A5 notebook, designed by Tzipora </Description>
-	</product>
-	<product>
-		<ID>555222</ID>
-		<Name>Hanetzach Hazeh Sweatshirt</Name>
-		<Price>100</Price>
-		<Category>Apparel</Category>
-		<InStock>56</InStock>
-		<Image>\Images\image0.jpeg</Image>
-		<Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>888888</ID>
-		<Name>Aluf Haolam Sweatshirt</Name>
-		<Price>120</Price>
-		<Category>Apparel</Category>
-		<InStock>32</InStock>
-		<Image>\Images\image1.jpeg</Image>
-		<Description>A quality cotton sweatshirt, one size only, designed by Tzipora </Description>
-	</product>
-	<product>
-		<ID>123111</ID>
-		<Name>Efes Ma'amatz Sweatshirt</Name>
-		<Price>100</Price>
-		<Category>Apparel</Category>
-		<InStock>27</InStock>
-		<Image>\Images\image2.jpeg</Image>
-		<Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>555666</ID>
-		<Name>Aluf Haolam Notebook</Name>
-		<Price>70</Price>
-		<Category>Notebooks</Category>
-		<InStock>41</InStock>
-		<Image>Images\AlufNotebook.jpeg</Image>
-		<Description>Hand crafted A5 Notebook, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>123456</ID>
-		<Name>If You Go Print</Name>
-		<Price>49</Price>
-		<Category>Prints</Category>
-		<InStock>49</InStock>
-		<Image>Images\image4.jpeg</Image>
-		<Description>High quality A4 print, designed by Tzipora</Description>
-	</product>
-	<product>
-		<ID>345345</ID>
-		<Name>Aluf Haolam Mug</Name>
-		<Price>45</Price>
-		<Category>Mugs</Category>
-		<InStock>28</InStock>
-		<Image>Images\AlufMug.jpeg</Image>
-		<Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
-	</product>
+  <product>
+    <ID>242424</ID>
+    <Name>Tabs Print</Name>
+    <Price>34</Price>
+    <Category>Prints</Category>
+    <InStock>22</InStock>
+    <Image>Images\tubsPrint.jpg</Image>
+    <Description>A4 high quality print, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>456456</ID>
+    <Name>Too Many Tabs Mug</Name>
+    <Price>49</Price>
+    <Category>Mugs</Category>
+    <InStock>51</InStock>
+    <Image>Images\TubsMug.jpeg</Image>
+    <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>787878</ID>
+    <Name>Hanetzach Hazeh Notebook</Name>
+    <Price>45</Price>
+    <Category>Notebooks</Category>
+    <InStock>10</InStock>
+    <Image>Images\EviatarNotebook.jpeg</Image>
+    <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>343434</ID>
+    <Name>Renana Notebook</Name>
+    <Price>45</Price>
+    <Category>Notebooks</Category>
+    <InStock>19</InStock>
+    <Image>Images\RenanaNotebook.jpeg</Image>
+    <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>555222</ID>
+    <Name>Hanetzach Hazeh Sweatshirt</Name>
+    <Price>100</Price>
+    <Category>Apparel</Category>
+    <InStock>56</InStock>
+    <Image>\Images\image0.jpeg</Image>
+    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>888888</ID>
+    <Name>Aluf Haolam Sweatshirt</Name>
+    <Price>120</Price>
+    <Category>Apparel</Category>
+    <InStock>32</InStock>
+    <Image>\Images\image1.jpeg</Image>
+    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora </Description>
+  </product>
+  <product>
+    <ID>123111</ID>
+    <Name>Efes Ma'amatz Sweatshirt</Name>
+    <Price>100</Price>
+    <Category>Apparel</Category>
+    <InStock>27</InStock>
+    <Image>\Images\image2.jpeg</Image>
+    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>555666</ID>
+    <Name>Aluf Haolam Notebook</Name>
+    <Price>70</Price>
+    <Category>Notebooks</Category>
+    <InStock>41</InStock>
+    <Image>Images\AlufNotebook.jpeg</Image>
+    <Description>Hand crafted A5 Notebook, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>345345</ID>
+    <Name>Aluf Haolam Mug</Name>
+    <Price>45</Price>
+    <Category>Mugs</Category>
+    <InStock>28</InStock>
+    <Image>Images\AlufMug.jpeg</Image>
+    <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>676767</ID>
+    <Name>Dr Suess Notebook</Name>
+    <Price>56</Price>
+    <Category>Notebooks</Category>
+    <InStock>49</InStock>
+    <Image>Images\DrSuessNotebook.jpeg</Image>
+    <Description>Hand crafted A5 notebook, designed by Tzipora </Description>
+  </product>
+  <product>
+    <ID>123456</ID>
+    <Name>If You Go Print</Name>
+    <Price>49</Price>
+    <Category>Prints</Category>
+    <InStock>49</InStock>
+    <Image>Images\image4.jpeg</Image>
+    <Description>High quality A4 print, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>111111</ID>
+    <Name>Chasdey Hashem Print</Name>
+    <Price>89</Price>
+    <Category>Prints</Category>
+    <InStock>1</InStock>
+    <Image>Images\c-hprint.jpg</Image>
+    <Description>High quality A4 print, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>1234567</ID>
+    <Name>AAAA</Name>
+    <Price>22</Price>
+    <Category>Stickers</Category>
+    <InStock>12</InStock>
+    <Image>as</Image>
+    <Description>asdf</Description>
+  </product>
 </ArrayOfProduct>

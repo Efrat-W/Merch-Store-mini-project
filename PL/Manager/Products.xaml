@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="CategorySelector" ItemsSource="{Binding Categories}" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="192,2,57,12" VerticalContentAlignment="Center" BorderBrush="White" >
+            <ComboBox x:Name="CategorySelector" SelectedItem="{Binding selectedCategory}" ItemsSource="{Binding Categories}" Grid.Column="1" FontFamily="{StaticResource JosefinSansRegular}" SelectionChanged="CategorySelector_SelectionChanged" Margin="192,2,57,12" VerticalContentAlignment="Center" BorderBrush="White" >
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>

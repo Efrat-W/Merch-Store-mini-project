@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -23,15 +24,15 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public IEnumerable<BO.ProductForList> ProductsDP
+        public ObservableCollection<BO.ProductForList> ProductsDP
         {
-            get { return (IEnumerable<BO.ProductForList>)GetValue(ProductsDPProperty); }
+            get { return (ObservableCollection<BO.ProductForList>)GetValue(ProductsDPProperty); }
             set { SetValue(ProductsDPProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Products.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProductsDPProperty =
-            DependencyProperty.Register("Products", typeof(IEnumerable<BO.ProductForList>), typeof(Products));
+            DependencyProperty.Register("Products", typeof(ObservableCollection<BO.ProductForList>), typeof(Products));
 
      
         public Array Categories
@@ -43,10 +44,23 @@ namespace PL.Manager
         public static readonly DependencyProperty CategoriesProperty =
             DependencyProperty.Register("Categories", typeof(Array), typeof(Products));
 
+
+
+        public BO.category? selectedCategory
+        {
+            get { return (BO.category?)GetValue(selectedCategoryProperty); }
+            set { SetValue(selectedCategoryProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for selectedCategory.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty selectedCategoryProperty =
+            DependencyProperty.Register("selectedCategory", typeof(BO.category?), typeof(Products));
+
+
         public Products(BlApi.IBl? bl1)
         {
             bl = bl1;
-            ProductsDP = bl!.Product.RequestList().Select(i => i);
+            ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             Categories = Enum.GetValues(typeof(BO.category));
 
             InitializeComponent();
@@ -54,42 +68,42 @@ namespace PL.Manager
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategorySelector.SelectedItem == null)
-                ProductsListView.ItemsSource = bl!.Product.RequestList();
+            ProductsDP.Clear();
+            if (selectedCategory != null)
+            {
+                List<BO.ProductForList> list = bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList();
+                foreach (var item in list)
+                    ProductsDP.Add(item);
+            }
             else
             {
-                BO.category sortBy = (BO.category)CategorySelector.SelectedItem;
-                ProductsListView.ItemsSource = bl!.Product.RequestListByCond(i => i.Category == sortBy);
+                List<BO.ProductForList> list = bl!.Product.RequestList().ToList();
+                foreach (var item in list)
+                    ProductsDP.Add(item);
             }
-            //if (CategorySelector.SelectedItem != null)
-            //{
-            //    ProductsDP.GroupBy(category => category.Name).Where(category => category == CategorySelector.SelectedItem).Select(i => i.Key);
-            //}
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e) {
             new Product().ShowDialog();
-            if (CategorySelector.SelectedItem == null)
-                ProductsListView.ItemsSource = bl!.Product.RequestList();
+            if (selectedCategory == null)
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
             else
-                ProductsListView.ItemsSource = bl!.Product.RequestListByCond(i => i.Category == (BO.category)CategorySelector.SelectedItem);
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList());
         }
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ProductsListView.SelectedItem == null) return;
-            int id = ((ProductForList)ProductsListView.SelectedItem).ID;
-            new Product(id).ShowDialog();
-            if (CategorySelector.SelectedItem == null)
-                ProductsListView.ItemsSource = bl!.Product.RequestList();
+            if (ProductsListView.SelectedItem != null)
+                new Product(((ProductForList)ProductsListView.SelectedItem).ID).ShowDialog();
+            if (selectedCategory == null)
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
             else
-                ProductsListView.ItemsSource = bl!.Product.RequestListByCond(i => i.Category == (BO.category)CategorySelector.SelectedItem);
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CategorySelector.SelectedItem = null;
-            ProductsListView.ItemsSource = bl!.Product.RequestList();
+            selectedCategory = null;
         }
     }
 

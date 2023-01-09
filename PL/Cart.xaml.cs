@@ -72,6 +72,8 @@ public partial class Cart : Page
         try
         {
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
+            //this.;
+            //item.Amount++;
         }
         catch (Exception ex)
         {

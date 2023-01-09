@@ -20,30 +20,36 @@ namespace PL.Manager
     public partial class Order : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        BO.Order Ord;
+
+
+        public BO.Order Ord
+        {
+            get { return (BO.Order)GetValue(OrdProperty); }
+            set { SetValue(OrdProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Ord.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OrdProperty =
+            DependencyProperty.Register("Ord", typeof(BO.Order), typeof(Order));
+
+
+        public Array categories
+        {
+            get { return (Array)GetValue(categoriesProperty); }
+            set { SetValue(categoriesProperty, value); }
+        }
+
+
+        // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty categoriesProperty =
+            DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
+
+
         public Order(int id)
         {
-            InitializeComponent();
-            StatusCB.ItemsSource = Enum.GetValues(typeof(BO.orderStatus));
 
             Ord = bl.Order.RequestById(id);
-            //MainGrid.DataContext = Ord;
-            //ItemsList.ItemsSource= Ord.Items;
-
-            if (Ord.ShipDate == null)
-            {
-                ShipCB.Opacity = 1;
-                ShipDateLb.Opacity = 0;
-            }
-            else
-                ShipDate.Content = Ord.ShipDate.ToString();
-            if (Ord.DeliveryDate == null)
-            {
-                DeliveryCB.Opacity = 1;
-                DeliveryDateLb.Opacity = 0;
-            }
-            else
-                DeliveryDate.Content = Ord.DeliveryDate.ToString();
+            InitializeComponent();
         }
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
@@ -59,6 +65,7 @@ namespace PL.Manager
                 {
                     MessageBox.Show("Cannot update delivery before commencing shipment.");
                 }
+            this.Close();
         }
 
     }

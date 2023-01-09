@@ -37,6 +37,15 @@
     <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
   </product>
   <product>
+    <ID>111111</ID>
+    <Name>Chasdey Hashem Print</Name>
+    <Price>80</Price>
+    <Category>Prints</Category>
+    <InStock>1</InStock>
+    <Image>Images\c-hprint.jpg</Image>
+    <Description>High quality A4 print, designed by Tzipora</Description>
+  </product>
+  <product>
     <ID>555222</ID>
     <Name>Hanetzach Hazeh Sweatshirt</Name>
     <Price>100</Price>
@@ -73,6 +82,15 @@
     <Description>Hand crafted A5 Notebook, designed by Tzipora</Description>
   </product>
   <product>
+    <ID>123456</ID>
+    <Name>If You Go Print</Name>
+    <Price>49</Price>
+    <Category>Prints</Category>
+    <InStock>49</InStock>
+    <Image>Images\image4.jpeg</Image>
+    <Description>High quality A4 print, designed by Tzipora</Description>
+  </product>
+  <product>
     <ID>345345</ID>
     <Name>Aluf Haolam Mug</Name>
     <Price>45</Price>
@@ -86,35 +104,8 @@
     <Name>Dr Suess Notebook</Name>
     <Price>56</Price>
     <Category>Notebooks</Category>
-    <InStock>49</InStock>
+    <InStock>47</InStock>
     <Image>Images\DrSuessNotebook.jpeg</Image>
     <Description>Hand crafted A5 notebook, designed by Tzipora </Description>
-  </product>
-  <product>
-    <ID>123456</ID>
-    <Name>If You Go Print</Name>
-    <Price>49</Price>
-    <Category>Prints</Category>
-    <InStock>49</InStock>
-    <Image>Images\image4.jpeg</Image>
-    <Description>High quality A4 print, designed by Tzipora</Description>
-  </product>
-  <product>
-    <ID>111111</ID>
-    <Name>Chasdey Hashem Print</Name>
-    <Price>89</Price>
-    <Category>Prints</Category>
-    <InStock>1</InStock>
-    <Image>Images\c-hprint.jpg</Image>
-    <Description>High quality A4 print, designed by Tzipora</Description>
-  </product>
-  <product>
-    <ID>1234567</ID>
-    <Name>AAAA</Name>
-    <Price>22</Price>
-    <Category>Stickers</Category>
-    <InStock>12</InStock>
-    <Image>as</Image>
-    <Description>asdf</Description>
   </product>
 </ArrayOfProduct>

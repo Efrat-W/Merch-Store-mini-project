@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
+        xmlns:converter="clr-namespace:PL.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="515" Width="800">
     <Window.Resources>
-        <local:BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter"/>
+        <!--<converter:FrameVisibilityConverter x:Key="FrameVisibilityConverter" />-->
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid Name="MainGrid" Height="NaN" Width="NaN" Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
@@ -25,11 +26,13 @@
         </Grid.RowDefinitions>
         <Grid Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="535" Margin="0,-16,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="805">
             <Frame  x:Name="MainFrame" Margin="0,55,3,25"  NavigationUIVisibility="Hidden"  />
-            <Frame  x:Name="MenuFrame" Margin="675,66,5,319"  NavigationUIVisibility="Hidden" Background="Black" Opacity="0" Height="150" MouseLeave="MenuFrame_MouseLeave"/>
+            <Frame  x:Name="MenuFrame" Margin="675,66,5,319"  NavigationUIVisibility="Hidden" Background="Black" Height="150"  
+                Visibility="{Binding IsChecked, ElementName=MenuBtn, Converter={StaticResource BooleanToVisibilityConverter}}" IsHitTestVisible="{Binding IsChecked, ElementName=CartBtn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <Rectangle HorizontalAlignment="Center" Height="50" Stroke="Black" VerticalAlignment="Top" Width="805" Fill="Black" Margin="0,16,0,0"/>
-            <Frame x:Name="CartFrame"  NavigationUIVisibility="Hidden" IsHitTestVisible="False"  Margin="0,71,440,25"  Background="White" Opacity="0" Width="365" MouseLeave="CartFrame_MouseLeave"/>
-            <Button x:Name="Cart" Content="🛒" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" UseLayoutRounding="False" Click="Cart_Click"/>
-            <Button x:Name="MenuBtn" Content="≡" HorizontalAlignment="Left" Margin="713,21,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30"  UseLayoutRounding="False" MouseEnter="MenuBtn_MouseEnter" />
+            <Frame x:Name="CartFrame"  NavigationUIVisibility="Hidden" Margin="0,71,440,25"  Background="White" Width="365"  
+                Visibility="{Binding IsChecked, ElementName=CartBtn, Converter={StaticResource BooleanToVisibilityConverter}}" IsHitTestVisible="{Binding IsChecked, ElementName=CartBtn, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <ToggleButton x:Name="CartBtn" Content="🛒" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30" UseLayoutRounding="False" Click="Cart_Click"/>
+            <ToggleButton x:Name="MenuBtn" Content="≡" HorizontalAlignment="Left" Margin="713,21,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Segoe UI Symbol" Foreground="#FFFCFCFC" Height="39" Width="74" FontSize="30"  UseLayoutRounding="False" Click="MenuBtn_Click" />
             
 
         </Grid>

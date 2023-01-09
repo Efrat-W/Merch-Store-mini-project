@@ -26,7 +26,7 @@ namespace PL;
 public partial class Cart : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-
+    ICollectionView collectionView;
     public BO.Cart cart
     {
         get { return (BO.Cart)GetValue(cartProperty); }
@@ -50,6 +50,7 @@ public partial class Cart : Page
     public Cart(BO.Cart cart1)
     {
         cart = cart1;
+        collectionView=CollectionViewSource.GetDefaultView(cart.Items);
         InitializeComponent();
     }
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -72,8 +73,7 @@ public partial class Cart : Page
         try
         {
             cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
-            //this.;
-            //item.Amount++;
+            collectionView.Refresh();
         }
         catch (Exception ex)
         {
@@ -91,6 +91,7 @@ public partial class Cart : Page
         {
             MessageBox.Show(ex.Message);
         }
+        collectionView.Refresh();
     }
     private void RemoveBtn_Click(object sender, RoutedEventArgs e)
     {
@@ -103,5 +104,6 @@ public partial class Cart : Page
         {
             MessageBox.Show(ex.Message);
         }
+        collectionView.Refresh();
     }
 }

@@ -79,13 +79,6 @@ namespace PL.Manager
 
         private void Toggle()
         {
-            //if (Login.Visibility == Visibility.Hidden)
-            //{
-            //    LoggedIn.Visibility = Visibility.Hidden;
-            //    Login.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
                 Login.Visibility = Visibility.Hidden;
                 LoggedIn.Visibility = Visibility.Visible;
             

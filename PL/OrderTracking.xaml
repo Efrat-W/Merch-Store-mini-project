@@ -11,6 +11,7 @@
     <Page.Resources>
         <converter:OrderStatusToBooleanShipConverter x:Key="OrderStatusShipConverter"/>
         <converter:OrderStatusToBooleanDelConverter x:Key="OrderStatusDelConverter"/>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style x:Key="ShipButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Style.Triggers>
@@ -59,15 +60,15 @@
             <Label Style="{StaticResource BlackLabel}" Content="Please enter your order's id:" Margin="312,175,312,250" />
             <TextBox x:Name="IdTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="26" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
 
-            <Button Style="{StaticResource BlackButton}" Content="Track"  Width="65" VerticalContentAlignment="Center" Click="TrackBtn_Click" Margin="368,250,368,175">
-                <Button.Resources>
+            <ToggleButton x:Name="trackBtn"  Background="Black" Foreground="White" FontFamily="{StaticResource JosefinSansBold}" Content="Track"  Width="65" VerticalContentAlignment="Center" Click="TrackBtn_Click" Margin="368,250,368,175" BorderBrush="{x:Null}">
+                <ToggleButton.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="9"/>
                     </Style>
-                </Button.Resources>
-            </Button>
+                </ToggleButton.Resources>
+            </ToggleButton>
         </Grid>
-        <Grid x:Name="Tracking" DataContext="{Binding track}"  Background="White" Margin="0,0,0,0" Visibility="Hidden">
+        <Grid x:Name="Tracking" DataContext="{Binding track}"  Background="White" Margin="0,0,0,0" Visibility="{Binding IsChecked, ElementName=trackBtn, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Label Margin="320,50,400,375" Style="{StaticResource BlackLabel}" Content="Order ID:"  FontFamily="{StaticResource JosefinSansBold}" />
             <Label Margin="395,50,350,375"  Style="{StaticResource BlackLabel}" Content="{Binding ID}" FontFamily="{StaticResource JosefinSansBold}"/>
 

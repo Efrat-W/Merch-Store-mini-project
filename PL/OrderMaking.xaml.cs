@@ -41,9 +41,6 @@ namespace PL.OrderProcess
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            cart.CustomerName=NameTB.Text;
-            cart.CustomerEmail= EmailTB.Text;
-            cart.CustomerAddress = AdressTB.Text;
             BO.Order order = new();
             try
             {

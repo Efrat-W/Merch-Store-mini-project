@@ -36,11 +36,11 @@
         <Rectangle HorizontalAlignment="Center" Height="450" Fill="#FFFFF000" VerticalAlignment="Top" Width="200" Grid.RowSpan="3"/>
         <StackPanel Margin="32,110,25,110" Grid.RowSpan="3" >
             <Label Style="{StaticResource BlackLabel}" Content="Your name:"/>
-            <TextBox x:Name="NameTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+            <TextBox x:Name="NameTB" Text="{Binding CustomerName}" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
             <Label Style="{StaticResource BlackLabel}" Content="Your email address:"/>
-            <TextBox x:Name="EmailTB" InputScope="EmailSmtpAddress" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+            <TextBox x:Name="EmailTB" Text="{Binding CustomerEmail}" InputScope="EmailSmtpAddress" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
             <Label Style="{StaticResource BlackLabel}" Content="Your address:"/>
-            <TextBox x:Name="AdressTB"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
+            <TextBox x:Name="AdressTB" Text="{Binding CustomerAddress}"  Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  VerticalContentAlignment="Center"/>
             <Label Style="{StaticResource BlackLabel}" Content="Your Credit card:"/>
             <TextBox x:Name="CreditTB" InputScope="Number" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
 

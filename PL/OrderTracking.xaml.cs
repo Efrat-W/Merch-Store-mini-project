@@ -50,8 +50,6 @@ public partial class OrderTracking : Page
             MessageBox.Show(ex.Message);
             return;
         }
-        SignIn.Visibility = Visibility.Collapsed;
-        Tracking.Visibility = Visibility.Visible;
     }
 
     private void DetailsBtn_Click(object sender, RoutedEventArgs e)

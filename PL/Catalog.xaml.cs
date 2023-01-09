@@ -141,18 +141,7 @@ public partial class Catalog : Page
         }
 
         InitializeComponent();
-        //Products = from ListProd in bl.Product.RequestListByCond(i => i.Category == cat)
-        //           select new BO.ProductItem()
-        //{
-        //    ID = ListProd.ID,
-        //    Name = ListProd.Name,
-        //    Description = ListProd.Description,
-        //    Image = ListProd.Image,
-        //    Price = ListProd.Price,
-        //    Category = ListProd.Category,
-        //    InStock = true,
-        //    Amount = 0
-        //};
+      
         
 
     }

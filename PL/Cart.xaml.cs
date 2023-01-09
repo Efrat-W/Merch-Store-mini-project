@@ -72,7 +72,7 @@ public partial class Cart : Page
         item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
-            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 1);
+            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 1);
             collectionView.Refresh();
         }
         catch (Exception ex)
@@ -85,7 +85,7 @@ public partial class Cart : Page
         item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
-            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, -1);
+            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, -1);
         }
         catch (Exception ex)
         {
@@ -98,7 +98,7 @@ public partial class Cart : Page
         item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
-            cart = bl.Cart.UpdateProductAmount(cart, item.ProductId, 0);
+            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 0);
         }
         catch (Exception ex)
         {

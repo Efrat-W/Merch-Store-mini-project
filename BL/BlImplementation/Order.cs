@@ -6,13 +6,30 @@ internal class Order : BlApi.IOrder
 {
     DalApi.IDal? dal = DalApi.Factory.Get();
 
+    public IEnumerable<BO.OrderForList> RequestOrdersByGroup(orderStatus? key)
+    {
+        var orderGroupsByStatus = from ord in RequestOrders()
+                                  group ord by ord.Status into statusGroup
+                                  select statusGroup;
+        List<BO.OrderForList> ls = new();
+        foreach (var statusGroup in orderGroupsByStatus)
+        {
+            if (statusGroup.Key == key)
+                foreach (var item in statusGroup)
+                {
+                    ls.Add(item);
+                }
+        }
+        return ls;
+    }
+
     /// <summary>
     /// returns list of orders
     /// </summary>
     /// <returns></returns>
     public IEnumerable<BO.OrderForList> RequestOrders()
     {
-        IEnumerable<DO.Order?> orders = dal.Order.RequestAll();
+        IEnumerable<DO.Order?> orders = dal!.Order.RequestAll();
         IEnumerable<OrderForList> orderlist = orders.Select(OrderToOrderForList);//converts to order for list
         return orderlist;
     }
@@ -32,7 +49,7 @@ internal class Order : BlApi.IOrder
             Status = orderStatus.Shipped;
         else
             Status=orderStatus.Approved;
-        IEnumerable<DO.OrderItem?> orderItems=dal.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new EntityNotFoundException());//collects all items of this order
+        IEnumerable<DO.OrderItem?> orderItems=dal!.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new EntityNotFoundException());//collects all items of this order
         int amount =orderItems.Sum(item=>item?.Amount ?? throw new EntityNotFoundException());
         double totalPrice = orderItems.Sum(item => item?.Price ?? throw new EntityNotFoundException());
         return new OrderForList() { 
@@ -55,7 +72,7 @@ internal class Order : BlApi.IOrder
            throw new InvalidArgumentException("Requested id is out of range.\n");
         DO.Order? ord;
         try
-        { ord = dal.Order.RequestById(id); }
+        { ord = dal!.Order.RequestById(id); }
         catch (DO.MissingEntityException ex) { throw new EntityNotFoundException("Requested Order not found.", ex); }
         //innitializes order status:
         orderStatus Status;
@@ -100,7 +117,7 @@ internal class Order : BlApi.IOrder
         string name;
         try
         {
-            name = dal.Product.RequestById(item?.ProductID ?? throw new EntityNotFoundException()).Name!;//finds name
+            name = dal!.Product.RequestById(item?.ProductID ?? throw new EntityNotFoundException()).Name!; //finds name
         }
         catch (DO.MissingEntityException ex) { throw new InvalidArgumentException("Requested Product not found.", ex); }
         return new BO.OrderItem()
@@ -125,7 +142,7 @@ internal class Order : BlApi.IOrder
         DO.Order ord;
         try
         {
-            ord = dal.Order.RequestById(id);
+            ord = dal!.Order.RequestById(id);
         }
         catch (DO.MissingEntityException ex) { throw new InvalidArgumentException("Order to update delivery not found.", ex); }
         //updates status and ship date
@@ -166,7 +183,7 @@ internal class Order : BlApi.IOrder
         DO.Order ord;
         try
         {
-            ord = dal.Order.RequestById(id);
+            ord = dal!.Order.RequestById(id);
         }
         catch (Exception ex) { throw new InvalidArgumentException("Requested Order to update delivery not found.", ex); }
         //updates status and delivery date
@@ -206,7 +223,7 @@ internal class Order : BlApi.IOrder
         DO.Order? ord;
         try
         {
-            ord = dal.Order.RequestById(id);
+            ord = dal!.Order.RequestById(id);
         }
         catch (DO.MissingEntityException ex) { throw new EntityNotFoundException("Order requested to track not found.", ex); }
         List<Tuple<DateTime?, string>>? tuples = new();

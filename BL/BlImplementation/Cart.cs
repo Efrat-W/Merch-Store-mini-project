@@ -141,7 +141,7 @@ internal class Cart : ICart
         {
             throw new InvalidArgumentException("One or more attributes of the cart order are invalid.\n");
         }
-        BO.Order order = new BO.Order()//creates order
+        BO.Order order = new ()//creates order
         {
             Items = cart.Items,
             CustomerAddress = cart.CustomerAddress,

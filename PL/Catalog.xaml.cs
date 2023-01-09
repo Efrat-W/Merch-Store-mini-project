@@ -95,7 +95,7 @@ public partial class Catalog : Page
         {
             foreach (var item in categoryGroup)
             {
-                Products = Products.Append((BO.ProductItem)item);
+                Products = Products.Append(item);
             }
         }
 
@@ -134,28 +134,25 @@ public partial class Catalog : Page
             {
                 foreach (var item in categoryGroup)
                 {
-                    Products = Products.Append((BO.ProductItem)item);
+                    Products = Products.Append(item);
                 }
             }
         }
 
         InitializeComponent();
-      
-        
-
     }
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
-        if (CategorySelector.SelectedItem != null) {
+        if (category != null) {
             Products = new List<ProductItem>();
             foreach (var categoryGroup in ProductsGroupedByCategory)
             {
-                if (categoryGroup.Key == (BO.category)CategorySelector.SelectedItem)
+                if (categoryGroup.Key == category)
                 {
                     foreach (var item in categoryGroup)
                     {
-                        Products = Products.Append((BO.ProductItem)item);
+                        Products = Products.Append(item);
                     }
                 }
             }

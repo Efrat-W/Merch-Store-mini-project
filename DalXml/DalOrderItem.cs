@@ -9,8 +9,8 @@ using System.Xml.Linq;
 
 internal class DalOrderItem : IOrderItem
 {
-    string path = "orderItems.xml";
-    string configPath = "config.xml";
+    string path = "../xml/orderItems.xml";
+    string configPath = "../xml/config.xml";
 
     /// <summary>
     /// adds the order item to the list of order items

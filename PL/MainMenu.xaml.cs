@@ -34,7 +34,7 @@ namespace PL
         
         private void Manager_Click(object sender, RoutedEventArgs e)
         {
-            ManagerLogin manager=new();
+            ManagerLogin manager = new();
             manager.Show();
         }
 

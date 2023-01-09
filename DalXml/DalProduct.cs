@@ -7,9 +7,9 @@ using System.Xml.Linq;
 
 internal class DalProduct : IProduct
 {
-    public static string dir = @"xml\";
-    string path = "products.xml";
-    string configPath = "config.xml";
+    //public static string dir = @"xml\";
+    string path = "../xml/products.xml";
+    string configPath = "../xml/config.xml";
     XElement productsRoot;
     public DalProduct()
     {

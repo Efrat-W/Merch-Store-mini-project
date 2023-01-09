@@ -8,8 +8,8 @@ using System.Xml.Linq;
 namespace Dal;
 internal class DalOrder : IOrder
 {
-    string path = "orders.xml";
-    string configPath = "config.xml";
+    string path = "../xml/orders.xml";
+    string configPath = "../xml/config.xml";
     /// <summary>
     /// adds the order to the list of orders
     /// </summary>

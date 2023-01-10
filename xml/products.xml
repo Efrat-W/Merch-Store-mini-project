@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <product>
-    <ID>242424</ID>
-    <Name>Tabs Print</Name>
-    <Price>34</Price>
-    <Category>Prints</Category>
-    <InStock>22</InStock>
-    <Image>Images\tubsPrint.jpg</Image>
-    <Description>A4 high quality print, designed by Tzipora</Description>
-  </product>
-  <product>
     <ID>456456</ID>
     <Name>Too Many Tabs Mug</Name>
     <Price>49</Price>
@@ -102,10 +93,19 @@
   <product>
     <ID>676767</ID>
     <Name>Dr Suess Notebook</Name>
-    <Price>56</Price>
+    <Price>59</Price>
     <Category>Notebooks</Category>
     <InStock>47</InStock>
     <Image>Images\DrSuessNotebook.jpeg</Image>
     <Description>Hand crafted A5 notebook, designed by Tzipora </Description>
+  </product>
+  <product>
+    <ID>242424</ID>
+    <Name>Tabs Print</Name>
+    <Price>39</Price>
+    <Category>Prints</Category>
+    <InStock>22</InStock>
+    <Image>Images\tubsPrint.jpg</Image>
+    <Description>A4 high quality print, designed by Tzipora</Description>
   </product>
 </ArrayOfProduct>

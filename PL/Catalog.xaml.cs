@@ -173,6 +173,10 @@ public partial class Catalog : Page
                        InStock = true,
                        Amount = 0
                    };
+        CollectionViewProductItemList = CollectionViewSource.GetDefaultView(Products);
+
+        propertyGroupDescription = new PropertyGroupDescription(groupName);
+        CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
         CollectionViewProductItemList.GroupDescriptions.Clear();
     }
 

@@ -24,10 +24,6 @@ namespace PL.Manager
     public partial class Product : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-
-        
-
-
         public string CommandBtnDP
         {
             get { return (string)GetValue(CommandBtnDPProperty); }
@@ -51,6 +47,7 @@ namespace PL.Manager
             DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
 
 
+        //update window
 
         public Product(int id)
         {
@@ -59,6 +56,8 @@ namespace PL.Manager
             CommandBtnDP = "Update";
             InitializeComponent();
         }
+
+        //add window
         public Product()
         {
             categories = Enum.GetValues(typeof(BO.category));
@@ -77,6 +76,8 @@ namespace PL.Manager
         public static readonly DependencyProperty productProperty =
             DependencyProperty.Register("product", typeof(BO.Product), typeof(Product));
 
+
+
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -84,12 +85,12 @@ namespace PL.Manager
                 if (CommandBtnDP == "Add")
                 {
                     bl?.Product.Add(product);
-                    MessageBox.Show($"{product.Name} was added successfully.");
+                    MessageBox.Show($"{product.Name} was added successfully to the system.");
                 }
                 else // "Update"
                 {
                     bl?.Product.Update(product);
-                    MessageBox.Show($"{product.Name} was updated successfully.");
+                    MessageBox.Show($"{product.Name} was updated successfully to the system.");
                 }
                 Close();
             }
@@ -114,48 +115,46 @@ namespace PL.Manager
 
         private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
         {
+            var tb = ((TextBox)sender);
             //restrict size of input
-            if ((!(IdTB.Text.Length == 0) && int.Parse(IdTB.Text) > int.MaxValue / 10) || (!(InStockTB.Text.Length == 0) && int.Parse(InStockTB.Text) > int.MaxValue / 10))
+            if ((!(tb.Text.Length == 0) && int.Parse(tb.Text) > int.MaxValue / 10))
             {
                 e.Handled = true;
                 return;
             }
-            if (!(InStockTB.Text.Length == 0) && int.Parse(InStockTB.Text) > int.MaxValue / 10)
-            {
-                e.Handled = true;
-                return;
-            }
+            
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
 
         private void PreviewTextInputDecimal(object sender, TextCompositionEventArgs e)
         {
+            var tb = ((TextBox)sender);
             //restrict size of input
-            if (PriceTB.Text.Length > 8)
-                PriceTB.Text = PriceTB.Text.Substring(0, 8);
+            if (tb.Text.Length > 8)
+                tb.Text = tb.Text.Substring(0, 8);
 
             //append '0.' whenever user inputs a dot at the start
-            if (e.Text.Contains('.') && string.IsNullOrWhiteSpace(PriceTB.Text))
+            if (e.Text.Contains('.') && string.IsNullOrWhiteSpace(tb.Text))
             {
-                PriceTB.Text = "0.";
+                tb.Text = "0.";
                 e.Handled = true;
                 return;
             }
 
             //regex restriction of invalid chars in event, and unnecessary '.'
             Regex regex = new("[^0-9.]+");
-            e.Handled = (e.Text.Contains('.') && PriceTB.Text.Contains('.')) ? true : e.Handled = regex.IsMatch(e.Text);
+            e.Handled = (e.Text.Contains('.') && tb.Text.Contains('.')) ? true : e.Handled = regex.IsMatch(e.Text);
 
             //restriction of 2 digits after the dot.
-            int index = PriceTB.Text.IndexOf('.');
-            if (index != -1 && PriceTB.Text.Substring(index).Length > 2)
+            int index = tb.Text.IndexOf('.');
+            if (index != -1 && tb.Text.Substring(index).Length > 2)
             {
                 e.Handled = true;
-                string s = PriceTB.Text.Substring(0, index);
+                string s = tb.Text.Substring(0, index);
                 s += ".";
-                s += PriceTB.Text.Substring(index + 1, 2);
-                PriceTB.Text = s;
+                s += tb.Text.Substring(index + 1, 2);
+                tb.Text = s;
             }
         }
 

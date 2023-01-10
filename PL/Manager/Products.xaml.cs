@@ -1,7 +1,10 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -23,7 +26,7 @@ namespace PL.Manager
     public partial class Products : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-
+        ICollectionView ProductsCollectionView;
         public ObservableCollection<BO.ProductForList> ProductsDP
         {
             get { return (ObservableCollection<BO.ProductForList>)GetValue(ProductsDPProperty); }
@@ -62,7 +65,7 @@ namespace PL.Manager
             bl = bl1;
             ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             Categories = Enum.GetValues(typeof(BO.category));
-
+            ProductsCollectionView = CollectionViewSource.GetDefaultView(ProductsDP);
             InitializeComponent();
         }
 
@@ -81,24 +84,28 @@ namespace PL.Manager
                 foreach (var item in list)
                     ProductsDP.Add(item);
             }
+            ProductsCollectionView.Refresh();
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e) {
-            new Product().ShowDialog();
+            new Product().Show();
             if (selectedCategory == null)
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
             else
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList());
+            ProductsCollectionView.Refresh();
         }
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+
             if (ProductsListView.SelectedItem != null)
-                new Product(((ProductForList)ProductsListView.SelectedItem).ID).ShowDialog();
+                new Product(id: ((ProductForList)ProductsListView.SelectedItem).ID).Show();
             if (selectedCategory == null)
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
             else
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList());
+            ProductsCollectionView.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

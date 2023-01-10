@@ -159,6 +159,8 @@ internal class Product : BlApi.IProduct
     /// <returns></returns>
     public IEnumerable<ProductForList> RequestListByCond(Func<ProductForList, bool>? func = null)
     {
+        if (func == null)
+            return RequestList();
         return RequestList().Where(func!);
     }
 

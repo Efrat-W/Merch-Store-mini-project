@@ -26,19 +26,25 @@ namespace PL.Manager
     public partial class Products : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        ICollectionView ProductsCollectionView;
+        //ICollectionView ProductsCollectionView;
         public ObservableCollection<BO.ProductForList> ProductsDP
         {
-            get { return (ObservableCollection<BO.ProductForList>)GetValue(ProductsDPProperty); }
-            set { SetValue(ProductsDPProperty, value); }
+            get
+            {
+                return (ObservableCollection<BO.ProductForList>)GetValue(ProductsDPProperty);
+            }
+            set
+            {
+                SetValue(ProductsDPProperty, value);
+            }
         }
 
         // Using a DependencyProperty as the backing store for Products.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ProductsDPProperty =
-            DependencyProperty.Register("Products", typeof(ObservableCollection<BO.ProductForList>), typeof(Products));
+            DependencyProperty.Register("ProductsDP", typeof(ObservableCollection<BO.ProductForList>), typeof(Products));
 
-     
-        public Array Categories
+
+public Array Categories
         {
             get { return (Array)GetValue(CategoriesProperty); }
             set { SetValue(CategoriesProperty, value); }
@@ -65,7 +71,7 @@ namespace PL.Manager
             bl = bl1;
             ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             Categories = Enum.GetValues(typeof(BO.category));
-            ProductsCollectionView = CollectionViewSource.GetDefaultView(ProductsDP);
+            //ProductsCollectionView = CollectionViewSource.GetDefaultView(ProductsDP);
             InitializeComponent();
         }
 
@@ -84,16 +90,16 @@ namespace PL.Manager
                 foreach (var item in list)
                     ProductsDP.Add(item);
             }
-            ProductsCollectionView.Refresh();
+            //ProductsCollectionView.Refresh();
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e) {
-            new Product().Show();
+            new Product().ShowDialog();
             if (selectedCategory == null)
-                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             else
-                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList());
-            ProductsCollectionView.Refresh();
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory));
+            //ProductsCollectionView.Refresh();
         }
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -102,10 +108,10 @@ namespace PL.Manager
             if (senderLS.SelectedItem != null)
                 new Product(id: ((ProductForList)(senderLS.SelectedItem)).ID).Show();
             if (selectedCategory == null)
-                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             else
-                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory).ToList());
-            ProductsCollectionView.Refresh();
+                ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory));
+            //ProductsCollectionView.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

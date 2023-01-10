@@ -35,23 +35,23 @@ namespace PL.Manager
             DependencyProperty.Register("CommandBtnDP", typeof(string), typeof(Product));
 
 
-        public Array categories
+        public Array categoriesDP
         {
-            get { return (Array)GetValue(categoriesProperty); }
-            set { SetValue(categoriesProperty, value); }
+            get { return (Array)GetValue(categoriesDPProperty); }
+            set { SetValue(categoriesDPProperty, value); }
         }
 
 
         // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty categoriesProperty =
-            DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
+        public static readonly DependencyProperty categoriesDPProperty =
+            DependencyProperty.Register("categoriesDP", typeof(Array), typeof(Catalog));
 
 
         //update window
 
         public Product(int id)
         {
-            categories = Enum.GetValues(typeof(BO.category));
+            categoriesDP = Enum.GetValues(typeof(BO.category));
             product = bl.Product.RequestByIdManager(id);
             CommandBtnDP = "Update";
             InitializeComponent();
@@ -60,7 +60,7 @@ namespace PL.Manager
         //add window
         public Product()
         {
-            categories = Enum.GetValues(typeof(BO.category));
+            categoriesDP = Enum.GetValues(typeof(BO.category));
             product = new BO.Product();
             CommandBtnDP = "Add";
             InitializeComponent();

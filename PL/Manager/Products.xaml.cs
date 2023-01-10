@@ -98,7 +98,6 @@ namespace PL.Manager
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             if (ProductsListView.SelectedItem != null)
                 new Product(id: ((ProductForList)ProductsListView.SelectedItem).ID).Show();
             if (selectedCategory == null)

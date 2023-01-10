@@ -106,7 +106,7 @@ internal class Cart : ICart
         if (amount == 0 || amount * -1 > item.Amount || item.Amount+amount==0)    //removes item
         { 
             cart.Items.Remove(item); 
-            cart.TotalPrice -= item.Price;
+            cart.TotalPrice -= item.TotalPrice;
         }
         else
         {

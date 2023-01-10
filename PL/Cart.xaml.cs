@@ -26,7 +26,6 @@ namespace PL;
 public partial class Cart : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    ICollectionView collectionView;
     public BO.Cart cart
     {
         get { return (BO.Cart)GetValue(cartProperty); }
@@ -50,7 +49,6 @@ public partial class Cart : Page
     public Cart(BO.Cart cart1)
     {
         cart = cart1;
-        collectionView=CollectionViewSource.GetDefaultView(cart.Items);
         InitializeComponent();
     }
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -72,8 +70,9 @@ public partial class Cart : Page
         item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
-            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 1);
-            collectionView.Refresh();
+            BO.Cart temp = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 1);
+            cart = null;
+            cart = temp;
         }
         catch (Exception ex)
         {
@@ -85,25 +84,28 @@ public partial class Cart : Page
         item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
-            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, -1);
+            BO.Cart temp = bl!.Cart.UpdateProductAmount(cart, item.ProductId, -1);
+            cart = null;
+            cart = temp;
         }
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message);
         }
-        collectionView.Refresh();
     }
     private void RemoveBtn_Click(object sender, RoutedEventArgs e)
     {
         item = (BO.OrderItem)((Button)sender).DataContext;
         try
         {
-            cart = bl!.Cart.UpdateProductAmount(cart, item.ProductId, 0);
+            BO.Cart temp = bl!.Cart.UpdateProductAmount(cart, item.ProductId, -item.Amount);
+            cart = null;
+            cart = temp;
+
         }
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message);
         }
-        collectionView.Refresh();
     }
 }

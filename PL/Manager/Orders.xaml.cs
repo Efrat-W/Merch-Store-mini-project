@@ -55,8 +55,9 @@ namespace PL.Manager
 
         private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) 
         {
-            if (OrdersListView.SelectedItem != null)
-                new Order(((OrderForList)OrdersListView.SelectedItem).ID).ShowDialog();
+            var senderLS = (ListView)sender;
+            if (senderLS.SelectedItem != null)
+                new Order(((OrderForList)(senderLS.SelectedItem)).ID).ShowDialog();
         }
     }
 }

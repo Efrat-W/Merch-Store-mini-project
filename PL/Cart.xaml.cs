@@ -53,7 +53,7 @@ public partial class Cart : Page
     }
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        MainWindow.mainFrame.Navigate(new ViewProduct(((OrderItem)ProductsScrollView.SelectedItem).ProductId, cart));
+        MainWindow.mainFrame.Navigate(new ViewProduct(((OrderItem)((ListView)sender).SelectedItem).ProductId, cart));
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)

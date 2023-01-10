@@ -98,8 +98,9 @@ namespace PL.Manager
 
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ProductsListView.SelectedItem != null)
-                new Product(id: ((ProductForList)ProductsListView.SelectedItem).ID).Show();
+            var senderLS = (ListView)sender;
+            if (senderLS.SelectedItem != null)
+                new Product(id: ((ProductForList)(senderLS.SelectedItem)).ID).Show();
             if (selectedCategory == null)
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList().ToList());
             else

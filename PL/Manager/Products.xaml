@@ -37,7 +37,7 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <ListView x:Name="ProductsListView" ItemsSource="{Binding ProductsDP}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
+        <ListView x:Name="ProductsListView" ItemsSource="{Binding ProductsDP, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin" MouseDoubleClick="ProductsListView_MouseDoubleClick" Foreground="#FF12224C" Margin="0,23,0,53" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ID}" Header="ID" Width="60"/>

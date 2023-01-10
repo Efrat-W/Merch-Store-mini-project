@@ -181,7 +181,7 @@ public partial class Catalog : Page
     }
 
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e) =>
-        MainWindow.mainFrame.Navigate(new ViewProduct(((ProductItem)ProductsScrollView.SelectedItem).ID, cart));
+        MainWindow.mainFrame.Navigate(new ViewProduct(((ProductItem)((ListView)sender).SelectedItem).ID, cart));
 }
 
 

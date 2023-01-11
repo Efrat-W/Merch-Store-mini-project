@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,15 +23,15 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public IEnumerable<BO.OrderForList> OrdersDP
+        public ObservableCollection<BO.OrderForList> OrdersDP
         {
-            get { return (IEnumerable<BO.OrderForList>)GetValue(OrdersProperty); }
+            get { return (ObservableCollection<BO.OrderForList>)GetValue(OrdersProperty); }
             set { SetValue(OrdersProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Products.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OrdersProperty =
-            DependencyProperty.Register("Products", typeof(IEnumerable<BO.OrderForList>), typeof(Orders));
+            DependencyProperty.Register("Products", typeof(ObservableCollection<BO.OrderForList>), typeof(Orders));
 
         public Orders(BlApi.IBl? bl1)
         {
@@ -42,12 +43,12 @@ namespace PL.Manager
                                       select statusGroup;
 
             //OrdersListView.ItemsSource = orderGroupsByStatus;
-            OrdersDP = new List<BO.OrderForList>();
+            OrdersDP = new ObservableCollection<BO.OrderForList>();
             foreach (var categoryGroup in orderGroupsByStatus)
             {
                 foreach (var item in categoryGroup)
                 {
-                    OrdersDP = OrdersDP.Append(item);
+                    OrdersDP.Add(item);
                 }
             }
             InitializeComponent();
@@ -58,6 +59,10 @@ namespace PL.Manager
             var senderLS = (ListView)sender;
             if (senderLS.SelectedItem != null)
                 new Order(((OrderForList)(senderLS.SelectedItem)).ID).ShowDialog();
+            
+            //OrdersDP = new ObservableCollection<OrderForList>(bl!.Order.RequestOrders());
+            new Orders(bl).Show();
+            Close();
         }
     }
 }

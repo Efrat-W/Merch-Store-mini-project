@@ -58,12 +58,12 @@ public partial class ViewProduct : Page
         try
         {
             if (Product.Amount == 0)
-                cart = bl.Cart.AddProduct(cart, Product.ID);
-            Product = bl.Product.RequestByIdCustomer(Product.ID, cart);
+                cart = bl!.Cart.AddProduct(cart, Product.ID);
+            Product = bl!.Product.RequestByIdCustomer(Product.ID, cart);
         }
         catch(Exception ex)
         {
-            MessageBox.Show(ex.Message);
+            MessageBox.Show("Uh oh! \nAn error has occured");
         }
 
     }
@@ -71,12 +71,12 @@ public partial class ViewProduct : Page
     {
         try 
         { 
-            cart = bl.Cart.UpdateProductAmount(cart, Product.ID , 1);
+            cart = bl!.Cart.UpdateProductAmount(cart, Product.ID , 1);
             Product = bl.Product.RequestByIdCustomer(Product.ID, cart);
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.Message);
+            MessageBox.Show($"Uh oh! \nThere's not enough {Product.Name} in stock.");
         }
 
     }
@@ -84,12 +84,12 @@ public partial class ViewProduct : Page
     {
         try
         {
-            cart = bl.Cart.UpdateProductAmount(cart, Product.ID, -1);
+            cart = bl!.Cart.UpdateProductAmount(cart, Product.ID, -1);
             Product = bl.Product.RequestByIdCustomer(Product.ID, cart);
         }   
         catch(Exception ex)
         {
-            MessageBox.Show(ex.Message);
+            MessageBox.Show($"Uh oh! \nWe cannot decrease the amount of {Product.Name} in your cart.");
         }
 
     }

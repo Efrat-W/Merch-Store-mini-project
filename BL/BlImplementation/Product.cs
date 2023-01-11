@@ -129,7 +129,7 @@ internal class Product : BlApi.IProduct
             Category = (BO.category)prod?.Category!,
             Price = prod?.Price ?? throw new InvalidArgumentException(),
             Amount = amount,
-            InStock = prod?.InStock > amount+1,
+            InStock = prod?.InStock > amount,
             Image=prod?.Image,
             Description=prod?.Description,
         };

@@ -106,7 +106,7 @@ public Array Categories
         {
             var senderLS = (ListView)sender;
             if (senderLS.SelectedItem != null)
-                new Product(id: ((ProductForList)(senderLS.SelectedItem)).ID).Show();
+                new Product(((ProductForList)(senderLS.SelectedItem)).ID).ShowDialog();
             if (selectedCategory == null)
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             else

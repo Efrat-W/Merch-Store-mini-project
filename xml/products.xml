@@ -1,30 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <product>
-    <ID>456456</ID>
-    <Name>Too Many Tabs Mug</Name>
-    <Price>49</Price>
-    <Category>Mugs</Category>
-    <InStock>51</InStock>
-    <Image>Images\TubsMug.jpeg</Image>
-    <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
-  </product>
-  <product>
     <ID>787878</ID>
     <Name>Hanetzach Hazeh Notebook</Name>
     <Price>45</Price>
     <Category>Notebooks</Category>
     <InStock>10</InStock>
     <Image>Images\EviatarNotebook.jpeg</Image>
-    <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
-  </product>
-  <product>
-    <ID>343434</ID>
-    <Name>Renana Notebook</Name>
-    <Price>45</Price>
-    <Category>Notebooks</Category>
-    <InStock>19</InStock>
-    <Image>Images\RenanaNotebook.jpeg</Image>
     <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
   </product>
   <product>
@@ -35,15 +17,6 @@
     <InStock>1</InStock>
     <Image>Images\c-hprint.jpg</Image>
     <Description>High quality A4 print, designed by Tzipora</Description>
-  </product>
-  <product>
-    <ID>555222</ID>
-    <Name>Hanetzach Hazeh Sweatshirt</Name>
-    <Price>100</Price>
-    <Category>Apparel</Category>
-    <InStock>56</InStock>
-    <Image>\Images\image0.jpeg</Image>
-    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
   </product>
   <product>
     <ID>888888</ID>
@@ -102,28 +75,37 @@
   <product>
     <ID>242424</ID>
     <Name>Tabs Print</Name>
-    <Price>52</Price>
+    <Price>58</Price>
     <Category>Prints</Category>
     <InStock>22</InStock>
     <Image>Images\tubsPrint.jpg</Image>
     <Description>A4 high quality print, designed by Tzipora</Description>
   </product>
   <product>
-    <ID>123455684</ID>
-    <Name>AAAAA`</Name>
-    <Price>20</Price>
-    <Category>Stickers</Category>
-    <InStock>50</InStock>
-    <Image />
-    <Description />
+    <ID>343434</ID>
+    <Name>Renana Notebook</Name>
+    <Price>45</Price>
+    <Category>Notebooks</Category>
+    <InStock>17</InStock>
+    <Image>Images\RenanaNotebook.jpeg</Image>
+    <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
   </product>
   <product>
-    <ID>21435342</ID>
-    <Name>A</Name>
-    <Price>123</Price>
-    <Category>Stickers</Category>
-    <InStock>2435</InStock>
-    <Image />
-    <Description />
+    <ID>456456</ID>
+    <Name>Too Many Tabs Mug</Name>
+    <Price>49</Price>
+    <Category>Mugs</Category>
+    <InStock>50</InStock>
+    <Image>Images\TubsMug.jpeg</Image>
+    <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>555222</ID>
+    <Name>Hanetzach Hazeh Sweatshirt</Name>
+    <Price>112</Price>
+    <Category>Apparel</Category>
+    <InStock>55</InStock>
+    <Image>\Images\image0.jpeg</Image>
+    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
   </product>
 </ArrayOfProduct>

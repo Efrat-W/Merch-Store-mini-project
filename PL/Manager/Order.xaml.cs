@@ -33,13 +33,33 @@ namespace PL.Manager
             DependencyProperty.Register("Ord", typeof(BO.Order), typeof(Order));
 
 
+        public bool IsShipped
+        {
+            get { return (bool)GetValue(IsShippedProperty); }
+            set { SetValue(IsShippedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for isShipped.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsShippedProperty =
+            DependencyProperty.Register("IsShipped", typeof(bool), typeof(Order));
+
+        public bool IsDelivered
+        {
+            get { return (bool)GetValue(IsDeliveredProperty); }
+            set { SetValue(IsDeliveredProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for isShipped.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsDeliveredProperty =
+            DependencyProperty.Register("IsDelivered", typeof(bool), typeof(Order));
+
+
+
         public Array categories
         {
             get { return (Array)GetValue(categoriesProperty); }
             set { SetValue(categoriesProperty, value); }
         }
-
-
         // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty categoriesProperty =
             DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
@@ -47,16 +67,15 @@ namespace PL.Manager
 
         public Order(int id)
         {
-
             Ord = bl.Order.RequestById(id);
             InitializeComponent();
         }
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         { 
-            if (ShipCB.IsChecked == true) 
+            if (IsShipped) 
                 bl?.Order.UpdateShipment(Ord.Id);
-            if (DeliveryCB.IsChecked == true)
+            if (IsDelivered)
                 try
                 {
                     bl?.Order.UpdateDelivery(Ord.Id);
@@ -65,7 +84,7 @@ namespace PL.Manager
                 {
                     MessageBox.Show("Cannot update delivery before commencing shipment.");
                 }
-            this.Close();
+            Close();
         }
 
     }

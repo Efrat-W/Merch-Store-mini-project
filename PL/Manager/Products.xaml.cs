@@ -44,7 +44,7 @@ namespace PL.Manager
             DependencyProperty.Register("ProductsDP", typeof(ObservableCollection<BO.ProductForList>), typeof(Products));
 
 
-public Array Categories
+        public Array Categories
         {
             get { return (Array)GetValue(CategoriesProperty); }
             set { SetValue(CategoriesProperty, value); }

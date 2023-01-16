@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:PL.Converters"
         mc:Ignorable="d"
-      DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Order" Height="450" Width="800">
     <Window.Resources>
         <converter:OrderStatusToBooleanShipConverter x:Key="OrderStatusShipConverter"/>
@@ -49,7 +49,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid x:Name="MainGrid" DataContext="{Binding Ord}">
+    <Grid x:Name="MainGrid" DataContext="{Binding}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -76,15 +76,15 @@
             <Label x:Name="PriceLb" Content="Total Price:" HorizontalAlignment="Left" Margin="475,306,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="93"/>
             <Label x:Name="ItemsLb" Content="Items:" HorizontalAlignment="Left" Margin="60,126,0,0"  Grid.Column="0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="128"/>
 
-            <Label x:Name="Name" Content="{Binding CustomerName}" HorizontalAlignment="Left" Margin="140,0,0,349" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="152"/>
-            <Label x:Name="Email" Content="{Binding CustomerEmail}" HorizontalAlignment="Left" Margin="140,25,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="152"/>
-            <Label x:Name="Adress" Content="{Binding CustomerAddress}" HorizontalAlignment="Left" Margin="134,0,0,292" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="158"/>
-            <Label x:Name="Status"  Style="{StaticResource BlackLabel}" Content="{Binding Status}"   HorizontalAlignment="Left" Margin="357,2,0,0" VerticalAlignment="Top" Width="113" Height="20"   VerticalContentAlignment="Center"/>
-            <Label x:Name="ID" Content="{Binding Id}" HorizontalAlignment="Left" Margin="139,0,0,266" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="124"/>
-            <Label x:Name="OrderDate" Content="{Binding OrderDate}" HorizontalAlignment="Left" Margin="388,27,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="165"/>
-            <Label x:Name="ShipDate" Style="{StaticResource ShipLabel}" Content="{Binding ShipDate}" HorizontalAlignment="Left" Margin="383,56,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="170"/>
-            <Label x:Name="DeliveryDate" Style="{StaticResource DeliveryLabel}" Content="{Binding DeliveryDate}" HorizontalAlignment="Left" Margin="403,85,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="175"/>
-            <Label x:Name="TotalPrice" Content="{Binding TotalPrice}" HorizontalAlignment="Left" Margin="568,0,0,43" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="124"/>
+            <Label x:Name="Name" Content="{Binding Ord.CustomerName}" HorizontalAlignment="Left" Margin="140,0,0,349" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="152"/>
+            <Label x:Name="Email" Content="{Binding Ord.CustomerEmail}" HorizontalAlignment="Left" Margin="140,25,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="152"/>
+            <Label x:Name="Adress" Content="{Binding Ord.CustomerAddress}" HorizontalAlignment="Left" Margin="134,0,0,292" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="158"/>
+            <Label x:Name="Status"  Style="{StaticResource BlackLabel}" Content="{Binding Ord.Status}"   HorizontalAlignment="Left" Margin="357,2,0,0" VerticalAlignment="Top" Width="113" Height="20"   VerticalContentAlignment="Center"/>
+            <Label x:Name="ID" Content="{Binding Ord.Id}" HorizontalAlignment="Left" Margin="139,0,0,266" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="124"/>
+            <Label x:Name="OrderDate" Content="{Binding Ord.OrderDate}" HorizontalAlignment="Left" Margin="388,27,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="165"/>
+            <Label x:Name="ShipDate" Style="{StaticResource ShipLabel}" Content="{Binding Ord.ShipDate}" HorizontalAlignment="Left" Margin="383,56,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="170"/>
+            <Label x:Name="DeliveryDate" Style="{StaticResource DeliveryLabel}" Content="{Binding Ord.DeliveryDate}" HorizontalAlignment="Left" Margin="403,85,0,0" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="175"/>
+            <Label x:Name="TotalPrice" Content="{Binding Ord.TotalPrice}" HorizontalAlignment="Left" Margin="568,0,0,43" VerticalAlignment="Bottom" FontFamily="{StaticResource JosefinSansRegular}" FontSize="16" Height="29" Width="124"/>
 
             <Button x:Name="CommandBtn" Content="Update" HorizontalAlignment="Left" Margin="257,353,0,0" VerticalAlignment="Top" Click="CommandBtn_Click" Height="25" Width="70">
                 <Button.Resources>
@@ -96,9 +96,9 @@
                     <StaticResource ResourceKey="BlackButton"/>
                 </Button.Style>
             </Button>
-            <CheckBox x:Name="ShipCB" Style="{StaticResource ShipCB}" Content="Shipped" HorizontalAlignment="Left" Margin="303,56,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="28" Width="69"/>
-             <CheckBox x:Name="DeliveryCB" Style="{StaticResource DeliveryCB}" Content="Delivered" HorizontalAlignment="Left" Margin="303,86,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="24" Width="76"/>
-            <ListView x:Name="ItemsList" ItemsSource="{Binding Items}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin"  Foreground="#FF12224C" Margin="116,126,222,52" ScrollViewer.CanContentScroll="False" >
+            <CheckBox x:Name="ShipCB" Style="{StaticResource ShipCB}" Content="Shipped" HorizontalAlignment="Left" Margin="303,56,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="28" Width="69" IsChecked="{Binding IsShipped, Mode=TwoWay}"/>
+            <CheckBox x:Name="DeliveryCB" Style="{StaticResource DeliveryCB}" Content="Delivered" HorizontalAlignment="Left" Margin="303,86,0,0" VerticalAlignment="Top" Background="White" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="14"  Height="24" Width="76" IsChecked="{Binding IsDelivered, Mode=TwoWay}"/>
+            <ListView x:Name="ItemsList" ItemsSource="{Binding Ord.Items}" FontFamily="{StaticResource JosefinSansRegular}" FontWeight="Thin"  Foreground="#FF12224C" Margin="116,126,222,52" ScrollViewer.CanContentScroll="False" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding ID}" Header="ID" Width="30"/>

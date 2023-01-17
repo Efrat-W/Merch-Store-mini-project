@@ -250,7 +250,7 @@ internal class Order : BlApi.IOrder
         };
     }
 
-    public BO.Order GetLastUpdated()
+    public BO.Order GetOldest()
     {
         var lsApproved = from order in dal!.Order.RequestAll()
                          where order?.OrderDate != null && order?.ShipDate == null

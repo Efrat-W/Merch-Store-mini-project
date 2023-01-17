@@ -8,7 +8,22 @@
         Title="SimulationWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
-        <Label FontFamily="{StaticResource JosefinSansBold}" Content="{Binding TimerText}" HorizontalAlignment="Left" Margin="91,72,0,0" VerticalAlignment="Top"/>
-        
+        <Label FontFamily="{StaticResource JosefinSansBold}" Content="{Binding TimerText}" FontSize="16" HorizontalAlignment="Left" Margin="91,72,0,0" VerticalAlignment="Top"/>
+        <Border Background="#FFD2F4FF" BorderThickness="0" Margin="265,96,265,96" CornerRadius="15"/>
+        <Label FontFamily="{StaticResource JosefinSansBold}" Content="12:45:34" FontSize="16" HorizontalAlignment="Center" Margin="0,128,0,0" VerticalAlignment="Top" Height="26"/>
+        <StackPanel Margin="270,159,270,108">
+            <Label Style="{StaticResource BlackLabel}" Content="Order ID:" HorizontalContentAlignment="Center" />
+            <Label Style="{StaticResource BlackLabel}" Content="Current status:" HorizontalContentAlignment="Center"  />
+            <Label Style="{StaticResource BlackLabel}" Content="Updating to:" HorizontalContentAlignment="Center"  />
+            <Label Style="{StaticResource BlackLabel}" Content="Estimated finish time:" HorizontalContentAlignment="Center"  />
+            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="Updating..." HorizontalContentAlignment="Center"  />
+            <Button x:Name="DetailsBtn"  Style="{StaticResource BlackButton}" Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Top" Width="55" VerticalContentAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="9"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

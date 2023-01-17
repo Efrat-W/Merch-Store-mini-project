@@ -22,7 +22,6 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         const string PASSWORD = "123";
-        string currentPassword = "";
         
         public string password
         {
@@ -51,11 +50,5 @@ namespace PL.Manager
             Orders orders = new(bl);
             orders.Show();
         }
-
-        //private void logOutBtn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Login.Visibility = Visibility.Visible;
-        //    LoggedIn.Visibility = Visibility.Hidden;
-        //}
     }
 }

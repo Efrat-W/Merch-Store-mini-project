@@ -30,25 +30,52 @@ public partial class OrderTracking : Page
     // Using a DependencyProperty as the backing store for track.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty trackProperty =
         DependencyProperty.Register("track", typeof(BO.OrderTracking), typeof(OrderTracking));
+    
     int id;
+    
+    public bool trackVisibility
+    {
+        get { return (bool)GetValue(trackVisibilityProperty); }
+        set { SetValue(trackVisibilityProperty, value); }
+    }
+
+
+
+    public string text
+    {
+        get { return (string)GetValue(textProperty); }
+        set { SetValue(textProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for text.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty textProperty =
+        DependencyProperty.Register("text", typeof(string), typeof(OrderTracking));
+
+
+
+    // Using a DependencyProperty as the backing store for trackVisibility.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty trackVisibilityProperty =
+        DependencyProperty.Register("trackVisibility", typeof(bool), typeof(OrderTracking));
+
 
 
     public OrderTracking()
     {
+        trackVisibility = false;
         InitializeComponent();
     }
 
     private void TrackBtn_Click(object sender, RoutedEventArgs e)
     {
-        id = int.Parse(IdTB.Text);
+        int.TryParse(text, out id);
         try
         {
             track = bl!.Order.Track(id);
+            trackVisibility = true;
         }
         catch(Exception ex)
         {
-            MessageBox.Show(ex.Message);
-            return;
+            MessageBox.Show($"Oops! No order with the id {id} could be found.");
         }
     }
 

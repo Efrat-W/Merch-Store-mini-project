@@ -15,11 +15,11 @@
         <Style x:Key="ShipButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
+                <DataTrigger Binding="{Binding Path=track.Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Content" Value="✔️"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
+                <DataTrigger Binding="{Binding track.Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Content" Value="✔️"/>
                 </DataTrigger>
@@ -28,18 +28,18 @@
         <Style x:Key="ShipLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
             <Setter Property="Content" Value="Not yet"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
-                    <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
+                <DataTrigger Binding="{Binding track.Status, Converter={StaticResource OrderStatusShipConverter}}" Value="True">
+                    <Setter Property="Content" Value="{Binding Path=track.orderProgress[1].Item1}"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
-                    <Setter Property="Content" Value="{Binding Path=orderProgress[1].Item1}"/>
+                <DataTrigger Binding="{Binding track.Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
+                    <Setter Property="Content" Value="{Binding Path=track.orderProgress[1].Item1}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="DeliveryButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
+                <DataTrigger Binding="{Binding track.Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Content" Value="✔️"/>
                 </DataTrigger>
@@ -48,8 +48,8 @@
         <Style x:Key="DeliveryLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
             <Setter Property="Content" Value="Not yet"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
-                    <Setter Property="Content" Value="{Binding Path=orderProgress[2].Item1}"/>
+                <DataTrigger Binding="{Binding track.Status, Converter={StaticResource OrderStatusDelConverter}}" Value="True">
+                    <Setter Property="Content" Value="{Binding Path=track.orderProgress[2].Item1}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -58,9 +58,9 @@
         <Grid x:Name="SignIn" Background="White">
             <Border Background="#FFD2F4FF" BorderThickness="0" Margin="265,150,265,150" CornerRadius="15"/>
             <Label Style="{StaticResource BlackLabel}" Content="Please enter your order's id:" Margin="312,175,312,250" />
-            <TextBox x:Name="IdTB" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="26" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="IdTB" Text="{Binding text}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="26" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
 
-            <ToggleButton x:Name="trackBtn"  Background="Black" Foreground="White" FontFamily="{StaticResource JosefinSansBold}" Content="Track"  Width="65" VerticalContentAlignment="Center" Click="TrackBtn_Click" Margin="368,250,368,175" BorderBrush="{x:Null}">
+            <ToggleButton x:Name="trackBtn"  Background="Black" Foreground="White" FontFamily="{StaticResource JosefinSansBold}" Content="Track" Width="65" VerticalContentAlignment="Center" Click="TrackBtn_Click" Margin="368,250,368,175" BorderBrush="{x:Null}">
                 <ToggleButton.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="9"/>
@@ -68,9 +68,9 @@
                 </ToggleButton.Resources>
             </ToggleButton>
         </Grid>
-        <Grid x:Name="Tracking" DataContext="{Binding track}"  Background="White" Margin="0,0,0,0" Visibility="{Binding IsChecked, ElementName=trackBtn, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid x:Name="Tracking" Background="White" Margin="0,0,0,0" Visibility="{Binding trackVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Label Margin="320,50,400,375" Style="{StaticResource BlackLabel}" Content="Order ID:"  FontFamily="{StaticResource JosefinSansBold}" />
-            <Label Margin="395,50,350,375"  Style="{StaticResource BlackLabel}" Content="{Binding ID}" FontFamily="{StaticResource JosefinSansBold}"/>
+            <Label Margin="395,50,350,375"  Style="{StaticResource BlackLabel}" Content="{Binding track.ID}" FontFamily="{StaticResource JosefinSansBold}"/>
 
             <StackPanel x:Name="DatesAndStuff" Margin="275,90,275,225">
                 <StackPanel Orientation="Horizontal">
@@ -82,7 +82,7 @@
                         </Button.Resources>
                     </Button>
                     <Label Style="{StaticResource BlackLabel}" Content="Approved:" />
-                    <Label Style="{StaticResource BlackLabel}" Content="{Binding Path=orderProgress[0].Item1}" />
+                    <Label Style="{StaticResource BlackLabel}" Content="{Binding Path=track.orderProgress[0].Item1}" />
                 </StackPanel>
                 <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content=" |" />
                 <StackPanel Orientation="Horizontal">

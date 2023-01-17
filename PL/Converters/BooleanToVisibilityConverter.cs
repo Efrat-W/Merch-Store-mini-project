@@ -18,7 +18,8 @@ namespace PL.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Visibility && (Visibility)value == Visibility.Visible;
+            //return value is Visibility && (Visibility)value == Visibility.Visible;
+            return new NotImplementedException();
         }
     }
 }

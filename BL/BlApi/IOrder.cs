@@ -13,4 +13,6 @@ public interface IOrder
     public Order UpdateDelivery(int id);
 
     public OrderTracking Track(int id);
+
+    public Order GetOldest();
 }

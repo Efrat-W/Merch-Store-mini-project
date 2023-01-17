@@ -249,6 +249,22 @@ internal class Order : BlApi.IOrder
             orderProgress = tuples
         };
     }
+
+    public BO.Order GetLastUpdated()
+    {
+        var lsApproved = from order in dal!.Order.RequestAll()
+                         where order?.OrderDate != null && order?.ShipDate == null
+                         orderby order?.OrderDate
+                         select order;
+        var lsShipped = from order in dal!.Order.RequestAll()
+                        where order?.ShipDate != null && order?.DeliveryDate == null
+                        orderby order?.OrderDate
+                        select order;
+        List<DO.Order> lsA = (List<DO.Order>)lsApproved;
+        List<DO.Order> lsS = (List<DO.Order>)lsShipped;
+        int id = lsA.ElementAt(0).OrderDate < lsS.ElementAt(0).ShipDate ? lsA.ElementAt(0).ID : lsS.ElementAt(0).ID;
+        return RequestById(id);
+    }
 }
 
 

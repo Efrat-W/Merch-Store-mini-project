@@ -14,6 +14,7 @@
             <Button x:Name="Home" Content="Home Page" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Home_Click" />
             <Button x:Name="OrderTrack" Content="Order Tracking" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="OrderTrack_Click" />
             <Button x:Name="Manager" Content="Manager Login" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Manager_Click" />
+            <Button x:Name="Simulator" Content="Simulator" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Simulator_Click" />
 
         </StackPanel>
     </Grid>

@@ -73,5 +73,7 @@ namespace PL
             }
             MainWindow.mainFrame.Navigate(new HomePage(cart));
         }
+
+        private void Simulator_Click(object sender, RoutedEventArgs e) => new SimulationWindow().Show();
     }
 }

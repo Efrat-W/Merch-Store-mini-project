@@ -32,7 +32,20 @@ public partial class SimulationWindow : Window
     // Using a DependencyProperty as the backing store for TimerText.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty TimerTextProperty =
         DependencyProperty.Register("TimerText", typeof(string), typeof(SimulationWindow));
-
+    private Stopwatch stopWatch;
+    private bool isTimerRun;
+    BackgroundWorker timerworker;
+    public SimulationWindow()
+    {
+        InitializeComponent();
+        stopWatch = new Stopwatch();
+        timerworker = new BackgroundWorker();
+        timerworker.DoWork += Worker_DoWork;
+        timerworker.ProgressChanged += Worker_ProgressChanged;
+        timerworker.WorkerReportsProgress = true;
+        isTimerRun=true;
+        timerworker.RunWorkerAsync();
+    }
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
         string timerText = stopWatch.Elapsed.ToString();
@@ -46,16 +59,13 @@ public partial class SimulationWindow : Window
             Thread.Sleep(1000);
         }
     }
-    private Stopwatch stopWatch;
-    private bool isTimerRun;
-    BackgroundWorker timerworker;
-    public SimulationWindow()
+    private void stopButton_Click(object sender, RoutedEventArgs e)
     {
-        InitializeComponent();
-        stopWatch = new Stopwatch();
-        timerworker = new BackgroundWorker();
-        timerworker.DoWork += Worker_DoWork;
-        timerworker.ProgressChanged += Worker_ProgressChanged;
-        timerworker.WorkerReportsProgress = true;
+        if (isTimerRun)
+        {
+            stopWatch.Stop();
+            isTimerRun = false;
+        }
     }
+
 }

@@ -13,6 +13,7 @@
 	  <OutputPath>$(SolutionDir)\bin\</OutputPath>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <ApplicationIcon>Images\image0.ico</ApplicationIcon>
 	  
   </PropertyGroup>
 
@@ -36,6 +37,7 @@
     <None Remove="Images\c-hprint.jpg" />
     <None Remove="Images\DrSuessNotebook.jpeg" />
     <None Remove="Images\EviatarNotebook.jpeg" />
+    <None Remove="Images\image0.ico" />
     <None Remove="Images\image0.jpeg" />
     <None Remove="Images\image1.jpeg" />
     <None Remove="Images\image2.jpeg" />
@@ -69,6 +71,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\EviatarNotebook.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\image0.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\image0.jpeg">

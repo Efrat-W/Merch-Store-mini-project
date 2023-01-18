@@ -1,6 +1,8 @@
 ﻿
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -80,6 +82,14 @@ namespace PL.Manager
 
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
+            //making sure the photo exists in the images folder and saves it properly
+            if(product.Image != null)
+            {
+                string ImageString=product.Image.Substring(product.Image.LastIndexOf("\\"));
+                if (!File.Exists(Environment.CurrentDirectory[..^4] + @"\PL\Images\" + ImageString))
+                    File.Copy(product.Image, Environment.CurrentDirectory[..^4] + @"\PL\Images\" + ImageString);
+                product.Image = @"\Images"+ImageString;
+            }
             try
             {
                 if (CommandBtnDP == "Add")
@@ -110,6 +120,15 @@ namespace PL.Manager
             catch
             {
                 MessageBox.Show("An unexpected error has occured.\nMake sure you fill it out correctly.");
+            }
+        }
+        private void AddImageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+               // pbx.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                product.Image=openFileDialog.FileName;
             }
         }
 

@@ -52,6 +52,16 @@
         <Label x:Name="InvalidIdLb" Content="Fill in ID." HorizontalAlignment="Left" Margin="10,28,0,0"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Visibility="{Binding ElementName=IdTB, Path=Text, Converter={StaticResource isValidTB}}" Grid.RowSpan="2"/>
         <Label x:Name="InvalidPriceLb" Content="Fill in price." HorizontalAlignment="Left" Margin="10,28,0,0"  Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Visibility="{Binding ElementName=PriceTB, Path=Text, Converter={StaticResource isValidTB}}" Grid.RowSpan="2"/>
         <Label x:Name="InvalidInStockLb" Content="Fill in amount." HorizontalAlignment="Left" Margin="10,28,0,0"  Grid.Column="1" Grid.Row="4" VerticalAlignment="Top" Style="{StaticResource InvalidLabel}" Height="29" Width="129" Visibility="{Binding ElementName=InStockTB, Path=Text, Converter={StaticResource isValidTB}}" Grid.RowSpan="2"/>
+        <Button x:Name="ImageBtn" Click="AddImageBtn_Click" Content="Add Image" Width="NaN" Grid.Row="7" VerticalAlignment="Center"  Grid.ColumnSpan="2" Margin="369,0,262,0">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Button.Resources>
+            <Button.Style>
+                <StaticResource ResourceKey="BlackButton"/>
+            </Button.Style>
+        </Button>
         <Rectangle Grid.Column="1" HorizontalAlignment="Right" Height="78" Grid.Row="8" Stroke="Black" Width="78" Fill="#FFFCE933" StrokeThickness="2" VerticalAlignment="Bottom" Margin="0,0,70,1" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" Grid.RowSpan="2" Stroke="Black" VerticalAlignment="Top" Width="50" Fill="Black"/>
         <Button x:Name="CommandBtn" Content="{Binding CommandBtnDP}" HorizontalAlignment="Left" Margin="376,17,0,0" Grid.Row="8" VerticalAlignment="Top" Click="CommandBtn_Click" Grid.ColumnSpan="2">
@@ -64,8 +74,8 @@
                 <StaticResource ResourceKey="BlackButton"/>
             </Button.Style>
         </Button>
-        <Label x:Name="ImageLb" Content="Image Path:" HorizontalAlignment="Left" Margin="289,0,0,0"  Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="101"/>
-        <Label x:Name="DescriptionLb" Content="Product Description:" HorizontalAlignment="Left" Margin="241,0,0,0"  Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="149"/>
+        <!--<Label x:Name="ImageLb" Content="Image Path:" HorizontalAlignment="Left" Margin="289,0,0,0"  Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="101"/>-->
+        <Label x:Name="DescriptionLb" Content="Product Description:" HorizontalAlignment="Left" Margin="241,0,0,0"  Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Height="29" Width="149"/>
         <Button x:Name="DeleteBtn" Content="Delete" IsEnabled="{Binding ElementName=CommandBtn, Path=Content, Converter={StaticResource UpdateDltBtnEnable}}" HorizontalAlignment="Left" Margin="376,47,0,0" Grid.Row="8" VerticalAlignment="Top" Click="DeleteBtn_Click"  Grid.ColumnSpan="2">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -80,13 +90,13 @@
         <TextBox x:Name="IdTB" Text="{Binding product.ID, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" InputScope="Number" IsEnabled="{Binding CommandBtnDP, Converter={StaticResource UpdateIdEnable}}" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
         <TextBox x:Name="PriceTB" Text="{Binding product.Price, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" InputScope="CurrencyAmount"  PreviewTextInput="PreviewTextInputDecimal" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120" Height="25" FontFamily="{StaticResource JosefinSansLight}" FontSize="14" VerticalContentAlignment="Center"/>
         <TextBox x:Name="InStockTB" Text="{Binding product.InStock, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" PreviewTextInput="PreviewTextInputDigits" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
-        <TextBox x:Name="ImageTB" Text="{Binding product.Image, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="6" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
-        <TextBox x:Name="DescriptionTB" Text="{Binding product.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="7" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
+        <!--<TextBox x:Name="ImageTB" Grid.Column="1" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="6" VerticalAlignment="Top" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>-->
+        <TextBox x:Name="DescriptionTB" Text="{Binding product.Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="6" VerticalAlignment="Center" FontFamily="{StaticResource JosefinSansLight}" Width="120" Height="25" FontSize="14"  VerticalContentAlignment="Center"/>
         <ComboBox x:Name="CategoryCB" ItemsSource="{Binding categoriesDP}" SelectedItem="{Binding product.Category}" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="120" Height="25" FontSize="14" BorderBrush="{x:Null}" Foreground="#FF090909" FontFamily="{StaticResource JosefinSansLight}" VerticalContentAlignment="Center"/>
         <TextBlock Visibility="{Binding ElementName=IdTB, Path=IsMouseOver, Converter={StaticResource isBoolTrue}}" Foreground="#FFFCE933"  Text="Must contain 6 or more digits."  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="106" Margin="175,0,0,0"/>
         <TextBlock Visibility="{Binding ElementName=PriceTB, Path=IsMouseOver, Converter={StaticResource isBoolTrue}}" Foreground="#FFFCE933"  Text="Must not be free."  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="106" Margin="175,0,0,0"/>
         <TextBlock Visibility="{Binding ElementName=InStockTB, Path=IsMouseOver, Converter={StaticResource isBoolTrue}}" Foreground="#FFFCE933"  Text="Must be initialized with over 0."  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" Height="39" Width="106" Margin="175,0,0,0"/>
-        
+
     </Grid>
 
 </Window>

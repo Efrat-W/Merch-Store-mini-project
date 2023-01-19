@@ -1,13 +1,15 @@
 ﻿using BO;
+using System.ComponentModel;
+
 namespace Simulator;
 
 enum SimulationProgress { UpdateDone=1, Done}
-public static class Simulator
+public static class simulator
 {
     private const int SEC = 1000;
     private static volatile bool _disposed = false;
     private static BlApi.IBl? bl = BlApi.Factory.Get();
-    private static event EventHandler Report;
+    public static BackgroundWorker Report = new();
     private static int delay = 0;
     private static Random rand = new();
     public static void Init()
@@ -21,19 +23,18 @@ public static class Simulator
                 {
                     delay = rand.Next(2, 10) * SEC;
                     Tuple<int, Order> tupleParams = new(delay, ord);
-                    Report(tupleParams, EventArgs.Empty);
+                    Report.ReportProgress(0 ,tupleParams);
 
                     Thread.Sleep(delay);
                     if (ord.Status == orderStatus.Approved)
                         bl.Order.UpdateShipment(ord.Id);
                     else
                         bl.Order.UpdateDelivery(ord.Id);
-                    Report(SimulationProgress.UpdateDone, EventArgs.Empty);
+                    Report.ReportProgress(0, SimulationProgress.UpdateDone);
                 }
                 Thread.Sleep(SEC);
             }
-
-            Report(SimulationProgress.Done, EventArgs.Empty);
+            Report.ReportProgress(0, SimulationProgress.Done);
         }).Start();
     }
     public static void Quit()

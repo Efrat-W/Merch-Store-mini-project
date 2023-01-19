@@ -82,15 +82,6 @@
     <Description>A4 high quality print, designed by Tzipora</Description>
   </product>
   <product>
-    <ID>343434</ID>
-    <Name>Renana Notebook</Name>
-    <Price>45</Price>
-    <Category>Notebooks</Category>
-    <InStock>17</InStock>
-    <Image>Images\RenanaNotebook.jpeg</Image>
-    <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
-  </product>
-  <product>
     <ID>456456</ID>
     <Name>Too Many Tabs Mug</Name>
     <Price>49</Price>
@@ -125,5 +116,14 @@
     <InStock>456</InStock>
     <Image>\Images\DrSuessNotebook.jpeg</Image>
     <Description>sdfghj</Description>
+  </product>
+  <product>
+    <ID>343434</ID>
+    <Name>Renana Notebook</Name>
+    <Price>45</Price>
+    <Category>Notebooks</Category>
+    <InStock>15</InStock>
+    <Image>Images\RenanaNotebook.jpeg</Image>
+    <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
   </product>
 </ArrayOfProduct>

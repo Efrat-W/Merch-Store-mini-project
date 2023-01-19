@@ -260,9 +260,8 @@ internal class Order : BlApi.IOrder
                         where order?.ShipDate != null && order?.DeliveryDate == null
                         orderby order?.OrderDate
                         select order;
-        List<DO.Order> lsA = (List<DO.Order>)lsApproved;
-        List<DO.Order> lsS = (List<DO.Order>)lsShipped;
-        int id = lsA.ElementAt(0).OrderDate < lsS.ElementAt(0).ShipDate ? lsA.ElementAt(0).ID : lsS.ElementAt(0).ID;
+
+        int id = lsApproved.First()?.OrderDate < lsShipped.First()?.ShipDate ? (int)lsApproved.First()?.ID : (int)lsShipped.First()?.ID;
         return RequestById(id);
     }
 }

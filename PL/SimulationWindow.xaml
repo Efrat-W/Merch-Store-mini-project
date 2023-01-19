@@ -10,20 +10,20 @@
     <Grid>
         <Border Background="#FFD2F4FF" BorderThickness="0" Margin="265,96,265,96" CornerRadius="15"/>
         <Label FontFamily="{StaticResource JosefinSansBold}" Content="{Binding TimerText}" FontSize="16" HorizontalAlignment="Center" Margin="0,128,0,0" VerticalAlignment="Top" Height="26"/>
-        <StackPanel Margin="270,159,270,108">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Center" Margin="270,159,270,108">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Order ID:" VerticalContentAlignment="Center"/>
                 <Label x:Name="idLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Current status:" VerticalContentAlignment="Center"/>
                 <Label x:Name="statusLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Updating to:" VerticalContentAlignment="Center"/>
                 <Label x:Name="updateToLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Estimated finish time:" VerticalContentAlignment="Center"/>
                 <Label x:Name="estimatedFinishLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>

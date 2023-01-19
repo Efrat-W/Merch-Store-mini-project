@@ -36,17 +36,15 @@ public partial class SimulationWindow : Window
 
 
 
-    public int progress
-    {
-        get { return (int)GetValue(progressProperty); }
-        set { SetValue(progressProperty, value); }
-    }
+    //public int progress
+    //{
+    //    get { return (int)GetValue(progressProperty); }
+    //    set { SetValue(progressProperty, value); }
+    //}
 
-    // Using a DependencyProperty as the backing store for progress.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty progressProperty =
-        DependencyProperty.Register("progress", typeof(int), typeof(SimulationWindow));
-
-
+    //// Using a DependencyProperty as the backing store for progress.  This enables animation, styling, binding, etc...
+    //public static readonly DependencyProperty progressProperty =
+    //    DependencyProperty.Register("progress", typeof(int), typeof(SimulationWindow));
 
     private Stopwatch stopWatch;
     private bool isTimerRun;
@@ -63,7 +61,6 @@ public partial class SimulationWindow : Window
         timerworker.WorkerReportsProgress = true;
         isTimerRun = true;
         timerworker.RunWorkerAsync();
-
     }
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
@@ -105,6 +102,7 @@ public partial class SimulationWindow : Window
         Tuple<int, Order> tupleParams = new(delay, ord);
         ProgressChangedEventArgs p = new(1, tupleParams);
         Worker_ProgressChanged(sender, p);
+        
     }
 
     private void StopBtn_Click(object sender, RoutedEventArgs e)

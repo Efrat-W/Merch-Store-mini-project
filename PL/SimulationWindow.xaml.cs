@@ -54,6 +54,7 @@ public partial class SimulationWindow : Window
     public SimulationWindow()
     {
         InitializeComponent();
+        Closing += (s, e) => e.Cancel = true;
         stopWatch = new Stopwatch();
         stopWatch.Start();
         timerworker = new BackgroundWorker();
@@ -66,46 +67,54 @@ public partial class SimulationWindow : Window
     }
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
-        if (e.UserState is Tuple)
-        {
-            idLb.Content = ((Tuple<int, Order>)e.UserState).Item2.Id;
-            statusLb.Content = ((Tuple<int, Order>)e.UserState).Item2.Status;
-            updateToLb.Content = ((Tuple<int, Order>)e.UserState).Item2.Status == BO.orderStatus.Approved ? "Shipped" : "Delivered";
-            estimatedFinishLb.Content = $"{((Tuple<int, Order>)e.UserState).Item1} seconds.";
-        }
+        switch(e.ProgressPercentage)
+        { 
+            case 0:
+                string timerText = stopWatch.Elapsed.ToString();
+                TimerText = timerText.Substring(0, 8);
+                break;
+            case 1:
+                Dispatcher.Invoke(() =>
+                {
+                    idLb.Content = (e.UserState as Tuple<int, Order>).Item2.Id;
+                    statusLb.Content = (e.UserState as Tuple<int, Order>).Item2.Status;
+                    updateToLb.Content = (e.UserState as Tuple<int, Order>).Item2.Status == BO.orderStatus.Approved ? "Shipped" : "Delivered";
+                    estimatedFinishLb.Content = $"{((e.UserState as Tuple<int, Order>).Item1)/1000} seconds.";
+                });
+                break;
+            case 2:
 
-        //progress = e.ProgressPercentage;
-        string timerText = stopWatch.Elapsed.ToString();
-        TimerText = timerText.Substring(0, 8);
+                break;
+        }
     }
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
     {
+        simulator.Report += orderChanged1!;
         simulator.Init();
-        //simulator.Report += Worker_ProgressChanged;
         while (isTimerRun)
         {
-            timerworker.ReportProgress(1);
+            timerworker.ReportProgress(0);
             Thread.Sleep(1000);
         }
     }
 
-    protected override void OnClosing(CancelEventArgs e)
+    private void orderChanged1(object sender, EventArgs e)
     {
-        e.Cancel = true;
-        base.OnClosing(e);
+        int delay = (e as TupleSimulatorArgs).delay;
+        Order ord = (e as TupleSimulatorArgs).ord;
+        Tuple<int, Order> tupleParams = new(delay, ord);
+        ProgressChangedEventArgs p = new(1, tupleParams);
+        Worker_ProgressChanged(sender, p);
     }
+
     private void StopBtn_Click(object sender, RoutedEventArgs e)
     {
         if (isTimerRun)
         {
             stopWatch.Stop();
             isTimerRun = false;
-            Close();
+            simulator.Quit();
+            Closing += (s, e) => e.Cancel = false;
         }
     }
-
-    //public void ReportLog(Object sender, EventArgs e)
-    //{
-        
-    //}
 }

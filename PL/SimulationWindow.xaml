@@ -27,7 +27,7 @@
                 <Label Style="{StaticResource BlackLabel}" Content="Estimated finish time:" VerticalContentAlignment="Center"/>
                 <Label x:Name="estimatedFinishLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <Label Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="Updating..." HorizontalContentAlignment="Center"  />
+            <Label x:Name="ProgressLb" Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="Updating..." HorizontalContentAlignment="Center"  />
             <Button x:Name="StopBtn" Style="{StaticResource BlackButton}" Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Top" Width="55" VerticalContentAlignment="Center" Click="StopBtn_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -37,11 +37,15 @@
             </Button>
         </StackPanel>
         <!--<ProgressBar Value="{Binding progress}" Margin="268,343,268,79" Background="Yellow" Foreground="black">
-            --><!--<ProgressBar.Style>
+            -->
+        <!--<ProgressBar.Style>
                 <Style TargetType="{x:Type }">
                     <Setter Property="Radius" Value="90"/>
                 </Style>
-            </ProgressBar.Style>--><!--
+            </ProgressBar.Style>-->
+        <!--
         </ProgressBar>-->
+        <Label x:Name="SimulatorTerminatedLb" Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="End of Simulation." HorizontalContentAlignment="Center" Visibility="Hidden"/>
+
     </Grid>
 </Window>

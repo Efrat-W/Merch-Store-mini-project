@@ -18,5 +18,12 @@ namespace Simulator
         }
     }
 
-
+    public class IntSimulatorArgs : EventArgs 
+    {
+        public int state { get; set; }
+        public IntSimulatorArgs(int state)
+        {
+            this.state = state;
+        }   
+    }
 }

@@ -23,19 +23,18 @@ public static class simulator
                 if (ord != null)
                 {
                     delay = rand.Next(2, 10) * SEC;
-                    Report!(Thread.CurrentThread, new TupleSimulatorArgs(delay, ord));
+                    Report!(Thread.CurrentThread, new TupleSimulatorArgs(delay, ord)); //update init
 
                     Thread.Sleep(delay);
                     if (ord.Status == orderStatus.Approved)
                         bl.Order.UpdateShipment(ord.Id);
                     else
                         bl.Order.UpdateDelivery(ord.Id);
-                    //Report(SimulationProgress.UpdateDone, EventArgs.Empty);
-                    //Report!(Thread.CurrentThread, new );
+                    Report(Thread.CurrentThread, new IntSimulatorArgs(2)); //update done
                 }
                 Thread.Sleep(SEC);
             }
-            //Report(SimulationProgress.Done, EventArgs.Empty);
+            Report!(Thread.CurrentThread, new IntSimulatorArgs(3)); //simulator terminated
         }).Start();
     }
     public static void Quit()

@@ -66,11 +66,11 @@ public partial class SimulationWindow : Window
     {
         switch(e.ProgressPercentage)
         { 
-            case 0:
+            case 0: //timer
                 string timerText = stopWatch.Elapsed.ToString();
                 TimerText = timerText.Substring(0, 8);
                 break;
-            case 1:
+            case 1: //update started
                 Dispatcher.Invoke(() =>
                 {
                     idLb.Content = (e.UserState as Tuple<int, Order>).Item2.Id;
@@ -79,8 +79,24 @@ public partial class SimulationWindow : Window
                     estimatedFinishLb.Content = $"{((e.UserState as Tuple<int, Order>).Item1)/1000} seconds.";
                 });
                 break;
-            case 2:
+            case 2: //update done
+                Dispatcher.Invoke(() =>
+                {
+                    ProgressLb.Content = $"{idLb.Content} update done.";
+                });
+                break;
 
+            case 3: // simulator terminated
+                Dispatcher.Invoke(() =>
+                {
+                    idLb.Visibility = Visibility.Hidden;
+                    statusLb.Visibility = Visibility.Hidden;
+                    updateToLb.Visibility = Visibility.Hidden;
+                    estimatedFinishLb.Visibility = Visibility.Hidden;
+                    ProgressLb.Visibility = Visibility.Hidden;
+                    SimulatorTerminatedLb.Visibility = Visibility.Visible;
+
+                });
                 break;
         }
     }
@@ -97,12 +113,16 @@ public partial class SimulationWindow : Window
 
     private void orderChanged1(object sender, EventArgs e)
     {
-        int delay = (e as TupleSimulatorArgs).delay;
-        Order ord = (e as TupleSimulatorArgs).ord;
-        Tuple<int, Order> tupleParams = new(delay, ord);
-        ProgressChangedEventArgs p = new(1, tupleParams);
-        Worker_ProgressChanged(sender, p);
-        
+        if (e is TupleSimulatorArgs) //update started
+        {
+            int delay = (e as TupleSimulatorArgs).delay;
+            Order ord = (e as TupleSimulatorArgs).ord;
+            Tuple<int, Order> tupleParams = new(delay, ord);
+            ProgressChangedEventArgs p = new(1, tupleParams);
+            Worker_ProgressChanged(sender, p);
+        }
+        else
+            Worker_ProgressChanged(sender, new ProgressChangedEventArgs((e as IntSimulatorArgs).state, null));
     }
 
     private void StopBtn_Click(object sender, RoutedEventArgs e)

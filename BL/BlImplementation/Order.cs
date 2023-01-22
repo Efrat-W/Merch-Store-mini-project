@@ -5,7 +5,11 @@ namespace BlImplementation;
 internal class Order : BlApi.IOrder
 {
     DalApi.IDal? dal = DalApi.Factory.Get();
-
+    /// <summary>
+    /// ********************************************************************
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public IEnumerable<BO.OrderForList> RequestOrdersByGroup(orderStatus? key)
     {
         var orderGroupsByStatus = from ord in RequestOrders()
@@ -87,7 +91,8 @@ internal class Order : BlApi.IOrder
 
         try
         {
-            items = dal.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new InvalidArgumentException()).Select(DoOrderItemToBoOrderItem);//collects all items of this order and convert to BO
+            //collects all items of this order and convert to BO
+            items = dal.OrderItem.RequestAllItemsByOrderID(ord?.ID ?? throw new InvalidArgumentException()).Select(DoOrderItemToBoOrderItem);
         }
         catch (DO.MissingEntityException ex)
         {
@@ -145,16 +150,17 @@ internal class Order : BlApi.IOrder
             ord = dal!.Order.RequestById(id);
         }
         catch (DO.MissingEntityException ex) { throw new InvalidArgumentException("Order to update delivery not found.", ex); }
-        //updates status and ship date
+        //update status and ship date
         if (ord.ShipDate != null)
             throw new InvalidDateException("The order was already shipped.\n");
         ord.ShipDate = DateTime.Now;
 
-        IEnumerable<BO.OrderItem> items = from DO.OrderItem item in dal.OrderItem.RequestAllItemsByOrderID(id)//collects all items of this order and convert to BO
+        //collect all items of this order and convert to BO
+        IEnumerable<BO.OrderItem> items = from DO.OrderItem item in dal.OrderItem.RequestAllItemsByOrderID(id)
                                           select DoOrderItemToBoOrderItem(item);
         try
         {
-            dal.Order.Update(ord);//tries updating dl
+            dal.Order.Update(ord);//try updating dal
         }
         catch (Exception ex) { throw new InvalidArgumentException("Requested Order to update shipment not found.", ex); }
         return new BO.Order()
@@ -197,7 +203,8 @@ internal class Order : BlApi.IOrder
             dal.Order.Update(ord);
         }
         catch (DO.MissingEntityException ex) { throw new InvalidArgumentException("Order to update delivery not found.", ex); }
-        IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);//collects all items of this order and convert to BO
+        //collects all items of this order and convert to BO
+        IEnumerable<BO.OrderItem> items = dal.OrderItem.RequestAllItemsByOrderID(ord.ID).Select(DoOrderItemToBoOrderItem);
         return new BO.Order()
         {
             Id = id,
@@ -249,19 +256,38 @@ internal class Order : BlApi.IOrder
             orderProgress = tuples
         };
     }
-
-    public BO.Order GetOldest()
+    /// <summary>
+    /// return the "oldest" order
+    /// </summary>
+    /// <returns></returns>
+    public BO.Order? GetOldest()
     {
+        int id;
+        //create a list of all the approved orders and order by their order date
         var lsApproved = from order in dal!.Order.RequestAll()
                          where order?.OrderDate != null && order?.ShipDate == null
                          orderby order?.OrderDate
                          select order;
+        //create a list of all the shipped orders and order by their order date
         var lsShipped = from order in dal!.Order.RequestAll()
                         where order?.ShipDate != null && order?.DeliveryDate == null
                         orderby order?.OrderDate
                         select order;
+        //if one of the lists is empty
+        if (!lsApproved.Any())
+        {
+            if (!lsShipped.Any())
+                return null;
+            id = (int)lsShipped.First()?.ID;
+            return RequestById(id);
+        }
+        else if (!lsShipped.Any())
+        {
+            id = (int)lsApproved.First()?.ID;
+            return RequestById(id);
+        }
 
-        int id = lsApproved.First()?.OrderDate < lsShipped.First()?.ShipDate ? (int)lsApproved.First()?.ID : (int)lsShipped.First()?.ID;
+        id = lsApproved.First()?.OrderDate < lsShipped.First()?.ShipDate ? (int)lsApproved.First()?.ID : (int)lsShipped.First()?.ID;
         return RequestById(id);
     }
 }

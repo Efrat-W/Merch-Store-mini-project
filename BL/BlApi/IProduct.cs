@@ -1,7 +1,7 @@
 ﻿
 using BO;
 namespace BlApi;
-
+//Product interface
 public interface IProduct
 {
     public IEnumerable<ProductForList> RequestList();

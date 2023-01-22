@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d"
       Title="MainMenu" Height="150" Width="100">
-    <Grid x:Name="Menu" Background="Black" Margin="0,0,-5,21" >
+    <Grid x:Name="Menu" Background="Black" Margin="0,0,-5,30" >
 
         <StackPanel Margin="0,0,0,29">
             <Button x:Name="Products" Content="Our Products" Background="Black" BorderBrush="{x:Null}" FontFamily="{StaticResource JosefinSansLight}" Foreground="#FFFCFCFC" Click="Products_Click" />

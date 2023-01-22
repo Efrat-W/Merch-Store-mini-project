@@ -26,7 +26,7 @@ namespace PL;
 public partial class ViewProduct : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    public BO.Cart cart
+    private BO.Cart cart
     {
         get { return (BO.Cart)GetValue(cartProperty); }
         set { SetValue(cartProperty, value); }
@@ -36,7 +36,7 @@ public partial class ViewProduct : Page
     public static readonly DependencyProperty cartProperty =
         DependencyProperty.Register("cart", typeof(BO.Cart), typeof(ViewProduct));
 
-    public BO.ProductItem Product
+    private BO.ProductItem Product
     {
         get { return (BO.ProductItem)GetValue(ProductProperty); }
         set { SetValue(ProductProperty, value); }
@@ -52,7 +52,11 @@ public partial class ViewProduct : Page
             InitializeComponent();
             Product = bl.Product.RequestByIdCustomer(id,cart);
     }
-    
+    /// <summary>
+    /// add the product to cart
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void AddToCart_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -67,6 +71,11 @@ public partial class ViewProduct : Page
         }
 
     }
+    /// <summary>
+    /// increase product amount on cart by 1
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
     {
         try 
@@ -78,8 +87,12 @@ public partial class ViewProduct : Page
         {
             MessageBox.Show($"Uh oh! \nThere's not enough {Product.Name} in stock.");
         }
-
     }
+    /// <summary>
+    /// decrease product amount on cart by 1
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -91,7 +104,6 @@ public partial class ViewProduct : Page
         {
             MessageBox.Show($"Uh oh! \nWe cannot decrease the amount of {Product.Name} in your cart.");
         }
-
     }
 }
 

@@ -27,6 +27,11 @@ namespace PL
             cart = cart1;
             InitializeComponent();
         }
+        /// <summary>
+        /// open the catalog window ordered by category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewCollBtn_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainFrame.CanGoBack)

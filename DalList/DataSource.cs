@@ -2,7 +2,7 @@
 using DO;
 
 namespace Dal;
-
+//Class for saving the data in lists
 internal static class DataSource
 {
     readonly static Random rand = new();

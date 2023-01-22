@@ -22,7 +22,7 @@ namespace PL.OrderProcess
     public partial class OrderMaking : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public BO.Cart cart
+        private BO.Cart cart
         {
             get { return (BO.Cart)GetValue(cartProperty); }
             set { SetValue(cartProperty, value); }
@@ -38,7 +38,11 @@ namespace PL.OrderProcess
             InitializeComponent();
             cart = cart1;
         }
-
+        /// <summary>
+        /// make the order
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             BO.Order order = new();
@@ -55,6 +59,7 @@ namespace PL.OrderProcess
                 MessageBox.Show($@" HOORAY! 
 Your order has been placed successfully and will soon be on its way. We can't wait!
 Your order id is: {order.Id}. A verification mail is already in your inbox.");
+                //empty cart
                 bl!.Cart.Empty(cart);
             }
         }

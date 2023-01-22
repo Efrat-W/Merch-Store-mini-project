@@ -23,7 +23,7 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public ObservableCollection<BO.OrderForList> OrdersDP
+        private ObservableCollection<BO.OrderForList> OrdersDP
         {
             get { return (ObservableCollection<BO.OrderForList>)GetValue(OrdersProperty); }
             set { SetValue(OrdersProperty, value); }
@@ -36,13 +36,10 @@ namespace PL.Manager
         public Orders(BlApi.IBl? bl1)
         {
             bl = bl1;
-
             var orderGroupsByStatus = from ord in bl!.Order.RequestOrders()
                                       orderby ord.ID
                                       group ord by ord.Status into statusGroup
                                       select statusGroup;
-
-            //OrdersListView.ItemsSource = orderGroupsByStatus;
             OrdersDP = new ObservableCollection<BO.OrderForList>();
             foreach (var categoryGroup in orderGroupsByStatus)
             {
@@ -53,14 +50,16 @@ namespace PL.Manager
             }
             InitializeComponent();
         }
-
+        /// <summary>
+        /// open the selected order window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OrdersListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) 
         {
             var senderLS = (ListView)sender;
             if (senderLS.SelectedItem != null)
                 new Order(((OrderForList)(senderLS.SelectedItem)).ID).ShowDialog();
-            
-            //OrdersDP = new ObservableCollection<OrderForList>(bl!.Order.RequestOrders());
             new Orders(bl).Show();
             Close();
         }

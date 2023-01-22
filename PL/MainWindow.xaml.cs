@@ -34,39 +34,20 @@ namespace PL
             mainFrame = MainFrame;
             mainFrame.Navigate(new HomePage(cart));
         }
-
-
-
-        //private void MenuBtn_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    MenuFrame.Navigate(new MainMenu(cart));
-        //}
-
-        //private void MenuFrame_MouseLeave(object sender, RoutedEventArgs e)
-        //{
-        //    MenuFrame.Opacity = 0;
-        //    MenuFrame.IsHitTestVisible = false;
-        //    if (MenuFrame.CanGoBack)
-        //    {
-        //        MenuFrame.RemoveBackEntry();
-        //    }
-        //}
-
-        //private void CartFrame_MouseLeave(object sender, RoutedEventArgs e)
-        //{
-        //    CartFrame.Opacity = 0;
-        //    CartFrame.IsHitTestVisible = false;
-        //    if (CartFrame.CanGoBack)
-        //    {
-        //        CartFrame.RemoveBackEntry();
-        //    }
-        //}
-
+        /// <summary>
+        /// open the cart page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cart_Click(object sender, RoutedEventArgs e)
         {
             CartFrame.Navigate(new Cart(cart));
         }
-
+        /// <summary>
+        /// open the menu page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuBtn_Click(object sender, RoutedEventArgs e)
         {
             MenuFrame.Navigate(new MainMenu(cart));

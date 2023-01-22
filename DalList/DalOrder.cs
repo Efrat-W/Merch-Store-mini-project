@@ -14,9 +14,11 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"> </exception>
     public int Create(Order order)
     {
+        //check if the order exist
         Order? orderCheck = orders.Find(i => i?.ID == order.ID);
         if (orderCheck != null)
-            throw new MissingEntityException("Requested Order already exists.\n");
+            throw new DoubledEntityException("Requested Order already exists.\n");
+
         Order? newOrder = new()
         {
             ID = Config.OrderSeqID,

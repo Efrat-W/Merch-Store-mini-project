@@ -17,7 +17,8 @@ internal class DalOrderItem : IOrderItem
     {
         OrderItem? itemCheck = OrderItems.Find(i => i?.ProductID == item.ProductID && i?.OrderID == item.OrderID );
         if (itemCheck != null)
-            throw new MissingEntityException("Requested Order Item already exists.\n");
+            throw new DoubledEntityException("Requested Order Item already exists.\n");
+
         OrderItem newItem = new() {
             ID = Config.OrderItemSeqID,
             ProductID = item.ProductID,
@@ -108,7 +109,6 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public IEnumerable<OrderItem?> RequestAllItemsByOrderID(int ordID)
     {
-        //Func<OrderItem?, bool>? func = (item) => { return item?.OrderID == ordID; };
         return RequestAll(item => item?.OrderID == ordID);
     }
 }

@@ -21,7 +21,7 @@ namespace PL;
 public partial class OrderTracking : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    public BO.OrderTracking track
+    private BO.OrderTracking track
     {
         get { return (BO.OrderTracking)GetValue(trackProperty); }
         set { SetValue(trackProperty, value); }
@@ -32,39 +32,35 @@ public partial class OrderTracking : Page
         DependencyProperty.Register("track", typeof(BO.OrderTracking), typeof(OrderTracking));
     
     int id;
-    
-    public bool trackVisibility
+
+    private bool trackVisibility
     {
         get { return (bool)GetValue(trackVisibilityProperty); }
         set { SetValue(trackVisibilityProperty, value); }
     }
-
-
-
-    public string text
-    {
-        get { return (string)GetValue(textProperty); }
-        set { SetValue(textProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for text.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty textProperty =
-        DependencyProperty.Register("text", typeof(string), typeof(OrderTracking));
-
-
-
     // Using a DependencyProperty as the backing store for trackVisibility.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty trackVisibilityProperty =
         DependencyProperty.Register("trackVisibility", typeof(bool), typeof(OrderTracking));
 
-
+    private string text
+    {
+        get { return (string)GetValue(textProperty); }
+        set { SetValue(textProperty, value); }
+    }
+    // Using a DependencyProperty as the backing store for text.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty textProperty =
+        DependencyProperty.Register("text", typeof(string), typeof(OrderTracking));
 
     public OrderTracking()
     {
         trackVisibility = false;
         InitializeComponent();
     }
-
+    /// <summary>
+    /// show order tracking details
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void TrackBtn_Click(object sender, RoutedEventArgs e)
     {
         int.TryParse(text, out id);
@@ -78,7 +74,11 @@ public partial class OrderTracking : Page
             MessageBox.Show($"Oops! No order with the id {id} could be found.");
         }
     }
-
+    /// <summary>
+    /// open order details page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void DetailsBtn_Click(object sender, RoutedEventArgs e)
     {
         MainWindow.mainFrame.Navigate(new OrderDetails(id));

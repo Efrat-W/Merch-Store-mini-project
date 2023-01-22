@@ -21,8 +21,7 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-
-        public BO.Order Ord
+        private BO.Order Ord
         {
             get { return (BO.Order)GetValue(OrdProperty); }
             set { SetValue(OrdProperty, value); }
@@ -33,7 +32,7 @@ namespace PL.Manager
             DependencyProperty.Register("Ord", typeof(BO.Order), typeof(Order));
 
 
-        public bool IsShipped
+        private bool IsShipped
         {
             get { return (bool)GetValue(IsShippedProperty); }
             set { SetValue(IsShippedProperty, value); }
@@ -43,7 +42,7 @@ namespace PL.Manager
         public static readonly DependencyProperty IsShippedProperty =
             DependencyProperty.Register("IsShipped", typeof(bool), typeof(Order));
 
-        public bool IsDelivered
+        private bool IsDelivered
         {
             get { return (bool)GetValue(IsDeliveredProperty); }
             set { SetValue(IsDeliveredProperty, value); }
@@ -53,24 +52,16 @@ namespace PL.Manager
         public static readonly DependencyProperty IsDeliveredProperty =
             DependencyProperty.Register("IsDelivered", typeof(bool), typeof(Order));
 
-
-
-        public Array categories
-        {
-            get { return (Array)GetValue(categoriesProperty); }
-            set { SetValue(categoriesProperty, value); }
-        }
-        // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty categoriesProperty =
-            DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
-
-
         public Order(int id)
         {
             Ord = bl.Order.RequestById(id);
             InitializeComponent();
         }
-
+        /// <summary>
+        /// if need, updates shipment/delivery
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         { 
             if (IsShipped) 

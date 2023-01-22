@@ -29,8 +29,6 @@ public partial class Catalog : Page
     BlApi.IBl? bl = BlApi.Factory.Get();
     private static BO.Cart cart;
 
-    public IEnumerable<IGrouping<BO.category?, ProductItem>> ProductsGroupedByCategory;
-
     private BO.category? category
     {
         get { return (BO.category?)GetValue(categoryProperty); }
@@ -41,7 +39,7 @@ public partial class Catalog : Page
     public static readonly DependencyProperty categoryProperty =
         DependencyProperty.Register("category", typeof(BO.category?), typeof(Catalog));
 
-    public IEnumerable<BO.ProductItem> Products
+    private IEnumerable<BO.ProductItem> Products
     {
         get { return (IEnumerable<BO.ProductItem>)GetValue(ProductsProperty); }
         set { SetValue(ProductsProperty, value); }
@@ -51,9 +49,7 @@ public partial class Catalog : Page
     public static readonly DependencyProperty ProductsProperty =
         DependencyProperty.Register("Products", typeof(IEnumerable<BO.ProductItem>), typeof(Catalog));
 
-
-
-    public Array categories
+    private Array categories
     {
         get { return (Array)GetValue(categoriesProperty); }
         set { SetValue(categoriesProperty, value); }
@@ -64,17 +60,17 @@ public partial class Catalog : Page
     public static readonly DependencyProperty categoriesProperty =
         DependencyProperty.Register("categories", typeof(Array), typeof(Catalog));
 
-
+    private IEnumerable<IGrouping<BO.category?, ProductItem>> ProductsGroupedByCategory;
     private string groupName = "Category";
     PropertyGroupDescription propertyGroupDescription;
-    public ICollectionView CollectionViewProductItemList { set; get; }
+    private ICollectionView CollectionViewProductItemList { set; get; }
 
     public Catalog(BO.Cart cart1)
     {
         categories = Enum.GetValues(typeof(BO.category));
         cart = cart1;
         category = null;
-
+        //grouping stuff
         ProductsGroupedByCategory = from ListProd in bl.Product.RequestList()
                                         let prod = new BO.ProductItem()
                                         {
@@ -99,7 +95,6 @@ public partial class Catalog : Page
             }
         }
 
-
         CollectionViewProductItemList = CollectionViewSource.GetDefaultView(Products);
 
         propertyGroupDescription = new PropertyGroupDescription(groupName);
@@ -107,6 +102,11 @@ public partial class Catalog : Page
 
         InitializeComponent();
     }
+    /// <summary>
+    /// constructor with category parameter
+    /// </summary>
+    /// <param name="cat"></param>
+    /// <param name="cart1"></param>
     public Catalog(BO.category cat, BO.Cart cart1)
     {
         categories = Enum.GetValues(typeof(BO.category));
@@ -138,7 +138,10 @@ public partial class Catalog : Page
                 }
             }
         }
+        CollectionViewProductItemList = CollectionViewSource.GetDefaultView(Products);
 
+        propertyGroupDescription = new PropertyGroupDescription(groupName);
+        CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
         InitializeComponent();
     }
     private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -158,6 +161,11 @@ public partial class Catalog : Page
             }
         }
     }
+    /// <summary>
+    /// clear selection by category
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         category = null;
@@ -179,7 +187,11 @@ public partial class Catalog : Page
         CollectionViewProductItemList.GroupDescriptions.Add(propertyGroupDescription);
         CollectionViewProductItemList.GroupDescriptions.Clear();
     }
-
+    /// <summary>
+    /// open the product window
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e) =>
         MainWindow.mainFrame.Navigate(new ViewProduct(((ProductItem)((ListView)sender).SelectedItem).ID, cart));
 }

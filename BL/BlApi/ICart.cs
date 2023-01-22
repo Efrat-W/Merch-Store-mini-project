@@ -1,7 +1,7 @@
 ﻿
 using BO;
 namespace BlApi;
-
+//Cart interface
 public interface ICart
 {
     public Cart AddProduct(Cart cart, int prodId);

@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:converter="clr-namespace:PL.Converters"
         mc:Ignorable="d"
         Title="ViewProduct" Height="440" Width="800"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Page.Resources>
+        <converter:PathToBitmapImageConverter x:Key="ImageConveretr"/>
         <Style x:Key="InStockLabel" TargetType="Label">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Setter Property="FontSize" Value="14"/>
@@ -25,7 +27,7 @@
             <ColumnDefinition Width="5*"/>
 
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="1" Source="{Binding Image}" HorizontalAlignment="Left" Height="355" Width="339" Margin="10,30,0,0" VerticalAlignment="Top" Stretch="UniformToFill"/>
+        <Image Grid.Column="1" Source="{Binding Image, Converter={StaticResource ImageConveretr}}" HorizontalAlignment="Left" Height="355" Width="339" Margin="10,30,0,0" VerticalAlignment="Top" Stretch="UniformToFill"/>
         <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center">
             <TextBlock  FontFamily="{StaticResource JosefinSansBold}" FontSize="30" Text="{Binding Name}" TextWrapping="WrapWithOverflow" Width="280" />
             <TextBlock  FontFamily="{StaticResource JosefinSansLight}" FontSize="20" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Width="280" />

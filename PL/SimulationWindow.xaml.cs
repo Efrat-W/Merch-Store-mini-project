@@ -36,6 +36,37 @@ public partial class SimulationWindow : Window
 
 
 
+    public int IdLbContent
+    {
+        get { return (int)GetValue(IdLbContentProperty); }
+        set { SetValue(IdLbContentProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for IdLbContent.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty IdLbContentProperty =
+        DependencyProperty.Register("IdLbContent", typeof(int), typeof(SimulationWindow));
+
+    public string StatusContent
+    {
+        get { return (string)GetValue(StatusContentProperty); }
+        set { SetValue(StatusContentProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for IdLbContent.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty StatusContentProperty =
+        DependencyProperty.Register("StatusContent", typeof(string), typeof(SimulationWindow));
+
+    public string StatusUpdatedContent
+    {
+        get { return (string)GetValue(StatusUpdatedContentProperty); }
+        set { SetValue(StatusUpdatedContentProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for IdLbContent.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty StatusUpdatedContentProperty =
+        DependencyProperty.Register("StatusUpdatedContent", typeof(string), typeof(SimulationWindow));
+
+
     //public int progress
     //{
     //    get { return (int)GetValue(progressProperty); }
@@ -51,6 +82,8 @@ public partial class SimulationWindow : Window
     BackgroundWorker timerworker;
     public SimulationWindow()
     {
+        IdLbContent = 0;
+        StatusContent = StatusUpdatedContent = "Loading...";
         InitializeComponent();
         Closing += (s, e) => e.Cancel = true;
         stopWatch = new Stopwatch();
@@ -61,6 +94,13 @@ public partial class SimulationWindow : Window
         timerworker.WorkerReportsProgress = true;
         isTimerRun = true;
         timerworker.RunWorkerAsync();
+
+        //BackgroundWorker uiWorker = new BackgroundWorker();
+        //uiWorker.DoWork += UIWorker_DoWork;
+        //uiWorker.ProgressChanged += UIWorker_ProgressChanged;
+        //uiWorker.WorkerReportsProgress = true;
+
+        //uiWorker.RunWorkerAsync();
     }
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
@@ -70,14 +110,12 @@ public partial class SimulationWindow : Window
                 string timerText = stopWatch.Elapsed.ToString();
                 TimerText = timerText.Substring(0, 8);
                 break;
-            case 1: //update started
-                Dispatcher.Invoke(() =>
-                {
-                    idLb.Content = (e.UserState as Tuple<int, Order>).Item2.Id;
-                    statusLb.Content = (e.UserState as Tuple<int, Order>).Item2.Status;
-                    updateToLb.Content = (e.UserState as Tuple<int, Order>).Item2.Status == BO.orderStatus.Approved ? "Shipped" : "Delivered";
-                    estimatedFinishLb.Content = $"{((e.UserState as Tuple<int, Order>).Item1)/1000} seconds.";
-                });
+            case 1:
+                IdLbContent = (e.UserState as Tuple<int, Order>).Item2.Id;
+                StatusContent = (e.UserState as Tuple<int, Order>).Item2.Status.ToString();
+                StatusUpdatedContent = (e.UserState as Tuple<int, Order>).Item2.Status == BO.orderStatus.Approved ? "Shipped" : "Delivered";
+
+
                 break;
             case 2: //update done
                 Dispatcher.Invoke(() =>
@@ -111,6 +149,27 @@ public partial class SimulationWindow : Window
         }
     }
 
+    private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    {
+        if (e.Cancelled)
+        {
+            ProgressLb.Content = "Terminated.";
+        }
+        //else if (e.Error != null)
+        //{
+        //    // e.Result throw System.Reflection.TargetInvocationException
+        //    Console.WriteLine(e.Error.Message); //Exception Message
+        //}
+        //else
+        //{
+        //    long result = (long)e.Result;
+        //    if (result < 1000)
+        //        resultLabel.Content = "Done after " + result + " ms.";
+        //    else
+        //        resultLabel.Content = "Done after " + result / 1000 + " sec.";
+        //}
+    }
+
     private void orderChanged1(object sender, EventArgs e)
     {
         if (e is TupleSimulatorArgs) //update started
@@ -119,10 +178,10 @@ public partial class SimulationWindow : Window
             Order ord = (e as TupleSimulatorArgs).ord;
             Tuple<int, Order> tupleParams = new(delay, ord);
             ProgressChangedEventArgs p = new(1, tupleParams);
-            Worker_ProgressChanged(sender, p);
+            timerworker.ReportProgress(1, p);
         }
         else
-            Worker_ProgressChanged(sender, new ProgressChangedEventArgs((e as IntSimulatorArgs).state, null));
+            timerworker.ReportProgress(1, new ProgressChangedEventArgs((e as IntSimulatorArgs).state, null));
     }
 
     private void StopBtn_Click(object sender, RoutedEventArgs e)
@@ -133,6 +192,10 @@ public partial class SimulationWindow : Window
             isTimerRun = false;
             simulator.Quit();
             Closing += (s, e) => e.Cancel = false;
+
+            if (timerworker.WorkerSupportsCancellation == true)
+                // Cancel the asynchronous operation.
+                timerworker.CancelAsync();
         }
     }
 }

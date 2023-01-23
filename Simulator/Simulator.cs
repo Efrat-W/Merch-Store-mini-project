@@ -40,5 +40,6 @@ public static class simulator
     public static void Quit()
     {
         _disposed = true;
+        
     }
 }

@@ -13,15 +13,15 @@
         <StackPanel HorizontalAlignment="Center" Margin="270,159,270,108">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Order ID:" VerticalContentAlignment="Center"/>
-                <Label x:Name="idLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label x:Name="idLb" Content="{Binding IdLbContent}" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Current status:" VerticalContentAlignment="Center"/>
-                <Label x:Name="statusLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label x:Name="statusLb"  Content="{Binding StatusContent}"  Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Updating to:" VerticalContentAlignment="Center"/>
-                <Label x:Name="updateToLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label x:Name="updateToLb" Content="{Binding StatusUpdatedContent}"  Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Estimated finish time:" VerticalContentAlignment="Center"/>

@@ -140,9 +140,6 @@ public partial class SimulationWindow : Window
             case 2: //update done
                 ProgressStatus = $"{idLb.Content} updated successfully!";
                 break;
-            case 3: //simulator terminated
-                isEndOfSimulation = true;
-                break;
             default:
                 break;
 
@@ -176,8 +173,9 @@ public partial class SimulationWindow : Window
         simulator.EndSimulator -= cancelAsync;
         stopWatch.Stop();
         backgroundWorker.CancelAsync();
-        canClose=true;
-        Close();
+        isEndOfSimulation=true;
+        ProgressStatus = "End of simulation.";
+        canClose =true;
 
     }
 
@@ -198,6 +196,5 @@ public partial class SimulationWindow : Window
     {
         isTimerRun = false;
         simulator.Quit();
-        
     }
 }

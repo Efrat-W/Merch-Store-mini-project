@@ -37,7 +37,6 @@ public static class simulator
                     Quit();
                 Thread.Sleep(SEC);
             }
-            Report!(Thread.CurrentThread, new TupleSimulatorArgs(3)); //simulator terminated
         }).Start();
     }
     public static void Quit()

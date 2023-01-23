@@ -23,7 +23,7 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        private ObservableCollection<BO.OrderForList> OrdersDP
+        public ObservableCollection<BO.OrderForList> OrdersDP
         {
             get { return (ObservableCollection<BO.OrderForList>)GetValue(OrdersProperty); }
             set { SetValue(OrdersProperty, value); }

@@ -138,14 +138,14 @@ public partial class SimulationWindow : Window
                 ProgressStatus = "Updating...";
                 break;
             case 2: //update done
-                ProgressStatus = $"{idLb.Content} updated successfully!";
+                ProgressStatus = $"{IdLbContent} updated successfully!";
                 break;
             case 3: //simulator terminated
                 isEndOfSimulation = true;
                 break;
             default:
+                Console.WriteLine($"Unrecognized/unhandled Report int parameter of value {e.ProgressPercentage}.");
                 break;
-
         }
     }
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -176,9 +176,8 @@ public partial class SimulationWindow : Window
         simulator.EndSimulator -= cancelAsync;
         stopWatch.Stop();
         backgroundWorker.CancelAsync();
-        canClose=true;
+        canClose = true;
         Close();
-
     }
 
     private void orderChanged1(object sender, EventArgs e)
@@ -198,6 +197,5 @@ public partial class SimulationWindow : Window
     {
         isTimerRun = false;
         simulator.Quit();
-        
     }
 }

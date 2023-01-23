@@ -30,11 +30,11 @@ public static class simulator
                         bl.Order.UpdateShipment(ord.Id);
                     else
                         bl.Order.UpdateDelivery(ord.Id);
-                    Report(Thread.CurrentThread, new IntSimulatorArgs(2)); //update done
+                    Report(Thread.CurrentThread, new TupleSimulatorArgs(2)); //update done
                 }
                 Thread.Sleep(SEC);
             }
-            Report!(Thread.CurrentThread, new IntSimulatorArgs(3)); //simulator terminated
+            Report!(Thread.CurrentThread, new TupleSimulatorArgs(3)); //simulator terminated
         }).Start();
     }
     public static void Quit()

@@ -11,19 +11,19 @@ namespace Simulator
     {
         public int delay { get; set; }
         public Order ord { get; set; }
+        public int state { get; set; }
         public TupleSimulatorArgs(int d, Order o)
         {
             delay = d;
             ord = o;
+            state = 1;
         }
-    }
 
-    public class IntSimulatorArgs : EventArgs 
-    {
-        public int state { get; set; }
-        public IntSimulatorArgs(int state)
+        public TupleSimulatorArgs(int s)
         {
-            this.state = state;
-        }   
+            delay = -1;
+            ord = null;
+            state = s;
+        }
     }
 }

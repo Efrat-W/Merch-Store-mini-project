@@ -25,9 +25,9 @@
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
                 <Label Style="{StaticResource BlackLabel}" Content="Estimated finish time:" VerticalContentAlignment="Center"/>
-                <Label x:Name="estimatedFinishLb" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label x:Name="estimatedFinishLb" Content="{Binding estimatedFinishStatus}" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <Label x:Name="ProgressLb" Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="Updating..." HorizontalContentAlignment="Center"  />
+            <Label x:Name="ProgressLb" Content="{Binding ProgressStatus}" Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" HorizontalContentAlignment="Center"  />
             <Button x:Name="StopBtn" Style="{StaticResource BlackButton}" Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Top" Width="55" VerticalContentAlignment="Center" Click="StopBtn_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

@@ -67,15 +67,43 @@ public partial class SimulationWindow : Window
         DependencyProperty.Register("StatusUpdatedContent", typeof(string), typeof(SimulationWindow));
 
 
-    //public int progress
-    //{
-    //    get { return (int)GetValue(progressProperty); }
-    //    set { SetValue(progressProperty, value); }
-    //}
 
-    //// Using a DependencyProperty as the backing store for progress.  This enables animation, styling, binding, etc...
-    //public static readonly DependencyProperty progressProperty =
-    //    DependencyProperty.Register("progress", typeof(int), typeof(SimulationWindow));
+    public string estimatedFinishStatus
+    {
+        get { return (string)GetValue(estimatedFinishStatusProperty); }
+        set { SetValue(estimatedFinishStatusProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for estimatedFinishStatus.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty estimatedFinishStatusProperty =
+        DependencyProperty.Register("estimatedFinishStatus", typeof(string), typeof(SimulationWindow));
+
+
+
+    public string ProgressStatus
+    {
+        get { return (string)GetValue(ProgressStatusProperty); }
+        set { SetValue(ProgressStatusProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for ProgressStatus.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty ProgressStatusProperty =
+        DependencyProperty.Register("ProgressStatus", typeof(string), typeof(SimulationWindow));
+
+
+
+    public bool isRunning
+    {
+        get { return (bool)GetValue(isRunningProperty); }
+        set { SetValue(isRunningProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for isRunning.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty isRunningProperty =
+        DependencyProperty.Register("isRunning", typeof(bool), typeof(SimulationWindow), new PropertyMetadata(0));
+
+
+
 
     private Stopwatch stopWatch;
     private bool isTimerRun;
@@ -94,18 +122,11 @@ public partial class SimulationWindow : Window
         timerworker.WorkerReportsProgress = true;
         isTimerRun = true;
         timerworker.RunWorkerAsync();
-
-        //BackgroundWorker uiWorker = new BackgroundWorker();
-        //uiWorker.DoWork += UIWorker_DoWork;
-        //uiWorker.ProgressChanged += UIWorker_ProgressChanged;
-        //uiWorker.WorkerReportsProgress = true;
-
-        //uiWorker.RunWorkerAsync();
     }
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
-        switch(e.ProgressPercentage)
-        { 
+        switch (e.ProgressPercentage)
+        {
             case 0: //timer
                 string timerText = stopWatch.Elapsed.ToString();
                 TimerText = timerText.Substring(0, 8);
@@ -114,27 +135,23 @@ public partial class SimulationWindow : Window
                 IdLbContent = (e.UserState as Tuple<int, Order>).Item2.Id;
                 StatusContent = (e.UserState as Tuple<int, Order>).Item2.Status.ToString();
                 StatusUpdatedContent = (e.UserState as Tuple<int, Order>).Item2.Status == BO.orderStatus.Approved ? "Shipped" : "Delivered";
+                estimatedFinishStatus = $"{(e.UserState as Tuple<int, Order>).Item1 / 1000} seconds.";
+                ProgressStatus = "Updating...";
 
 
                 break;
             case 2: //update done
-                Dispatcher.Invoke(() =>
-                {
-                    ProgressLb.Content = $"{idLb.Content} update done.";
-                });
+                    ProgressStatus = $"{idLb.Content} updated successfully!";
                 break;
 
             case 3: // simulator terminated
-                Dispatcher.Invoke(() =>
-                {
-                    idLb.Visibility = Visibility.Hidden;
-                    statusLb.Visibility = Visibility.Hidden;
-                    updateToLb.Visibility = Visibility.Hidden;
-                    estimatedFinishLb.Visibility = Visibility.Hidden;
-                    ProgressLb.Visibility = Visibility.Hidden;
-                    SimulatorTerminatedLb.Visibility = Visibility.Visible;
+                    //idLb.Visibility = Visibility.Hidden;
+                    //statusLb.Visibility = Visibility.Hidden;
+                    //updateToLb.Visibility = Visibility.Hidden;
+                    //estimatedFinishLb.Visibility = Visibility.Hidden;
+                    //ProgressLb.Visibility = Visibility.Hidden;
+                    //SimulatorTerminatedLb.Visibility = Visibility.Visible;
 
-                });
                 break;
         }
     }
@@ -172,16 +189,15 @@ public partial class SimulationWindow : Window
 
     private void orderChanged1(object sender, EventArgs e)
     {
-        if (e is TupleSimulatorArgs) //update started
+        if ((e as TupleSimulatorArgs).state == 1) //update started
         {
-            int delay = (e as TupleSimulatorArgs).delay;
-            Order ord = (e as TupleSimulatorArgs).ord;
+            int delay = (e as TupleSimulatorArgs)!.delay;
+            Order ord = (e as TupleSimulatorArgs)!.ord;
             Tuple<int, Order> tupleParams = new(delay, ord);
-            ProgressChangedEventArgs p = new(1, tupleParams);
-            timerworker.ReportProgress(1, p);
+            timerworker.ReportProgress(1, tupleParams);
         }
         else
-            timerworker.ReportProgress(1, new ProgressChangedEventArgs((e as IntSimulatorArgs).state, null));
+            timerworker.ReportProgress((e as TupleSimulatorArgs).state, e);
     }
 
     private void StopBtn_Click(object sender, RoutedEventArgs e)

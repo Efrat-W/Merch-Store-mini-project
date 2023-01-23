@@ -106,8 +106,9 @@ public partial class SimulationWindow : Window
         IdLbContent = 0;
         StatusContent = StatusUpdatedContent = "Loading...";
         isEndOfSimulation=false;
-        //
+        
         InitializeComponent();
+        //avoid closing the window
         Closing +=SimulatorWindow_Closing!;
 
         stopWatch = new Stopwatch();
@@ -140,6 +141,11 @@ public partial class SimulationWindow : Window
             case 2: //update done
                 ProgressStatus = $"{idLb.Content} updated successfully!";
                 break;
+            case 3: //ran out of orders
+                isEndOfSimulation=true;
+                canClose=true;
+                ProgressStatus = "No more orders to update!";
+                break;
             default:
                 break;
 
@@ -150,25 +156,24 @@ public partial class SimulationWindow : Window
         simulator.Report += orderChanged1!;
         simulator.EndSimulator += cancelAsync;
         simulator.Init();
+        //timer
         while (isTimerRun)
         {
             backgroundWorker.ReportProgress(0);
             Thread.Sleep(1000);
         }
     }
-   
     private void SimulatorWindow_Closing(object sender, CancelEventArgs e)
     {
-        e.Cancel = !canClose;
+        e.Cancel = !canClose;//make sure the window can only be closed properly
     }
-
     private void cancelAsync()
     {
         backgroundWorker.CancelAsync();
     }
-
     private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
+        //unsign
         simulator.Report -= orderChanged1!;
         simulator.EndSimulator -= cancelAsync;
         stopWatch.Stop();

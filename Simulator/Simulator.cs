@@ -2,7 +2,9 @@
 using System.ComponentModel;
 
 namespace Simulator;
-
+/// <summary>
+/// simulator class (for updating order progress)
+/// </summary>
 public static class simulator
 {
     private const int SEC = 1000;
@@ -30,11 +32,14 @@ public static class simulator
                         bl.Order.UpdateShipment(ord.Id);
                     else
                         bl.Order.UpdateDelivery(ord.Id);
-                    if(!_disposed)
+                    if (!_disposed)
                         Report(Thread.CurrentThread, new TupleSimulatorArgs(2)); //update done
                 }
                 else //no more orders to update
+                {
                     Quit();
+                    Report(Thread.CurrentThread, new TupleSimulatorArgs(3));
+                }
                 Thread.Sleep(SEC);
             }
         }).Start();

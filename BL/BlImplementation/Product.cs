@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using System.Runtime.CompilerServices;
+using BO;
 namespace BlImplementation;
 
 internal class Product : BlApi.IProduct
@@ -20,6 +21,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     /// <returns>the new product</returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Product Add(BO.Product product)
     {
         DO.Product prod;
@@ -45,6 +47,7 @@ internal class Product : BlApi.IProduct
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         IEnumerable<DO.OrderItem?> orderItems = dal!.OrderItem.RequestAll();
@@ -73,6 +76,7 @@ internal class Product : BlApi.IProduct
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Product RequestByIdManager(int id)
     {
         DO.Product prod;
@@ -96,6 +100,7 @@ internal class Product : BlApi.IProduct
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
     /// <exception cref="EntityNotFoundException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public ProductItem RequestByIdCustomer(int id, BO.Cart cart)
     {
         DO.Product? prod;
@@ -138,6 +143,7 @@ internal class Product : BlApi.IProduct
     /// returns the catalog (list of productForList items)
     /// </summary>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.ProductForList> RequestList()
     {
         return from doProd in dal!.Product.RequestAll()
@@ -158,6 +164,7 @@ internal class Product : BlApi.IProduct
     /// </summary>
     /// <param name="func">condition</param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<ProductForList> RequestListByCond(Func<ProductForList, bool>? func = null)
     {
         if (func == null)
@@ -172,6 +179,7 @@ internal class Product : BlApi.IProduct
     /// <param name="product"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Product Update(BO.Product product)
     {
         //validation

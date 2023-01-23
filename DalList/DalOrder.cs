@@ -1,4 +1,4 @@
-﻿
+﻿using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 using static Dal.DataSource;
@@ -12,6 +12,7 @@ internal class DalOrder : IOrder
     /// <param name="order">the order to add</param>
     /// <returns></returns>
     /// <exception cref="Exception"> </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Create(Order order)
     {
         //check if the order exist
@@ -37,6 +38,7 @@ internal class DalOrder : IOrder
     /// returns the list of orders
     /// </summary>
     /// <returns><list type="Order">list of orders</list></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> RequestAll(Func<Order?, bool>? func = null)
     {
         if (func == null)
@@ -50,6 +52,7 @@ internal class DalOrder : IOrder
     /// <param name="id"></param>
     /// <returns>Order</returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
@@ -60,6 +63,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order RequestByFunc(Func<Order?, bool>? func = null)
     {
         if (func == null) throw new MissingEntityException("No filter condition was given.\n");
@@ -71,6 +75,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="order">the updated order</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order order)
     {
         Order? orderToRemove = orders.Find(i => i?.ID == order.ID) ?? throw new MissingEntityException("Requested Order does not exist.\n");
@@ -83,6 +88,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="order"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(Order order)
     {
         Order? orderToRemove = orders.Find(i => i?.ID == order.ID) ?? throw new MissingEntityException("Requested Order does not exist.\n");

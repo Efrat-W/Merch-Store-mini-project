@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Runtime.CompilerServices;
 using BlApi;
 using BO;
 
@@ -21,6 +21,7 @@ internal class Cart : ICart
     /// <param name="prodId"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart AddProduct(BO.Cart cart, int prodId)
     {
         DO.Product? prod;
@@ -82,6 +83,7 @@ internal class Cart : ICart
     /// <param name="amount"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart UpdateProductAmount(BO.Cart cart, int prodId, int amount)
     {
         //if the item is not in the cart
@@ -128,6 +130,7 @@ internal class Cart : ICart
     /// <param name="cart"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order Approve(BO.Cart cart)
     {
         //order data validation
@@ -157,32 +160,36 @@ internal class Cart : ICart
             Status = BO.orderStatus.Approved
         };
         int id = 0;
-        try
+        lock (dal!)
         {
-            id = dal!.Order.Create(convertOrder(order));//finds sequence id and creates order in dal
-        }
-        catch (DO.DoubledEntityException ex){ throw new InvalidArgumentException("Unable to create Order.",ex); }
-        order.Id = id;
-        foreach (BO.OrderItem item in order.Items)//creates all items in dal and updates products amount in stock
-        {
-            dal.OrderItem.Create(convertOrderItem(item!, id));
-            item!.ID = id;
-            DO.Product product;
             try
             {
-                product = dal.Product.RequestById(item.ProductId);
+                id = dal!.Order.Create(convertOrder(order));//finds sequence id and creates order in dal
             }
-            catch (Exception ex) { 
-                if (item.ProductId <= 99999)
-                    throw new InvalidArgumentException("id out of range.\n");
-                throw new EntityNotFoundException("Requested Product for item creation not found.", ex);
-            }
+            catch (DO.DoubledEntityException ex) { throw new InvalidArgumentException("Unable to create Order.", ex); }
+            order.Id = id;
+            foreach (BO.OrderItem item in order.Items)//creates all items in dal and updates products amount in stock
+            {
+                dal.OrderItem.Create(convertOrderItem(item!, id));
+                item!.ID = id;
+                DO.Product product;
+                try
+                {
+                    product = dal.Product.RequestById(item.ProductId);
+                }
+                catch (Exception ex)
+                {
+                    if (item.ProductId <= 99999)
+                        throw new InvalidArgumentException("id out of range.\n");
+                    throw new EntityNotFoundException("Requested Product for item creation not found.", ex);
+                }
 
-            if (item.Amount > 0 && product.InStock >= item.Amount)
-                product.InStock -= item.Amount;
-            else
-                throw new InvalidArgumentException($"Requested amount is greater than {item.Name}'s available.\n");
-            dal.Product.Update(product);
+                if (item.Amount > 0 && product.InStock >= item.Amount)
+                    product.InStock -= item.Amount;
+                else
+                    throw new InvalidArgumentException($"Requested amount is greater than {item.Name}'s available.\n");
+                dal.Product.Update(product);
+            }
         }
         return order;
     }
@@ -225,6 +232,7 @@ internal class Cart : ICart
     /// empty items from cart
     /// </summary>
     /// <param name="cart"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Empty(BO.Cart cart)
     {
         cart!.Items!.Clear();

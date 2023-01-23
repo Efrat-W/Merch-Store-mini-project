@@ -3,6 +3,7 @@ using DO;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Xml.Linq;
+using System.Runtime.CompilerServices;
 
 
 namespace Dal;
@@ -16,6 +17,7 @@ internal class DalOrder : IOrder
     /// <param name="order">the order to add</param>
     /// <returns></returns>
     /// <exception cref="Exception"> </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Create(Order Ord) {
         //read the orders list from the xml file
         List<Order> orders = XMLTools.LoadListFromXMLSerializer<Order>(path);
@@ -43,6 +45,7 @@ internal class DalOrder : IOrder
     /// returns the list of orders
     /// </summary>
     /// <returns><list type="Order">list of orders</list></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order?> RequestAll(Func<Order?, bool>? func = null)
     {
         List<Order?> orders = XMLTools.LoadListFromXMLSerializer<Order?>(path);
@@ -56,6 +59,7 @@ internal class DalOrder : IOrder
     /// <param name="id"></param>
     /// <returns>Order</returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
@@ -65,6 +69,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order RequestByFunc(Func<Order?, bool>? func = null)
     {
         List<Order?> orders = XMLTools.LoadListFromXMLSerializer<Order?>(path);
@@ -76,6 +81,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="order">the updated order</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order order)
     {
         List<Order?> orders = XMLTools.LoadListFromXMLSerializer<Order?>(path);
@@ -89,6 +95,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="order"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(Order order)
     {
         List<Order?> orders = XMLTools.LoadListFromXMLSerializer<Order?>(path);

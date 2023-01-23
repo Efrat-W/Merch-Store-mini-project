@@ -3,7 +3,6 @@ using DalApi;
 using DO;
 using System.Runtime.CompilerServices;
 using static Dal.DataSource;
-
 namespace Dal;
 
 internal class DalOrderItem : IOrderItem
@@ -13,6 +12,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="item">the new order item</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Create(OrderItem item)
     {
         OrderItem? itemCheck = OrderItems.Find(i => i?.ProductID == item.ProductID && i?.OrderID == item.OrderID );
@@ -34,6 +34,7 @@ internal class DalOrderItem : IOrderItem
     /// returns the list of order items
     /// </summary>
     /// <returns><list type="OrderItem">list of order items</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> RequestAll(Func<OrderItem?, bool>? func = null)
     {
         if (func == null)
@@ -47,6 +48,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
@@ -57,6 +59,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem RequestByFunc(Func<OrderItem?, bool>? func)
     {
         return OrderItems.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
@@ -67,6 +70,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="item">the updated order item</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(OrderItem item)
     {
         //if orderItem is not exist throw exception 
@@ -80,6 +84,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="item"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(OrderItem item)
     {
         OrderItem? itemToRemove = OrderItems.Find(i => i?.ID == item.ID) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
@@ -93,6 +98,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="ord"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem? RequestByProductAndOrder(Product? prod, Order? ord)
     {
         OrderItem? item = OrderItems.Find(i => i?.ProductID == prod?.ID && i?.OrderID == ord?.ID);
@@ -107,6 +113,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="ordID"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> RequestAllItemsByOrderID(int ordID)
     {
         return RequestAll(item => item?.OrderID == ordID);

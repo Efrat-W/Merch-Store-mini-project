@@ -4,11 +4,12 @@ using DO;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Xml.Linq;
-
+using System.Runtime.CompilerServices;
 internal class DalProduct : IProduct
 {
     string path = "../xml/products.xml";
     XElement productsRoot;
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DalProduct()
     {
         LoadData();
@@ -17,6 +18,7 @@ internal class DalProduct : IProduct
     /// loadind the file's data to the root
     /// </summary>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     private void LoadData()
     {
         try
@@ -39,6 +41,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="prod">the new product</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Create(Product prod)
     {
         XElement Id = new("ID", prod.ID);
@@ -58,6 +61,7 @@ internal class DalProduct : IProduct
     /// returns the list of products
     /// </summary>
     /// <returns><list type="Product">list of products</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Product?> RequestAll(Func<Product?, bool>? func = null)
     {
         IEnumerable<Product?> products;
@@ -92,6 +96,7 @@ internal class DalProduct : IProduct
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
@@ -101,6 +106,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Product RequestByFunc(Func<Product?, bool>? func)
     {
         IEnumerable<Product?> filteredProducts = RequestAll(func) ?? throw new MissingEntityException("Requested Product does not exist.\n");
@@ -111,6 +117,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="prod">the updated product</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product prod)
     {
         try
@@ -128,6 +135,7 @@ internal class DalProduct : IProduct
     /// </summary>
     /// <param name="prod"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(Product prod)
     {
         XElement productElement;

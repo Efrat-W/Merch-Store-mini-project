@@ -16,7 +16,7 @@ internal class DalProduct : IProduct
     {
             Product? prodCheck = DataSource.products.Find(i => i?.ID == prod.ID);
             if (prodCheck != null)
-                throw new MissingEntityException("Requested Product already exists.\n");
+                throw new DoubledEntityException("Requested Product already exists.\n");
             DataSource.products.Add(prod);
             return prod.ID;
         

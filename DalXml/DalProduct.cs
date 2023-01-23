@@ -7,9 +7,7 @@ using System.Xml.Linq;
 
 internal class DalProduct : IProduct
 {
-    //public static string dir = @"xml\";
     string path = "../xml/products.xml";
-    string configPath = "../xml/config.xml";
     XElement productsRoot;
     public DalProduct()
     {
@@ -62,7 +60,6 @@ internal class DalProduct : IProduct
     /// <returns><list type="Product">list of products</returns>
     public IEnumerable<Product?> RequestAll(Func<Product?, bool>? func = null)
     {
-        //LoadData();
         IEnumerable<Product?> products;
         try
         {
@@ -85,6 +82,7 @@ internal class DalProduct : IProduct
         }
         if (func == null)
             return products;
+        //if there is any condition
         return products!.Where(o => func(o));
 
     }
@@ -120,9 +118,9 @@ internal class DalProduct : IProduct
             Delete(prod);//deletes the old object
             Create(prod);//creates the new one
         }
-        catch
+        catch (Exception e)
         {
-            throw;
+            throw new MissingEntityException("There is no such product..");
         }
     }
     /// <summary>
@@ -135,15 +133,15 @@ internal class DalProduct : IProduct
         XElement productElement;
         try
         {
-            productElement = (XElement)(from p in productsRoot.Elements()
-                                        where int.Parse(p.Element("ID").Value) == prod.ID
-                                        select p).FirstOrDefault();
+            productElement = (from p in productsRoot.Elements()
+                              where int.Parse(p.Element("ID")!.Value) == prod.ID
+                              select p).FirstOrDefault()!;
             productElement.Remove();
             productsRoot.Save(path);
         }
-        catch
+        catch (Exception e)
         {
-            throw;
+            throw new MissingEntityException("There is no such product..");
         }
     }
 }

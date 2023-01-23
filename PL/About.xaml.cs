@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+
+/// <summary>
+/// Interaction logic for About.xaml
+/// </summary>
+public partial class About : Page
 {
-    /// <summary>
-    /// Interaction logic for About.xaml
-    /// </summary>
-    public partial class About : Page
+    public About()
     {
-        public About()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

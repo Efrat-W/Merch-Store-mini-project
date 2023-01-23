@@ -26,7 +26,7 @@ namespace PL;
 public partial class Cart : Page
 {
     BlApi.IBl? bl = BlApi.Factory.Get();
-    public BO.Cart cart
+    private BO.Cart cart
     {
         get { return (BO.Cart)GetValue(cartProperty); }
         set { SetValue(cartProperty, value); }
@@ -35,7 +35,7 @@ public partial class Cart : Page
     // Using a DependencyProperty as the backing store for cart.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty cartProperty =
        DependencyProperty.Register("cart", typeof(BO.Cart), typeof(Cart));
-    public BO.OrderItem item
+    private BO.OrderItem item
     {
         get { return (BO.OrderItem)GetValue(itemProperty); }
         set { SetValue(itemProperty, value); }
@@ -51,19 +51,32 @@ public partial class Cart : Page
         cart = cart1;
         InitializeComponent();
     }
+    /// <summary>
+    /// when double clicking a product, open the product page in the main frame
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         MainWindow.mainFrame.Navigate(new ViewProduct(((OrderItem)((ListView)sender).SelectedItem).ProductId, cart));
     }
-
+    /// <summary>
+    /// opens the order making page
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         if (MainWindow.mainFrame.CanGoBack)
             MainWindow.mainFrame.RemoveBackEntry();
         
-        MainWindow.mainFrame.Navigate(new OrderMaking(cart));
-       
+        MainWindow.mainFrame.Navigate(new OrderMaking(cart)); 
     }
+    /// <summary>
+    /// Increase the product anount in 1
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void IncreaseBtn_Click(object sender, RoutedEventArgs e)
     {
         item = (BO.OrderItem)((Button)sender).DataContext;
@@ -78,6 +91,11 @@ public partial class Cart : Page
             MessageBox.Show(ex.Message);
         }
     }
+    /// <summary>
+    /// deacrease the product anount in 1
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void DecreaseBtn_Click(object sender, RoutedEventArgs e)
     {
         item = (BO.OrderItem)((Button)sender).DataContext;
@@ -92,6 +110,11 @@ public partial class Cart : Page
             MessageBox.Show(ex.Message);
         }
     }
+    /// <summary>
+    /// remove a product from cart 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void RemoveBtn_Click(object sender, RoutedEventArgs e)
     {
         item = (BO.OrderItem)((Button)sender).DataContext;

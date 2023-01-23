@@ -16,16 +16,18 @@ internal class DalOrder : IOrder
     /// <param name="order">the order to add</param>
     /// <returns></returns>
     /// <exception cref="Exception"> </exception>
-    public int Create(Order Ord) { 
+    public int Create(Order Ord) {
+        //read the orders list from the xml file
         List<Order> orders = XMLTools.LoadListFromXMLSerializer<Order>(path);
 
+        //read the last number fron config file
         XElement configRoot = XElement.Load(configPath);
 
-        int nextSeqNum = Convert.ToInt32(configRoot.Element("seqOrder").Value);
+        int nextSeqNum = Convert.ToInt32(configRoot.Element("seqOrder")!.Value);
         nextSeqNum++;
         Ord.ID = nextSeqNum;
         //update config file
-        configRoot.Element("seqOrder").SetValue(nextSeqNum);
+        configRoot.Element("seqOrder")!.SetValue(nextSeqNum);
         configRoot.Save(configPath);
 
         if (orders.Exists(x => x.ID == Ord.ID))

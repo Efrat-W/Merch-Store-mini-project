@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 using DO;
 namespace Dal;
-
+//help class for working with XML files
 public class XMLTools
 { 
     public static string dir = @"xml\";
@@ -21,6 +21,13 @@ public class XMLTools
 
 
     #region SaveLoadWithXMLSerializer
+    /// <summary>
+    /// saves a list in XML file  
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"> the list for save</param>
+    /// <param name="filePath"> the file path</param>
+    /// <exception cref="DO.XMLFileLoadCreateException"></exception>
     public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
     {
         try
@@ -35,6 +42,13 @@ public class XMLTools
             throw new DO.XMLFileLoadCreateException(filePath, $"fail to create xml file: {filePath}", ex);
         }
     }
+    /// <summary>
+    /// reads and returns a list from the file  
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    /// <exception cref="DO.XMLFileLoadCreateException"></exception>
     public static List<T> LoadListFromXMLSerializer<T>(string filePath)
     {
         try

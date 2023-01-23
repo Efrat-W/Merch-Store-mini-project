@@ -100,24 +100,6 @@
     <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
   </product>
   <product>
-    <ID>345345645</ID>
-    <Name>rrr</Name>
-    <Price>456</Price>
-    <Category>Notebooks</Category>
-    <InStock>3456</InStock>
-    <Image>\Images\צילום מסך_20230107_213945.png</Image>
-    <Description>sdfgthy</Description>
-  </product>
-  <product>
-    <ID>345345345</ID>
-    <Name>sdfgh</Name>
-    <Price>456</Price>
-    <Category>Notebooks</Category>
-    <InStock>456</InStock>
-    <Image>\Images\DrSuessNotebook.jpeg</Image>
-    <Description>sdfghj</Description>
-  </product>
-  <product>
     <ID>343434</ID>
     <Name>Renana Notebook</Name>
     <Price>45</Price>

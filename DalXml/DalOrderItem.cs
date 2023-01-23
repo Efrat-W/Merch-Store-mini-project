@@ -19,9 +19,10 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public int Create(OrderItem item)
     {
+        //read the order item list from the xml file
         List<OrderItem> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem>(path);
 
-        //Read config file
+        //read the last number fron config file
         XElement configRoot = XElement.Load(configPath);
 
         int nextSeqNum = Convert.ToInt32(configRoot.Element("seqOrderItem")!.Value);
@@ -69,7 +70,7 @@ internal class DalOrderItem : IOrderItem
     public OrderItem RequestByFunc(Func<OrderItem?, bool>? func)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
-        return OrderItems.Find(o => func(o)) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
+        return OrderItems.Find(o => func!(o)) ?? throw new MissingEntityException("Requested Order Item does not exist.\n");
     }
     /// <summary>
     ///  updates the order item with the same id to the given item's data
@@ -120,7 +121,6 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"></exception>
     public IEnumerable<OrderItem?> RequestAllItemsByOrderID(int ordID)
     {
-        //Func<OrderItem?, bool>? func = (item) => { return item?.OrderID == ordID; };
         return RequestAll(item => item?.OrderID == ordID);
     }
 }

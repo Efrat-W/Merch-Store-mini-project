@@ -31,13 +31,21 @@ namespace PL
             InitializeComponent();
         }
 
-        
+        /// <summary>
+        /// open the manager window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Manager_Click(object sender, RoutedEventArgs e)
         {
             ManagerLogin manager = new();
             manager.Show();
         }
-
+        /// <summary>
+        /// open the order tracking page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OrderTrack_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainFrame.CanGoBack)
@@ -46,7 +54,11 @@ namespace PL
             }
             MainWindow.mainFrame.Navigate(new OrderTracking());
         }
-
+        /// <summary>
+        /// open the about page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void About_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainFrame.CanGoBack)
@@ -55,7 +67,11 @@ namespace PL
             }
             MainWindow.mainFrame.Navigate(new About());
         }
-
+        /// <summary>
+        /// open the catalog page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Products_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainFrame.CanGoBack)
@@ -64,7 +80,11 @@ namespace PL
             }
             MainWindow.mainFrame.Navigate(new Catalog(cart));
         }
-
+        /// <summary>
+        /// open the home page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.mainFrame.CanGoBack)
@@ -73,7 +93,11 @@ namespace PL
             }
             MainWindow.mainFrame.Navigate(new HomePage(cart));
         }
-
+        /// <summary>
+        /// open simulator window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Simulator_Click(object sender, RoutedEventArgs e) => new SimulationWindow().Show();
     }
 }

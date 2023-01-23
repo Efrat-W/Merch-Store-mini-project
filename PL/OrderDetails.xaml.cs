@@ -21,7 +21,7 @@ namespace PL
     public partial class OrderDetails : Page
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public BO.Order order
+        private BO.Order order
         {
             get { return (BO.Order)GetValue(orderProperty); }
             set { SetValue(orderProperty, value); }

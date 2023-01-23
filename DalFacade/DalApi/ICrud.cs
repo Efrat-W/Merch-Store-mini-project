@@ -1,7 +1,6 @@
 ﻿
-
 namespace DalApi;
-
+// Basic generic CRUD interface
 public interface ICrud<T> where T : struct
 {
     public int Create(T t);

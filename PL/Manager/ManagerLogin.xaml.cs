@@ -22,29 +22,26 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         const string PASSWORD = "123";
-        
-        public string password
-        {
-            get { return (string)GetValue(passwordProperty); }
-            set { SetValue(passwordProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for password.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty passwordProperty =
-            DependencyProperty.Register("password", typeof(string), typeof(ManagerLogin));
-
 
         public ManagerLogin()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// open products window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProductViewButton_Click(object sender, RoutedEventArgs e)
         {
             Products products = new(bl);
             products.Show();
         }
-
+        /// <summary>
+        /// open orders window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OrdersBtn_Click(object sender, RoutedEventArgs e)
         {
             Orders orders = new(bl);

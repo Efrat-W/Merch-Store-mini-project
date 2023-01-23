@@ -1,7 +1,7 @@
 ﻿
 using BO;
 namespace BlApi;
-
+//Order interrface
 public interface IOrder
 {
     public IEnumerable<OrderForList> RequestOrders();

@@ -1,6 +1,4 @@
 ﻿using BO;
-
-
 namespace BlImplementation;
 
 internal class Product : BlApi.IProduct
@@ -50,7 +48,9 @@ internal class Product : BlApi.IProduct
     public void Delete(int id)
     {
         IEnumerable<DO.OrderItem?> orderItems = dal!.OrderItem.RequestAll();
-        IEnumerable<DO.OrderItem?> found = from orderItem in orderItems //checks if the product exist in any order
+
+        //check if the product exist in any order
+        IEnumerable<DO.OrderItem?> found = from orderItem in orderItems 
                                            where orderItem?.ProductID == id
                                            select orderItem;
         if (found.Count() == 0)//no items from this product where ordered
@@ -141,7 +141,8 @@ internal class Product : BlApi.IProduct
     public IEnumerable<BO.ProductForList> RequestList()
     {
         return from doProd in dal!.Product.RequestAll()
-               select new BO.ProductForList()//converts from DO to BO and returns list
+                   //converts from DO to BO and returns list
+               select new BO.ProductForList()
                {
                    ID = doProd?.ID ?? throw new InvalidArgumentException(),
                    Name = doProd?.Name,

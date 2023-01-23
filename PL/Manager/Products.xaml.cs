@@ -27,7 +27,7 @@ namespace PL.Manager
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         //ICollectionView ProductsCollectionView;
-        public ObservableCollection<BO.ProductForList> ProductsDP
+        private ObservableCollection<BO.ProductForList> ProductsDP
         {
             get
             {
@@ -44,7 +44,7 @@ namespace PL.Manager
             DependencyProperty.Register("ProductsDP", typeof(ObservableCollection<BO.ProductForList>), typeof(Products));
 
 
-        public Array Categories
+        private Array Categories
         {
             get { return (Array)GetValue(CategoriesProperty); }
             set { SetValue(CategoriesProperty, value); }
@@ -55,7 +55,7 @@ namespace PL.Manager
 
 
 
-        public BO.category? selectedCategory
+        private BO.category? selectedCategory
         {
             get { return (BO.category?)GetValue(selectedCategoryProperty); }
             set { SetValue(selectedCategoryProperty, value); }
@@ -71,10 +71,13 @@ namespace PL.Manager
             bl = bl1;
             ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             Categories = Enum.GetValues(typeof(BO.category));
-            //ProductsCollectionView = CollectionViewSource.GetDefaultView(ProductsDP);
             InitializeComponent();
         }
-
+        /// <summary>
+        /// update the window by category selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ProductsDP.Clear();
@@ -90,18 +93,24 @@ namespace PL.Manager
                 foreach (var item in list)
                     ProductsDP.Add(item);
             }
-            //ProductsCollectionView.Refresh();
         }
-
+        /// <summary>
+        /// open product window for adding
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddBtn_Click(object sender, RoutedEventArgs e) {
             new Product().ShowDialog();
             if (selectedCategory == null)
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             else
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory));
-            //ProductsCollectionView.Refresh();
         }
-
+        /// <summary>
+        /// open product window for editing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProductsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var senderLS = (ListView)sender;
@@ -111,14 +120,15 @@ namespace PL.Manager
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestList());
             else
                 ProductsDP = new ObservableCollection<ProductForList>(bl!.Product.RequestListByCond(i => i.Category == selectedCategory));
-            //ProductsCollectionView.Refresh();
         }
-
+        /// <summary>
+        /// clear category selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             selectedCategory = null;
         }
     }
-
-
 }

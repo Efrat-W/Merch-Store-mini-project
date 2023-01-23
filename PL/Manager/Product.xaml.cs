@@ -26,7 +26,7 @@ namespace PL.Manager
     public partial class Product : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public string CommandBtnDP
+        private string CommandBtnDP
         {
             get { return (string)GetValue(CommandBtnDPProperty); }
             set { SetValue(CommandBtnDPProperty, value); }
@@ -36,39 +36,16 @@ namespace PL.Manager
         public static readonly DependencyProperty CommandBtnDPProperty =
             DependencyProperty.Register("CommandBtnDP", typeof(string), typeof(Product));
 
-
         public Array categoriesDP
         {
             get { return (Array)GetValue(categoriesDPProperty); }
             set { SetValue(categoriesDPProperty, value); }
         }
 
-
         // Using a DependencyProperty as the backing store for categories.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty categoriesDPProperty =
             DependencyProperty.Register("categoriesDP", typeof(Array), typeof(Catalog));
-
-
-        //update window
-
-        public Product(int id)
-        {
-            categoriesDP = Enum.GetValues(typeof(BO.category));
-            product = bl.Product.RequestByIdManager(id);
-            CommandBtnDP = "Update";
-            InitializeComponent();
-        }
-
-        //add window
-        public Product()
-        {
-            categoriesDP = Enum.GetValues(typeof(BO.category));
-            product = new BO.Product();
-            CommandBtnDP = "Add";
-            InitializeComponent();
-        }
-
-        public BO.Product? product
+        private BO.Product? product
         {
             get { return (BO.Product)GetValue(productProperty); }
             set { SetValue(productProperty, value); }
@@ -78,12 +55,36 @@ namespace PL.Manager
         public static readonly DependencyProperty productProperty =
             DependencyProperty.Register("product", typeof(BO.Product), typeof(Product));
 
-
-
+        /// <summary>
+        /// update window constructor
+        /// </summary>
+        /// <param name="id"></param>
+        public Product(int id)
+        {
+            categoriesDP = Enum.GetValues(typeof(BO.category));
+            product = bl.Product.RequestByIdManager(id);
+            CommandBtnDP = "Update";
+            InitializeComponent();
+        }
+        /// <summary>
+        /// add window constructor
+        /// </summary>
+        public Product()
+        {
+            categoriesDP = Enum.GetValues(typeof(BO.category));
+            product = new BO.Product();
+            CommandBtnDP = "Add";
+            InitializeComponent();
+        }
+        /// <summary>
+        /// add /update the product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CommandBtn_Click(object sender, RoutedEventArgs e)
         {
             //making sure the photo exists in the images folder and saves it properly
-            if(product.Image != null)
+            if(product!.Image != null)
             {
                 string ImageString=product.Image.Substring(product.Image.LastIndexOf("\\"));
                 if (!File.Exists(Environment.CurrentDirectory[..^4] + @"\PL\Images\" + ImageString))
@@ -110,11 +111,16 @@ namespace PL.Manager
             }
 
         }
+        /// <summary>
+        /// delete the product
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                bl?.Product.Delete(product.ID);
+                bl?.Product.Delete(product!.ID);
                 Close();
             }
             catch
@@ -122,16 +128,24 @@ namespace PL.Manager
                 MessageBox.Show("An unexpected error has occured.\nMake sure you fill it out correctly.");
             }
         }
+        /// <summary>
+        /// open the file explorer for adding an image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddImageBtn_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-               // pbx.Source = new BitmapImage(new Uri(openFileDialog.FileName));
-                product.Image=openFileDialog.FileName;
+                product!.Image=openFileDialog.FileName;
             }
         }
-
+        /// <summary>
+        /// ********************************************************************
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreviewTextInputDigits(object sender, TextCompositionEventArgs e)
         {
             var tb = ((TextBox)sender);
@@ -145,7 +159,11 @@ namespace PL.Manager
             Regex regex = new("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
+        /// <summary>
+        /// *************************************************
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreviewTextInputDecimal(object sender, TextCompositionEventArgs e)
         {
             var tb = ((TextBox)sender);

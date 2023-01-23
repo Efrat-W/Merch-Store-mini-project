@@ -1,4 +1,4 @@
-﻿
+﻿using System.Runtime.CompilerServices;
 using BO;
 namespace BlImplementation;
 
@@ -10,6 +10,7 @@ internal class Order : BlApi.IOrder
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList> RequestOrdersByGroup(orderStatus? key)
     {
         var orderGroupsByStatus = from ord in RequestOrders()
@@ -31,6 +32,7 @@ internal class Order : BlApi.IOrder
     /// returns list of orders
     /// </summary>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<BO.OrderForList> RequestOrders()
     {
         IEnumerable<DO.Order?> orders = dal!.Order.RequestAll();
@@ -43,6 +45,7 @@ internal class Order : BlApi.IOrder
     /// </summary>
     /// <param name="ord"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     private OrderForList OrderToOrderForList(DO.Order? ord)
     {
         //innitializes order status:
@@ -70,6 +73,7 @@ internal class Order : BlApi.IOrder
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order RequestById(int id)
     {
         if (id <0)
@@ -142,6 +146,7 @@ internal class Order : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
     /// <exception cref="InvalidDateException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateShipment(int id)
     {
         DO.Order ord;
@@ -184,6 +189,7 @@ internal class Order : BlApi.IOrder
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
     /// <exception cref="InvalidDateException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateDelivery(int id)
     {
         DO.Order ord;
@@ -225,6 +231,7 @@ internal class Order : BlApi.IOrder
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="InvalidArgumentException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderTracking Track(int id)
     {
         DO.Order? ord;
@@ -260,6 +267,7 @@ internal class Order : BlApi.IOrder
     /// return the "oldest" order
     /// </summary>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order? GetOldest()
     {
         int id;

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Xml.Linq;
-
+using System.Runtime.CompilerServices;
 
 internal class DalOrderItem : IOrderItem
 {
@@ -17,6 +17,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="item">the new order item</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Create(OrderItem item)
     {
         //read the order item list from the xml file
@@ -45,6 +46,7 @@ internal class DalOrderItem : IOrderItem
     /// returns the list of order items
     /// </summary>
     /// <returns><list type="OrderItem">list of order items</returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> RequestAll(Func<OrderItem?, bool>? func = null)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -58,6 +60,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem RequestById(int id)
     {
         return RequestByFunc(i => i?.ID == id);
@@ -67,6 +70,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="func"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem RequestByFunc(Func<OrderItem?, bool>? func)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -77,6 +81,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="item">the updated order item</param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(OrderItem item)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -91,6 +96,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="item"></param>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(OrderItem item)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -105,6 +111,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="ord"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem? RequestByProductAndOrder(Product? prod, Order? ord)
     {
         List<OrderItem?> OrderItems = XMLTools.LoadListFromXMLSerializer<OrderItem?>(path);
@@ -119,6 +126,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="ordID"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem?> RequestAllItemsByOrderID(int ordID)
     {
         return RequestAll(item => item?.OrderID == ordID);

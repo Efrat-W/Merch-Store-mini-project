@@ -9,6 +9,7 @@ public static class simulator
     private static volatile bool _disposed = false;
     private static BlApi.IBl? bl = BlApi.Factory.Get();
     public static event EventHandler? Report;
+    public static event Action? EndSimulator;
     private static int delay = 0;
     private static Random rand = new();
     public static void Init()
@@ -29,7 +30,8 @@ public static class simulator
                         bl.Order.UpdateShipment(ord.Id);
                     else
                         bl.Order.UpdateDelivery(ord.Id);
-                    Report(Thread.CurrentThread, new TupleSimulatorArgs(2)); //update done
+                    if(!_disposed)
+                        Report(Thread.CurrentThread, new TupleSimulatorArgs(2)); //update done
                 }
                 else //no more orders to update
                     Quit();
@@ -41,5 +43,6 @@ public static class simulator
     public static void Quit()
     {
         _disposed = true;
+        EndSimulator();
     }
 }

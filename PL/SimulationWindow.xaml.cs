@@ -98,7 +98,8 @@ public partial class SimulationWindow : Window
 
     private Stopwatch stopWatch;
     private bool isTimerRun;
-    BackgroundWorker timerworker;
+    private bool canClose = false;
+    BackgroundWorker backgroundWorker;
     public SimulationWindow()
     {
         //default values
@@ -107,16 +108,19 @@ public partial class SimulationWindow : Window
         isEndOfSimulation=false;
         //
         InitializeComponent();
-        Closing += (s, e) => e.Cancel = true;
+        Closing +=SimulatorWindow_Closing!;
+
         stopWatch = new Stopwatch();
         stopWatch.Start();
-        timerworker = new BackgroundWorker();
-        timerworker.DoWork += Worker_DoWork;
-        timerworker.ProgressChanged += Worker_ProgressChanged;
-        timerworker.WorkerReportsProgress = true;
-        timerworker.WorkerSupportsCancellation = true;
+
+        backgroundWorker = new BackgroundWorker();
+        backgroundWorker.DoWork += Worker_DoWork!;
+        backgroundWorker.ProgressChanged += Worker_ProgressChanged!;
+        backgroundWorker.RunWorkerCompleted += Worker_RunWorkerCompleted!;
+        backgroundWorker.WorkerReportsProgress = true;
+        backgroundWorker.WorkerSupportsCancellation = true;
         isTimerRun = true;
-        timerworker.RunWorkerAsync();
+        backgroundWorker.RunWorkerAsync();
     }
     private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
@@ -136,48 +140,45 @@ public partial class SimulationWindow : Window
             case 2: //update done
                 ProgressStatus = $"{idLb.Content} updated successfully!";
                 break;
-
             case 3: //simulator terminated
                 isEndOfSimulation = true;
                 break;
+            default:
+                break;
+
         }
     }
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
     {
         simulator.Report += orderChanged1!;
+        simulator.EndSimulator += cancelAsync;
         simulator.Init();
         while (isTimerRun)
         {
-            timerworker.ReportProgress(0);
+            backgroundWorker.ReportProgress(0);
             Thread.Sleep(1000);
         }
+    }
+   
+    private void SimulatorWindow_Closing(object sender, CancelEventArgs e)
+    {
+        e.Cancel = !canClose;
+    }
+
+    private void cancelAsync()
+    {
+        backgroundWorker.CancelAsync();
     }
 
     private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
         simulator.Report -= orderChanged1!;
-
+        simulator.EndSimulator -= cancelAsync;
         stopWatch.Stop();
-        timerworker.CancelAsync();
+        backgroundWorker.CancelAsync();
+        canClose=true;
+        Close();
 
-
-
-        //if (e.Cancelled)
-        //{
-        //    ProgressStatus = "End of simulation.";
-        //}
-        //else if (e.Error != null)
-        //{
-        //    Console.WriteLine(e.Error.Message); //Exception Message
-        //}
-        //else
-        //{
-        //    long result = (long)e.Result;
-        //    if (result < 1000)
-        //        resultLabel.Content = "Done after " + result + " ms.";
-        //    else
-        //        resultLabel.Content = "Done after " + result / 1000 + " sec.";
-        //}
     }
 
     private void orderChanged1(object sender, EventArgs e)
@@ -187,20 +188,16 @@ public partial class SimulationWindow : Window
             int delay = (e as TupleSimulatorArgs)!.delay;
             Order ord = (e as TupleSimulatorArgs)!.ord;
             Tuple<int, Order> tupleParams = new(delay, ord);
-            timerworker.ReportProgress(1, tupleParams);
+            backgroundWorker.ReportProgress(1, tupleParams);
         }
         else
-            timerworker.ReportProgress((e as TupleSimulatorArgs).state, 0);
+            backgroundWorker.ReportProgress((e as TupleSimulatorArgs).state, 0);
     }
 
     private void StopBtn_Click(object sender, RoutedEventArgs e)
     {
-        if (isTimerRun)
-        {
-            stopWatch.Stop();
-            isTimerRun = false;
-            simulator.Quit();
-            Closing += (s, e) => e.Cancel = false;
-        }
+        isTimerRun = false;
+        simulator.Quit();
+        
     }
 }

@@ -90,21 +90,6 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty ProgressStatusProperty =
         DependencyProperty.Register("ProgressStatus", typeof(string), typeof(SimulationWindow));
 
-
-
-    public bool isRunning
-    {
-        get { return (bool)GetValue(isRunningProperty); }
-        set { SetValue(isRunningProperty, value); }
-    }
-
-    // Using a DependencyProperty as the backing store for isRunning.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty isRunningProperty =
-        DependencyProperty.Register("isRunning", typeof(bool), typeof(SimulationWindow), new PropertyMetadata(0));
-
-
-
-
     private Stopwatch stopWatch;
     private bool isTimerRun;
     BackgroundWorker timerworker;
@@ -120,6 +105,7 @@ public partial class SimulationWindow : Window
         timerworker.DoWork += Worker_DoWork;
         timerworker.ProgressChanged += Worker_ProgressChanged;
         timerworker.WorkerReportsProgress = true;
+        timerworker.WorkerSupportsCancellation = true;
         isTimerRun = true;
         timerworker.RunWorkerAsync();
     }
@@ -170,13 +156,12 @@ public partial class SimulationWindow : Window
     {
         if (e.Cancelled)
         {
-            ProgressLb.Content = "Terminated.";
+            ProgressStatus = "End of simulation.";
         }
-        //else if (e.Error != null)
-        //{
-        //    // e.Result throw System.Reflection.TargetInvocationException
-        //    Console.WriteLine(e.Error.Message); //Exception Message
-        //}
+        else if (e.Error != null)
+        {
+            Console.WriteLine(e.Error.Message); //Exception Message
+        }
         //else
         //{
         //    long result = (long)e.Result;
@@ -208,7 +193,6 @@ public partial class SimulationWindow : Window
             isTimerRun = false;
             simulator.Quit();
             Closing += (s, e) => e.Cancel = false;
-
             if (timerworker.WorkerSupportsCancellation == true)
                 // Cancel the asynchronous operation.
                 timerworker.CancelAsync();

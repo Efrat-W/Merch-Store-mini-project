@@ -32,6 +32,8 @@ public static class simulator
                         bl.Order.UpdateDelivery(ord.Id);
                     Report(Thread.CurrentThread, new TupleSimulatorArgs(2)); //update done
                 }
+                else
+                    Quit();
                 Thread.Sleep(SEC);
             }
             Report!(Thread.CurrentThread, new TupleSimulatorArgs(3)); //simulator terminated
@@ -40,6 +42,5 @@ public static class simulator
     public static void Quit()
     {
         _disposed = true;
-        
     }
 }

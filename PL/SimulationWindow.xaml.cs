@@ -154,14 +154,21 @@ public partial class SimulationWindow : Window
 
     private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
-        if (e.Cancelled)
-        {
-            ProgressStatus = "End of simulation.";
-        }
-        else if (e.Error != null)
-        {
-            Console.WriteLine(e.Error.Message); //Exception Message
-        }
+        simulator.Report -= orderChanged1!;
+
+        stopWatch.Stop();
+        timerworker.CancelAsync();
+
+
+
+        //if (e.Cancelled)
+        //{
+        //    ProgressStatus = "End of simulation.";
+        //}
+        //else if (e.Error != null)
+        //{
+        //    Console.WriteLine(e.Error.Message); //Exception Message
+        //}
         //else
         //{
         //    long result = (long)e.Result;
@@ -193,9 +200,6 @@ public partial class SimulationWindow : Window
             isTimerRun = false;
             simulator.Quit();
             Closing += (s, e) => e.Cancel = false;
-            if (timerworker.WorkerSupportsCancellation == true)
-                // Cancel the asynchronous operation.
-                timerworker.CancelAsync();
         }
     }
 }

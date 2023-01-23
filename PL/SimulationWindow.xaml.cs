@@ -24,7 +24,7 @@ namespace PL;
 /// </summary>
 public partial class SimulationWindow : Window
 {
-    public string TimerText
+     private string TimerText
     {
         get { return (string)GetValue(TimerTextProperty); }
         set { SetValue(TimerTextProperty, value); }
@@ -34,9 +34,7 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty TimerTextProperty =
         DependencyProperty.Register("TimerText", typeof(string), typeof(SimulationWindow));
 
-
-
-    public int IdLbContent
+    private int IdLbContent
     {
         get { return (int)GetValue(IdLbContentProperty); }
         set { SetValue(IdLbContentProperty, value); }
@@ -46,7 +44,7 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty IdLbContentProperty =
         DependencyProperty.Register("IdLbContent", typeof(int), typeof(SimulationWindow));
 
-    public string StatusContent
+    private string StatusContent
     {
         get { return (string)GetValue(StatusContentProperty); }
         set { SetValue(StatusContentProperty, value); }
@@ -56,7 +54,7 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty StatusContentProperty =
         DependencyProperty.Register("StatusContent", typeof(string), typeof(SimulationWindow));
 
-    public string StatusUpdatedContent
+    private string StatusUpdatedContent
     {
         get { return (string)GetValue(StatusUpdatedContentProperty); }
         set { SetValue(StatusUpdatedContentProperty, value); }
@@ -66,9 +64,7 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty StatusUpdatedContentProperty =
         DependencyProperty.Register("StatusUpdatedContent", typeof(string), typeof(SimulationWindow));
 
-
-
-    public string estimatedFinishStatus
+    private string estimatedFinishStatus
     {
         get { return (string)GetValue(estimatedFinishStatusProperty); }
         set { SetValue(estimatedFinishStatusProperty, value); }
@@ -78,9 +74,7 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty estimatedFinishStatusProperty =
         DependencyProperty.Register("estimatedFinishStatus", typeof(string), typeof(SimulationWindow));
 
-
-
-    public string ProgressStatus
+    private string ProgressStatus
     {
         get { return (string)GetValue(ProgressStatusProperty); }
         set { SetValue(ProgressStatusProperty, value); }
@@ -90,13 +84,28 @@ public partial class SimulationWindow : Window
     public static readonly DependencyProperty ProgressStatusProperty =
         DependencyProperty.Register("ProgressStatus", typeof(string), typeof(SimulationWindow));
 
+    public bool isEndOfSimulation
+    {
+        get { return (bool)GetValue(isEndOfSimulationProperty); }
+        set { SetValue(isEndOfSimulationProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for isEndOfSimulation.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty isEndOfSimulationProperty =
+        DependencyProperty.Register("isEndOfSimulation", typeof(bool), typeof(SimulationWindow));
+
+
+
     private Stopwatch stopWatch;
     private bool isTimerRun;
     BackgroundWorker timerworker;
     public SimulationWindow()
     {
+        //default values
         IdLbContent = 0;
         StatusContent = StatusUpdatedContent = "Loading...";
+        isEndOfSimulation=false;
+        //
         InitializeComponent();
         Closing += (s, e) => e.Cancel = true;
         stopWatch = new Stopwatch();
@@ -117,27 +126,19 @@ public partial class SimulationWindow : Window
                 string timerText = stopWatch.Elapsed.ToString();
                 TimerText = timerText.Substring(0, 8);
                 break;
-            case 1:
+            case 1: //a new order is being updated
                 IdLbContent = (e.UserState as Tuple<int, Order>).Item2.Id;
                 StatusContent = (e.UserState as Tuple<int, Order>).Item2.Status.ToString();
                 StatusUpdatedContent = (e.UserState as Tuple<int, Order>).Item2.Status == BO.orderStatus.Approved ? "Shipped" : "Delivered";
                 estimatedFinishStatus = $"{(e.UserState as Tuple<int, Order>).Item1 / 1000} seconds.";
                 ProgressStatus = "Updating...";
-
-
                 break;
             case 2: //update done
-                    ProgressStatus = $"{idLb.Content} updated successfully!";
+                ProgressStatus = $"{idLb.Content} updated successfully!";
                 break;
 
-            case 3: // simulator terminated
-                    //idLb.Visibility = Visibility.Hidden;
-                    //statusLb.Visibility = Visibility.Hidden;
-                    //updateToLb.Visibility = Visibility.Hidden;
-                    //estimatedFinishLb.Visibility = Visibility.Hidden;
-                    //ProgressLb.Visibility = Visibility.Hidden;
-                    //SimulatorTerminatedLb.Visibility = Visibility.Visible;
-
+            case 3: //simulator terminated
+                isEndOfSimulation = true;
                 break;
         }
     }
@@ -189,7 +190,7 @@ public partial class SimulationWindow : Window
             timerworker.ReportProgress(1, tupleParams);
         }
         else
-            timerworker.ReportProgress((e as TupleSimulatorArgs).state, e);
+            timerworker.ReportProgress((e as TupleSimulatorArgs).state, 0);
     }
 
     private void StopBtn_Click(object sender, RoutedEventArgs e)

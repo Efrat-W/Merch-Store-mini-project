@@ -3,7 +3,6 @@ using System.ComponentModel;
 
 namespace Simulator;
 
-enum SimulationProgress { UpdateDone=1, Done}
 public static class simulator
 {
     private const int SEC = 1000;
@@ -32,7 +31,7 @@ public static class simulator
                         bl.Order.UpdateDelivery(ord.Id);
                     Report(Thread.CurrentThread, new TupleSimulatorArgs(2)); //update done
                 }
-                else
+                else //no more orders to update
                     Quit();
                 Thread.Sleep(SEC);
             }

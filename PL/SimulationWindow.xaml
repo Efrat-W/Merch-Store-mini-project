@@ -7,27 +7,45 @@
         mc:Ignorable="d"
         Title="SimulationWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <Style x:Key="DataLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding isEndOfSimulation}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="EndLabel" TargetType="Label" BasedOn="{StaticResource BlackLabel}">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding isEndOfSimulation}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border Background="#FFD2F4FF" BorderThickness="0" Margin="265,96,265,96" CornerRadius="15"/>
         <Label FontFamily="{StaticResource JosefinSansBold}" Content="{Binding TimerText}" FontSize="16" HorizontalAlignment="Center" Margin="0,128,0,0" VerticalAlignment="Top" Height="26"/>
         <StackPanel HorizontalAlignment="Center" Margin="270,159,270,108">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Label Style="{StaticResource BlackLabel}" Content="Order ID:" VerticalContentAlignment="Center"/>
-                <Label x:Name="idLb" Content="{Binding IdLbContent}" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label Style="{StaticResource DataLabel}" Content="Order ID:" VerticalContentAlignment="Center"/>
+                <Label x:Name="idLb" Content="{Binding IdLbContent}" Style="{StaticResource  DataLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
-                <Label Style="{StaticResource BlackLabel}" Content="Current status:" VerticalContentAlignment="Center"/>
-                <Label x:Name="statusLb"  Content="{Binding StatusContent}"  Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label Style="{StaticResource  DataLabel}" Content="Current status:" VerticalContentAlignment="Center"/>
+                <Label x:Name="statusLb"  Content="{Binding StatusContent}"  Style="{StaticResource  DataLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
-                <Label Style="{StaticResource BlackLabel}" Content="Updating to:" VerticalContentAlignment="Center"/>
-                <Label x:Name="updateToLb" Content="{Binding StatusUpdatedContent}"  Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label Style="{StaticResource  DataLabel}" Content="Updating to:" VerticalContentAlignment="Center"/>
+                <Label x:Name="updateToLb" Content="{Binding StatusUpdatedContent}"  Style="{StaticResource  DataLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
-                <Label Style="{StaticResource BlackLabel}" Content="Estimated finish time:" VerticalContentAlignment="Center"/>
-                <Label x:Name="estimatedFinishLb" Content="{Binding estimatedFinishStatus}" Style="{StaticResource BlackLabel}" VerticalContentAlignment="Center"/>
+                <Label Style="{StaticResource  DataLabel}" Content="Estimated finish time:" VerticalContentAlignment="Center"/>
+                <Label x:Name="estimatedFinishLb" Content="{Binding estimatedFinishStatus}" Style="{StaticResource  DataLabel}" VerticalContentAlignment="Center"/>
             </StackPanel>
-            <Label x:Name="ProgressLb" Content="{Binding ProgressStatus}" Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" HorizontalContentAlignment="Center"  />
+            <Label x:Name="ProgressLb" Content="{Binding ProgressStatus}" Style="{StaticResource  DataLabel}" FontFamily="{StaticResource JosefinSansBold}" HorizontalContentAlignment="Center"  />
             <Button x:Name="StopBtn" Style="{StaticResource BlackButton}" Content="Stop" HorizontalAlignment="Center" VerticalAlignment="Top" Width="55" VerticalContentAlignment="Center" Click="StopBtn_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -45,7 +63,7 @@
             </ProgressBar.Style>-->
         <!--
         </ProgressBar>-->
-        <Label x:Name="SimulatorTerminatedLb" Style="{StaticResource BlackLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="End of Simulation." HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="SimulatorTerminatedLb" Style="{StaticResource EndLabel}" FontFamily="{StaticResource JosefinSansBold}" Content="End of Simulation." HorizontalContentAlignment="Center" Margin="0,204,0,204" />
 
     </Grid>
 </Window>

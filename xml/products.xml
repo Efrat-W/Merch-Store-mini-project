@@ -64,15 +64,6 @@
     <Description>High quality A4 print, designed by Tzipora</Description>
   </product>
   <product>
-    <ID>123111</ID>
-    <Name>Efes Ma'amatz Sweatshirt</Name>
-    <Price>100</Price>
-    <Category>Apparel</Category>
-    <InStock>30</InStock>
-    <Image>\Images\image2.jpeg</Image>
-    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
-  </product>
-  <product>
     <ID>242424</ID>
     <Name>Tabs Print</Name>
     <Price>58</Price>
@@ -80,15 +71,6 @@
     <InStock>22</InStock>
     <Image>Images\tubsPrint.jpg</Image>
     <Description>A4 high quality print, designed by Tzipora</Description>
-  </product>
-  <product>
-    <ID>456456</ID>
-    <Name>Too Many Tabs Mug</Name>
-    <Price>49</Price>
-    <Category>Mugs</Category>
-    <InStock>50</InStock>
-    <Image>Images\TubsMug.jpeg</Image>
-    <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
   </product>
   <product>
     <ID>555222</ID>
@@ -107,5 +89,23 @@
     <InStock>15</InStock>
     <Image>Images\RenanaNotebook.jpeg</Image>
     <Description>Hand crafted A5 notebook, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>123111</ID>
+    <Name>Efes Ma'amatz Sweatshirt</Name>
+    <Price>100</Price>
+    <Category>Apparel</Category>
+    <InStock>29</InStock>
+    <Image>\Images\image2.jpeg</Image>
+    <Description>A quality cotton sweatshirt, one size only, designed by Tzipora</Description>
+  </product>
+  <product>
+    <ID>456456</ID>
+    <Name>Too Many Tabs Mug</Name>
+    <Price>49</Price>
+    <Category>Mugs</Category>
+    <InStock>49</InStock>
+    <Image>Images\TubsMug.jpeg</Image>
+    <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
   </product>
 </ArrayOfProduct>

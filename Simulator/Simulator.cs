@@ -16,7 +16,7 @@ public static class simulator
     private static Random rand = new();
     public static void Init()
     {
-        _disposed = false;
+        
         new Thread(() =>
         {
             while (!_disposed)
@@ -40,8 +40,9 @@ public static class simulator
                     Quit();
                     Report(Thread.CurrentThread, new TupleSimulatorArgs(3));
                 }
-                Thread.Sleep(SEC);
+                Thread.Sleep(SEC);  
             }
+            _disposed = false;
         }).Start();
     }
     public static void Quit()

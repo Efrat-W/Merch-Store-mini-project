@@ -15,12 +15,11 @@ internal class DalProduct : IProduct
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int Create(Product prod)
     {
-            Product? prodCheck = DataSource.products.Find(i => i?.ID == prod.ID);
-            if (prodCheck != null)
-                throw new DoubledEntityException("Requested Product already exists.\n");
-            DataSource.products.Add(prod);
-            return prod.ID;
-        
+        Product? prodCheck = DataSource.products.Find(i => i?.ID == prod.ID);
+        if (prodCheck != null)
+            throw new DoubledEntityException("Requested Product already exists.\n");
+        DataSource.products.Add(prod);
+        return prod.ID;
     }
 
     /// <summary>
@@ -55,7 +54,7 @@ internal class DalProduct : IProduct
     [MethodImpl(MethodImplOptions.Synchronized)]
     public Product RequestByFunc(Func<Product?, bool>? func)
     {
-        return DataSource.products.Find(p=> func(p)) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+        return DataSource.products.Find(p=> func!(p)) ?? throw new MissingEntityException("Requested Product does not exist.\n");
     }
 
 
@@ -66,11 +65,11 @@ internal class DalProduct : IProduct
     /// <exception cref="Exception"></exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Product prod)
-    {
-            //if product is not exist throw exception 
-            Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
-            DataSource.products.Remove(prodToRemove);
-            DataSource.products.Add(prod);
+    {  
+        //if product is not exist throw exception 
+        Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+        DataSource.products.Remove(prodToRemove);
+        DataSource.products.Add(prod);
     }
 
     /// <summary>
@@ -81,7 +80,7 @@ internal class DalProduct : IProduct
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(Product prod)
     { 
-            Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
-            DataSource.products.Remove(prodToRemove);
+        Product? prodToRemove = DataSource.products.Find(i => i?.ID == prod.ID) ?? throw new MissingEntityException("Requested Product does not exist.\n");
+        DataSource.products.Remove(prodToRemove);
     }
 }

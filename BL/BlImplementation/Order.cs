@@ -6,7 +6,7 @@ internal class Order : BlApi.IOrder
 {
     DalApi.IDal? dal = DalApi.Factory.Get();
     /// <summary>
-    /// ********************************************************************
+    /// return orders of the designated status group key
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>

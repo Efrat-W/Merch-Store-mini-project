@@ -142,7 +142,7 @@ namespace PL.Manager
             }
         }
         /// <summary>
-        /// ********************************************************************
+        /// preview key inputs if meeting the requirements of an integer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -160,7 +160,7 @@ namespace PL.Manager
             e.Handled = regex.IsMatch(e.Text);
         }
         /// <summary>
-        /// *************************************************
+        /// preview key inputs if meeting the requirements of a decimal number
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

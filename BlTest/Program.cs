@@ -40,7 +40,13 @@ namespace BlTest
                             throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidArgumentException ex)
+                {
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
+                }
+                catch (EntityNotFoundException ex)
                 {
                     Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
                     if (ex.InnerException != null)
@@ -107,7 +113,13 @@ namespace BlTest
                             throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidArgumentException ex)
+                {
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
+                }
+                catch (EntityNotFoundException ex)
                 {
                     Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
                     if (ex.InnerException != null)
@@ -168,7 +180,13 @@ namespace BlTest
                             throw new InvalidArgumentException("Invalid menu choice.\n");
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidArgumentException ex)
+                {
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
+                }
+                catch (EntityNotFoundException ex)
                 {
                     Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
                     if (ex.InnerException != null)
@@ -230,11 +248,17 @@ namespace BlTest
                             throw new InvalidArgumentException("Not a valid option on menu.\n");
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidArgumentException ex)
                 {
                     Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
                     if (ex.InnerException != null)
-                        Console.WriteLine(ex.InnerException.Message);
+                        Console.WriteLine(ex.InnerException);
+                }
+                catch (EntityNotFoundException ex)
+                {
+                    Console.Write($"Exception thrown from BO interface:\n{ex.Message}");
+                    if (ex.InnerException != null)
+                        Console.WriteLine(ex.InnerException);
                 }
                 //re-ask for user input
             } while (op != BO.optionsCart.Return);

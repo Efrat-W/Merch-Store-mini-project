@@ -108,4 +108,13 @@
     <Image>Images\TubsMug.jpeg</Image>
     <Description>Ceramic mug, 550 m"l, designed by Tzipora</Description>
   </product>
+  <product>
+    <ID>257257</ID>
+    <Name>Cat Stickers</Name>
+    <Price>40</Price>
+    <Category>Stickers</Category>
+    <InStock>10</InStock>
+    <Image>\Images\catsStickersMockup.jpg</Image>
+    <Description>High quality stickers, great for customizing your laptop. sized 5x5cm. Designed by Efrat.</Description>
+  </product>
 </ArrayOfProduct>

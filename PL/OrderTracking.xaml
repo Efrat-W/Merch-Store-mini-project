@@ -117,8 +117,7 @@
                 </Button.Resources>
             </Button>
 
-            <TextBlock FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Text="We are doing our best to provide service as quickly as possible. In case of any problem, you can always contact us at Blabla@gmail.com.         
-                   Our team is here to help! " TextWrapping="WrapWithOverflow" Margin="241,265,241,85" LineHeight="20" />
+            <TextBlock FontFamily="{StaticResource JosefinSansLight}" FontSize="16" Text="We are doing our best to provide service as quickly as possible. In case of any problem, you can always contact us at Efratart2161@gmail.com or TziporaMaroko@gmail.com. Our team is here to help! " TextWrapping="WrapWithOverflow" Margin="193,275,193,50" LineHeight="20" TextAlignment="Center" />
 
         </Grid>
     </Grid>

@@ -10,5 +10,5 @@ icon in window header (1)
 style usage (1)
 property triggers (1)
 data triggers (1)
-
+regex
 

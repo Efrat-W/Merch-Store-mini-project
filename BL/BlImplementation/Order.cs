@@ -287,15 +287,11 @@ internal class Order : BlApi.IOrder
             if (!lsShipped.Any())
                 return null;
             id = (int)lsShipped.First()?.ID;
-            return RequestById(id);
         }
         else if (!lsShipped.Any())
-        {
             id = (int)lsApproved.First()?.ID;
-            return RequestById(id);
-        }
-
-        id = lsApproved.First()?.OrderDate < lsShipped.First()?.ShipDate ? (int)lsApproved.First()?.ID : (int)lsShipped.First()?.ID;
+        else //neither of the lists is empty
+            id = lsApproved.First()?.OrderDate < lsShipped.First()?.ShipDate ? (int)lsApproved.First()?.ID : (int)lsShipped.First()?.ID;
         return RequestById(id);
     }
 }
